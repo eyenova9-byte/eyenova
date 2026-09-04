@@ -10,10 +10,14 @@ import { ProductCard } from "@/components/ProductCard";
 import {
   Check,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Minus,
   Plus,
   Share2,
   X,
+  ZoomIn,
+  ZoomOut,
 } from "lucide-react";
 
 // Standard contact lens powers matching Eyenk
@@ -84,9 +88,41 @@ export default function ProductDetailPage() {
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [modalZoomed, setModalZoomed] = useState(false);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+  const [touchEndX, setTouchEndX] = useState<number | null>(null);
   const [pickupModalOpen, setPickupModalOpen] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
   const [addedAlert, setAddedAlert] = useState(false);
+
+  // Swipe navigation helpers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEndX(null);
+    setTouchStartX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEndX(e.targetTouches[0].clientX);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStartX || !touchEndX) return;
+    const distance = touchStartX - touchEndX;
+    const minSwipeDistance = 50;
+    if (distance > minSwipeDistance) {
+      // Swiped left -> next image
+      setActiveImageIndex((prev) =>
+        prev < product.images.length - 1 ? prev + 1 : 0
+      );
+    } else if (distance < -minSwipeDistance) {
+      // Swiped right -> prev image
+      setActiveImageIndex((prev) =>
+        prev > 0 ? prev - 1 : product.images.length - 1
+      );
+    }
+    setTouchStartX(null);
+    setTouchEndX(null);
+  };
 
   // Power & Quantity State
   const [selectedPower, setSelectedPower] = useState<string>("-1.50");
@@ -227,13 +263,19 @@ export default function ProductDetailPage() {
           {/* ================================================================= */}
           {/* LEFT COLUMN: Sticky Media Gallery (moves with scroll)             */}
           {/* ================================================================= */}
-          <div className="lg:col-span-7">
-            <div className="lg:sticky lg:top-28 flex flex-col gap-4">
+          <div className="lg:col-span-6">
+            <div className="lg:sticky lg:top-24 flex flex-col gap-3">
               
-              {/* Main Featured Image Display */}
+              {/* Main Featured Image Display - Fits comfortably on screen without excessive scroll */}
               <div
-                onClick={() => setLightboxOpen(true)}
-                className="relative aspect-square w-full bg-white flex items-center justify-center cursor-zoom-in overflow-hidden group"
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handleTouchEnd}
+                onClick={() => {
+                  setModalZoomed(false);
+                  setLightboxOpen(true);
+                }}
+                className="relative w-full h-[320px] sm:h-[400px] md:h-[450px] lg:h-[480px] bg-white border border-[#eaeaea] rounded-sm flex items-center justify-center cursor-zoom-in overflow-hidden select-none group"
               >
                 <img
                   src={
@@ -241,27 +283,65 @@ export default function ProductDetailPage() {
                     product.images[0]?.imageUrl
                   }
                   alt={product.titleEn}
-                  className="w-full h-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-105"
+                  className="w-full h-full object-contain p-4 mix-blend-multiply transition-transform duration-300 group-hover:scale-105"
                 />
                 
-                {/* Mobile Image Counter (Eyenk 1 / 4) */}
-                <span className="lg:hidden absolute bottom-3 right-3 text-xs bg-black/60 text-white px-2.5 py-1 rounded-full backdrop-blur-xs">
+                {/* Zoom Hint Indicator */}
+                <div className="absolute top-3 right-3 bg-white/80 hover:bg-white text-[#121212] p-2 rounded-full shadow-xs backdrop-blur-xs transition flex items-center justify-center">
+                  <ZoomIn size={16} />
+                </div>
+
+                {/* Left/Right Click Nav Arrows for Multi-image */}
+                {product.images.length > 1 && (
+                  <>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveImageIndex((prev) =>
+                          prev > 0 ? prev - 1 : product.images.length - 1
+                        );
+                      }}
+                      className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/80 hover:bg-white shadow-xs flex items-center justify-center text-[#121212] transition opacity-0 group-hover:opacity-100 sm:opacity-75 cursor-pointer"
+                      aria-label="Previous image"
+                    >
+                      <ChevronLeft size={18} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setActiveImageIndex((prev) =>
+                          prev < product.images.length - 1 ? prev + 1 : 0
+                        );
+                      }}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/80 hover:bg-white shadow-xs flex items-center justify-center text-[#121212] transition opacity-0 group-hover:opacity-100 sm:opacity-75 cursor-pointer"
+                      aria-label="Next image"
+                    >
+                      <ChevronRight size={18} />
+                    </button>
+                  </>
+                )}
+                
+                {/* Image Counter Badge (1 / 4) */}
+                <span className="absolute bottom-3 right-3 text-[11px] bg-black/60 text-white px-2.5 py-0.5 rounded-full backdrop-blur-xs font-mono">
                   {activeImageIndex + 1} / {product.images.length || 1}
                 </span>
               </div>
 
-              {/* Thumbnails Row (Clean borderless thumbnails with active underline) */}
+              {/* Thumbnails Row: Small bordered container at bottom */}
               {product.images.length > 1 && (
-                <div className="flex items-center gap-3 overflow-x-auto py-2 scrollbar-none">
+                <div className="flex items-center gap-2 overflow-x-auto py-1 scrollbar-none">
                   {product.images.map((img, idx) => (
                     <button
                       key={idx}
                       onClick={() => setActiveImageIndex(idx)}
-                      className={`relative w-20 h-20 sm:w-24 sm:h-24 bg-white shrink-0 transition p-1 flex items-center justify-center cursor-pointer ${
+                      className={`relative w-16 h-16 sm:w-20 sm:h-20 bg-white shrink-0 p-1 flex items-center justify-center cursor-pointer transition rounded-sm ${
                         activeImageIndex === idx
-                          ? "border border-neutral-900"
-                          : "border border-neutral-200 opacity-60 hover:opacity-100"
+                          ? "border-2 border-[#121212] ring-1 ring-[#121212]/10"
+                          : "border border-[#e5e5e5] opacity-60 hover:opacity-100 hover:border-neutral-400"
                       }`}
+                      aria-label={`View image ${idx + 1}`}
                     >
                       <img
                         src={img.imageUrl}
@@ -278,7 +358,7 @@ export default function ProductDetailPage() {
           {/* ================================================================= */}
           {/* RIGHT COLUMN: Product Information & Purchase Form                 */}
           {/* ================================================================= */}
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-6">
             <div className="flex flex-col">
               
               {/* Vendor / Brand (Eyenk uppercase caption) */}
@@ -687,26 +767,123 @@ export default function ProductDetailPage() {
       </div>
 
       {/* ===================================================================== */}
-      {/* Lightbox / Zoom Modal                                                 */}
+      {/* Lightbox / Zoom Modal with Click-to-Zoom & Swipe                      */}
       {/* ===================================================================== */}
       {lightboxOpen && (
-        <div className="fixed inset-0 z-50 bg-black/80 flex items-center justify-center p-4">
-          <button
-            onClick={() => setLightboxOpen(false)}
-            className="absolute top-6 right-6 text-white hover:text-neutral-300"
+        <div 
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex flex-col items-center justify-between p-4 select-none"
+          onClick={() => setLightboxOpen(false)}
+        >
+          {/* Header Bar */}
+          <div className="w-full flex items-center justify-between px-2 sm:px-6 py-2 z-10" onClick={(e) => e.stopPropagation()}>
+            <span className="text-white/80 text-sm font-light">
+              {activeImageIndex + 1} / {product.images.length || 1}
+            </span>
+            <div className="flex items-center gap-3">
+              <button
+                type="button"
+                onClick={() => setModalZoomed((prev) => !prev)}
+                className="text-white hover:text-white/80 p-2 rounded-full bg-white/10 hover:bg-white/20 transition cursor-pointer"
+                title={modalZoomed ? "Zoom out" : "Zoom in"}
+              >
+                {modalZoomed ? <ZoomOut size={20} /> : <ZoomIn size={20} />}
+              </button>
+              <button
+                type="button"
+                onClick={() => setLightboxOpen(false)}
+                className="text-white hover:text-white/80 p-2 rounded-full bg-white/10 hover:bg-white/20 transition cursor-pointer"
+                title="Close"
+              >
+                <X size={22} />
+              </button>
+            </div>
+          </div>
+
+          {/* Main Zoomable View Area */}
+          <div 
+            className="relative flex-1 w-full max-w-5xl flex items-center justify-center overflow-hidden"
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            onClick={(e) => {
+              e.stopPropagation();
+              setModalZoomed((prev) => !prev);
+            }}
           >
-            <X size={28} />
-          </button>
-          <div className="max-w-4xl max-h-[85vh] bg-white p-6 rounded-lg flex items-center justify-center">
             <img
               src={
                 product.images[activeImageIndex]?.imageUrl ||
                 product.images[0]?.imageUrl
               }
               alt={product.titleEn}
-              className="max-w-full max-h-[75vh] object-contain"
+              className={`max-w-full max-h-[70vh] sm:max-h-[78vh] object-contain transition-transform duration-300 ${
+                modalZoomed ? "scale-175 sm:scale-200 cursor-zoom-out" : "cursor-zoom-in"
+              }`}
             />
+
+            {/* Left/Right Arrow Navigation */}
+            {product.images.length > 1 && (
+              <>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setModalZoomed(false);
+                    setActiveImageIndex((prev) =>
+                      prev > 0 ? prev - 1 : product.images.length - 1
+                    );
+                  }}
+                  className="absolute left-2 sm:left-6 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 text-white flex items-center justify-center backdrop-blur-xs transition cursor-pointer"
+                  aria-label="Previous image"
+                >
+                  <ChevronLeft size={24} />
+                </button>
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setModalZoomed(false);
+                    setActiveImageIndex((prev) =>
+                      prev < product.images.length - 1 ? prev + 1 : 0
+                    );
+                  }}
+                  className="absolute right-2 sm:right-6 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/20 hover:bg-white/40 text-white flex items-center justify-center backdrop-blur-xs transition cursor-pointer"
+                  aria-label="Next image"
+                >
+                  <ChevronRight size={24} />
+                </button>
+              </>
+            )}
           </div>
+
+          {/* Bottom Thumbnails Strip in Lightbox */}
+          {product.images.length > 1 && (
+            <div 
+              className="flex items-center gap-2 overflow-x-auto py-3 max-w-full z-10"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {product.images.map((img, idx) => (
+                <button
+                  key={idx}
+                  onClick={() => {
+                    setModalZoomed(false);
+                    setActiveImageIndex(idx);
+                  }}
+                  className={`w-14 h-14 sm:w-16 sm:h-16 bg-white shrink-0 p-1 flex items-center justify-center cursor-pointer rounded-sm transition ${
+                    activeImageIndex === idx
+                      ? "border-2 border-white opacity-100 ring-2 ring-white/50"
+                      : "border border-white/20 opacity-40 hover:opacity-80"
+                  }`}
+                >
+                  <img
+                    src={img.imageUrl}
+                    alt={`thumb-lightbox-${idx}`}
+                    className="w-full h-full object-contain"
+                  />
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       )}
 
