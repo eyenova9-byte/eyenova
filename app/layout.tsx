@@ -8,7 +8,6 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { CartDrawer } from "@/components/CartDrawer";
 import { AuthModal } from "@/components/AuthModal";
-import { FloatingWhatsApp } from "@/components/FloatingWhatsApp";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -60,7 +59,6 @@ export default function RootLayout({
               <Footer />
               <CartDrawer />
               <AuthModal />
-              <FloatingWhatsApp />
             </CartProvider>
           </AuthProvider>
         </LanguageProvider>
