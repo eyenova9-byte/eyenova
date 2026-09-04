@@ -9,6 +9,7 @@ import { Footer } from "@/components/Footer";
 import { CartDrawer } from "@/components/CartDrawer";
 import { AuthModal } from "@/components/AuthModal";
 import { BottomNav } from "@/components/BottomNav";
+import { ScrollAnimationObserver } from "@/components/ScrollAnimationObserver";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -55,6 +56,7 @@ export default function RootLayout({
         <LanguageProvider>
           <AuthProvider>
             <CartProvider>
+              <ScrollAnimationObserver />
               <Navbar />
               <main className="flex-1 pb-16 lg:pb-0">{children}</main>
               <Footer />

@@ -141,21 +141,23 @@ export function EyenkStorefront() {
         {/* ========================================================================= */}
         {/* SECTION 1: Contact Lenses (Screenshot 1) */}
         {/* ========================================================================= */}
-        <section>
+        <section className="scroll-trigger animate--slide-in" data-cascade>
           <h2 className="text-[22px] sm:text-[26px] font-normal tracking-tight text-[#121212] mb-6 sm:mb-8 text-left">
             Contact Lenses
           </h2>
 
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-4 sm:gap-6 text-center">
-            {contactLensCircles.map((cat) => (
+            {contactLensCircles.map((cat, idx) => (
               <Link
                 key={cat.name}
                 href={cat.href}
-                className="group flex flex-col items-center focus:outline-none"
+                className="group flex flex-col items-center focus:outline-none scroll-trigger animate--slide-in"
+                data-cascade
+                style={{ "--animation-order": idx + 1 } as React.CSSProperties}
               >
-                {/* Pastel Colored Circular Frame */}
+                {/* Pastel Colored Circular Frame with Hover Flash */}
                 <div
-                  className={`w-24 h-24 sm:w-32 sm:h-32 rounded-full ${cat.bgColor} flex items-center justify-center p-3 mb-3 shadow-xs group-hover:scale-105 transition-transform duration-300 overflow-hidden relative`}
+                  className={`w-24 h-24 sm:w-32 sm:h-32 rounded-full ${cat.bgColor} flex items-center justify-center p-3 mb-3 shadow-xs group-hover:scale-105 transition-transform duration-300 overflow-hidden relative hover-flash`}
                 >
                   <img
                     src={cat.img}
@@ -174,20 +176,22 @@ export function EyenkStorefront() {
         {/* ========================================================================= */}
         {/* SECTION 2: Colour Lenses (Screenshot 2) */}
         {/* ========================================================================= */}
-        <section>
+        <section className="scroll-trigger animate--slide-in" data-cascade>
           <h2 className="text-[22px] sm:text-[26px] font-normal tracking-tight text-[#121212] mb-6 sm:mb-8 text-left">
             Colour Lenses
           </h2>
 
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-4 sm:gap-6 text-center">
-            {colourLensesBrandCircles.map((brand) => (
+            {colourLensesBrandCircles.map((brand, idx) => (
               <Link
                 key={brand.name}
                 href={brand.href}
-                className="group flex flex-col items-center focus:outline-none"
+                className="group flex flex-col items-center focus:outline-none scroll-trigger animate--slide-in"
+                data-cascade
+                style={{ "--animation-order": idx + 1 } as React.CSSProperties}
               >
-                {/* Clean Circular Model Face Photo */}
-                <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden mb-3 border border-gray-100 shadow-xs group-hover:scale-105 transition-transform duration-300">
+                {/* Clean Circular Model Face Photo with Hover Flash */}
+                <div className="w-24 h-24 sm:w-32 sm:h-32 rounded-full overflow-hidden mb-3 border border-gray-100 shadow-xs group-hover:scale-105 transition-transform duration-300 hover-flash">
                   <img
                     src={brand.img}
                     alt={brand.name}
@@ -205,7 +209,7 @@ export function EyenkStorefront() {
         {/* ========================================================================= */}
         {/* SECTION 3: Best Selling Medical Lens (Screenshot 1 & 2) */}
         {/* ========================================================================= */}
-        <section>
+        <section className="scroll-trigger animate--slide-in" data-cascade>
           <h2 className="text-[22px] sm:text-[26px] font-normal tracking-tight text-[#121212] mb-6 sm:mb-8 text-left">
             Best Selling Medical Lens
           </h2>
@@ -220,20 +224,22 @@ export function EyenkStorefront() {
         {/* ========================================================================= */}
         {/* SECTION 4: NEW LensMe Korea Style (Screenshot 3) */}
         {/* ========================================================================= */}
-        <section>
+        <section className="scroll-trigger animate--slide-in" data-cascade>
           <h2 className="text-[22px] sm:text-[26px] font-normal tracking-tight text-[#121212] mb-6 sm:mb-8 text-left">
             NEW LensMe Korea Style
           </h2>
 
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-5 sm:gap-6 text-center">
-            {koreaStyleLenses.map((item) => (
+            {koreaStyleLenses.map((item, idx) => (
               <Link
                 key={item.id}
                 href="/shop?brand=lensme"
-                className="group flex flex-col items-center focus:outline-none"
+                className="group flex flex-col items-center focus:outline-none scroll-trigger animate--slide-in"
+                data-cascade
+                style={{ "--animation-order": idx + 1 } as React.CSSProperties}
               >
-                {/* Organic Pebble / Oval Shape Model Shot from Screenshot 3 */}
-                <div className="w-full aspect-square max-w-[240px] rounded-[45%_55%_52%_48%/48%_45%_55%_52%] overflow-hidden mb-3 bg-gray-50 shadow-xs group-hover:scale-105 transition-transform duration-300">
+                {/* Organic Pebble / Oval Shape Model Shot with Hover Flash */}
+                <div className="w-full aspect-square max-w-[240px] rounded-[45%_55%_52%_48%/48%_45%_55%_52%] overflow-hidden mb-3 bg-gray-50 shadow-xs group-hover:scale-105 transition-transform duration-300 hover-flash">
                   <img
                     src={item.img}
                     alt={item.name}
@@ -254,7 +260,7 @@ export function EyenkStorefront() {
         {/* ========================================================================= */}
         {/* SECTION 5: Our Store Locations (Screenshot 1) */}
         {/* ========================================================================= */}
-        <section className="pt-8 pb-10">
+        <section className="pt-8 pb-10 scroll-trigger animate--slide-in" data-cascade>
           <h2 className="text-[26px] sm:text-[30px] font-normal tracking-tight text-[#121212] mb-2 text-center">
             Our Store Locations
           </h2>
@@ -280,13 +286,15 @@ export function EyenkStorefront() {
                 name: "Umm Salal Ali",
                 mapsUrl: "https://www.google.com/maps/search/EyeNova+Contact+Lens+Umm+Salal+Ali+Qatar",
               },
-            ].map((loc) => (
+            ].map((loc, idx) => (
               <a
                 key={loc.name}
                 href={loc.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[#f8edeb] hover:bg-[#f0e4e1] transition-colors duration-200 py-16 px-6 flex flex-col items-center justify-center text-center group rounded-xs border border-[#e8dcd9]"
+                className="bg-[#f8edeb] hover:bg-[#f0e4e1] transition-colors duration-200 py-16 px-6 flex flex-col items-center justify-center text-center group rounded-xs border border-[#e8dcd9] scroll-trigger animate--slide-in hover-flash"
+                data-cascade
+                style={{ "--animation-order": idx + 1 } as React.CSSProperties}
               >
                 {/* Purple Map Marker Icon with concentric ring matching Screenshot 1 */}
                 <div className="w-12 h-12 flex items-center justify-center text-[#5c2d76] mb-6 group-hover:scale-110 transition-transform duration-200">

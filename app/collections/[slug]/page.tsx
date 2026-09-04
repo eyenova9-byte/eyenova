@@ -165,7 +165,7 @@ function CollectionDetailPage() {
   return (
     <div className="bg-white min-h-screen text-[#121212] font-sans antialiased">
       {/* Collection Title Banner */}
-      <div className="border-b border-gray-100 bg-white">
+      <div className="border-b border-gray-100 bg-white scroll-trigger animate--fade-in">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
           <h1 className="text-[28px] sm:text-[34px] font-normal tracking-tight text-[#121212]">
             {pageTitle}
@@ -175,7 +175,7 @@ function CollectionDetailPage() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {/* Mobile Filter & Sort Bar (Matching Eyenk exactly) */}
-        <div className="lg:hidden flex items-center justify-between border-b border-gray-200 pb-4 mb-6">
+        <div className="lg:hidden flex items-center justify-between border-b border-gray-200 pb-4 mb-6 scroll-trigger animate--fade-in">
           <button
             onClick={() => setMobileFilterOpen(true)}
             className="flex items-center gap-2 text-sm font-normal text-[#121212] cursor-pointer"
@@ -195,7 +195,7 @@ function CollectionDetailPage() {
 
         <div className="flex flex-col lg:flex-row gap-8 items-start">
           {/* Desktop Left Sidebar Filters */}
-          <aside className="hidden lg:block w-64 shrink-0 space-y-1 text-sm text-[#121212]">
+          <aside className="hidden lg:block w-64 shrink-0 space-y-1 text-sm text-[#121212] scroll-trigger animate--fade-in">
             <div className="flex items-center justify-between pb-3 border-b border-gray-200 mb-2">
               <span className="text-[15px] font-normal text-[#121212]">Filter:</span>
               {activeFiltersCount > 0 && (

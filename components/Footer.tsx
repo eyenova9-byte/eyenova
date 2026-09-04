@@ -24,7 +24,7 @@ export function Footer() {
         {/* ========================================================================= */}
         {/* Top Grid: Quick links, Contact Us, and Eyenk Logo (Screenshot 2) */}
         {/* ========================================================================= */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12 items-start scroll-trigger animate--slide-in" data-cascade>
           {/* Column 1: Quick links */}
           <div>
             <h3 className="text-[15px] sm:text-[16px] font-normal text-[#121212] mb-4">Quick links</h3>

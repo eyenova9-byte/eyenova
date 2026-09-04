@@ -59,3 +59,89 @@ button, input, select, textarea {
   background-color: #f8edeb;
   color: #121212;
 }
+
+/* ========================================================================= */
+/* Eyenk 1:1 Scroll Trigger, Fade In, Slide In & Flash Animations           */
+/* ========================================================================= */
+:root {
+  --duration-extra-long: 0.6s;
+  --ease-out-slow: cubic-bezier(0, 0, 0.3, 1);
+  --animation-slide-in: slideIn var(--duration-extra-long) var(--ease-out-slow) forwards;
+  --animation-fade-in: fadeIn var(--duration-extra-long) var(--ease-out-slow) forwards;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(2rem);
+    opacity: 0.01;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0.01;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes flashShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Scroll Trigger Elements (matching Eyenk Dawn engine) */
+.scroll-trigger.animate--slide-in,
+.scroll-trigger.animate--fade-in {
+  opacity: 0.01;
+}
+
+.scroll-trigger.animate--slide-in {
+  transform: translateY(2rem);
+}
+
+.scroll-trigger:not(.scroll-trigger--offscreen).animate--slide-in {
+  animation: var(--animation-slide-in);
+  animation-delay: calc(var(--animation-order, 1) * 75ms);
+}
+
+.scroll-trigger:not(.scroll-trigger--offscreen).animate--fade-in {
+  opacity: 1;
+  animation: var(--animation-fade-in);
+  animation-delay: calc(var(--animation-order, 1) * 75ms);
+}
+
+/* Smooth Flash Hover Shimmer for Product Images */
+.hover-flash {
+  position: relative;
+  overflow: hidden;
+}
+
+.hover-flash::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 60%);
+  background-size: 200% 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hover-flash:hover::after {
+  opacity: 1;
+  animation: flashShimmer 0.75s ease-in-out forwards;
+}
+

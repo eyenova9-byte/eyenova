@@ -21,13 +21,13 @@ export function ProductCard({ product }: ProductCardProps) {
 
   return (
     <>
-      <div className="flex flex-col items-center text-center group w-full">
+      <div className="scroll-trigger animate--slide-in flex flex-col items-center text-center group w-full" data-cascade>
         <Link
           href={`/products/${product.slug}`}
           className="w-full flex flex-col items-center focus:outline-none"
         >
-          {/* Product Box Image (Centered, Clean White/Transparent, Natural Proportions) */}
-          <div className="w-full h-36 sm:h-44 md:h-48 flex items-center justify-center p-2 mb-3 group-hover:scale-105 transition-transform duration-300">
+          {/* Product Box Image (Centered, Clean White/Transparent, Natural Proportions, Hover Flash) */}
+          <div className="w-full h-36 sm:h-44 md:h-48 flex items-center justify-center p-2 mb-3 group-hover:scale-105 transition-transform duration-300 hover-flash rounded-xs">
             <img
               src={product.images[0]?.imageUrl}
               alt={product.titleEn}
