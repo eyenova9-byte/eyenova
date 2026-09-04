@@ -70,40 +70,40 @@ export default function ProfilePage() {
   };
 
   return (
-    <div className="py-12 bg-gray-50/50 min-h-screen">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="py-10 sm:py-14 bg-white min-h-screen text-[#121212]">
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="mb-8 flex items-center gap-4">
-          <div className="w-14 h-14 rounded-2xl bg-slate-900 text-emerald-400 flex items-center justify-center text-xl font-bold shadow-md">
-            <User size={28} />
+          <div className="w-12 h-12 bg-[#f8edeb] text-[#121212] flex items-center justify-center text-lg font-normal">
+            <User size={24} />
           </div>
           <div>
-            <h1 className="text-2xl font-extrabold text-slate-900">
+            <h1 className="text-2xl sm:text-3xl font-normal text-[#121212]">
               Welcome, Customer (+974 5512 3456)
             </h1>
-            <p className="text-xs text-gray-500">
+            <p className="text-[13px] text-[#707070]">
               Manage your orders, optical prescriptions, and 1-click reorders.
             </p>
           </div>
         </div>
 
         {/* Tab Navigation */}
-        <div className="flex border-b border-gray-200 mb-8 gap-6 text-sm font-extrabold">
+        <div className="flex border-b border-[#e5e5e5] mb-8 gap-8 text-[14px] font-normal">
           <button
             onClick={() => setActiveTab("orders")}
-            className={`pb-3 transition border-b-2 ${
+            className={`pb-3 transition border-b-2 cursor-pointer ${
               activeTab === "orders"
-                ? "border-slate-900 text-slate-900"
-                : "border-transparent text-gray-400 hover:text-slate-700"
+                ? "border-[#121212] text-[#121212] font-medium"
+                : "border-transparent text-[#707070] hover:text-[#121212]"
             }`}
           >
             {t.myOrders}
           </button>
           <button
             onClick={() => setActiveTab("prescriptions")}
-            className={`pb-3 transition border-b-2 ${
+            className={`pb-3 transition border-b-2 cursor-pointer ${
               activeTab === "prescriptions"
-                ? "border-slate-900 text-slate-900"
-                : "border-transparent text-gray-400 hover:text-slate-700"
+                ? "border-[#121212] text-[#121212] font-medium"
+                : "border-transparent text-[#707070] hover:text-[#121212]"
             }`}
           >
             {t.prescriptionVault}
@@ -116,20 +116,20 @@ export default function ProfilePage() {
             {samplePastOrders.map((order) => (
               <div
                 key={order.id}
-                className="bg-white p-6 rounded-3xl border border-gray-200/80 shadow-sm space-y-4"
+                className="bg-white p-6 border border-[#e5e5e5] space-y-4"
               >
-                <div className="flex flex-wrap justify-between items-center border-b border-gray-100 pb-3 gap-2">
+                <div className="flex flex-wrap justify-between items-center border-b border-[#e5e5e5] pb-3 gap-2">
                   <div>
-                    <span className="text-xs font-extrabold text-slate-900">
+                    <span className="text-[14px] font-normal text-[#121212]">
                       {order.orderNumber}
                     </span>
-                    <span className="text-xs text-gray-400 block">{order.date}</span>
+                    <span className="text-[12px] text-[#707070] block">{order.date}</span>
                   </div>
                   <div className="flex items-center gap-3">
-                    <span className="text-xs font-bold text-emerald-600 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">
+                    <span className="text-[12px] font-normal text-[#186b2b] bg-[#f8edeb] px-3 py-0.5 border border-[#e8dcd9]">
                       ✓ {order.status}
                     </span>
-                    <span className="text-sm font-extrabold text-slate-900">
+                    <span className="text-[14px] font-normal text-[#121212]">
                       {order.totalQar} QAR
                     </span>
                   </div>
@@ -138,15 +138,15 @@ export default function ProfilePage() {
                 {/* Items in order */}
                 {order.items.map((item, idx) => (
                   <div key={idx} className="flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-4">
                       <img
                         src={item.image}
                         alt={item.titleEn}
-                        className="w-14 h-14 rounded-xl object-cover border border-gray-100"
+                        className="w-16 h-16 object-cover border border-[#e5e5e5]"
                       />
                       <div>
-                        <h4 className="text-xs font-bold text-slate-900">{item.titleEn}</h4>
-                        <span className="text-[11px] text-gray-500 font-medium block">
+                        <h4 className="text-[13px] sm:text-[14px] font-normal text-[#121212]">{item.titleEn}</h4>
+                        <span className="text-[12px] text-[#707070] font-normal block mt-0.5">
                           OD (Right): {item.rightPower} SPH | OS (Left): {item.leftPower} SPH
                         </span>
                       </div>
@@ -154,9 +154,9 @@ export default function ProfilePage() {
 
                     <button
                       onClick={() => handleReorder(item)}
-                      className="px-4 py-2 bg-slate-900 text-white text-xs font-extrabold rounded-xl hover:bg-slate-800 transition flex items-center gap-1.5 shadow"
+                      className="px-4 py-2 bg-[#121212] text-white text-[12px] uppercase tracking-[0.06em] font-medium hover:bg-black transition flex items-center gap-1.5 cursor-pointer"
                     >
-                      <RefreshCw size={14} />
+                      <RefreshCw size={13} />
                       <span>{t.reorder}</span>
                     </button>
                   </div>
@@ -170,11 +170,11 @@ export default function ProfilePage() {
         {activeTab === "prescriptions" && (
           <div className="space-y-6">
             <div className="flex justify-between items-center">
-              <h3 className="font-extrabold text-slate-900 text-base">
+              <h3 className="font-normal text-[#121212] text-[16px] sm:text-[18px]">
                 Saved Optical Prescriptions
               </h3>
-              <button className="px-4 py-2 bg-slate-900 text-white text-xs font-extrabold rounded-xl flex items-center gap-1.5">
-                <Plus size={16} />
+              <button className="px-4 py-2 bg-[#121212] text-white text-[12px] uppercase tracking-[0.06em] font-medium hover:bg-black flex items-center gap-1.5 cursor-pointer">
+                <Plus size={15} />
                 <span>{t.addPrescription}</span>
               </button>
             </div>
@@ -183,32 +183,32 @@ export default function ProfilePage() {
               {prescriptions.map((rx) => (
                 <div
                   key={rx.id}
-                  className="bg-white p-6 rounded-3xl border border-gray-200/80 shadow-sm space-y-3"
+                  className="bg-white p-6 border border-[#e5e5e5] space-y-3"
                 >
-                  <div className="flex items-center justify-between border-b border-gray-100 pb-2">
-                    <span className="font-extrabold text-slate-900 text-xs">{rx.title}</span>
-                    <span className="text-[10px] bg-indigo-50 text-indigo-700 font-bold px-2 py-0.5 rounded-md">
+                  <div className="flex items-center justify-between border-b border-[#e5e5e5] pb-2">
+                    <span className="font-normal text-[#121212] text-[14px]">{rx.title}</span>
+                    <span className="text-[11px] bg-[#f8edeb] text-[#121212] px-2 py-0.5 border border-[#e8dcd9]">
                       Verified
                     </span>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-3 text-xs">
-                    <div className="p-3 bg-gray-50 rounded-xl">
-                      <span className="font-bold text-gray-500 block mb-1">Right Eye (OD)</span>
-                      <div className="font-bold text-slate-900">SPH: {rx.odSph}</div>
-                      {rx.odAdd && <div className="text-gray-500">ADD: {rx.odAdd}</div>}
+                  <div className="grid grid-cols-2 gap-3 text-[12px]">
+                    <div className="p-3 bg-[#fafafa] border border-[#e5e5e5]">
+                      <span className="font-normal text-[#707070] block mb-1">Right Eye (OD)</span>
+                      <div className="font-normal text-[#121212]">SPH: {rx.odSph}</div>
+                      {rx.odAdd && <div className="text-[#707070]">ADD: {rx.odAdd}</div>}
                     </div>
 
-                    <div className="p-3 bg-gray-50 rounded-xl">
-                      <span className="font-bold text-gray-500 block mb-1">Left Eye (OS)</span>
-                      <div className="font-bold text-slate-900">SPH: {rx.osSph}</div>
-                      {rx.osAdd && <div className="text-gray-500">ADD: {rx.osAdd}</div>}
+                    <div className="p-3 bg-[#fafafa] border border-[#e5e5e5]">
+                      <span className="font-normal text-[#707070] block mb-1">Left Eye (OS)</span>
+                      <div className="font-normal text-[#121212]">SPH: {rx.osSph}</div>
+                      {rx.osAdd && <div className="text-[#707070]">ADD: {rx.osAdd}</div>}
                     </div>
                   </div>
 
                   {rx.pdSingle && (
-                    <div className="text-xs text-gray-500 pt-1 font-medium">
-                      Pupillary Distance (PD): <span className="font-extrabold text-slate-900">{rx.pdSingle} mm</span>
+                    <div className="text-[12px] text-[#707070] pt-1 font-normal">
+                      Pupillary Distance (PD): <span className="font-medium text-[#121212]">{rx.pdSingle} mm</span>
                     </div>
                   )}
                 </div>

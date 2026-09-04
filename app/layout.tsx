@@ -50,7 +50,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" dir="ltr" className={`${inter.variable} ${tajawal.variable}`}>
-      <body className="font-sans bg-white text-slate-900 antialiased selection:bg-emerald-500 selection:text-white flex flex-col min-h-screen">
+      <body className="font-sans bg-white text-[#121212] antialiased flex flex-col min-h-screen">
         <LanguageProvider>
           <AuthProvider>
             <CartProvider>

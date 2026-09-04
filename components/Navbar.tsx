@@ -61,13 +61,13 @@ export function Navbar() {
   ];
 
   return (
-    <header className="sticky top-0 z-50 bg-white shadow-[0_1px_3px_rgba(0,0,0,0.05)]">
-      {/* 1. Light Announcement Strip matching site aesthetic */}
-      <div className="bg-[#FAF4F2] border-b border-[#EDE5E2] text-gray-800 text-[12px] sm:text-[13px] py-2 px-4 font-normal tracking-wide">
+    <header className="sticky top-0 z-50 bg-white border-b border-[#e5e5e5]">
+      {/* 1. Announcement Strip matching Eyenk #f8edeb aesthetic */}
+      <div className="bg-[#f8edeb] border-b border-[#e8dcd9] text-[#121212] text-[13px] py-2.5 px-4 font-normal tracking-[0.03em]">
         <div className="max-w-7xl mx-auto flex items-center justify-center gap-1.5 text-center">
           <Link
             href="/shop"
-            className="inline-flex items-center gap-1.5 hover:underline text-gray-800"
+            className="inline-flex items-center gap-1.5 hover:underline text-[#121212]"
           >
             <span>
               {lang === "ar"
@@ -80,11 +80,11 @@ export function Navbar() {
       </div>
 
       {/* 2. Main Navigation Bar (Clean White, Logo Left, Nav Links Center, Icons Right) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-[88px] flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-[84px] flex items-center justify-between">
         {/* Mobile Hamburger Button */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden p-2 text-slate-800 -ml-2"
+          className="lg:hidden p-2 text-[#121212] -ml-2"
           aria-label="Toggle menu"
         >
           {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -94,33 +94,33 @@ export function Navbar() {
         <Link href="/" className="flex items-center gap-2.5">
           {/* Stylized Eye Logo mark */}
           <div className="relative w-11 h-7 sm:w-13 sm:h-8 flex items-center justify-center">
-            <svg viewBox="0 0 54 32" fill="none" className="w-full h-full text-indigo-700">
+            <svg viewBox="0 0 54 32" fill="none" className="w-full h-full text-[#121212]">
               <path
                 d="M2 16C7 6 18 2 27 2C36 2 47 6 52 16C47 26 36 30 27 30C18 30 7 26 2 16Z"
-                stroke="#4F46E5"
-                strokeWidth="2.5"
+                stroke="#121212"
+                strokeWidth="2.4"
                 strokeLinecap="round"
               />
-              <circle cx="27" cy="16" r="8" stroke="#4F46E5" strokeWidth="2.5" />
-              <circle cx="27" cy="16" r="3.5" fill="#4F46E5" />
-              <circle cx="16" cy="10" r="1.5" fill="#4F46E5" />
-              <circle cx="38" cy="10" r="1.5" fill="#4F46E5" />
-              <circle cx="20" cy="7" r="1" fill="#4F46E5" />
-              <circle cx="34" cy="7" r="1" fill="#4F46E5" />
+              <circle cx="27" cy="16" r="8" stroke="#121212" strokeWidth="2.4" />
+              <circle cx="27" cy="16" r="3.5" fill="#121212" />
+              <circle cx="16" cy="10" r="1.5" fill="#121212" />
+              <circle cx="38" cy="10" r="1.5" fill="#121212" />
+              <circle cx="20" cy="7" r="1" fill="#121212" />
+              <circle cx="34" cy="7" r="1" fill="#121212" />
             </svg>
           </div>
           <div className="flex flex-col">
-            <span className="text-[17px] sm:text-[19px] font-medium tracking-tight text-slate-900 leading-tight">
-              EyeNova <span className="font-arabic text-[15px] sm:text-[16px] text-slate-800">عين نوفا</span>
+            <span className="text-[18px] sm:text-[20px] font-normal tracking-tight text-[#121212] leading-tight">
+              EyeNova <span className="font-arabic text-[15px] sm:text-[16px] text-[#121212]">عين نوفا</span>
             </span>
           </div>
         </Link>
 
-        {/* Center Desktop Navigation Menu */}
-        <nav className="hidden lg:flex items-center gap-7 text-[14px] font-normal text-slate-800">
+        {/* Center Desktop Navigation Menu (Eyenk: 14px, font-normal, #121212) */}
+        <nav className="hidden lg:flex items-center gap-7 text-[14px] font-normal text-[#121212] tracking-[0.03em]">
           <Link
             href="/"
-            className="text-slate-900 font-medium underline underline-offset-8 decoration-2 decoration-slate-900"
+            className="text-[#121212] underline underline-offset-8 decoration-1 decoration-[#121212]"
           >
             {lang === "ar" ? "الرئيسية" : "Home"}
           </Link>
@@ -133,19 +133,19 @@ export function Navbar() {
           >
             <Link
               href="/shop?category=medical-lenses"
-              className="flex items-center gap-1 hover:text-slate-950 transition py-6"
+              className="flex items-center gap-1 hover:text-[#707070] transition py-6"
             >
               <span>{lang === "ar" ? "عدسات طبية" : "Medical Lens"}</span>
-              <ChevronDown size={14} className="text-slate-600" />
+              <ChevronDown size={14} className="text-[#707070]" />
             </Link>
 
             {activeDropdown === "medical" && (
-              <div className="absolute top-full left-0 w-52 bg-white border border-gray-100 shadow-xl py-2 z-50">
+              <div className="absolute top-full left-0 w-52 bg-white border border-[#e5e5e5] shadow-lg py-2 z-50">
                 {medicalLensLinks.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="block px-4 py-2 text-[13px] text-slate-700 hover:bg-gray-50 hover:text-indigo-600"
+                    className="block px-4 py-2.5 text-[13px] text-[#121212] hover:bg-[#f8edeb] hover:text-[#121212] transition"
                   >
                     {item.name}
                   </Link>
@@ -162,19 +162,19 @@ export function Navbar() {
           >
             <Link
               href="/shop?category=colored-lenses"
-              className="flex items-center gap-1 hover:text-slate-950 transition py-6"
+              className="flex items-center gap-1 hover:text-[#707070] transition py-6"
             >
               <span>{lang === "ar" ? "عدسات ملونة" : "Color Lens"}</span>
-              <ChevronDown size={14} className="text-slate-600" />
+              <ChevronDown size={14} className="text-[#707070]" />
             </Link>
 
             {activeDropdown === "color" && (
-              <div className="absolute top-full left-0 w-48 bg-white border border-gray-100 shadow-xl py-2 z-50">
+              <div className="absolute top-full left-0 w-48 bg-white border border-[#e5e5e5] shadow-lg py-2 z-50">
                 {colorLensLinks.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="block px-4 py-2 text-[13px] text-slate-700 hover:bg-gray-50 hover:text-indigo-600"
+                    className="block px-4 py-2.5 text-[13px] text-[#121212] hover:bg-[#f8edeb] hover:text-[#121212] transition"
                   >
                     {item.name}
                   </Link>
@@ -189,18 +189,18 @@ export function Navbar() {
             onMouseEnter={() => setActiveDropdown("brand")}
             onMouseLeave={() => setActiveDropdown(null)}
           >
-            <button className="flex items-center gap-1 hover:text-slate-950 transition py-6">
+            <button className="flex items-center gap-1 hover:text-[#707070] transition py-6">
               <span>{lang === "ar" ? "الماركات" : "By Brand"}</span>
-              <ChevronDown size={14} className="text-slate-600" />
+              <ChevronDown size={14} className="text-[#707070]" />
             </button>
 
             {activeDropdown === "brand" && (
-              <div className="absolute top-full left-0 w-48 bg-white border border-gray-100 shadow-xl py-2 z-50">
+              <div className="absolute top-full left-0 w-48 bg-white border border-[#e5e5e5] shadow-lg py-2 z-50">
                 {brandLinks.map((item) => (
                   <Link
                     key={item.name}
                     href={item.href}
-                    className="block px-4 py-2 text-[13px] text-slate-700 hover:bg-gray-50 hover:text-indigo-600"
+                    className="block px-4 py-2.5 text-[13px] text-[#121212] hover:bg-[#f8edeb] hover:text-[#121212] transition"
                   >
                     {item.name}
                   </Link>
@@ -209,15 +209,15 @@ export function Navbar() {
             )}
           </div>
 
-          <Link href="/shop?category=lashes" className="hover:text-slate-950 transition">
+          <Link href="/shop?category=lashes" className="hover:text-[#707070] transition">
             {lang === "ar" ? "رموش" : "Lashes"}
           </Link>
 
-          <Link href="/shop?category=solutions-drops" className="hover:text-slate-950 transition">
+          <Link href="/shop?category=solutions-drops" className="hover:text-[#707070] transition">
             {lang === "ar" ? "محاليل" : "Solutions"}
           </Link>
 
-          <Link href="/about" className="hover:text-slate-950 transition">
+          <Link href="/about" className="hover:text-[#707070] transition">
             {lang === "ar" ? "من نحن" : "About Us"}
           </Link>
         </nav>
@@ -227,7 +227,7 @@ export function Navbar() {
           {/* Language Toggle Pill: Clean light pill with Arabic text */}
           <button
             onClick={() => setLang(lang === "en" ? "ar" : "en")}
-            className="bg-[#FAF4F2] hover:bg-[#F3ECE8] text-[#1e232d] border border-[#E5DDD8] text-[11px] font-bold px-3 py-1.5 rounded-md transition"
+            className="bg-[#f8edeb] hover:bg-[#f0e4e1] text-[#121212] border border-[#e8dcd9] text-[12px] font-normal px-3 py-1.5 rounded-sm transition"
           >
             {lang === "en" ? "العربية" : "English"}
           </button>
@@ -235,40 +235,40 @@ export function Navbar() {
           {/* Search Icon */}
           <button
             onClick={() => setSearchOpen(!searchOpen)}
-            className="text-slate-800 hover:text-black p-1 transition"
+            className="text-[#121212] hover:text-[#707070] p-1 transition"
             aria-label="Search"
           >
-            <Search size={21} strokeWidth={1.8} />
+            <Search size={20} strokeWidth={1.5} />
           </button>
 
           {/* Account Icon */}
           {user ? (
             <Link
               href="/profile"
-              className="text-slate-800 hover:text-black p-1 transition"
+              className="text-[#121212] hover:text-[#707070] p-1 transition"
               aria-label="Account"
             >
-              <User size={21} strokeWidth={1.8} />
+              <User size={20} strokeWidth={1.5} />
             </Link>
           ) : (
             <button
               onClick={() => setIsAuthModalOpen(true)}
-              className="text-slate-800 hover:text-black p-1 transition"
+              className="text-[#121212] hover:text-[#707070] p-1 transition"
               aria-label="Login"
             >
-              <User size={21} strokeWidth={1.8} />
+              <User size={20} strokeWidth={1.5} />
             </button>
           )}
 
           {/* Shopping Bag Icon with Cart Count */}
           <button
             onClick={() => setIsCartOpen(true)}
-            className="text-slate-800 hover:text-black p-1 relative transition"
+            className="text-[#121212] hover:text-[#707070] p-1 relative transition"
             aria-label="Shopping Cart"
           >
-            <ShoppingBag size={21} strokeWidth={1.8} />
+            <ShoppingBag size={20} strokeWidth={1.5} />
             {itemCount > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 bg-slate-900 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center">
+              <span className="absolute -top-1.5 -right-1.5 bg-[#121212] text-white text-[10px] font-normal w-4 h-4 rounded-full flex items-center justify-center">
                 {itemCount}
               </span>
             )}
@@ -278,19 +278,19 @@ export function Navbar() {
 
       {/* Expandable Search Drawer */}
       {searchOpen && (
-        <div className="border-t border-gray-100 bg-gray-50/70 p-4 animate-fade-in">
+        <div className="border-t border-[#e5e5e5] bg-white p-4 animate-fade-in shadow-md">
           <div className="max-w-3xl mx-auto flex items-center gap-3">
             <input
               type="text"
               placeholder={lang === "ar" ? "ابحث في متجر عين نوفا..." : "Search EyeNova store..."}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="flex-1 px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-xs font-medium focus:outline-none focus:border-slate-900"
+              className="flex-1 px-4 py-2.5 bg-white border border-[#d2d2d2] rounded-none text-[13px] text-[#121212] focus:outline-none focus:border-[#121212]"
               autoFocus
             />
             <button
               onClick={() => setSearchOpen(false)}
-              className="text-xs font-semibold text-gray-500 hover:text-slate-900"
+              className="text-[13px] text-[#707070] hover:text-[#121212]"
             >
               Cancel
             </button>
@@ -300,12 +300,12 @@ export function Navbar() {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-gray-200 bg-white p-5 space-y-4 shadow-lg animate-fade-in">
-          <nav className="space-y-3 text-[15px] text-slate-800">
+        <div className="lg:hidden border-t border-[#e5e5e5] bg-white p-6 space-y-4 shadow-lg animate-fade-in">
+          <nav className="space-y-3.5 text-[15px] text-[#121212]">
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
-              className="block font-semibold"
+              className="block font-medium"
             >
               Home
             </Link>

@@ -27,35 +27,35 @@ export function CartDrawer() {
       <div className={`fixed inset-y-0 ${isRtl ? "left-0" : "right-0"} max-w-full flex pl-10`}>
         <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col">
           {/* Header */}
-          <div className="p-5 border-b border-gray-100 flex items-center justify-between bg-gray-50/50">
+          <div className="p-5 border-b border-[#e5e5e5] flex items-center justify-between bg-white">
             <div className="flex items-center gap-2">
-              <ShoppingBag size={20} className="text-slate-900" />
-              <h3 className="font-extrabold text-slate-900 text-base">{t.yourCart}</h3>
-              <span className="text-xs bg-slate-200 text-slate-800 font-bold px-2 py-0.5 rounded-full">
+              <ShoppingBag size={18} className="text-[#121212]" />
+              <h3 className="font-normal text-[#121212] text-[16px] sm:text-[17px]">{t.yourCart}</h3>
+              <span className="text-xs bg-[#f8edeb] text-[#121212] font-normal px-2 py-0.5 rounded-xs">
                 {items.length}
               </span>
             </div>
             <button
               onClick={() => setIsCartOpen(false)}
-              className="p-2 text-gray-400 hover:text-slate-900 rounded-full hover:bg-gray-200 transition"
+              className="p-1.5 text-[#707070] hover:text-[#121212] transition"
             >
-              <X size={20} />
+              <X size={18} />
             </button>
           </div>
 
           {/* Qatar Free Shipping Progress Bar */}
-          <div className="p-4 bg-emerald-50/70 border-b border-emerald-100">
-            <div className="flex items-center gap-2 text-xs font-bold text-emerald-900 mb-1.5">
-              <Truck size={16} className="text-emerald-600" />
+          <div className="p-4 bg-[#f8edeb] border-b border-[#e8dcd9]">
+            <div className="flex items-center gap-2 text-xs font-normal text-[#121212] mb-1.5">
+              <Truck size={15} className="text-[#186b2b]" />
               <span>
                 {remainingForFreeShipping === 0
                   ? "🎉 You unlocked FREE Delivery anywhere in Qatar!"
                   : `Add ${remainingForFreeShipping.toFixed(0)} QAR more for FREE Delivery`}
               </span>
             </div>
-            <div className="w-full h-2 bg-emerald-200/60 rounded-full overflow-hidden">
+            <div className="w-full h-1.5 bg-[#e8dcd9] rounded-none overflow-hidden">
               <div
-                className="h-full bg-emerald-500 transition-all duration-300 rounded-full"
+                className="h-full bg-[#186b2b] transition-all duration-300"
                 style={{ width: `${freeShippingProgress}%` }}
               />
             </div>
@@ -64,13 +64,13 @@ export function CartDrawer() {
           {/* Cart Items List */}
           <div className="flex-1 overflow-y-auto p-5 space-y-4">
             {items.length === 0 ? (
-              <div className="h-full flex flex-col items-center justify-center text-center p-6 text-gray-400">
-                <ShoppingBag size={48} className="mb-3 text-gray-300 stroke-1" />
-                <p className="font-semibold text-sm text-gray-600">{t.emptyCart}</p>
+              <div className="h-full flex flex-col items-center justify-center text-center p-6 text-[#707070]">
+                <ShoppingBag size={44} className="mb-3 text-[#d2d2d2] stroke-1" />
+                <p className="font-normal text-[14px] text-[#121212]">{t.emptyCart}</p>
                 <Link
                   href="/shop"
                   onClick={() => setIsCartOpen(false)}
-                  className="mt-4 px-6 py-2.5 bg-slate-900 text-white text-xs font-bold rounded-xl shadow hover:bg-slate-800 transition"
+                  className="mt-4 px-6 py-2.5 bg-[#121212] text-white text-[13px] font-medium tracking-wide uppercase hover:bg-[#2b2b2b] transition"
                 >
                   {t.shopNow}
                 </Link>
@@ -81,32 +81,32 @@ export function CartDrawer() {
                 return (
                   <div
                     key={item.id}
-                    className="p-4 rounded-2xl bg-gray-50 border border-gray-100 flex gap-4 relative group"
+                    className="p-3.5 bg-white border border-[#e5e5e5] flex gap-3.5 relative group"
                   >
                     <img
                       src={item.image}
                       alt={item.titleEn}
-                      className="w-16 h-16 rounded-xl object-cover border border-gray-200 shrink-0"
+                      className="w-16 h-16 object-contain border border-[#f0f0f0] shrink-0"
                     />
 
                     <div className="flex-1 min-w-0 pr-6">
-                      <h4 className="text-xs font-bold text-slate-900 truncate">
+                      <h4 className="text-[13px] font-normal text-[#121212] truncate">
                         {lang === "ar" ? item.titleAr : item.titleEn}
                       </h4>
 
                       {/* Contact Lens Power Config Display */}
                       {item.isContactLens && (
-                        <div className="text-[11px] text-gray-600 mt-1 space-y-0.5 font-medium">
+                        <div className="text-[12px] text-[#707070] mt-0.5 space-y-0.5">
                           {item.isPlano ? (
-                            <span className="text-emerald-600 font-bold">Plano 0.00 (Cosmetic)</span>
+                            <span className="text-[#186b2b] font-normal">Plano 0.00 (Cosmetic)</span>
                           ) : (
                             <>
                               <div>
-                                <span className="font-bold text-slate-800">Right (OD):</span> {item.rightEyePower} SPH ({item.rightEyeBoxes} box)
+                                <span className="font-normal text-[#121212]">Right (OD):</span> {item.rightEyePower} SPH ({item.rightEyeBoxes} box)
                               </div>
                               {item.leftEyeBoxes ? (
                                 <div>
-                                  <span className="font-bold text-slate-800">Left (OS):</span> {item.leftEyePower} SPH ({item.leftEyeBoxes} box)
+                                  <span className="font-normal text-[#121212]">Left (OS):</span> {item.leftEyePower} SPH ({item.leftEyeBoxes} box)
                                 </div>
                               ) : null}
                             </>
@@ -116,38 +116,38 @@ export function CartDrawer() {
 
                       {/* Eyeglasses Lens Package Display */}
                       {item.lensNameEn && (
-                        <div className="text-[11px] text-indigo-600 font-bold mt-1">
+                        <div className="text-[12px] text-[#121212] mt-0.5">
                           + {item.lensNameEn} (+{item.lensPriceQar} QAR)
                         </div>
                       )}
 
                       <div className="flex items-center justify-between mt-3">
-                        <div className="flex items-center gap-2 border border-gray-200 bg-white rounded-lg p-1">
+                        <div className="flex items-center border border-[#d2d2d2] bg-white h-8 px-1">
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity - 1)}
-                            className="w-5 h-5 rounded flex items-center justify-center text-xs font-bold hover:bg-gray-100"
+                            className="w-6 h-6 flex items-center justify-center text-xs text-[#121212] hover:text-[#707070]"
                           >
                             -
                           </button>
-                          <span className="text-xs font-bold w-4 text-center">{item.quantity}</span>
+                          <span className="text-xs font-normal w-5 text-center text-[#121212]">{item.quantity}</span>
                           <button
                             onClick={() => updateQuantity(item.id, item.quantity + 1)}
-                            className="w-5 h-5 rounded flex items-center justify-center text-xs font-bold hover:bg-gray-100"
+                            className="w-6 h-6 flex items-center justify-center text-xs text-[#121212] hover:text-[#707070]"
                           >
                             +
                           </button>
                         </div>
-                        <span className="text-xs font-extrabold text-slate-900">
-                          {itemTotal} QAR
+                        <span className="text-[13px] font-normal text-[#121212]">
+                          QAR {itemTotal.toFixed(2)}
                         </span>
                       </div>
                     </div>
 
                     <button
                       onClick={() => removeItem(item.id)}
-                      className="absolute top-3 right-3 text-gray-400 hover:text-red-500 transition"
+                      className="absolute top-3 right-3 text-[#a0a0a0] hover:text-[#121212] transition"
                     >
-                      <Trash2 size={16} />
+                      <Trash2 size={15} />
                     </button>
                   </div>
                 );
@@ -157,14 +157,14 @@ export function CartDrawer() {
 
           {/* Footer Checkout Summary */}
           {items.length > 0 && (
-            <div className="p-5 border-t border-gray-100 bg-gray-50/50 space-y-3">
-              <div className="flex justify-between items-center text-sm font-bold text-slate-900">
+            <div className="p-5 border-t border-[#e5e5e5] bg-white space-y-3">
+              <div className="flex justify-between items-center text-[14px] text-[#121212]">
                 <span>{t.subtotal}</span>
-                <span className="text-base">{subtotalQar} QAR</span>
+                <span className="text-[15px] font-normal">QAR {subtotalQar.toFixed(2)}</span>
               </div>
-              <div className="flex justify-between items-center text-xs text-gray-500">
+              <div className="flex justify-between items-center text-xs text-[#707070]">
                 <span>{t.deliveryFee}</span>
-                <span className="font-semibold text-emerald-600">
+                <span className="text-[#186b2b]">
                   {remainingForFreeShipping === 0 ? t.freeDelivery : "15 QAR"}
                 </span>
               </div>
@@ -172,10 +172,10 @@ export function CartDrawer() {
               <Link
                 href="/checkout"
                 onClick={() => setIsCartOpen(false)}
-                className="w-full py-3.5 bg-slate-900 text-white font-extrabold text-xs rounded-2xl shadow-lg hover:bg-slate-800 transition flex items-center justify-center gap-2"
+                className="w-full h-12 bg-[#121212] text-white font-medium text-[13px] uppercase tracking-wider hover:bg-[#2b2b2b] transition flex items-center justify-center gap-2 rounded-none"
               >
                 <span>{t.proceedToCheckout}</span>
-                {isRtl ? <ArrowLeft size={16} /> : <ArrowRight size={16} />}
+                {isRtl ? <ArrowLeft size={15} /> : <ArrowRight size={15} />}
               </Link>
             </div>
           )}

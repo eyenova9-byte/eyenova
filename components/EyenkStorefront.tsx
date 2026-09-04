@@ -142,7 +142,7 @@ export function EyenkStorefront() {
         {/* SECTION 1: Contact Lenses (Screenshot 1) */}
         {/* ========================================================================= */}
         <section>
-          <h2 className="text-[22px] sm:text-[24px] font-normal tracking-tight text-[#1e232d] mb-6 sm:mb-8 text-left">
+          <h2 className="text-[22px] sm:text-[26px] font-normal tracking-tight text-[#121212] mb-6 sm:mb-8 text-left">
             Contact Lenses
           </h2>
 
@@ -163,7 +163,7 @@ export function EyenkStorefront() {
                     className="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-300"
                   />
                 </div>
-                <span className="text-[13px] sm:text-[14px] font-normal text-slate-900 group-hover:text-indigo-600 transition leading-snug">
+                <span className="text-[13px] sm:text-[14px] font-normal text-[#121212] group-hover:text-[#707070] transition leading-snug">
                   {cat.name}
                 </span>
               </Link>
@@ -175,7 +175,7 @@ export function EyenkStorefront() {
         {/* SECTION 2: Colour Lenses (Screenshot 2) */}
         {/* ========================================================================= */}
         <section>
-          <h2 className="text-[22px] sm:text-[24px] font-normal tracking-tight text-[#1e232d] mb-6 sm:mb-8 text-left">
+          <h2 className="text-[22px] sm:text-[26px] font-normal tracking-tight text-[#121212] mb-6 sm:mb-8 text-left">
             Colour Lenses
           </h2>
 
@@ -194,7 +194,7 @@ export function EyenkStorefront() {
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
                 </div>
-                <span className="text-[14px] sm:text-[15px] font-normal text-slate-900 group-hover:text-indigo-600 transition">
+                <span className="text-[14px] sm:text-[15px] font-normal text-[#121212] group-hover:text-[#707070] transition">
                   {brand.name}
                 </span>
               </Link>
@@ -206,7 +206,7 @@ export function EyenkStorefront() {
         {/* SECTION 3: Best Selling Medical Lens (Screenshot 1 & 2) */}
         {/* ========================================================================= */}
         <section>
-          <h2 className="text-[22px] sm:text-[24px] font-normal tracking-tight text-[#1e232d] mb-6 sm:mb-8 text-left">
+          <h2 className="text-[22px] sm:text-[26px] font-normal tracking-tight text-[#121212] mb-6 sm:mb-8 text-left">
             Best Selling Medical Lens
           </h2>
 
@@ -221,7 +221,7 @@ export function EyenkStorefront() {
         {/* SECTION 4: NEW LensMe Korea Style (Screenshot 3) */}
         {/* ========================================================================= */}
         <section>
-          <h2 className="text-[22px] sm:text-[24px] font-normal tracking-tight text-[#1e232d] mb-6 sm:mb-8 text-left">
+          <h2 className="text-[22px] sm:text-[26px] font-normal tracking-tight text-[#121212] mb-6 sm:mb-8 text-left">
             NEW LensMe Korea Style
           </h2>
 
@@ -240,10 +240,10 @@ export function EyenkStorefront() {
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
                 </div>
-                <h3 className="text-[13px] sm:text-[14px] font-normal text-slate-900 group-hover:text-indigo-600 transition mb-1 leading-snug">
+                <h3 className="text-[13px] sm:text-[14px] font-normal text-[#121212] group-hover:text-[#707070] transition mb-1 leading-snug">
                   {item.name}
                 </h3>
-                <span className="text-[13px] sm:text-[14px] font-normal text-slate-700">
+                <span className="text-[13px] sm:text-[14px] font-normal text-[#707070]">
                   {item.price}
                 </span>
               </Link>
@@ -255,10 +255,10 @@ export function EyenkStorefront() {
         {/* SECTION 5: Our Store Locations (Screenshot 1) */}
         {/* ========================================================================= */}
         <section className="pt-8 pb-10">
-          <h2 className="text-[26px] sm:text-[32px] font-normal tracking-tight text-[#1e232d] mb-2 text-center">
+          <h2 className="text-[26px] sm:text-[30px] font-normal tracking-tight text-[#121212] mb-2 text-center">
             Our Store Locations
           </h2>
-          <p className="text-[14px] sm:text-[15px] text-gray-700 text-center mb-8 sm:mb-12">
+          <p className="text-[14px] sm:text-[15px] text-[#707070] text-center mb-8 sm:mb-12">
             Visit us at any of our locations across Qatar
           </p>
 
@@ -286,7 +286,7 @@ export function EyenkStorefront() {
                 href={loc.mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="bg-[#FAF4F2] hover:bg-[#F3ECE8] transition-colors duration-200 py-16 px-6 flex flex-col items-center justify-center text-center group rounded-xs border border-[#F2E8E4]"
+                className="bg-[#f8edeb] hover:bg-[#f0e4e1] transition-colors duration-200 py-16 px-6 flex flex-col items-center justify-center text-center group rounded-xs border border-[#e8dcd9]"
               >
                 {/* Purple Map Marker Icon with concentric ring matching Screenshot 1 */}
                 <div className="w-12 h-12 flex items-center justify-center text-[#5c2d76] mb-6 group-hover:scale-110 transition-transform duration-200">
@@ -295,7 +295,7 @@ export function EyenkStorefront() {
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                   </svg>
                 </div>
-                <span className="text-[16px] sm:text-[17px] font-normal text-[#1e232d] leading-snug">
+                <span className="text-[16px] sm:text-[17px] font-normal text-[#121212] leading-snug">
                   {loc.name}
                 </span>
               </a>

@@ -36,12 +36,12 @@ export function ProductCard({ product }: ProductCardProps) {
           </div>
 
           {/* Product Title (Centered, Regular Weight, Clean line wrapping) */}
-          <h3 className="text-[13px] sm:text-[14px] font-normal text-[#1e232d] leading-snug text-center mb-1.5 min-h-[38px] flex items-center justify-center group-hover:text-indigo-600 transition px-1">
+          <h3 className="text-[13px] sm:text-[14px] font-normal text-[#121212] leading-snug text-center mb-1.5 min-h-[38px] flex items-center justify-center group-hover:text-[#707070] transition px-1">
             {lang === "ar" ? product.titleAr : product.titleEn}
           </h3>
 
           {/* Price (Centered, Clean: QAR 159.00) */}
-          <span className="text-[13px] sm:text-[14px] font-normal text-[#1e232d] text-center">
+          <span className="text-[13px] sm:text-[14px] font-normal text-[#121212] text-center tracking-[0.04em]">
             QAR {price.toFixed(2)}
           </span>
         </Link>
