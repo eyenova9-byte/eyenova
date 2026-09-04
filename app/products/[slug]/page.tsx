@@ -225,10 +225,10 @@ export default function ProductDetailPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14">
           
           {/* ================================================================= */}
-          {/* LEFT COLUMN: Media Gallery (Eyenk 1:1 clean white layout)         */}
+          {/* LEFT COLUMN: Sticky Media Gallery (moves with scroll)             */}
           {/* ================================================================= */}
           <div className="lg:col-span-7">
-            <div className="flex flex-col gap-4">
+            <div className="lg:sticky lg:top-28 flex flex-col gap-4">
               
               {/* Main Featured Image Display */}
               <div
@@ -257,7 +257,7 @@ export default function ProductDetailPage() {
                     <button
                       key={idx}
                       onClick={() => setActiveImageIndex(idx)}
-                      className={`relative w-20 h-20 sm:w-24 sm:h-24 bg-white shrink-0 transition p-1 flex items-center justify-center ${
+                      className={`relative w-20 h-20 sm:w-24 sm:h-24 bg-white shrink-0 transition p-1 flex items-center justify-center cursor-pointer ${
                         activeImageIndex === idx
                           ? "border border-neutral-900"
                           : "border border-neutral-200 opacity-60 hover:opacity-100"
@@ -276,9 +276,9 @@ export default function ProductDetailPage() {
           </div>
 
           {/* ================================================================= */}
-          {/* RIGHT COLUMN: Sticky Product Information Container               */}
+          {/* RIGHT COLUMN: Product Information & Purchase Form                 */}
           {/* ================================================================= */}
-          <div className="lg:col-span-5 lg:sticky lg:top-24 h-fit">
+          <div className="lg:col-span-5">
             <div className="flex flex-col">
               
               {/* Vendor / Brand (Eyenk uppercase caption) */}
