@@ -241,6 +241,55 @@ export function EyenkStorefront() {
                 </span>
               </Link>
             ))}
+        {/* ========================================================================= */}
+        {/* SECTION 5: Our Store Locations (Screenshot 1) */}
+        {/* ========================================================================= */}
+        <section className="pt-8 pb-10">
+          <h2 className="text-[26px] sm:text-[32px] font-normal tracking-tight text-[#1e232d] mb-2 text-center">
+            Our Store Locations
+          </h2>
+          <p className="text-[14px] sm:text-[15px] text-gray-700 text-center mb-8 sm:mb-12">
+            Visit us at any of our locations across Qatar
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {[
+              {
+                name: "Tawar Mall, Al Markhiya",
+                mapsUrl: "https://www.google.com/maps/search/Eyenk+Contact+Lens+Tawar+Mall+Al+Markhiya+Qatar",
+              },
+              {
+                name: "Place Vendôme Mall, Lusail",
+                mapsUrl: "https://www.google.com/maps/search/Eyenk+Contact+Lens+Place+Vendome+Mall+Lusail+Qatar",
+              },
+              {
+                name: "Ezdan Mall, Wakrah",
+                mapsUrl: "https://www.google.com/maps/search/Eyenk+Contact+Lens+Ezdan+Mall+Wakrah+Qatar",
+              },
+              {
+                name: "Umm Salal Ali",
+                mapsUrl: "https://www.google.com/maps/search/Eyenk+Contact+Lens+Umm+Salal+Ali+Qatar",
+              },
+            ].map((loc) => (
+              <a
+                key={loc.name}
+                href={loc.mapsUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#FAF4F2] hover:bg-[#F3ECE8] transition-colors duration-200 py-16 px-6 flex flex-col items-center justify-center text-center group rounded-xs border border-[#F2E8E4]"
+              >
+                {/* Purple Map Marker Icon with concentric ring matching Screenshot 1 */}
+                <div className="w-12 h-12 flex items-center justify-center text-[#5c2d76] mb-6 group-hover:scale-110 transition-transform duration-200">
+                  <svg className="w-10 h-10" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                  </svg>
+                </div>
+                <span className="text-[16px] sm:text-[17px] font-normal text-[#1e232d] leading-snug">
+                  {loc.name}
+                </span>
+              </a>
+            ))}
           </div>
         </section>
 
