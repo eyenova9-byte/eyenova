@@ -79,42 +79,44 @@ export function Navbar() {
         </div>
       </div>
 
-      {/* 2. Main Navigation Bar (Clean White, Logo Left, Nav Links Center, Icons Right) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 sm:h-[84px] flex items-center justify-between">
-        {/* Mobile Hamburger Button */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden p-2 text-[#121212] -ml-2"
-          aria-label="Toggle menu"
-        >
-          {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+      {/* 2. Main Navigation Bar (Eyenk header--middle-left header--mobile-center) */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[60px] lg:h-[80px] grid grid-cols-3 lg:flex items-center justify-between">
+        {/* Mobile Left: Hamburger Button */}
+        <div className="flex items-center lg:hidden">
+          <button
+            onClick={() => setMobileMenuOpen(true)}
+            className="p-2 -ml-2 text-[#121212] focus:outline-none cursor-pointer"
+            aria-label="Toggle menu"
+          >
+            <Menu size={22} strokeWidth={1.8} />
+          </button>
+        </div>
 
-        {/* Logo: Eye Icon + Eyenk style bilingual logo */}
-        <Link href="/" className="flex items-center gap-2.5">
-          {/* Stylized Eye Logo mark */}
-          <div className="relative w-11 h-7 sm:w-13 sm:h-8 flex items-center justify-center">
-            <svg viewBox="0 0 54 32" fill="none" className="w-full h-full text-[#121212]">
-              <path
-                d="M2 16C7 6 18 2 27 2C36 2 47 6 52 16C47 26 36 30 27 30C18 30 7 26 2 16Z"
-                stroke="#121212"
-                strokeWidth="2.4"
-                strokeLinecap="round"
-              />
-              <circle cx="27" cy="16" r="8" stroke="#121212" strokeWidth="2.4" />
-              <circle cx="27" cy="16" r="3.5" fill="#121212" />
-              <circle cx="16" cy="10" r="1.5" fill="#121212" />
-              <circle cx="38" cy="10" r="1.5" fill="#121212" />
-              <circle cx="20" cy="7" r="1" fill="#121212" />
-              <circle cx="34" cy="7" r="1" fill="#121212" />
-            </svg>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-[18px] sm:text-[20px] font-normal tracking-tight text-[#121212] leading-tight">
-              EyeNova <span className="font-arabic text-[15px] sm:text-[16px] text-[#121212]">عين نوفا</span>
-            </span>
-          </div>
-        </Link>
+        {/* Logo: Centered on mobile, Left-aligned on desktop (header--mobile-center) */}
+        <div className="flex justify-center lg:justify-start">
+          <Link href="/" className="flex items-center gap-2 group">
+            {/* Stylized Eye Logo mark */}
+            <div className="relative w-9 h-6 sm:w-11 sm:h-7 flex items-center justify-center">
+              <svg viewBox="0 0 54 32" fill="none" className="w-full h-full text-[#121212]">
+                <path
+                  d="M2 16C7 6 18 2 27 2C36 2 47 6 52 16C47 26 36 30 27 30C18 30 7 26 2 16Z"
+                  stroke="#121212"
+                  strokeWidth="2.4"
+                  strokeLinecap="round"
+                />
+                <circle cx="27" cy="16" r="8" stroke="#121212" strokeWidth="2.4" />
+                <circle cx="27" cy="16" r="3.5" fill="#121212" />
+                <circle cx="16" cy="10" r="1.5" fill="#121212" />
+                <circle cx="38" cy="10" r="1.5" fill="#121212" />
+              </svg>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-[17px] sm:text-[19px] font-normal tracking-tight text-[#121212] leading-tight">
+                EyeNova <span className="font-arabic text-[14px] sm:text-[15px] text-[#121212]">عين نوفا</span>
+              </span>
+            </div>
+          </Link>
+        </div>
 
         {/* Center Desktop Navigation Menu (Eyenk: 14px, font-normal, #121212) */}
         <nav className="hidden lg:flex items-center gap-7 text-[14px] font-normal text-[#121212] tracking-[0.03em]">
@@ -189,7 +191,7 @@ export function Navbar() {
             onMouseEnter={() => setActiveDropdown("brand")}
             onMouseLeave={() => setActiveDropdown(null)}
           >
-            <button className="flex items-center gap-1 hover:text-[#707070] transition py-6">
+            <button className="flex items-center gap-1 hover:text-[#707070] transition py-6 cursor-pointer">
               <span>{lang === "ar" ? "الماركات" : "By Brand"}</span>
               <ChevronDown size={14} className="text-[#707070]" />
             </button>
@@ -222,12 +224,12 @@ export function Navbar() {
           </Link>
         </nav>
 
-        {/* Right Icons (Exact Eyenk: [العربية badge] [Search] [User] [Bag]) */}
-        <div className="flex items-center gap-4 sm:gap-5">
-          {/* Language Toggle Pill: Clean light pill with Arabic text */}
+        {/* Right Icons: Language Switch, Search, (Account desktop), Bag with count */}
+        <div className="flex items-center justify-end gap-2 sm:gap-3.5">
+          {/* Language Toggle */}
           <button
             onClick={() => setLang(lang === "en" ? "ar" : "en")}
-            className="bg-[#f8edeb] hover:bg-[#f0e4e1] text-[#121212] border border-[#e8dcd9] text-[12px] font-normal px-3 py-1.5 rounded-sm transition"
+            className="bg-[#f8edeb] hover:bg-[#f0e4e1] text-[#121212] border border-[#e8dcd9] text-[11px] sm:text-[12px] font-normal px-2.5 py-1 rounded-xs transition cursor-pointer"
           >
             {lang === "en" ? "العربية" : "English"}
           </button>
@@ -235,40 +237,42 @@ export function Navbar() {
           {/* Search Icon */}
           <button
             onClick={() => setSearchOpen(!searchOpen)}
-            className="text-[#121212] hover:text-[#707070] p-1 transition"
+            className="text-[#121212] hover:text-[#707070] p-1.5 transition cursor-pointer"
             aria-label="Search"
           >
-            <Search size={20} strokeWidth={1.5} />
+            <Search size={19} strokeWidth={1.6} />
           </button>
 
-          {/* Account Icon */}
-          {user ? (
-            <Link
-              href="/profile"
-              className="text-[#121212] hover:text-[#707070] p-1 transition"
-              aria-label="Account"
-            >
-              <User size={20} strokeWidth={1.5} />
-            </Link>
-          ) : (
-            <button
-              onClick={() => setIsAuthModalOpen(true)}
-              className="text-[#121212] hover:text-[#707070] p-1 transition"
-              aria-label="Login"
-            >
-              <User size={20} strokeWidth={1.5} />
-            </button>
-          )}
+          {/* Account Icon (Desktop only, mobile has Account in bottom bar) */}
+          <div className="hidden lg:block">
+            {user ? (
+              <Link
+                href="/profile"
+                className="text-[#121212] hover:text-[#707070] p-1.5 transition"
+                aria-label="Account"
+              >
+                <User size={19} strokeWidth={1.6} />
+              </Link>
+            ) : (
+              <button
+                onClick={() => setIsAuthModalOpen(true)}
+                className="text-[#121212] hover:text-[#707070] p-1.5 transition cursor-pointer"
+                aria-label="Login"
+              >
+                <User size={19} strokeWidth={1.6} />
+              </button>
+            )}
+          </div>
 
           {/* Shopping Bag Icon with Cart Count */}
           <button
             onClick={() => setIsCartOpen(true)}
-            className="text-[#121212] hover:text-[#707070] p-1 relative transition"
+            className="text-[#121212] hover:text-[#707070] p-1.5 relative transition cursor-pointer"
             aria-label="Shopping Cart"
           >
-            <ShoppingBag size={20} strokeWidth={1.5} />
+            <ShoppingBag size={19} strokeWidth={1.6} />
             {itemCount > 0 && (
-              <span className="absolute -top-1.5 -right-1.5 bg-[#121212] text-white text-[10px] font-normal w-4 h-4 rounded-full flex items-center justify-center">
+              <span className="absolute -top-1 -right-1 bg-[#121212] text-white text-[10px] font-normal w-4 h-4 rounded-full flex items-center justify-center">
                 {itemCount}
               </span>
             )}
@@ -290,7 +294,7 @@ export function Navbar() {
             />
             <button
               onClick={() => setSearchOpen(false)}
-              className="text-[13px] text-[#707070] hover:text-[#121212]"
+              className="text-[13px] text-[#707070] hover:text-[#121212] cursor-pointer"
             >
               Cancel
             </button>
@@ -298,60 +302,151 @@ export function Navbar() {
         </div>
       )}
 
-      {/* Mobile Drawer Menu */}
+      {/* Mobile Slide-Out Menu Drawer (Eyenk header-drawer parity) */}
       {mobileMenuOpen && (
-        <div className="lg:hidden border-t border-[#e5e5e5] bg-white p-6 space-y-4 shadow-lg animate-fade-in">
-          <nav className="space-y-3.5 text-[15px] text-[#121212]">
-            <Link
-              href="/"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block font-medium"
-            >
-              Home
-            </Link>
-            <Link
-              href="/shop?category=medical-lenses"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block"
-            >
-              Medical Lens
-            </Link>
-            <Link
-              href="/shop?category=colored-lenses"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block"
-            >
-              Color Lens
-            </Link>
-            <Link
-              href="/shop"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block"
-            >
-              By Brand
-            </Link>
-            <Link
-              href="/shop?category=lashes"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block"
-            >
-              Lashes
-            </Link>
-            <Link
-              href="/shop?category=solutions-drops"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block"
-            >
-              Solutions
-            </Link>
-            <Link
-              href="/about"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block"
-            >
-              About Us
-            </Link>
-          </nav>
+        <div className="fixed inset-0 z-50 flex lg:hidden">
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-black/40 backdrop-blur-xs transition-opacity"
+            onClick={() => setMobileMenuOpen(false)}
+          />
+
+          {/* Drawer Content */}
+          <div className="relative w-full max-w-[320px] bg-white h-full shadow-2xl flex flex-col justify-between overflow-y-auto z-10">
+            <div>
+              {/* Drawer Top Bar */}
+              <div className="flex items-center justify-between p-4 border-b border-[#e5e5e5]">
+                <span className="text-[15px] font-normal text-[#121212]">
+                  {lang === "ar" ? "القائمة" : "Menu"}
+                </span>
+                <button
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="p-1 text-[#121212] hover:text-[#707070] cursor-pointer"
+                  aria-label="Close menu"
+                >
+                  <X size={20} strokeWidth={1.8} />
+                </button>
+              </div>
+
+              {/* Drawer Navigation Links */}
+              <nav className="p-4 space-y-1 text-[14px] text-[#121212]">
+                <Link
+                  href="/"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block py-2.5 border-b border-[#f0f0f0] font-normal text-[#121212] hover:text-[#707070]"
+                >
+                  {lang === "ar" ? "الرئيسية" : "Home"}
+                </Link>
+
+                {/* Medical Lens Accordion */}
+                <details className="group border-b border-[#f0f0f0] py-2.5">
+                  <summary className="flex items-center justify-between cursor-pointer list-none select-none">
+                    <span>{lang === "ar" ? "عدسات طبية" : "Medical Lens"}</span>
+                    <ChevronDown size={16} className="text-[#707070] group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <div className="pt-2 pl-3 space-y-2 text-[13px] text-[#707070]">
+                    {medicalLensLinks.map((item) => (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block py-1 hover:text-[#121212]"
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                  </div>
+                </details>
+
+                {/* Color Lens Accordion */}
+                <details className="group border-b border-[#f0f0f0] py-2.5">
+                  <summary className="flex items-center justify-between cursor-pointer list-none select-none">
+                    <span>{lang === "ar" ? "عدسات ملونة" : "Colour Lenses"}</span>
+                    <ChevronDown size={16} className="text-[#707070] group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <div className="pt-2 pl-3 space-y-2 text-[13px] text-[#707070]">
+                    {colorLensLinks.map((item) => (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block py-1 hover:text-[#121212]"
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                  </div>
+                </details>
+
+                {/* By Brand Accordion */}
+                <details className="group border-b border-[#f0f0f0] py-2.5">
+                  <summary className="flex items-center justify-between cursor-pointer list-none select-none">
+                    <span>{lang === "ar" ? "الماركات" : "By Brand"}</span>
+                    <ChevronDown size={16} className="text-[#707070] group-open:rotate-180 transition-transform" />
+                  </summary>
+                  <div className="pt-2 pl-3 space-y-2 text-[13px] text-[#707070]">
+                    {brandLinks.map((item) => (
+                      <Link
+                        key={item.name}
+                        href={item.href}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className="block py-1 hover:text-[#121212]"
+                      >
+                        {item.name}
+                      </Link>
+                    ))}
+                  </div>
+                </details>
+
+                <Link
+                  href="/shop?category=lashes"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block py-2.5 border-b border-[#f0f0f0] hover:text-[#707070]"
+                >
+                  {lang === "ar" ? "رموش" : "Lashes"}
+                </Link>
+
+                <Link
+                  href="/shop?category=solutions-drops"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block py-2.5 border-b border-[#f0f0f0] hover:text-[#707070]"
+                >
+                  {lang === "ar" ? "محاليل" : "Solutions"}
+                </Link>
+
+                <Link
+                  href="/about"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block py-2.5 border-b border-[#f0f0f0] hover:text-[#707070]"
+                >
+                  {lang === "ar" ? "من نحن" : "About Us"}
+                </Link>
+              </nav>
+            </div>
+
+            {/* Drawer Bottom Info */}
+            <div className="p-4 border-t border-[#e5e5e5] bg-[#fafafa] space-y-3">
+              <Link
+                href={user ? "/profile" : "#"}
+                onClick={(e) => {
+                  setMobileMenuOpen(false);
+                  if (!user) setIsAuthModalOpen(true);
+                }}
+                className="flex items-center gap-2 text-[13px] text-[#121212] font-normal"
+              >
+                <User size={16} />
+                <span>{user ? user.phone : (lang === "ar" ? "تسجيل الدخول / حسابي" : "Log in / Account")}</span>
+              </Link>
+              <a
+                href="https://wa.me/97455123456"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 text-[13px] text-[#186b2b] font-normal"
+              >
+                <span>WhatsApp Customer Support (+974 5512 3456)</span>
+              </a>
+            </div>
+          </div>
         </div>
       )}
     </header>

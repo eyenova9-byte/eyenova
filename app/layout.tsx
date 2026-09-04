@@ -8,6 +8,7 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { CartDrawer } from "@/components/CartDrawer";
 import { AuthModal } from "@/components/AuthModal";
+import { BottomNav } from "@/components/BottomNav";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -55,10 +56,11 @@ export default function RootLayout({
           <AuthProvider>
             <CartProvider>
               <Navbar />
-              <main className="flex-1">{children}</main>
+              <main className="flex-1 pb-16 lg:pb-0">{children}</main>
               <Footer />
               <CartDrawer />
               <AuthModal />
+              <BottomNav />
             </CartProvider>
           </AuthProvider>
         </LanguageProvider>
