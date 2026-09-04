@@ -62,12 +62,12 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 bg-white shadow-[0_1px_3px_rgba(0,0,0,0.05)]">
-      {/* 1. Exact Eyenk Top Announcement Strip (Dark Slate, Centered Coupon with Arrow) */}
-      <div className="bg-[#1e232d] text-white text-[12px] sm:text-[13px] py-2 px-4 font-normal tracking-wide">
+      {/* 1. Light Announcement Strip matching site aesthetic */}
+      <div className="bg-[#FAF4F2] border-b border-[#EDE5E2] text-gray-800 text-[12px] sm:text-[13px] py-2 px-4 font-normal tracking-wide">
         <div className="max-w-7xl mx-auto flex items-center justify-center gap-1.5 text-center">
           <Link
             href="/shop"
-            className="inline-flex items-center gap-1.5 hover:underline text-gray-100"
+            className="inline-flex items-center gap-1.5 hover:underline text-gray-800"
           >
             <span>
               {lang === "ar"
@@ -224,10 +224,10 @@ export function Navbar() {
 
         {/* Right Icons (Exact Eyenk: [العربية badge] [Search] [User] [Bag]) */}
         <div className="flex items-center gap-4 sm:gap-5">
-          {/* Language Toggle Pill: Exact Black Pill with Arabic text */}
+          {/* Language Toggle Pill: Clean light pill with Arabic text */}
           <button
             onClick={() => setLang(lang === "en" ? "ar" : "en")}
-            className="bg-[#1e232d] text-white text-[11px] font-bold px-3 py-1.5 rounded-md hover:bg-black transition"
+            className="bg-[#FAF4F2] hover:bg-[#F3ECE8] text-[#1e232d] border border-[#E5DDD8] text-[11px] font-bold px-3 py-1.5 rounded-md transition"
           >
             {lang === "en" ? "العربية" : "English"}
           </button>

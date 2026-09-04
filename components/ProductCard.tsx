@@ -129,9 +129,9 @@ export function ProductCard({ product }: ProductCardProps) {
           <button
             type="button"
             onClick={handleQuickAdd}
-            className="px-3 py-2 bg-slate-900 text-white rounded-xl text-xs font-black hover:bg-slate-800 transition shadow-xs flex items-center gap-1 shrink-0"
+            className="px-3 py-1.5 bg-[#FAF4F2] hover:bg-[#F3ECE8] text-[#1e232d] border border-[#E5DDD8] rounded-lg text-xs font-bold transition flex items-center gap-1 shrink-0"
           >
-            <ShoppingBag size={14} />
+            <ShoppingBag size={13} />
             <span>{isContactLens ? "Select Power" : "Add"}</span>
           </button>
         </div>
