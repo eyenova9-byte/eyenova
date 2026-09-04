@@ -80,23 +80,23 @@ export function Navbar() {
       </div>
 
       {/* 2. Main Navigation Bar (Eyenk header--middle-left header--mobile-center) */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-[60px] lg:h-[80px] grid grid-cols-3 lg:flex items-center justify-between">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-14 sm:h-16 lg:h-[80px] flex items-center justify-between relative">
         {/* Mobile Left: Hamburger Button */}
-        <div className="flex items-center lg:hidden">
+        <div className="flex items-center lg:hidden z-10">
           <button
             onClick={() => setMobileMenuOpen(true)}
-            className="p-2 -ml-2 text-[#121212] focus:outline-none cursor-pointer"
+            className="p-1.5 -ml-1.5 text-[#121212] focus:outline-none cursor-pointer"
             aria-label="Toggle menu"
           >
             <Menu size={22} strokeWidth={1.8} />
           </button>
         </div>
 
-        {/* Logo: Centered on mobile, Left-aligned on desktop (header--mobile-center) */}
-        <div className="flex justify-center lg:justify-start">
-          <Link href="/" className="flex items-center gap-2 group">
+        {/* Logo: Centered on mobile via absolute positioning, Left-aligned on desktop */}
+        <div className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 z-0 flex items-center justify-center">
+          <Link href="/" className="flex items-center gap-1.5 sm:gap-2 group whitespace-nowrap">
             {/* Stylized Eye Logo mark */}
-            <div className="relative w-9 h-6 sm:w-11 sm:h-7 flex items-center justify-center">
+            <div className="relative w-8 h-5 sm:w-10 sm:h-6 flex items-center justify-center shrink-0">
               <svg viewBox="0 0 54 32" fill="none" className="w-full h-full text-[#121212]">
                 <path
                   d="M2 16C7 6 18 2 27 2C36 2 47 6 52 16C47 26 36 30 27 30C18 30 7 26 2 16Z"
@@ -106,15 +106,12 @@ export function Navbar() {
                 />
                 <circle cx="27" cy="16" r="8" stroke="#121212" strokeWidth="2.4" />
                 <circle cx="27" cy="16" r="3.5" fill="#121212" />
-                <circle cx="16" cy="10" r="1.5" fill="#121212" />
-                <circle cx="38" cy="10" r="1.5" fill="#121212" />
               </svg>
             </div>
-            <div className="flex flex-col">
-              <span className="text-[17px] sm:text-[19px] font-normal tracking-tight text-[#121212] leading-tight">
-                EyeNova <span className="font-arabic text-[14px] sm:text-[15px] text-[#121212]">عين نوفا</span>
-              </span>
-            </div>
+            <span className="text-[15px] sm:text-[18px] font-normal tracking-tight text-[#121212] leading-tight whitespace-nowrap flex items-center gap-1">
+              <span>EyeNova</span>
+              <span className="font-arabic text-[12px] sm:text-[14px] text-[#707070]">عين نوفا</span>
+            </span>
           </Link>
         </div>
 
@@ -225,11 +222,11 @@ export function Navbar() {
         </nav>
 
         {/* Right Icons: Language Switch, Search, (Account desktop), Bag with count */}
-        <div className="flex items-center justify-end gap-2 sm:gap-3.5">
+        <div className="flex items-center justify-end gap-1.5 sm:gap-3 z-10">
           {/* Language Toggle */}
           <button
             onClick={() => setLang(lang === "en" ? "ar" : "en")}
-            className="bg-[#f8edeb] hover:bg-[#f0e4e1] text-[#121212] border border-[#e8dcd9] text-[11px] sm:text-[12px] font-normal px-2.5 py-1 rounded-xs transition cursor-pointer"
+            className="bg-[#f8edeb] hover:bg-[#f0e4e1] text-[#121212] border border-[#e8dcd9] text-[11px] font-normal px-2 py-0.5 rounded-xs transition cursor-pointer"
           >
             {lang === "en" ? "العربية" : "English"}
           </button>
@@ -240,7 +237,7 @@ export function Navbar() {
             className="text-[#121212] hover:text-[#707070] p-1.5 transition cursor-pointer"
             aria-label="Search"
           >
-            <Search size={19} strokeWidth={1.6} />
+            <Search size={18} strokeWidth={1.6} />
           </button>
 
           {/* Account Icon (Desktop only, mobile has Account in bottom bar) */}
