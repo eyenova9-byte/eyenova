@@ -257,16 +257,16 @@ export default function ProductDetailPage() {
       )}
 
       {/* Main PDP Container */}
-      <div className="max-w-[1240px] mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14">
+      <div className="max-w-[1200px] mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           
           {/* ================================================================= */}
-          {/* LEFT COLUMN: Sticky Media Gallery (moves with scroll)             */}
+          {/* LEFT COLUMN: Sticky Media Gallery (Eyenk 45% column, borderless)   */}
           {/* ================================================================= */}
-          <div className="lg:col-span-6">
+          <div className="lg:col-span-5">
             <div className="lg:sticky lg:top-24 flex flex-col gap-3">
               
-              {/* Main Featured Image Display - Fits comfortably on screen without excessive scroll */}
+              {/* Main Featured Image Display - Eyenk 1:1 borderless, natural fit */}
               <div
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
@@ -275,7 +275,7 @@ export default function ProductDetailPage() {
                   setModalZoomed(false);
                   setLightboxOpen(true);
                 }}
-                className="relative w-full h-[320px] sm:h-[400px] md:h-[450px] lg:h-[480px] bg-white border border-[#eaeaea] rounded-sm flex items-center justify-center cursor-zoom-in overflow-hidden select-none group"
+                className="relative w-full max-w-[420px] mx-auto flex items-center justify-center cursor-zoom-in select-none group"
               >
                 <img
                   src={
@@ -283,12 +283,12 @@ export default function ProductDetailPage() {
                     product.images[0]?.imageUrl
                   }
                   alt={product.titleEn}
-                  className="w-full h-full object-contain p-4 mix-blend-multiply transition-transform duration-300 group-hover:scale-105"
+                  className="w-full max-h-[380px] sm:max-h-[420px] object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105"
                 />
                 
-                {/* Zoom Hint Indicator */}
-                <div className="absolute top-3 right-3 bg-white/80 hover:bg-white text-[#121212] p-2 rounded-full shadow-xs backdrop-blur-xs transition flex items-center justify-center">
-                  <ZoomIn size={16} />
+                {/* Zoom Plus Icon (matching Eyenk exact plus icon in top-right) */}
+                <div className="absolute top-2 right-2 text-[#121212]/60 hover:text-[#121212] p-1.5 transition flex items-center justify-center">
+                  <ZoomIn size={18} />
                 </div>
 
                 {/* Left/Right Click Nav Arrows for Multi-image */}
@@ -302,7 +302,7 @@ export default function ProductDetailPage() {
                           prev > 0 ? prev - 1 : product.images.length - 1
                         );
                       }}
-                      className="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/80 hover:bg-white shadow-xs flex items-center justify-center text-[#121212] transition opacity-0 group-hover:opacity-100 sm:opacity-75 cursor-pointer"
+                      className="absolute left-0 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/80 hover:bg-white shadow-xs flex items-center justify-center text-[#121212] transition opacity-0 group-hover:opacity-100 sm:opacity-75 cursor-pointer"
                       aria-label="Previous image"
                     >
                       <ChevronLeft size={18} />
@@ -315,7 +315,7 @@ export default function ProductDetailPage() {
                           prev < product.images.length - 1 ? prev + 1 : 0
                         );
                       }}
-                      className="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/80 hover:bg-white shadow-xs flex items-center justify-center text-[#121212] transition opacity-0 group-hover:opacity-100 sm:opacity-75 cursor-pointer"
+                      className="absolute right-0 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-white/80 hover:bg-white shadow-xs flex items-center justify-center text-[#121212] transition opacity-0 group-hover:opacity-100 sm:opacity-75 cursor-pointer"
                       aria-label="Next image"
                     >
                       <ChevronRight size={18} />
@@ -323,23 +323,23 @@ export default function ProductDetailPage() {
                   </>
                 )}
                 
-                {/* Image Counter Badge (1 / 4) */}
-                <span className="absolute bottom-3 right-3 text-[11px] bg-black/60 text-white px-2.5 py-0.5 rounded-full backdrop-blur-xs font-mono">
+                {/* Mobile Image Counter Badge */}
+                <span className="lg:hidden absolute bottom-2 right-2 text-[11px] bg-black/60 text-white px-2.5 py-0.5 rounded-full backdrop-blur-xs font-mono">
                   {activeImageIndex + 1} / {product.images.length || 1}
                 </span>
               </div>
 
-              {/* Thumbnails Row: Small bordered container at bottom */}
+              {/* Thumbnails Row: Clean Borderless Thumbnails underneath */}
               {product.images.length > 1 && (
-                <div className="flex items-center gap-2 overflow-x-auto py-1 scrollbar-none">
+                <div className="flex items-center justify-center gap-2 overflow-x-auto py-1 scrollbar-none max-w-[420px] mx-auto w-full">
                   {product.images.map((img, idx) => (
                     <button
                       key={idx}
                       onClick={() => setActiveImageIndex(idx)}
-                      className={`relative w-16 h-16 sm:w-20 sm:h-20 bg-white shrink-0 p-1 flex items-center justify-center cursor-pointer transition rounded-sm ${
+                      className={`relative w-14 h-14 sm:w-16 sm:h-16 shrink-0 p-1 flex items-center justify-center cursor-pointer transition ${
                         activeImageIndex === idx
-                          ? "border-2 border-[#121212] ring-1 ring-[#121212]/10"
-                          : "border border-[#e5e5e5] opacity-60 hover:opacity-100 hover:border-neutral-400"
+                          ? "border border-[#121212] opacity-100"
+                          : "border border-neutral-200 opacity-60 hover:opacity-100"
                       }`}
                       aria-label={`View image ${idx + 1}`}
                     >
@@ -356,9 +356,9 @@ export default function ProductDetailPage() {
           </div>
 
           {/* ================================================================= */}
-          {/* RIGHT COLUMN: Product Information & Purchase Form                 */}
+          {/* RIGHT COLUMN: Product Information & Purchase Form (Eyenk 55%)     */}
           {/* ================================================================= */}
-          <div className="lg:col-span-6">
+          <div className="lg:col-span-7 lg:pl-6">
             <div className="flex flex-col">
               
               {/* Vendor / Brand (Eyenk uppercase caption) */}
@@ -622,19 +622,19 @@ export default function ProductDetailPage() {
                 <button
                   type="button"
                   onClick={handleAddToCart}
-                  className="w-full h-12 border border-[#121212] text-white bg-[#121212] hover:bg-[#2b2b2b] text-[13px] font-medium tracking-wider transition rounded-none uppercase flex items-center justify-center active:scale-[0.99]"
+                  className="w-full h-12 border border-[#121212] bg-[#121212] hover:bg-[#2b2b2b] text-[13px] font-medium tracking-wider transition rounded-none uppercase flex items-center justify-center active:scale-[0.99] cursor-pointer"
                 >
-                  Add to cart
+                  <span className="text-white font-medium">Add to cart</span>
                 </button>
 
                 <button
                   type="button"
                   onClick={handleInstantBuy}
-                  className="w-full h-12 bg-black text-white hover:bg-neutral-800 text-[13px] font-medium tracking-wide transition rounded-none flex items-center justify-center gap-2 shadow-sm"
+                  className="w-full h-12 bg-black hover:bg-neutral-800 text-[13px] font-medium tracking-wide transition rounded-none flex items-center justify-center gap-2 shadow-xs cursor-pointer"
                 >
-                  <span>Buy with</span>
-                  <span className="font-bold flex items-center gap-1">
-                    <svg className="w-4 h-4 fill-current" viewBox="0 0 170 170">
+                  <span className="text-white">Buy with</span>
+                  <span className="text-white font-bold flex items-center gap-1">
+                    <svg className="w-4 h-4 fill-white text-white" viewBox="0 0 170 170">
                       <path d="M150.37 130.25c-2.45 5.66-5.35 10.87-8.71 15.66-4.58 6.53-8.33 11.05-11.22 13.56-4.48 4.12-9.28 6.23-14.42 6.35-3.69 0-8.14-1.05-13.32-3.18-5.19-2.12-9.97-3.17-14.34-3.17-4.58 0-9.49 1.05-14.74 3.17-5.26 2.13-9.5 3.24-12.74 3.35-4.35.13-9.16-1.9-14.42-6.08-3.7-3.08-7.61-7.8-11.73-14.15-5.91-9.14-10.45-19.38-13.62-30.73-3.17-11.35-4.76-22.18-4.76-32.49 0-14.99 3.7-27.42 11.09-37.3 7.39-9.87 16.74-14.92 28.05-15.14 4.8 0 10.15 1.25 16.06 3.75 5.91 2.5 9.71 3.86 11.41 4.08 2.01-.33 6.03-1.8 12.06-4.41 6.03-2.61 11.3-3.78 15.81-3.52 12.24.65 22.02 5.23 29.35 13.73-10.66 6.42-15.88 15.34-15.66 26.77.22 8.92 3.7 16.48 10.45 22.68 6.74 6.2 14.79 9.89 24.15 11.08-2.07 6.42-4.53 12.73-7.39 18.93zM119.22 32.74c0-7.18 2.61-13.92 7.84-20.23 5.22-6.31 11.69-10.48 19.4-12.51.22 1.09.33 2.18.33 3.27 0 7.07-2.67 13.98-8.02 20.73-5.34 6.74-11.85 10.77-19.55 12.08z" />
                     </svg>
                     Pay

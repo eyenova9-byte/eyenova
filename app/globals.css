@@ -49,9 +49,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Form controls font inherit */
-button, input, select, textarea {
+input, select, textarea {
   font-family: inherit;
   color: inherit;
+}
+button {
+  font-family: inherit;
 }
 
 /* Text selection */
