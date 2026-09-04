@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 
 export function Footer() {
-  const { language, setLanguage } = useLanguage();
+  const { lang, setLang } = useLanguage();
   const [email, setEmail] = useState("");
   const [subscribed, setSubscribed] = useState(false);
 
@@ -68,8 +68,8 @@ export function Footer() {
             <div className="space-y-3 text-[14px] text-gray-700">
               <p>
                 Email:{" "}
-                <a href="mailto:support@eyenk.com" className="hover:underline text-gray-800">
-                  support@eyenk.com
+                <a href="mailto:support@eyenova.com" className="hover:underline text-gray-800">
+                  support@eyenova.com
                 </a>
               </p>
               <p>
@@ -86,7 +86,7 @@ export function Footer() {
             </div>
           </div>
 
-          {/* Column 3: Eyenk Logo & Arabic Title on Right */}
+          {/* Column 3: EyeNova Logo & Arabic Title on Right */}
           <div className="flex md:justify-end items-start">
             <Link href="/" className="flex flex-col items-center group">
               <div className="w-16 h-9 flex items-center justify-center text-[#5c2d76]">
@@ -104,7 +104,7 @@ export function Footer() {
                 </svg>
               </div>
               <span className="text-[15px] font-semibold text-[#5c2d76] tracking-tight mt-0.5">
-                Eyenk عينك
+                EyeNova عين نوفا
               </span>
             </Link>
           </div>
@@ -118,7 +118,7 @@ export function Footer() {
             <h4 className="text-[16px] font-normal text-[#1e232d] mb-3">Subscribe to our emails</h4>
             {subscribed ? (
               <p className="text-xs text-emerald-700 bg-emerald-50 py-2 px-3 border border-emerald-200">
-                Thank you for subscribing to Eyenk updates!
+                Thank you for subscribing to EyeNova updates!
               </p>
             ) : (
               <form onSubmit={handleSubscribe} className="relative w-full">
@@ -144,7 +144,7 @@ export function Footer() {
           {/* Social Icons (Instagram, TikTok) */}
           <div className="flex items-center gap-4 text-gray-800">
             <a
-              href="https://www.instagram.com/eyenk_qa"
+              href="https://www.instagram.com/eyenova_qa"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="Instagram"
@@ -155,7 +155,7 @@ export function Footer() {
               </svg>
             </a>
             <a
-              href="https://www.tiktok.com/@eyenk_qa"
+              href="https://www.tiktok.com/@eyenova_qa"
               target="_blank"
               rel="noopener noreferrer"
               aria-label="TikTok"
@@ -181,8 +181,8 @@ export function Footer() {
               <div className="relative inline-block">
                 <select
                   id="footer-lang"
-                  value={language}
-                  onChange={(e) => setLanguage(e.target.value as "en" | "ar")}
+                  value={lang}
+                  onChange={(e) => setLang(e.target.value as "en" | "ar")}
                   className="appearance-none bg-transparent border border-gray-400 px-3 py-1.5 pr-8 text-[13px] text-gray-800 rounded-none focus:outline-none cursor-pointer"
                 >
                   <option value="en">English</option>
@@ -194,45 +194,45 @@ export function Footer() {
               </div>
             </div>
             <p className="text-[13px] text-gray-600">
-              © {new Date().getFullYear()}, Eyenk.com
+              © {new Date().getFullYear()}, EyeNova.com
             </p>
           </div>
 
-          {/* Payment Method Badges from Screenshot 3 */}
+          {/* Payment Method Badges - Light colors only, no dark solid blocks */}
           <div className="flex flex-wrap items-center gap-1.5">
             {/* AMEX */}
-            <span className="inline-flex items-center justify-center bg-[#006FCF] text-white font-bold text-[9px] px-2 py-1 rounded-xs tracking-tighter shadow-2xs h-6 w-10">
+            <span className="inline-flex items-center justify-center bg-white border border-gray-300 text-[#006FCF] font-bold text-[9px] px-2 py-1 rounded-xs h-6 w-11 shadow-2xs">
               AMEX
             </span>
 
             {/* Apple Pay */}
-            <span className="inline-flex items-center justify-center bg-black text-white font-medium text-[9px] px-2 py-1 rounded-xs tracking-tight shadow-2xs h-6 w-11">
+            <span className="inline-flex items-center justify-center bg-white border border-gray-300 text-gray-900 font-semibold text-[9px] px-2 py-1 rounded-xs h-6 w-11 shadow-2xs">
               Pay
             </span>
 
             {/* QPay / NAPS Qatar */}
-            <span className="inline-flex items-center justify-center bg-white text-[#8A1538] border border-gray-200 font-bold text-[8.5px] px-1.5 py-1 rounded-xs shadow-2xs h-6">
+            <span className="inline-flex items-center justify-center bg-white border border-gray-300 text-[#8A1538] font-bold text-[8.5px] px-2 py-1 rounded-xs h-6 shadow-2xs">
               QPay
             </span>
 
             {/* mada */}
-            <span className="inline-flex items-center justify-center bg-[#005B94] text-[#00A859] bg-white border border-gray-200 font-bold text-[8.5px] px-1.5 py-1 rounded-xs shadow-2xs h-6">
+            <span className="inline-flex items-center justify-center bg-white border border-gray-300 text-[#005B94] font-bold text-[8.5px] px-2 py-1 rounded-xs h-6 shadow-2xs">
               mada
             </span>
 
             {/* Mastercard */}
-            <span className="inline-flex items-center justify-center bg-[#222] text-white px-1.5 py-1 rounded-xs shadow-2xs h-6 w-10">
+            <span className="inline-flex items-center justify-center bg-white border border-gray-300 px-2 py-1 rounded-xs h-6 w-11 shadow-2xs">
               <span className="w-2.5 h-2.5 rounded-full bg-[#EB001B] inline-block -mr-1 opacity-90"></span>
               <span className="w-2.5 h-2.5 rounded-full bg-[#F79E1B] inline-block opacity-90"></span>
             </span>
 
-            {/* Benefit / Fawry */}
-            <span className="inline-flex items-center justify-center bg-white text-[#E41E26] border border-gray-200 font-bold text-[8px] px-1.5 py-1 rounded-xs shadow-2xs h-6">
+            {/* NAPS */}
+            <span className="inline-flex items-center justify-center bg-white border border-gray-300 text-[#E41E26] font-bold text-[8px] px-2 py-1 rounded-xs h-6 shadow-2xs">
               NAPS
             </span>
 
             {/* VISA */}
-            <span className="inline-flex items-center justify-center bg-[#1A1F71] text-white font-extrabold italic text-[9px] px-2 py-1 rounded-xs tracking-tight shadow-2xs h-6 w-10">
+            <span className="inline-flex items-center justify-center bg-white border border-gray-300 text-[#1A1F71] font-extrabold italic text-[9px] px-2 py-1 rounded-xs h-6 w-11 shadow-2xs">
               VISA
             </span>
           </div>

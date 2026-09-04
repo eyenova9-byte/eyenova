@@ -111,7 +111,7 @@ export function Navbar() {
           </div>
           <div className="flex flex-col">
             <span className="text-[17px] sm:text-[19px] font-medium tracking-tight text-slate-900 leading-tight">
-              Eyenk <span className="font-arabic text-[15px] sm:text-[16px] text-slate-800">عينك</span>
+              EyeNova <span className="font-arabic text-[15px] sm:text-[16px] text-slate-800">عين نوفا</span>
             </span>
           </div>
         </Link>
@@ -282,7 +282,7 @@ export function Navbar() {
           <div className="max-w-3xl mx-auto flex items-center gap-3">
             <input
               type="text"
-              placeholder={lang === "ar" ? "ابحث في متجر عينك..." : "Search Eyenk store..."}
+              placeholder={lang === "ar" ? "ابحث في متجر عين نوفا..." : "Search EyeNova store..."}
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="flex-1 px-4 py-2.5 bg-white border border-gray-300 rounded-lg text-xs font-medium focus:outline-none focus:border-slate-900"

@@ -259,19 +259,19 @@ export function EyenkStorefront() {
             {[
               {
                 name: "Tawar Mall, Al Markhiya",
-                mapsUrl: "https://www.google.com/maps/search/Eyenk+Contact+Lens+Tawar+Mall+Al+Markhiya+Qatar",
+                mapsUrl: "https://www.google.com/maps/search/EyeNova+Contact+Lens+Tawar+Mall+Al+Markhiya+Qatar",
               },
               {
                 name: "Place Vendôme Mall, Lusail",
-                mapsUrl: "https://www.google.com/maps/search/Eyenk+Contact+Lens+Place+Vendome+Mall+Lusail+Qatar",
+                mapsUrl: "https://www.google.com/maps/search/EyeNova+Contact+Lens+Place+Vendome+Mall+Lusail+Qatar",
               },
               {
                 name: "Ezdan Mall, Wakrah",
-                mapsUrl: "https://www.google.com/maps/search/Eyenk+Contact+Lens+Ezdan+Mall+Wakrah+Qatar",
+                mapsUrl: "https://www.google.com/maps/search/EyeNova+Contact+Lens+Ezdan+Mall+Wakrah+Qatar",
               },
               {
                 name: "Umm Salal Ali",
-                mapsUrl: "https://www.google.com/maps/search/Eyenk+Contact+Lens+Umm+Salal+Ali+Qatar",
+                mapsUrl: "https://www.google.com/maps/search/EyeNova+Contact+Lens+Umm+Salal+Ali+Qatar",
               },
             ].map((loc) => (
               <a
