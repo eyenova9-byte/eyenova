@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
 import { MOCK_PRODUCTS, MockProduct } from "@/lib/mockData";
+import { ProductCard } from "@/components/ProductCard";
 import { DualEyeModal } from "@/components/DualEyeModal";
 import { VirtualTryOnModal } from "@/components/VirtualTryOnModal";
 import { ShoppingBag, Eye, SlidersHorizontal, Check } from "lucide-react";
@@ -146,53 +147,10 @@ function ShopContent() {
                 </button>
               </div>
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredProducts.map((product) => {
-                  const price = product.salePriceQar || product.basePriceQar;
-                  const isContactLens =
-                    product.productType === "COLORED_CONTACT_LENSES" ||
-                    product.productType === "MEDICAL_CONTACT_LENSES";
-
-                  return (
-                    <div
-                      key={product.id}
-                      className="bg-white rounded-3xl border border-gray-200/80 p-4 shadow-sm hover:shadow-xl transition duration-300 flex flex-col justify-between group"
-                    >
-                      <Link href={`/products/${product.slug}`} className="block">
-                        <div className="relative aspect-square rounded-2xl overflow-hidden bg-gray-50 mb-3 border border-gray-100">
-                          <img
-                            src={product.images[0]?.imageUrl}
-                            alt={product.titleEn}
-                            className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                          />
-                          <span className="absolute top-3 left-3 text-[10px] font-extrabold uppercase tracking-wider bg-slate-900 text-white px-2 py-0.5 rounded-full">
-                            {product.brandName}
-                          </span>
-                        </div>
-
-                        <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest block">
-                          {product.collectionName || product.categorySlug}
-                        </span>
-                        <h3 className="font-extrabold text-xs text-slate-900 line-clamp-1">
-                          {lang === "ar" ? product.titleAr : product.titleEn}
-                        </h3>
-                      </Link>
-
-                      <div className="mt-4 pt-3 border-t border-gray-100 flex items-center justify-between">
-                        <span className="text-sm font-extrabold text-slate-900">
-                          {price} QAR
-                        </span>
-                        <button
-                          onClick={() => setSelectedProduct(product)}
-                          className="px-3.5 py-1.5 bg-slate-900 text-white text-xs font-bold rounded-xl hover:bg-slate-800 transition flex items-center gap-1"
-                        >
-                          <ShoppingBag size={14} />
-                          <span>{t.addToCart}</span>
-                        </button>
-                      </div>
-                    </div>
-                  );
-                })}
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 items-start">
+                {filteredProducts.map((product) => (
+                  <ProductCard key={product.id} product={product} />
+                ))}
               </div>
             )}
           </div>
