@@ -90,10 +90,17 @@ export function EyenkStorefront() {
     },
   ];
 
-  // 3. Exact Best Selling Medical Lens Packs (from Screenshot 1 & 2)
-  const medicalLenses = MOCK_PRODUCTS.filter(
-    (p) => p.categorySlug === "medical-lenses"
-  );
+  // 3. Exact 5 Best Selling Medical Lens Packs (from Screenshot)
+  const medicalOrder = [
+    "1-day-acuvue-moist-30-pack",
+    "acuvue-oasys-1-day-hydraluxe",
+    "alcon-dailies-total-1",
+    "dailies-aquacomfort-plus",
+    "air-optix-plus-hydraglyde-6-pack",
+  ];
+  const medicalLenses = medicalOrder
+    .map((slug) => MOCK_PRODUCTS.find((p) => p.slug === slug))
+    .filter(Boolean) as typeof MOCK_PRODUCTS;
 
   // 4. Exact NEW LensMe Korea Style (from Screenshot 3: Sylva, Glow, Nude, Shine)
   const koreaStyleLenses = [
@@ -203,7 +210,7 @@ export function EyenkStorefront() {
             Best Selling Medical Lens
           </h2>
 
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 sm:gap-5">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-6 sm:gap-8 items-start">
             {medicalLenses.map((product) => (
               <ProductCard key={product.id} product={product} />
             ))}
