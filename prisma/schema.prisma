@@ -1,0 +1,551 @@
+// ============================================================================
+// EyeNova - E-Commerce & Optical Store Management Prisma Schema
+// 100% EXACT PRODUCT STRUCTURE MATCH WITH EYENK.COM (Qatar Market Leader)
+// Product Categories:
+//   1. Medical Contact Lenses (Acuvue, Alcon, Bausch & Lomb, CooperVision, Dailies)
+//   2. Colored Contact Lenses (Bella, Amara, Lensme, Diva, Celena, Daya, FreshLook, Acuvue Define)
+//   3. Contact Lens Solutions & Eye Drops (Opti-Free, Biotrue, Renu, Systane)
+//   4. Lashes & Beauty Accessories (Lashes, Cases, Insertion Tools, Travel Kits)
+//   5. Optical Spectacles & Sunglasses
+// ============================================================================
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ----------------------------------------------------------------------------
+// Enums (Matches Eyenk.com Taxonomy Exactly)
+// ----------------------------------------------------------------------------
+
+enum Role {
+  CUSTOMER
+  STAFF
+  OPTOMETRIST
+  ADMIN
+}
+
+enum PdType {
+  SINGLE
+  DUAL
+}
+
+enum ProductType {
+  MEDICAL_CONTACT_LENSES  // Clear vision corrective contact lenses (Acuvue, Alcon, Bausch & Lomb, CooperVision)
+  COLORED_CONTACT_LENSES  // Cosmetic & prescription colored lenses (Bella, Amara, Lensme, Diva, Celena, Daya)
+  LENS_SOLUTION_CARE      // Multi-purpose solutions, eye drops, travel kits
+  LASHES_BEAUTY           // False lashes & beauty eye care
+  SPECTACLES             // Prescription frames & glasses
+  SUNGLASSES              // Fashion & polarized sunglasses
+  ACCESSORY               // Chains, cases, insertion tools, cleaning cloths
+}
+
+enum ContactLensDuration {
+  DAILY_DISPOSABLE        // 1 Day (e.g. 1 Day Acuvue Moist, Bella One Day)
+  BI_WEEKLY               // 2 Weeks (e.g. Acuvue Oasys)
+  MONTHLY                 // 1 Month (e.g. Biofinity, Air Optix, Lensme Monthly)
+  QUARTERLY               // 3 Months
+  SEMI_ANNUAL             // 6 Months
+  YEARLY                  // 1 Year (e.g. Bella Diamond, Solotica)
+}
+
+enum AttributeType {
+  BRAND                   // Bella, Amara, Lensme, Diva, Celena, Daya, Acuvue, Alcon, Bausch & Lomb, CooperVision, FreshLook
+  COLOR_SHADE             // Brown, Gray, Green, Hazel, Blue, Honey, Caramel, Black
+  CORRECTION_TYPE         // Spherical (Myopia/Hyperopia), Toric (Astigmatism), Multifocal (Presbyopia)
+  DISPOSAL_FREQUENCY      // Daily, Bi-Weekly, Monthly, Yearly
+  FRAME_SHAPE             // Cat Eye, Round, Rectangle, Aviator, Wayfarer, Clubmaster, Geometric, Oval
+  FRAME_MATERIAL          // Titanium, Acetate, Stainless Steel, TR90 Memory Plastic
+  GENDER                  // Men, Women, Kids, Unisex
+}
+
+enum LensUsage {
+  FRAME_ONLY
+  SINGLE_VISION_DISTANCE
+  SINGLE_VISION_READING
+  BIFOCAL
+  PROGRESSIVE
+  ZERO_POWER_COMPUTER     // Blue light filter 0.00 power
+}
+
+enum OrderSource {
+  WEBSITE
+  IN_STORE_POS
+  WHATSAPP
+}
+
+enum OrderStatus {
+  PENDING_PAYMENT
+  PAYMENT_CONFIRMED
+  PRESCRIPTION_REVIEW       // Optical staff verifying prescription numbers / uploaded note
+  IN_LAB_PRODUCTION         // Lenses being cut & edged into frame
+  QUALITY_CHECK             // Optometrist alignment & power verification
+  READY_FOR_DISPATCH
+  OUT_FOR_DELIVERY          // Driver dispatch in Qatar (Doha, Lusail, etc.)
+  DELIVERED
+  CANCELLED
+  REFUNDED
+}
+
+enum PaymentMethod {
+  CASH_ON_DELIVERY
+  DEBIT_CARD_QPAY           // Qatar local debit card payment (NAPS / QPay)
+  CREDIT_CARD
+  APPLE_PAY
+  IN_STORE_PAYMENT
+}
+
+enum PaymentStatus {
+  PENDING
+  PAID
+  FAILED
+  REFUNDED
+}
+
+enum InvoiceStatus {
+  DRAFT
+  ISSUED
+  PAID
+  CANCELLED
+  REFUNDED
+}
+
+// ----------------------------------------------------------------------------
+// Users, Profiles & Addresses (Qatar Localized)
+// ----------------------------------------------------------------------------
+
+model User {
+  id            String         @id @default(uuid())
+  phone         String         @unique // e.g. "+97455123456"
+  email         String?        @unique
+  fullName      String?
+  role          Role           @default(CUSTOMER)
+  isActive      Boolean        @default(true)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  addresses     Address[]
+  prescriptions Prescription[]
+  orders        Order[]
+
+  @@index([phone])
+  @@index([email])
+}
+
+model Address {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  label        String   @default("Home") // "Home", "Work", "Office"
+  fullName     String
+  phone        String   // Contact phone for delivery driver in Qatar
+  street       String
+  buildingNo   String?  // Building / Villa Number
+  zoneNo       String?  // Qatar Municipality Zone (e.g. Zone 55 - Al Aziziya, Zone 66 - West Bay)
+  streetNo     String?  // Qatar Street Number
+  city         String   // Doha, Lusail, Al Rayyan, Al Wakrah, Al Khor, West Bay, The Pearl
+  country      String   @default("Qatar")
+  isDefault    Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([userId])
+}
+
+// ----------------------------------------------------------------------------
+// Clinical Optical Prescriptions (Spectacles & Contact Lenses)
+// ----------------------------------------------------------------------------
+
+model Prescription {
+  id               String       @id @default(uuid())
+  userId           String?
+  user             User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+  title            String       // e.g. "Daily Distance Specs", "Reading 2026", "Acuvue Moist Left & Right"
+  patientName      String?      // If ordering for a family member
+  optometristName  String?      // Prescribing doctor / clinic name
+
+  // --- Right Eye (OD - Oculus Dexter) ---
+  odSph            Decimal?     @db.Decimal(4, 2) // Sphere/Power (-20.00 to +20.00)
+  odCyl            Decimal?     @db.Decimal(4, 2) // Cylinder/Astigmatism (-10.00 to +10.00)
+  odAxis           Int?                           // Axis (1 to 180 deg)
+  odAdd            Decimal?     @db.Decimal(4, 2) // Near Addition (+0.75 to +4.00)
+  odPrism          Decimal?     @db.Decimal(4, 2) // Prism value
+  odBase           String?                        // Prism Base: UP, DOWN, IN, OUT
+  odBaseCurve      Decimal?     @db.Decimal(3, 1) // For Contact Lenses (e.g. 8.5)
+  odDiameter       Decimal?     @db.Decimal(3, 1) // For Contact Lenses (e.g. 14.2)
+
+  // --- Left Eye (OS - Oculus Sinister) ---
+  osSph            Decimal?     @db.Decimal(4, 2)
+  osCyl            Decimal?     @db.Decimal(4, 2)
+  osAxis           Int?
+  osAdd            Decimal?     @db.Decimal(4, 2)
+  osPrism          Decimal?     @db.Decimal(4, 2)
+  osBase           String?
+  osBaseCurve      Decimal?     @db.Decimal(3, 1)
+  osDiameter       Decimal?     @db.Decimal(3, 1)
+
+  // --- Pupillary Distance (PD) ---
+  pdType           PdType       @default(SINGLE)
+  pdSingle         Decimal?     @db.Decimal(4, 1) // 50.0 to 75.0 mm
+  pdRight          Decimal?     @db.Decimal(4, 1) // 25.0 to 37.5 mm (for dual PD)
+  pdLeft           Decimal?     @db.Decimal(4, 1) // 25.0 to 37.5 mm (for dual PD)
+
+  // --- Doctor Prescription Document ---
+  prescriptionUrl  String?                        // Uploaded doctor's prescription image or PDF URL
+  isVerified       Boolean      @default(false)   // Verified by optometrist / optical staff
+  verifiedBy       String?
+  verifiedAt       DateTime?
+  notes            String?                        // Clinical or lab notes
+
+  createdAt        DateTime     @default(now())
+  updatedAt        DateTime     @updatedAt
+
+  orderItems       OrderItem[]
+
+  @@index([userId])
+}
+
+// ----------------------------------------------------------------------------
+// Categories & Dynamic Product Attributes (Exact Eyenk Parity)
+// ----------------------------------------------------------------------------
+
+model Category {
+  id             String      @id @default(uuid())
+  nameEn         String      // e.g. "Color Lenses", "Medical Lenses", "Solutions & Drops", "Lashes", "Eyeglasses", "Sunglasses"
+  nameAr         String      // e.g. "عدسات ملونة", "عدسات طبية", "محاليل وقطرات", "رموش", "نظارات طبية", "نظارات شمسية"
+  slug           String      @unique
+  descriptionEn  String?
+  descriptionAr  String?
+  imageUrl       String?
+  icon           String?
+  sortOrder      Int         @default(0)
+  isActive       Boolean     @default(true)
+  parentId       String?
+  parent         Category?   @relation("CategoryHierarchy", fields: [parentId], references: [id], onDelete: SetNull)
+  subcategories  Category[]  @relation("CategoryHierarchy")
+  products       Product[]
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+
+  @@index([slug])
+}
+
+model Attribute {
+  id             String              @id @default(uuid())
+  type           AttributeType
+  nameEn         String              // e.g. "Bella", "Amara", "Lensme", "Diva", "Brown", "Gray", "Daily"
+  nameAr         String              // e.g. "بيلا", "أمارا", "لينس مي", "ديفا", "بني", "رمادي", "يومي"
+  slug           String              @unique
+  hexColor       String?             // For color swatches
+  iconUrl        String?
+  sortOrder      Int                 @default(0)
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+
+  products       ProductAttribute[]
+
+  @@index([type])
+  @@index([slug])
+}
+
+// ----------------------------------------------------------------------------
+// Products, Inventory & Eyewear Specifications (Exact Eyenk Parity)
+// ----------------------------------------------------------------------------
+
+model Product {
+  id             String              @id @default(uuid())
+  sku            String              @unique // e.g. "BEL-DIA-GRY-01"
+  barcode        String?             @unique
+  productType    ProductType         @default(COLORED_CONTACT_LENSES)
+
+  titleEn        String              // e.g. "Bella Diamond Gray Shadow"
+  titleAr        String              // e.g. "عدسات بيلا دايموند جراي شادو"
+  slug           String              @unique
+  descriptionEn  String?
+  descriptionAr  String?
+
+  categoryId     String
+  category       Category            @relation(fields: [categoryId], references: [id])
+
+  brandName      String?             // "Bella", "Amara", "Lensme", "Diva", "Celena", "Daya", "Acuvue", "Alcon", "FreshLook"
+  collectionName String?             // e.g. "Bella Diamond", "Bella Dye Collection", "Amara NMR Series"
+
+  // Pricing in QAR (Qatari Riyal)
+  basePriceQar   Decimal             @db.Decimal(10, 2)
+  salePriceQar   Decimal?            @db.Decimal(10, 2)
+  costPriceQar   Decimal?            @db.Decimal(10, 2)
+
+  // Inventory Management
+  stockQuantity  Int                 @default(0)
+  minStockAlert  Int                 @default(3)
+  isFeatured     Boolean             @default(false)
+  isActive       Boolean             @default(true)
+
+  // ==========================================
+  // CONTACT LENSES FIELDS (Eyenk Parity)
+  // ==========================================
+  lensDuration       ContactLensDuration? // DAILY_DISPOSABLE, MONTHLY, YEARLY, etc.
+  packSize           Int?                 // 2 lenses, 10, 30, 90 per box
+  baseCurve          Decimal?             @db.Decimal(3, 1)  // e.g. 8.6 mm
+  diameter           Decimal?             @db.Decimal(3, 1)  // e.g. 14.2 mm, 14.5 mm
+  waterContent       Decimal?             @db.Decimal(4, 1)  // e.g. 38.0%, 48.0%, 58.0%
+  hasPrescription    Boolean              @default(true)     // False if purely cosmetic 0.00 plano
+  hasPlanoOption     Boolean              @default(true)     // True if available in 0.00 / Plano without power
+  colorNameEn        String?              // e.g. "Hazel", "Brown", "Gray", "Green", "Honey", "Caramel"
+  colorNameAr        String?              // e.g. "عسلي", "بني", "رمادي", "أخضر"
+  colorHex           String?              // Swatch hex code
+  // JSON Array of Available Sphere Powers: ["0.00", "-0.50", "-0.75", "-1.00", ..., "-10.00"]
+  availablePowers    Json?
+
+  // ==========================================
+  // EYEGLASSES & SUNGLASSES FIELDS
+  // ==========================================
+  lensWidth          Decimal?            @db.Decimal(4, 1)
+  bridgeWidth        Decimal?            @db.Decimal(4, 1)
+  templeLength       Decimal?            @db.Decimal(4, 1)
+  lensHeight         Decimal?            @db.Decimal(4, 1)
+  frameWidth         Decimal?            @db.Decimal(4, 1)
+  weightGrams        Decimal?            @db.Decimal(5, 1)
+  isPolarized        Boolean             @default(false)
+
+  // ==========================================
+  // SOLUTIONS & LASHES FIELDS
+  // ==========================================
+  volumeMl           Int?                // e.g. 60ml, 120ml, 300ml, 355ml
+
+  // Virtual Try-On Asset (Webcam / Canvas Overlay)
+  tryOnModelUrl      String?
+
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+
+  images             ProductImage[]
+  attributes         ProductAttribute[]
+  orderItems         OrderItem[]
+
+  @@index([categoryId])
+  @@index([slug])
+  @@index([sku])
+  @@index([productType])
+  @@index([brandName])
+}
+
+model ProductAttribute {
+  productId    String
+  product      Product    @relation(fields: [productId], references: [id], onDelete: Cascade)
+  attributeId  String
+  attribute    Attribute  @relation(fields: [attributeId], references: [id], onDelete: Cascade)
+
+  @@id([productId, attributeId])
+  @@index([productId])
+  @@index([attributeId])
+}
+
+model ProductImage {
+  id           String   @id @default(uuid())
+  productId    String
+  product      Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  imageUrl     String
+  altEn        String?
+  altAr        String?
+  isPrimary    Boolean  @default(false)
+  is360View    Boolean  @default(false)
+  isEyeShot    Boolean  @default(false) // Close-up showing colored lens on eye
+  sortOrder    Int      @default(0)
+  createdAt    DateTime @default(now())
+
+  @@index([productId])
+}
+
+// ----------------------------------------------------------------------------
+// Lens Packages & Coatings Catalog (For Optical Eyeglasses)
+// ----------------------------------------------------------------------------
+
+model LensOption {
+  id             String       @id @default(uuid())
+  nameEn         String       // e.g. "Ultra Thin 1.67 Blue Shield + Anti-Reflective"
+  nameAr         String       // e.g. "عدسات فائقة الرقة 1.67 حماية من الضوء الأزرق"
+  lensUsage      LensUsage
+  lensIndex      String       // "1.56", "1.61", "1.67", "1.74"
+  coating        String       // "Anti-Scratch", "Blue Shield UV420", "Photochromic Transition"
+  priceQar       Decimal      @db.Decimal(10, 2)
+  descriptionEn  String?
+  descriptionAr  String?
+  isActive       Boolean      @default(true)
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  orderItems     OrderItem[]
+}
+
+// ----------------------------------------------------------------------------
+// Orders, Sales & Dual-Eye Contact Lens Purchasing (Exact Eyenk Parity)
+// ----------------------------------------------------------------------------
+
+model Order {
+  id                  String         @id @default(uuid())
+  orderNumber         String         @unique // e.g. "EN-2026-00104"
+  orderSource         OrderSource    @default(WEBSITE)
+
+  userId              String?
+  user                User?          @relation(fields: [userId], references: [id], onDelete: SetNull)
+  customerName        String
+  customerPhone       String         // Qatar contact for courier / SMS updates
+  customerEmail       String?
+
+  orderStatus         OrderStatus    @default(PENDING_PAYMENT)
+  paymentMethod       PaymentMethod  @default(CASH_ON_DELIVERY)
+  paymentStatus       PaymentStatus  @default(PENDING)
+  paymentReference    String?
+
+  subtotalQar         Decimal        @db.Decimal(10, 2)
+  discountQar         Decimal        @default(0) @db.Decimal(10, 2)
+  deliveryFeeQar      Decimal        @default(0) @db.Decimal(10, 2)
+  totalQar            Decimal        @db.Decimal(10, 2)
+
+  shippingAddress     Json           // Qatar Zone, Street, Building, Villa
+  deliveryZone        String?        // Doha, Lusail, Al Rayyan, Al Wakrah, West Bay, etc.
+  trackingNumber      String?
+  estimatedDelivery   DateTime?
+
+  notes               String?
+
+  createdAt           DateTime       @default(now())
+  updatedAt           DateTime       @updatedAt
+
+  items               OrderItem[]
+  invoice             Invoice?
+
+  @@index([userId])
+  @@index([orderNumber])
+  @@index([orderStatus])
+  @@index([customerPhone])
+}
+
+model OrderItem {
+  id               String        @id @default(uuid())
+  orderId          String
+  order            Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+
+  productId        String
+  product          Product       @relation(fields: [productId], references: [id])
+
+  quantity         Int           @default(1)
+  unitPriceQar     Decimal       @db.Decimal(10, 2)
+  lensPriceQar     Decimal       @default(0) @db.Decimal(10, 2)
+  totalPriceQar    Decimal       @db.Decimal(10, 2)
+
+  // -------------------------------------------------------------
+  // CONTACT LENS SPECIFIC ORDER CONFIGURATION (Eyenk Match)
+  // Supports ordering different powers for Right (OD) & Left (OS) Eyes!
+  // -------------------------------------------------------------
+  isContactLensOrder Boolean     @default(false)
+  isPlano            Boolean     @default(false) // True if ordered with 0.00 power (cosmetic)
+  rightEyePower      Decimal?    @db.Decimal(4, 2) // SPH power for right eye box
+  rightEyeBoxes      Int?        @default(1)
+  leftEyePower       Decimal?    @db.Decimal(4, 2) // SPH power for left eye box
+  leftEyeBoxes       Int?        @default(1)
+  rightEyeCyl        Decimal?    @db.Decimal(4, 2) // If Toric Astigmatism lens
+  rightEyeAxis       Int?
+  leftEyeCyl         Decimal?    @db.Decimal(4, 2)
+  leftEyeAxis        Int?
+
+  // -------------------------------------------------------------
+  // EYEGLASSES SPECIFIC CONFIGURATION
+  // -------------------------------------------------------------
+  lensOptionId     String?
+  lensOption       LensOption?   @relation(fields: [lensOptionId], references: [id], onDelete: SetNull)
+
+  prescriptionId   String?
+  prescription     Prescription? @relation(fields: [prescriptionId], references: [id], onDelete: SetNull)
+
+  opticalSnapshot  Json?
+
+  createdAt        DateTime      @default(now())
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+// ============================================================================
+// BILLING & INVOICING (Desktop App + Website Shared)
+// ============================================================================
+
+model CompanyProfile {
+  id            Int      @id @default(autoincrement())
+  nameEn        String   // e.g. "EyeNova Optical"
+  nameAr        String?  // e.g. "عين نوفا للبصريات"
+  email         String?
+  phone         String?  // e.g. "+974 4411 2233"
+  addressEn     String?  // e.g. "Shop 12, Villaggio Mall, Doha"
+  addressAr     String?
+  crNumber      String?  // Qatar Commercial Registration number
+  vatNumber     String?  // VAT / tax registration number
+  currency      String   @default("QAR")
+  taxRate       Decimal  @default(0) @db.Decimal(5, 2) // VAT % (0 in Qatar currently)
+  logoUrl       String?  // Logo image shown on invoice header
+  invoiceFooter String?  // e.g. "Thank you for choosing EyeNova"
+  updatedAt     DateTime @updatedAt
+}
+
+model Invoice {
+  id            String        @id @default(uuid())
+  invoiceNumber String        @unique // e.g. "INV-2026-0001"
+  orderId       String?       @unique
+  order         Order?        @relation(fields: [orderId], references: [id], onDelete: SetNull)
+
+  customerName  String
+  customerPhone String?
+  customerEmail String?
+
+  status        InvoiceStatus @default(DRAFT)
+  subtotalQar   Decimal       @db.Decimal(10, 2)
+  taxRate       Decimal       @default(0) @db.Decimal(5, 2)
+  taxTotalQar   Decimal       @default(0) @db.Decimal(10, 2)
+  discountQar   Decimal       @default(0) @db.Decimal(10, 2)
+  deliveryFeeQar Decimal      @default(0) @db.Decimal(10, 2)
+  totalQar      Decimal       @db.Decimal(10, 2)
+
+  issuedAt      DateTime?
+  dueDate       DateTime?
+  paidAt        DateTime?
+  notes         String?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  @@index([orderId])
+  @@index([invoiceNumber])
+  @@index([status])
+}
+
+// ----------------------------------------------------------------------------
+// Marketing, Banners & Homepage Configuration (Arabic + English)
+// ----------------------------------------------------------------------------
+
+model Banner {
+  id             String   @id @default(uuid())
+  titleEn        String
+  titleAr        String
+  subtitleEn     String?
+  subtitleAr     String?
+  imageUrlEn     String   // Desktop/Mobile hero banner in English
+  imageUrlAr     String   // Localized hero banner in Arabic
+  linkUrl        String   // Link to collection/category
+  badgeTextEn    String?  // e.g. "Same-Day Delivery in Qatar"
+  badgeTextAr    String?  // e.g. "توصيل في نفس اليوم في قطر"
+  sortOrder      Int      @default(0)
+  isActive       Boolean  @default(true)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model StoreSetting {
+  key         String   @id // e.g. "FREE_DELIVERY_THRESHOLD_QAR", "WHATSAPP_SUPPORT_PHONE"
+  value       String
+  description String?
+  updatedAt   DateTime @updatedAt
+}
