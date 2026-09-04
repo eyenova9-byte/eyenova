@@ -1,97 +1,133 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
-import { Sparkles, ArrowRight, ArrowLeft, ShieldCheck, Truck, Clock } from "lucide-react";
+import { ChevronRight, ChevronLeft } from "lucide-react";
 
 export function HeroBanner() {
-  const { t, isRtl, lang } = useLanguage();
+  const { lang, isRtl } = useLanguage();
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const slides = [
+    {
+      id: 1,
+      titleEn: "Bella Diamond Collection",
+      titleAr: "مجموعة بيلا دايموند الساحرة",
+      subtitleEn: "Enchanting beauty shades with UV protection for all-day comfort",
+      subtitleAr: "أجمل درجات الألوان الطبيعية مع حماية متقدمة للعين",
+      btnTextEn: "Shop Bella",
+      btnTextAr: "تسوقي بيلا",
+      href: "/shop?brand=bella",
+      image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=1600&auto=format&fit=crop",
+      tagEn: "NEW COLLECTION",
+      tagAr: "تشكيلة جديدة",
+    },
+    {
+      id: 2,
+      titleEn: "1-Day Acuvue Moist & Oasys",
+      titleAr: "أكوفيو مويست وأواسيس الطبية",
+      subtitleEn: "Qatar's most comfortable daily clear lenses with HydraLuxe technology",
+      subtitleAr: "العدسات اليومية الأكثر راحة وترطيباً للعين في قطر",
+      btnTextEn: "Shop Medical",
+      btnTextAr: "تسوق العدسات الطبية",
+      href: "/shop?category=medical-lenses",
+      image: "https://images.unsplash.com/photo-1591076482161-42ce6da69f67?w=1600&auto=format&fit=crop",
+      tagEn: "OPTOMETRIST APPROVED",
+      tagAr: "بصريات معتمدة",
+    },
+    {
+      id: 3,
+      titleEn: "Amara Celebrity Series",
+      titleAr: "مجموعة أمارا برعاية مشاهير الخليج",
+      subtitleEn: "Rich caramel & hazel shades designed for dark Middle Eastern eyes",
+      subtitleAr: "درجات العسلي والكراميل المصممة خصيصاً للعيون العربية",
+      btnTextEn: "Shop Amara",
+      btnTextAr: "تسوقي أمارا",
+      href: "/shop?brand=amara",
+      image: "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=1600&auto=format&fit=crop",
+      tagEn: "BESTSELLER",
+      tagAr: "الأكثر طلباً",
+    },
+  ];
+
+  // Auto slide every 5 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [slides.length]);
+
+  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % slides.length);
+  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slides.length) % slides.length);
+
+  const slide = slides[currentSlide];
 
   return (
-    <section className="relative bg-gradient-to-b from-slate-900 via-slate-900 to-slate-950 text-white py-16 sm:py-24 overflow-hidden">
-      {/* Decorative Glow Background */}
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+    <div className="relative w-full overflow-hidden bg-gray-100 h-[380px] sm:h-[460px] md:h-[520px]">
+      {/* Background Image with Dark Overlay for Text Readability */}
+      <div className="absolute inset-0">
+        <img
+          src={slide.image}
+          alt={slide.titleEn}
+          className="w-full h-full object-cover transition-all duration-700"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-transparent" />
+      </div>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        {/* Left Content Column */}
-        <div className="space-y-6 text-center lg:text-left">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-bold shadow-inner">
-            <Sparkles size={15} />
-            <span>{t.sameDayBadge} • Qatar #1 Eyewear Store</span>
-          </div>
+      {/* Slide Content */}
+      <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center">
+        <div className="max-w-xl text-white space-y-3 sm:space-y-4">
+          <span className="inline-block px-2.5 py-1 text-[10px] font-black tracking-widest uppercase bg-white/20 backdrop-blur-xs text-white rounded">
+            {lang === "ar" ? slide.tagAr : slide.tagEn}
+          </span>
 
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight">
-            {lang === "ar" ? (
-              <>
-                اكتشفي أجمل عدسات <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-indigo-300">بيلا وأمارا ولينس مي</span>
-              </>
-            ) : (
-              <>
-                Qatar's #1 Online <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-indigo-300">Contact Lens & Optical</span> Store
-              </>
-            )}
+          <h1 className="text-2xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight">
+            {lang === "ar" ? slide.titleAr : slide.titleEn}
           </h1>
 
-          <p className="text-slate-300 text-sm sm:text-base max-w-xl mx-auto lg:mx-0 leading-relaxed">
-            {t.heroSubtitle} Guaranteed 100% authentic medical & cosmetic colored lenses delivered right to your doorstep in Doha, Lusail, and Al Rayyan.
+          <p className="text-xs sm:text-sm text-gray-200 font-medium leading-relaxed max-w-md">
+            {lang === "ar" ? slide.subtitleAr : slide.subtitleEn}
           </p>
 
-          <div className="flex flex-wrap justify-center lg:justify-start gap-4 pt-2">
+          <div className="pt-2">
             <Link
-              href="/shop?category=colored-lenses"
-              className="px-8 py-4 bg-emerald-500 text-slate-950 font-extrabold text-xs rounded-2xl hover:bg-emerald-400 transition shadow-lg shadow-emerald-500/20 flex items-center gap-2"
+              href={slide.href}
+              className="inline-block px-6 py-3 bg-white text-slate-950 text-xs font-black rounded-lg hover:bg-gray-100 transition shadow-md"
             >
-              <span>{t.coloredLenses}</span>
-              {isRtl ? <ArrowLeft size={16} /> : <ArrowRight size={16} />}
+              {lang === "ar" ? slide.btnTextAr : slide.btnTextEn}
             </Link>
-
-            <Link
-              href="/virtual-try-on"
-              className="px-8 py-4 bg-slate-800 text-white font-extrabold text-xs rounded-2xl hover:bg-slate-700 border border-slate-700 transition flex items-center gap-2"
-            >
-              <span>{t.virtualTryOn}</span>
-            </Link>
-          </div>
-
-          {/* Quick Perks */}
-          <div className="pt-8 border-t border-slate-800/80 grid grid-cols-3 gap-4 text-center lg:text-left">
-            <div>
-              <span className="text-lg sm:text-xl font-extrabold text-white block">10,000+</span>
-              <span className="text-[11px] text-slate-400">Happy Qatar Customers</span>
-            </div>
-            <div>
-              <span className="text-lg sm:text-xl font-extrabold text-emerald-400 block">Same-Day</span>
-              <span className="text-[11px] text-slate-400">Delivery in Doha</span>
-            </div>
-            <div>
-              <span className="text-lg sm:text-xl font-extrabold text-white block">100%</span>
-              <span className="text-[11px] text-slate-400">Authentic Guaranteed</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Showcase Image Card */}
-        <div className="relative flex justify-center">
-          <div className="relative w-full max-w-md aspect-4/5 rounded-3xl overflow-hidden border-2 border-slate-700/50 shadow-2xl shadow-emerald-500/10 group">
-            <img
-              src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&auto=format&fit=crop"
-              alt="EyeNova Contact Lenses"
-              className="w-full h-full object-cover group-hover:scale-105 transition duration-700"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80" />
-
-            <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-slate-900/90 backdrop-blur-md border border-slate-700 text-white space-y-1">
-              <span className="text-[10px] font-extrabold uppercase tracking-widest text-emerald-400">
-                Trending Collection
-              </span>
-              <h3 className="font-bold text-sm">Bella Diamond & Amara Celebrity Series</h3>
-              <p className="text-[11px] text-slate-300">Starting from 130 QAR per box with prescription options</p>
-            </div>
           </div>
         </div>
       </div>
-    </section>
+
+      {/* Navigation Arrows */}
+      <button
+        onClick={prevSlide}
+        className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/30 backdrop-blur-xs hover:bg-white text-slate-900 flex items-center justify-center transition shadow"
+      >
+        <ChevronLeft size={20} />
+      </button>
+      <button
+        onClick={nextSlide}
+        className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/30 backdrop-blur-xs hover:bg-white text-slate-900 flex items-center justify-center transition shadow"
+      >
+        <ChevronRight size={20} />
+      </button>
+
+      {/* Slide Indicator Dots */}
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+        {slides.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => setCurrentSlide(idx)}
+            className={`w-2.5 h-2.5 rounded-full transition ${
+              currentSlide === idx ? "bg-white w-6" : "bg-white/50"
+            }`}
+          />
+        ))}
+      </div>
+    </div>
   );
 }
