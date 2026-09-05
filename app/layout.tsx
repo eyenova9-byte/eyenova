@@ -10,6 +10,7 @@ import { CartDrawer } from "@/components/CartDrawer";
 import { AuthModal } from "@/components/AuthModal";
 import { BottomNav } from "@/components/BottomNav";
 import { ScrollAnimationObserver } from "@/components/ScrollAnimationObserver";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -63,6 +64,7 @@ export default function RootLayout({
               <CartDrawer />
               <AuthModal />
               <BottomNav />
+              <Analytics />
             </CartProvider>
           </AuthProvider>
         </LanguageProvider>
