@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef, Suspense } from "react";
+import { createPortal } from "react-dom";
 import Link from "next/link";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
@@ -36,10 +37,15 @@ function NavbarContent() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get("category");
   const brandParam = searchParams.get("brand");
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const drawerCardsScrollRef = useRef<HTMLDivElement>(null);
 
@@ -424,12 +430,12 @@ function NavbarContent() {
         </div>
       )}
 
-      {/* 4. Luxury Off-Canvas Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className="fixed inset-0 z-[100] flex lg:hidden">
-          {/* Backdrop */}
+      {/* 4. Luxury Off-Canvas Mobile Drawer mounted to body root via Portal */}
+      {mounted && mobileMenuOpen && createPortal(
+        <div className="fixed inset-0 z-[9999] flex lg:hidden">
+          {/* Full Screen Dark Backdrop covering all page elements & bottom navigation */}
           <div
-            className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-300"
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity duration-300"
             onClick={() => setMobileMenuOpen(false)}
             aria-hidden="true"
           />
@@ -710,7 +716,8 @@ function NavbarContent() {
               </a>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </header>
   );
