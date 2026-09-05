@@ -300,13 +300,13 @@ function NavbarContent() {
 
         {/* Right Action Icons: Language Switch (desktop), Search, Account, Bag */}
         <div className="flex items-center justify-end gap-1 sm:gap-2 z-10">
-          {/* Language Switch: Shown on tablet/desktop, in drawer on mobile */}
+          {/* Compact Language Switch for Small Screens & Desktop */}
           <button
             onClick={() => setLang(lang === "en" ? "ar" : "en")}
-            className="hidden sm:inline-flex items-center bg-[#FAF5F2] hover:bg-[#F3EBE7] text-[#121212] border border-[#EBE0DA] text-[11px] font-medium px-2.5 py-1 rounded-full transition-all cursor-pointer hover:border-[#5c2d76]"
+            className="inline-flex items-center bg-[#FAF5F2] hover:bg-[#F3EBE7] active:bg-[#ede3de] text-[#121212] border border-[#EBE0DA] text-[11px] font-medium px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full transition-all cursor-pointer hover:border-[#5c2d76]"
             aria-label="Toggle language"
           >
-            {lang === "en" ? "العربية" : "English"}
+            {lang === "en" ? "العربية" : "EN"}
           </button>
 
           {/* Search Trigger */}
