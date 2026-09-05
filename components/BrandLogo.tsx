@@ -7,6 +7,7 @@ interface BrandLogoProps {
   size?: "sm" | "md" | "lg";
   variant?: "dark" | "light";
   withText?: boolean;
+  showArabic?: boolean;
   className?: string;
 }
 
@@ -14,6 +15,7 @@ export function BrandLogo({
   size = "md",
   variant = "dark",
   withText = true,
+  showArabic = true,
   className = "",
 }: BrandLogoProps) {
   const iconDimensions = {
@@ -41,7 +43,7 @@ export function BrandLogo({
   return (
     <Link
       href="/"
-      className={`inline-flex items-center gap-2 group whitespace-nowrap select-none focus:outline-none ${className}`}
+      className={`inline-flex items-center gap-1.5 sm:gap-2 group whitespace-nowrap select-none focus:outline-none shrink-0 ${className}`}
       aria-label="EyeNova - Home"
     >
       <div
@@ -80,17 +82,19 @@ export function BrandLogo({
       </div>
 
       {withText && (
-        <div className="flex items-baseline gap-1.5 leading-none">
+        <div className="flex items-baseline gap-1 sm:gap-1.5 leading-none">
           <span
             className={`${titleSizes[size]} font-semibold tracking-tight ${textColor} transition-colors group-hover:opacity-80`}
           >
             Eye<span className="font-light tracking-normal">Nova</span>
           </span>
-          <span
-            className={`font-arabic ${subtitleSizes[size]} font-normal ${subtextColor} transition-colors`}
-          >
-            عين نوفا
-          </span>
+          {showArabic && (
+            <span
+              className={`font-arabic ${subtitleSizes[size]} font-normal ${subtextColor} transition-colors hidden sm:inline`}
+            >
+              عين نوفا
+            </span>
+          )}
         </div>
       )}
     </Link>

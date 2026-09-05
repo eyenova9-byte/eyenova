@@ -17,6 +17,11 @@
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-body-family);
+  --font-arabic: var(--font-tajawal);
+}
+
+.font-arabic {
+  font-family: var(--font-tajawal), "Noto Sans Arabic", "Cairo", sans-serif;
 }
 
 /* Enforce pure light mode across all preferences */

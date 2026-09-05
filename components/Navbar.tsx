@@ -135,20 +135,20 @@ function NavbarContent() {
       </div>
 
       {/* 2. Main Navigation Bar */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-15 sm:h-16 lg:h-[76px] flex items-center justify-between relative">
+      <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-14 sm:h-16 lg:h-[76px] flex items-center justify-between relative">
         {/* Mobile Left: Hamburger Button */}
         <div className="flex items-center lg:hidden z-10">
           <button
             onClick={() => setMobileMenuOpen(true)}
-            className="p-2 -ml-2 text-[#121212] hover:bg-[#FAF5F2] rounded-lg transition-colors cursor-pointer"
+            className="p-1.5 -ml-1 text-[#121212] hover:bg-[#FAF5F2] rounded-lg transition-colors cursor-pointer"
             aria-label="Toggle menu"
           >
             <Menu size={22} strokeWidth={1.8} />
           </button>
         </div>
 
-        {/* Logo: Centered on mobile, Left-aligned on desktop */}
-        <div className="absolute left-1/2 -translate-x-1/2 lg:static lg:translate-x-0 z-0 flex items-center justify-center">
+        {/* Logo: Centered on mobile with strict bounding box, Left-aligned on desktop */}
+        <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 lg:static lg:translate-x-0 lg:translate-y-0 z-0 flex items-center justify-center pointer-events-auto">
           <BrandLogo size="md" />
         </div>
 
@@ -287,12 +287,12 @@ function NavbarContent() {
           </Link>
         </nav>
 
-        {/* Right Action Icons: Language Switch, Search, Account, Bag */}
-        <div className="flex items-center justify-end gap-1.5 sm:gap-2.5 z-10">
-          {/* Language Switch */}
+        {/* Right Action Icons: Language Switch (desktop), Search, Account, Bag */}
+        <div className="flex items-center justify-end gap-1 sm:gap-2 z-10">
+          {/* Language Switch: Shown on tablet/desktop, in drawer on mobile */}
           <button
             onClick={() => setLang(lang === "en" ? "ar" : "en")}
-            className="bg-[#FAF5F2] hover:bg-[#F3EBE7] text-[#121212] border border-[#EBE0DA] text-[11px] font-medium px-2.5 py-1 rounded-full transition-all cursor-pointer hover:border-[#5c2d76]"
+            className="hidden sm:inline-flex items-center bg-[#FAF5F2] hover:bg-[#F3EBE7] text-[#121212] border border-[#EBE0DA] text-[11px] font-medium px-2.5 py-1 rounded-full transition-all cursor-pointer hover:border-[#5c2d76]"
             aria-label="Toggle language"
           >
             {lang === "en" ? "العربية" : "English"}
@@ -301,7 +301,7 @@ function NavbarContent() {
           {/* Search Trigger */}
           <button
             onClick={() => setSearchOpen(!searchOpen)}
-            className="text-[#121212] hover:text-[#5c2d76] p-2 hover:bg-[#FAF5F2] rounded-full transition-colors cursor-pointer"
+            className="text-[#121212] hover:text-[#5c2d76] p-1.5 sm:p-2 hover:bg-[#FAF5F2] rounded-full transition-colors cursor-pointer"
             aria-label="Search"
           >
             <Search size={19} strokeWidth={1.8} />
@@ -331,7 +331,7 @@ function NavbarContent() {
           {/* Cart Bag Icon with Live Count */}
           <button
             onClick={() => setIsCartOpen(true)}
-            className="text-[#121212] hover:text-[#5c2d76] p-2 hover:bg-[#FAF5F2] rounded-full relative transition-colors cursor-pointer"
+            className="text-[#121212] hover:text-[#5c2d76] p-1.5 sm:p-2 hover:bg-[#FAF5F2] rounded-full relative transition-colors cursor-pointer"
             aria-label="Shopping Cart"
           >
             <ShoppingBag size={20} strokeWidth={1.8} />
@@ -521,8 +521,21 @@ function NavbarContent() {
               </nav>
             </div>
 
-            {/* Drawer Bottom Bar: Account & Support */}
+            {/* Drawer Bottom Bar: Language, Account & Support */}
             <div className="p-4 border-t border-[#ececec] bg-[#FAF5F2] space-y-2.5">
+              {/* Language Switcher inside Mobile Drawer */}
+              <div className="flex items-center justify-between bg-white p-2.5 rounded-lg border border-[#E8DED8]">
+                <span className="text-[12px] text-[#707070] font-medium">
+                  {lang === "ar" ? "اللغة / Language" : "Language / اللغة"}
+                </span>
+                <button
+                  onClick={() => setLang(lang === "en" ? "ar" : "en")}
+                  className="bg-[#FAF5F2] text-[#121212] border border-[#EBE0DA] text-[11px] font-medium px-3 py-1 rounded-full cursor-pointer hover:border-[#5c2d76]"
+                >
+                  {lang === "en" ? "العربية" : "English"}
+                </button>
+              </div>
+
               <Link
                 href={user ? "/profile" : "#"}
                 onClick={(e) => {
