@@ -89,6 +89,32 @@ button {
   }
 }
 
+@keyframes drawerSlideLeft {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes drawerSlideRight {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-drawer-left {
+  animation: drawerSlideLeft 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-drawer-right {
+  animation: drawerSlideRight 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
 @keyframes fadeIn {
   0% {
     opacity: 0.01;

@@ -14,10 +14,15 @@ import {
   Menu,
   X,
   ChevronDown,
+  ChevronRight,
   ArrowRight,
   MessageCircle,
   MapPin,
   Sparkles,
+  Eye,
+  ShieldCheck,
+  Globe,
+  Phone,
 } from "lucide-react";
 
 function NavbarContent() {
@@ -407,9 +412,9 @@ function NavbarContent() {
         </div>
       )}
 
-      {/* 4. Refined Mobile Slide-Out Drawer */}
+      {/* 4. Luxury Off-Canvas Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-[60] flex lg:hidden">
+        <div className="fixed inset-0 z-[100] flex lg:hidden">
           {/* Backdrop */}
           <div
             className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-300"
@@ -417,68 +422,89 @@ function NavbarContent() {
             aria-hidden="true"
           />
 
-          {/* Drawer Panel - Full Viewport Height with safe area support */}
-          <div className="relative w-full max-w-[310px] sm:max-w-[340px] bg-white h-screen min-h-dvh max-h-dvh shadow-2xl flex flex-col justify-between overflow-y-auto z-10 animate-slide-in">
-            <div className="flex-1 overflow-y-auto">
-              {/* Drawer Header with EyeNova Brand & Close Button */}
-              <div className="flex items-center justify-between px-4 py-3.5 border-b border-[#ececec] sticky top-0 bg-white z-10">
-                <BrandLogo size="sm" showArabic={false} />
-                <button
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="p-2 text-[#121212] hover:bg-[#FAF5F2] active:bg-[#F3EBE7] rounded-full transition-colors cursor-pointer"
-                  aria-label="Close menu"
-                >
-                  <X size={20} strokeWidth={1.8} />
-                </button>
-              </div>
+          {/* Drawer Panel: Smooth slide-in, strictly full viewport height, luxury look */}
+          <div
+            className={`relative w-[85vw] max-w-[340px] bg-white h-[100dvh] shadow-2xl flex flex-col justify-between overflow-hidden z-10 ${
+              isRtl ? "animate-drawer-right ml-auto" : "animate-drawer-left"
+            }`}
+          >
+            {/* 1. Header Bar: Brand Logo & Close Button */}
+            <div className="flex items-center justify-between px-5 py-4 border-b border-[#F0EBE6] bg-white shrink-0">
+              <BrandLogo size="sm" showArabic={false} />
+              <button
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-9 h-9 flex items-center justify-center text-[#121212] hover:bg-[#FAF5F2] active:bg-[#F3EBE7] rounded-full transition-colors cursor-pointer"
+                aria-label="Close menu"
+              >
+                <X size={20} strokeWidth={1.8} />
+              </button>
+            </div>
 
-              {/* Quick Visual Shortcuts */}
-              <div className="p-3 bg-[#FAF5F2] border-b border-[#E8DED8] grid grid-cols-2 gap-2">
+            {/* 2. Scrollable Body */}
+            <div className="flex-1 overflow-y-auto px-4 py-3 space-y-4">
+              {/* Quick Category Hero Cards */}
+              <div className="grid grid-cols-2 gap-2.5">
                 <Link
                   href="/shop?category=medical-lenses"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="bg-white p-2.5 rounded-lg text-center border border-[#E8DED8] hover:border-[#5c2d76] transition-colors"
+                  className="group bg-[#FAF5F2] hover:bg-[#F4ECE8] p-3 rounded-xl border border-[#EFE5DF] transition-all flex flex-col justify-between"
                 >
-                  <span className="text-[12px] font-medium text-[#121212] block">
-                    {lang === "ar" ? "عدسات طبية" : "Medical Lenses"}
-                  </span>
-                  <span className="text-[10px] text-[#707070]">Acuvue, Alcon, B&L</span>
+                  <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-[#5c2d76] shadow-2xs mb-2 group-hover:scale-105 transition-transform">
+                    <Eye size={16} />
+                  </div>
+                  <div>
+                    <span className="text-[13px] font-semibold text-[#121212] block leading-tight">
+                      {lang === "ar" ? "عدسات طبية" : "Medical Lenses"}
+                    </span>
+                    <span className="text-[11px] text-[#707070] mt-0.5 block">
+                      Acuvue, Alcon
+                    </span>
+                  </div>
                 </Link>
+
                 <Link
                   href="/shop?category=colored-lenses"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="bg-white p-2.5 rounded-lg text-center border border-[#E8DED8] hover:border-[#5c2d76] transition-colors"
+                  className="group bg-[#FAF5F2] hover:bg-[#F4ECE8] p-3 rounded-xl border border-[#EFE5DF] transition-all flex flex-col justify-between"
                 >
-                  <span className="text-[12px] font-medium text-[#121212] block">
-                    {lang === "ar" ? "عدسات ملونة" : "Colour Lenses"}
-                  </span>
-                  <span className="text-[10px] text-[#707070]">Bella, LensMe, Amara</span>
+                  <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-[#5c2d76] shadow-2xs mb-2 group-hover:scale-105 transition-transform">
+                    <Sparkles size={16} />
+                  </div>
+                  <div>
+                    <span className="text-[13px] font-semibold text-[#121212] block leading-tight">
+                      {lang === "ar" ? "عدسات ملونة" : "Colour Lenses"}
+                    </span>
+                    <span className="text-[11px] text-[#707070] mt-0.5 block">
+                      Bella, Amara
+                    </span>
+                  </div>
                 </Link>
               </div>
 
-              {/* Drawer Navigation Links */}
-              <nav className="p-4 space-y-1 text-[14px] text-[#121212]">
+              {/* Navigation Items */}
+              <nav className="divide-y divide-[#F3EFEA] text-[14px]">
                 <Link
                   href="/"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2.5 border-b border-[#f4f4f4] font-medium text-[#121212] hover:text-[#5c2d76]"
+                  className="flex items-center justify-between py-3 font-medium text-[#121212] hover:text-[#5c2d76] transition-colors"
                 >
-                  {lang === "ar" ? "الرئيسية" : "Home"}
+                  <span>{lang === "ar" ? "الرئيسية" : "Home"}</span>
+                  <ChevronRight size={15} className={`text-[#A09890] ${isRtl ? "rotate-180" : ""}`} />
                 </Link>
 
                 {/* Medical Lens Accordion */}
-                <details className="group border-b border-[#f4f4f4] py-2.5">
-                  <summary className="flex items-center justify-between cursor-pointer list-none select-none font-medium">
+                <details className="group py-2.5">
+                  <summary className="flex items-center justify-between cursor-pointer list-none select-none font-medium text-[#121212] hover:text-[#5c2d76] py-1">
                     <span>{lang === "ar" ? "عدسات طبية" : "Medical Lens"}</span>
-                    <ChevronDown size={16} className="text-[#707070] group-open:rotate-180 transition-transform" />
+                    <ChevronDown size={16} className="text-[#888888] group-open:rotate-180 transition-transform duration-200" />
                   </summary>
-                  <div className="pt-2 pl-3 space-y-2 text-[13px] text-[#666666]">
+                  <div className="pt-2 pb-1 pl-3 space-y-2 text-[13px] text-[#555555]">
                     {medicalLensLinks.map((item) => (
                       <Link
                         key={item.name}
                         href={item.href}
                         onClick={() => setMobileMenuOpen(false)}
-                        className="block py-1 hover:text-[#5c2d76]"
+                        className="block py-1 hover:text-[#5c2d76] transition-colors"
                       >
                         {item.name}
                       </Link>
@@ -487,18 +513,18 @@ function NavbarContent() {
                 </details>
 
                 {/* Color Lens Accordion */}
-                <details className="group border-b border-[#f4f4f4] py-2.5">
-                  <summary className="flex items-center justify-between cursor-pointer list-none select-none font-medium">
+                <details className="group py-2.5">
+                  <summary className="flex items-center justify-between cursor-pointer list-none select-none font-medium text-[#121212] hover:text-[#5c2d76] py-1">
                     <span>{lang === "ar" ? "عدسات ملونة" : "Colour Lenses"}</span>
-                    <ChevronDown size={16} className="text-[#707070] group-open:rotate-180 transition-transform" />
+                    <ChevronDown size={16} className="text-[#888888] group-open:rotate-180 transition-transform duration-200" />
                   </summary>
-                  <div className="pt-2 pl-3 space-y-2 text-[13px] text-[#666666]">
+                  <div className="pt-2 pb-1 pl-3 space-y-2 text-[13px] text-[#555555]">
                     {colorLensLinks.map((item) => (
                       <Link
                         key={item.name}
                         href={item.href}
                         onClick={() => setMobileMenuOpen(false)}
-                        className="block py-1 hover:text-[#5c2d76]"
+                        className="block py-1 hover:text-[#5c2d76] transition-colors"
                       >
                         {item.name}
                       </Link>
@@ -509,79 +535,104 @@ function NavbarContent() {
                 <Link
                   href="/shop?category=solutions-drops"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2.5 border-b border-[#f4f4f4] hover:text-[#5c2d76]"
+                  className="flex items-center justify-between py-3 text-[#121212] hover:text-[#5c2d76] transition-colors font-medium"
                 >
-                  {lang === "ar" ? "محاليل وقطرات العين" : "Solutions & Eye Drops"}
+                  <span>{lang === "ar" ? "محاليل وقطرات العين" : "Solutions & Eye Drops"}</span>
+                  <ChevronRight size={15} className={`text-[#A09890] ${isRtl ? "rotate-180" : ""}`} />
                 </Link>
 
                 <Link
                   href="/shop?category=lashes"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2.5 border-b border-[#f4f4f4] hover:text-[#5c2d76]"
+                  className="flex items-center justify-between py-3 text-[#121212] hover:text-[#5c2d76] transition-colors font-medium"
                 >
-                  {lang === "ar" ? "رموش وإكسسوارات" : "Lashes & Accessories"}
+                  <span>{lang === "ar" ? "رموش وإكسسوارات" : "Lashes & Accessories"}</span>
+                  <ChevronRight size={15} className={`text-[#A09890] ${isRtl ? "rotate-180" : ""}`} />
                 </Link>
 
                 <Link
                   href="/about"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2.5 border-b border-[#f4f4f4] hover:text-[#5c2d76]"
+                  className="flex items-center justify-between py-3 text-[#121212] hover:text-[#5c2d76] transition-colors"
                 >
-                  {lang === "ar" ? "من نحن" : "About EyeNova"}
+                  <span>{lang === "ar" ? "من نحن" : "About EyeNova"}</span>
+                  <ChevronRight size={15} className={`text-[#A09890] ${isRtl ? "rotate-180" : ""}`} />
                 </Link>
 
                 <Link
                   href="/faq"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="block py-2.5 border-b border-[#f4f4f4] hover:text-[#5c2d76]"
+                  className="flex items-center justify-between py-3 text-[#121212] hover:text-[#5c2d76] transition-colors"
                 >
-                  {lang === "ar" ? "الأسئلة الشائعة" : "FAQ & Help"}
+                  <span>{lang === "ar" ? "الأسئلة الشائعة" : "FAQ & Help"}</span>
+                  <ChevronRight size={15} className={`text-[#A09890] ${isRtl ? "rotate-180" : ""}`} />
                 </Link>
 
                 <Link
                   href="/#locations"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-1.5 py-2.5 border-b border-[#f4f4f4] hover:text-[#5c2d76]"
+                  className="flex items-center gap-2 py-3 text-[#121212] hover:text-[#5c2d76] transition-colors"
                 >
                   <MapPin size={16} className="text-[#5c2d76]" />
                   <span>{lang === "ar" ? "فروعنا في قطر" : "Our Qatar Stores"}</span>
                 </Link>
               </nav>
+
+              {/* Trust Badge Strip */}
+              <div className="pt-2">
+                <div className="bg-[#FAF5F2] rounded-xl p-3 flex items-center gap-2.5 border border-[#EFE5DF]">
+                  <ShieldCheck size={18} className="text-[#5c2d76] shrink-0" />
+                  <span className="text-[11px] text-[#555555] leading-snug">
+                    {lang === "ar"
+                      ? "100% منتجات أصلية معتمدة | توصيل سريع لجميع مناطق قطر"
+                      : "100% Authentic Products | Same-Day Delivery in Doha"}
+                  </span>
+                </div>
+              </div>
             </div>
 
-            {/* Drawer Bottom Bar: Language, Account & Support */}
-            <div className="p-4 border-t border-[#ececec] bg-[#FAF5F2] space-y-2.5 shrink-0">
-              {/* Language Switcher inside Mobile Drawer */}
-              <div className="flex items-center justify-between bg-white p-2.5 rounded-lg border border-[#E8DED8]">
-                <span className="text-[12px] text-[#707070] font-medium">
-                  {lang === "ar" ? "اللغة / Language" : "Language / اللغة"}
-                </span>
+            {/* 3. Pinned Bottom Footer Bar */}
+            <div className="p-4 border-t border-[#F0EBE6] bg-[#FAF5F2]/90 backdrop-blur-sm space-y-2.5 shrink-0">
+              {/* Language Switcher */}
+              <div className="flex items-center justify-between bg-white px-3.5 py-2 rounded-xl border border-[#E8DED8]">
+                <div className="flex items-center gap-2 text-[#707070] text-[12px]">
+                  <Globe size={15} className="text-[#5c2d76]" />
+                  <span>{lang === "ar" ? "اللغة" : "Language"}</span>
+                </div>
                 <button
                   onClick={() => setLang(lang === "en" ? "ar" : "en")}
-                  className="bg-[#FAF5F2] text-[#121212] border border-[#EBE0DA] text-[11px] font-medium px-3 py-1 rounded-full cursor-pointer hover:border-[#5c2d76]"
+                  className="bg-[#FAF5F2] hover:bg-[#F3EBE7] text-[#121212] border border-[#E8DED8] text-[11px] font-semibold px-3 py-1 rounded-full cursor-pointer hover:border-[#5c2d76] transition-colors"
                 >
                   {lang === "en" ? "العربية" : "English"}
                 </button>
               </div>
 
+              {/* Account Link / Login */}
               <Link
                 href={user ? "/profile" : "#"}
                 onClick={(e) => {
                   setMobileMenuOpen(false);
                   if (!user) setIsAuthModalOpen(true);
                 }}
-                className="flex items-center gap-2 text-[13px] text-[#121212] font-medium bg-white p-2.5 rounded-lg border border-[#E8DED8]"
+                className="flex items-center justify-between text-[13px] text-[#121212] font-medium bg-white px-3.5 py-2.5 rounded-xl border border-[#E8DED8] hover:border-[#5c2d76] transition-colors"
               >
-                <User size={17} className="text-[#5c2d76]" />
-                <span>{user ? user.phone : (lang === "ar" ? "تسجيل الدخول / حسابي" : "Log In / Account")}</span>
+                <div className="flex items-center gap-2.5 truncate">
+                  <div className="w-6 h-6 rounded-full bg-[#FAF5F2] flex items-center justify-center text-[#5c2d76] shrink-0">
+                    <User size={14} />
+                  </div>
+                  <span className="truncate">{user ? user.phone : (lang === "ar" ? "تسجيل الدخول / حسابي" : "Log In / My Account")}</span>
+                </div>
+                <ChevronRight size={14} className={`text-[#A09890] shrink-0 ${isRtl ? "rotate-180" : ""}`} />
               </Link>
+
+              {/* WhatsApp Concierge */}
               <a
                 href="https://wa.me/97455123456"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center justify-center gap-2 text-[13px] text-white font-medium bg-[#25D366] hover:bg-[#20ba59] p-2.5 rounded-lg transition-colors shadow-xs"
+                className="flex items-center justify-center gap-2 text-[13px] text-white font-medium bg-[#25D366] hover:bg-[#20ba59] active:bg-[#1da850] py-2.5 px-3 rounded-xl transition-all shadow-xs"
               >
-                <MessageCircle size={17} />
+                <MessageCircle size={17} fill="white" className="text-[#25D366]" />
                 <span>WhatsApp Customer Support</span>
               </a>
             </div>
