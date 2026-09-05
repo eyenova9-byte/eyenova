@@ -46,21 +46,23 @@ export function BottomNav() {
 
   return (
     <nav
-      className="bottomTabs fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-[#dbdbdb] lg:hidden h-[58px] grid grid-cols-4 items-center select-none shadow-[0_-2px_10px_rgba(0,0,0,0.03)]"
+      className="bottomTabs fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200/80 lg:hidden h-[62px] pb-[env(safe-area-inset-bottom)] grid grid-cols-4 items-center select-none shadow-[0_-4px_16px_rgba(0,0,0,0.06)]"
       id="bottomTb"
       aria-label="Mobile Navigation Bar"
     >
-      {/* 1. Tab 1: Home on index, or Back on inner pages (Exact Eyenk behavior) */}
-      <div className="tabsHolder h-full">
+      {/* 1. Tab 1: Home on index, or Back on inner pages */}
+      <div className="h-full flex items-center justify-center">
         {isHome ? (
           <Link
             href="/"
-            className={`flex flex-col items-center justify-center h-full w-full transition-colors ${
-              isHome ? "bg-[#f8edeb]" : "hover:bg-[#fafafa]"
+            className={`flex flex-col items-center justify-center h-full w-full py-1 transition-colors ${
+              isHome ? "text-slate-950 font-bold" : "text-slate-500 hover:text-slate-800 font-medium"
             }`}
           >
-            <Home size={20} strokeWidth={1.6} className="text-[#121212]" />
-            <span className="text-[11px] font-normal text-[#121212] mt-0.5">
+            <div className={`p-1 rounded-full transition ${isHome ? "bg-sky-50 text-sky-600" : ""}`}>
+              <Home size={19} strokeWidth={isHome ? 2.2 : 1.8} />
+            </div>
+            <span className="text-[10.5px] mt-0.5 leading-none">
               {lang === "ar" ? "الرئيسية" : "Home"}
             </span>
           </Link>
@@ -69,66 +71,72 @@ export function BottomNav() {
             type="button"
             id="go-back-btn"
             onClick={handleBack}
-            className="go-back-btn flex flex-col items-center justify-center h-full w-full transition-colors hover:bg-[#fafafa] cursor-pointer"
+            className="flex flex-col items-center justify-center h-full w-full py-1 transition-colors text-slate-500 hover:text-slate-800 font-medium cursor-pointer"
           >
-            <ArrowLeft size={20} strokeWidth={1.6} className="text-[#121212]" />
-            <span className="text-[11px] font-normal text-[#121212] mt-0.5">
+            <div className="p-1 rounded-full">
+              <ArrowLeft size={19} strokeWidth={1.8} />
+            </div>
+            <span className="text-[10.5px] mt-0.5 leading-none">
               {lang === "ar" ? "رجوع" : "Back"}
             </span>
           </button>
         )}
       </div>
 
-      {/* 2. Tab 2: Categories (Links to /shop collection catalog) */}
-      <div className="tabsHolder h-full">
+      {/* 2. Tab 2: Categories / Shop */}
+      <div className="h-full flex items-center justify-center">
         <Link
           href="/shop"
-          className={`flex flex-col items-center justify-center h-full w-full transition-colors ${
-            isShopActive ? "bg-[#f8edeb]" : "hover:bg-[#fafafa]"
+          className={`flex flex-col items-center justify-center h-full w-full py-1 transition-colors ${
+            isShopActive ? "text-slate-950 font-bold" : "text-slate-500 hover:text-slate-800 font-medium"
           }`}
         >
-          <LayoutGrid size={20} strokeWidth={1.6} className="text-[#121212]" />
-          <span className="text-[11px] font-normal text-[#121212] mt-0.5">
-            {lang === "ar" ? "الفئات" : "Categories"}
+          <div className={`p-1 rounded-full transition ${isShopActive ? "bg-sky-50 text-sky-600" : ""}`}>
+            <LayoutGrid size={19} strokeWidth={isShopActive ? 2.2 : 1.8} />
+          </div>
+          <span className="text-[10.5px] mt-0.5 leading-none">
+            {lang === "ar" ? "المتجر" : "Shop"}
           </span>
         </Link>
       </div>
 
       {/* 3. Tab 3: Bag with Cart Counter Bubble */}
-      <div className="tabsHolder h-full">
+      <div className="h-full flex items-center justify-center">
         <button
           type="button"
           onClick={() => setIsCartOpen(true)}
-          className={`btm-cart--count flex flex-col items-center justify-center h-full w-full transition-colors relative cursor-pointer ${
-            isCartActive ? "bg-[#f8edeb]" : "hover:bg-[#fafafa]"
+          className={`flex flex-col items-center justify-center h-full w-full py-1 transition-colors relative cursor-pointer ${
+            isCartActive ? "text-slate-950 font-bold" : "text-slate-500 hover:text-slate-800 font-medium"
           }`}
           aria-label="Shopping Bag"
         >
-          <div className="relative">
-            <ShoppingBag size={20} strokeWidth={1.6} className="text-[#121212]" />
+          <div className="relative p-1">
+            <ShoppingBag size={19} strokeWidth={isCartActive ? 2.2 : 1.8} />
             {itemCount > 0 && (
-              <span className="cart-count-bubble absolute -top-1.5 -right-2 bg-[#121212] text-white text-[10px] font-medium w-4 h-4 rounded-full flex items-center justify-center">
+              <span className="absolute -top-1 -right-1 bg-slate-950 text-white text-[10px] font-bold w-4 h-4 rounded-full flex items-center justify-center ring-2 ring-white">
                 <span className="counter">{itemCount}</span>
               </span>
             )}
           </div>
-          <span className="navBag text-[11px] font-normal text-[#121212] mt-0.5">
+          <span className="text-[10.5px] mt-0.5 leading-none">
             {lang === "ar" ? "الحقيبة" : "Bag"}
           </span>
         </button>
       </div>
 
       {/* 4. Tab 4: Account */}
-      <div className="tabsHolder h-full">
+      <div className="h-full flex items-center justify-center">
         <Link
           href={user ? "/profile" : "#"}
           onClick={handleAccountClick}
-          className={`flex flex-col items-center justify-center h-full w-full transition-colors ${
-            isProfileActive ? "bg-[#f8edeb]" : "hover:bg-[#fafafa]"
+          className={`flex flex-col items-center justify-center h-full w-full py-1 transition-colors ${
+            isProfileActive ? "text-slate-950 font-bold" : "text-slate-500 hover:text-slate-800 font-medium"
           }`}
         >
-          <User size={20} strokeWidth={1.6} className="text-[#121212]" />
-          <span className="navAccount text-[11px] font-normal text-[#121212] mt-0.5">
+          <div className={`p-1 rounded-full transition ${isProfileActive ? "bg-sky-50 text-sky-600" : ""}`}>
+            <User size={19} strokeWidth={isProfileActive ? 2.2 : 1.8} />
+          </div>
+          <span className="text-[10.5px] mt-0.5 leading-none">
             {lang === "ar" ? "حسابي" : "Account"}
           </span>
         </Link>

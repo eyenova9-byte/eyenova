@@ -148,3 +148,40 @@ button {
   animation: flashShimmer 0.75s ease-in-out forwards;
 }
 
+/* Eyenk 1:1 Navigation Menu Links: Hover underline & Active underline */
+.nav-menu-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+  color: #121212;
+  transition: color 0.15s ease;
+}
+
+.nav-menu-item:hover {
+  color: #121212;
+}
+
+.nav-menu-item > span,
+.nav-menu-item > a > span,
+.nav-menu-item > button > span {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.nav-menu-item:hover .nav-menu-text,
+.nav-menu-text:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.35rem;
+  text-decoration-thickness: 1px;
+}
+
+.nav-menu-item.is-active .nav-menu-text,
+.nav-menu-text.is-active {
+  text-decoration: underline;
+  text-underline-offset: 0.35rem;
+  text-decoration-thickness: 1.5px;
+}
+
+

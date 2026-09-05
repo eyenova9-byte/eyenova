@@ -25,6 +25,8 @@ export async function POST(request: Request) {
       dbOrder = await prisma.order.create({
         data: {
           orderNumber,
+          orderSource: "WEBSITE", // Every sale made on the website is explicitly WEBSITE in the database!
+          fulfillmentType: body.fulfillmentType === "STORE_PICKUP" ? "STORE_PICKUP" : "HOME_DELIVERY",
           customerName,
           customerPhone,
           customerEmail: customerEmail || null,
@@ -57,6 +59,20 @@ export async function POST(request: Request) {
           },
         },
       });
+
+      // Deduct sold quantities from stock
+      for (const item of items) {
+        if (item.productId) {
+          await prisma.product.updateMany({
+            where: { id: item.productId },
+            data: {
+              stockQuantity: {
+                decrement: item.quantity || 1,
+              },
+            },
+          });
+        }
+      }
     } catch (dbError) {
       console.warn("Database save skipped (running offline/preview mode):", dbError);
     }
@@ -71,6 +87,62 @@ export async function POST(request: Request) {
     console.error("Failed to process order:", error);
     return NextResponse.json(
       { success: false, error: "Failed to place order" },
+      { status: 500 }
+    );
+  }
+}
+
+export async function GET() {
+  try {
+    let dbOrders = null;
+    try {
+      dbOrders = await prisma.order.findMany({
+        include: {
+          items: {
+            include: {
+              product: true,
+            },
+          },
+        },
+        orderBy: { createdAt: "desc" },
+      });
+    } catch (e) {
+      console.warn("DB find orders error:", e);
+    }
+
+    if (dbOrders && dbOrders.length > 0) {
+      const formatted = dbOrders.map((o) => ({
+        id: o.id,
+        orderNumber: o.orderNumber,
+        customerName: o.customerName,
+        phone: o.customerPhone,
+        district: o.deliveryZone || "Doha",
+        status: o.orderStatus,
+        totalQar: Number(o.totalQar),
+        createdAt: o.createdAt.toISOString(),
+        items: o.items.map((it) => ({
+          title: it.product.titleEn,
+          rightPower: it.rightEyePower ? String(it.rightEyePower) : undefined,
+          rightBoxes: it.rightEyeBoxes || 1,
+          leftPower: it.leftEyePower ? String(it.leftEyePower) : undefined,
+          leftBoxes: it.leftEyeBoxes || 1,
+          priceQar: Number(it.totalPriceQar),
+        })),
+        prescriptionDetails: {
+          odSph: o.items[0]?.rightEyePower ? String(o.items[0]?.rightEyePower) : undefined,
+          osSph: o.items[0]?.leftEyePower ? String(o.items[0]?.leftEyePower) : undefined,
+          isVerified: o.orderStatus !== "PRESCRIPTION_REVIEW",
+        },
+      }));
+
+      return NextResponse.json({ success: true, orders: formatted });
+    }
+
+    return NextResponse.json({ success: true, orders: [] });
+  } catch (error) {
+    console.error("Orders GET error:", error);
+    return NextResponse.json(
+      { success: false, error: "Failed to fetch orders" },
       { status: 500 }
     );
   }

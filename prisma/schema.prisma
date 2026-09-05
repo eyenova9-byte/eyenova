@@ -73,9 +73,19 @@ enum LensUsage {
 }
 
 enum OrderSource {
-  WEBSITE
-  IN_STORE_POS
-  WHATSAPP
+  WEBSITE            // EyeNova E-Commerce Online Store
+  IN_STORE_POS       // Retail POS Register Terminal
+  TALABAT            // Talabat Delivery Aggregator
+  SNOONU             // Snoonu Delivery Aggregator
+  WHATSAPP           // Direct WhatsApp Shopping Assistant
+  INSTAGRAM          // Instagram / Social Direct Sales
+  PHONE_ORDER        // Phone Telesales Order
+}
+
+enum FulfillmentType {
+  IN_STORE_TAKEOUT   // Direct instant register checkout
+  STORE_PICKUP       // Click & Collect from store branch
+  HOME_DELIVERY      // Courier / Driver delivery to Qatar address
 }
 
 enum OrderStatus {
@@ -280,8 +290,10 @@ model Product {
   costPriceQar   Decimal?            @db.Decimal(10, 2)
 
   // Inventory Management
-  stockQuantity  Int                 @default(0)
+  stockQuantity  Int                 @default(0) // Total combined inventory across all stores
   minStockAlert  Int                 @default(3)
+  manufactureDate DateTime?          @db.Date
+  expiryDate     DateTime?           @db.Date
   isFeatured     Boolean             @default(false)
   isActive       Boolean             @default(true)
 
@@ -326,6 +338,9 @@ model Product {
   images             ProductImage[]
   attributes         ProductAttribute[]
   orderItems         OrderItem[]
+  stockAdjustments   StockAdjustment[]
+  storeStocks        StoreStock[]
+  batches            ProductBatch[]
 
   @@index([categoryId])
   @@index([slug])
@@ -387,14 +402,18 @@ model LensOption {
 // ----------------------------------------------------------------------------
 
 model Order {
-  id                  String         @id @default(uuid())
-  orderNumber         String         @unique // e.g. "EN-2026-00104"
-  orderSource         OrderSource    @default(WEBSITE)
+  id                  String          @id @default(uuid())
+  orderNumber         String          @unique // e.g. "EN-2026-00104"
+  orderSource         OrderSource     @default(WEBSITE)
+  fulfillmentType     FulfillmentType @default(HOME_DELIVERY)
+
+  storeId             String?
+  store               Store?          @relation(fields: [storeId], references: [id], onDelete: SetNull)
 
   userId              String?
-  user                User?          @relation(fields: [userId], references: [id], onDelete: SetNull)
+  user                User?           @relation(fields: [userId], references: [id], onDelete: SetNull)
   customerName        String
-  customerPhone       String         // Qatar contact for courier / SMS updates
+  customerPhone       String          // Qatar contact for courier / SMS updates
   customerEmail       String?
 
   orderStatus         OrderStatus    @default(PENDING_PAYMENT)
@@ -424,6 +443,8 @@ model Order {
   @@index([orderNumber])
   @@index([orderStatus])
   @@index([customerPhone])
+  @@index([orderSource])
+  @@index([storeId])
 }
 
 model OrderItem {
@@ -522,6 +543,32 @@ model Invoice {
   @@index([status])
 }
 
+// ============================================================================
+// STOCK COUNT & ADJUSTMENTS (Desktop App + Website Shared)
+// Audit trail for physical stock-count verification. Every product counted
+// in a session is recorded — the stock the system had, the physical count,
+// the signed delta, and why — so inventory history is fully reconstructable.
+// reason values: STOCK_COUNT | DAMAGED | EXPIRED | LOST | FOUND | CORRECTION | OTHER
+// ============================================================================
+
+model StockAdjustment {
+  id         String   @id @default(uuid())
+  productId  String
+  product    Product  @relation(fields: [productId], references: [id])
+
+  systemQty  Int      // stock recorded in the system before this count
+  countedQty Int      // verified physical count (becomes the new stock level)
+  deltaQty   Int      // countedQty - systemQty (negative = items removed)
+  reason     String   // see list above
+  note       String?
+
+  createdAt  DateTime @default(now())
+
+  @@index([productId])
+  @@index([createdAt])
+  @@index([reason])
+}
+
 // ----------------------------------------------------------------------------
 // Marketing, Banners & Homepage Configuration (Arabic + English)
 // ----------------------------------------------------------------------------
@@ -548,4 +595,69 @@ model StoreSetting {
   value       String
   description String?
   updatedAt   DateTime @updatedAt
+}
+
+// ============================================================================
+// STORES, BRANCHES & MULTI-STORE BATCH INVENTORY
+// ============================================================================
+
+model Store {
+  id        String       @id @default(uuid())
+  name      String
+  code      String       @unique
+  address   String?
+  phone     String?
+  isActive  Boolean      @default(true)
+  createdAt DateTime     @default(now())
+
+  users     UserAccount[]
+  stocks    StoreStock[]
+  batches   ProductBatch[]
+  orders    Order[]
+}
+
+model UserAccount {
+  id        String   @id @default(uuid())
+  username  String   @unique
+  fullName  String
+  pinCode   String   @default("0000")
+  role      String   @default("STAFF") // SUPER_ADMIN | STORE_ADMIN | STAFF
+  storeId   String?
+  store     Store?   @relation(fields: [storeId], references: [id], onDelete: SetNull)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  @@index([username])
+  @@index([storeId])
+}
+
+model StoreStock {
+  storeId       String
+  store         Store    @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  productId     String
+  product       Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
+  stockQuantity Int      @default(0)
+  minStockAlert Int      @default(3)
+  updatedAt     DateTime @updatedAt
+
+  @@id([storeId, productId])
+  @@index([productId])
+  @@index([storeId])
+}
+
+model ProductBatch {
+  id              String    @id @default(uuid())
+  productId       String
+  product         Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  storeId         String
+  store           Store     @relation(fields: [storeId], references: [id], onDelete: Cascade)
+  batchNumber     String
+  manufactureDate DateTime? @db.Date
+  expiryDate      DateTime? @db.Date
+  quantity        Int       @default(0)
+  createdAt       DateTime  @default(now())
+
+  @@index([productId])
+  @@index([storeId])
+  @@index([expiryDate])
 }

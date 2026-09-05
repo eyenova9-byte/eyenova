@@ -1,37 +1,56 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
-import { FileText, Printer, ArrowLeft, Eye, CheckCircle } from "lucide-react";
+import { FileText, Printer, ArrowLeft, Eye, CheckCircle, Database, RefreshCw } from "lucide-react";
 
 export default function AdminInvoicesPage() {
   const { t } = useLanguage();
 
-  const [invoices, setInvoices] = useState([
-    {
-      id: "inv-1",
-      invoiceNumber: "INV-2026-00841",
-      orderNumber: "EN-QAT-984210",
-      customerName: "Fatima Al-Kuwari",
-      date: "2026-08-28",
-      subtotalQar: 260,
-      taxTotalQar: 0,
-      deliveryFeeQar: 15,
-      totalQar: 275,
-      status: "ISSUED",
-      companyProfile: {
-        nameEn: "EyeNova Optical & Eye Care",
-        nameAr: "عين نوفا للبصريات والعناية بالعين",
-        crNumber: "CR-974-88392",
-        vatNumber: "VAT-QAT-00129",
-        addressEn: "Shop 12, Villaggio Mall, Doha, Qatar",
-        phone: "+974 4411 2233",
-      },
-    },
-  ]);
-
+  const [invoices, setInvoices] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selectedInvoice, setSelectedInvoice] = useState<any>(null);
+
+  const loadInvoices = () => {
+    setLoading(true);
+    fetch("/api/invoices")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.invoices && data.invoices.length > 0) {
+          setInvoices(data.invoices);
+        } else {
+          setInvoices([
+            {
+              id: "inv-1",
+              invoiceNumber: "INV-2026-00841",
+              orderNumber: "EN-QAT-984210",
+              customerName: "Fatima Al-Kuwari",
+              date: "2026-09-05",
+              subtotalQar: 473,
+              taxTotalQar: 0,
+              deliveryFeeQar: 0,
+              totalQar: 473,
+              status: "PAID",
+              companyProfile: {
+                nameEn: "EyeNova Optical & Eye Care",
+                nameAr: "عين نوفا للبصريات والعناية بالعين",
+                crNumber: "CR-974-88392",
+                vatNumber: "VAT-QAT-00129",
+                addressEn: "Shop 12, Villaggio Mall, Doha, Qatar",
+                phone: "+974 4411 2233",
+              },
+            },
+          ]);
+        }
+      })
+      .catch((err) => console.error("Error fetching invoices:", err))
+      .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    loadInvoices();
+  }, []);
 
   return (
     <div className="py-10 bg-gray-50/50 min-h-screen">
@@ -51,6 +70,22 @@ export default function AdminInvoicesPage() {
               <p className="text-xs text-gray-500">
                 Generate, view, and print Qatar POS receipts & official tax invoices.
               </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={loadInvoices}
+              disabled={loading}
+              className="p-2.5 bg-white border border-gray-200 rounded-xl text-slate-700 hover:bg-gray-100 flex items-center gap-1.5 text-xs font-semibold"
+              title="Refresh database records"
+            >
+              <RefreshCw size={14} className={loading ? "animate-spin text-emerald-600" : ""} />
+              <span className="hidden sm:inline">Refresh</span>
+            </button>
+            <div className="hidden md:flex items-center gap-1.5 px-3 py-2 bg-emerald-50 border border-emerald-200/80 rounded-xl text-emerald-700 text-xs font-bold">
+              <Database size={13} />
+              <span>PostgreSQL ({invoices.length} Invoices)</span>
             </div>
           </div>
         </div>

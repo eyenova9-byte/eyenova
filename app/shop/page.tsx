@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, Suspense } from "react";
+import React, { useState, useEffect, useMemo, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
 import { MOCK_PRODUCTS } from "@/lib/mockData";
@@ -25,6 +25,18 @@ function CollectionContent() {
   const [selectedPowers, setSelectedPowers] = useState<string[]>([]);
   const [sortBy, setSortBy] = useState<string>("best-selling");
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
+  const [allProducts, setAllProducts] = useState<any[]>(MOCK_PRODUCTS);
+
+  useEffect(() => {
+    fetch("/api/products")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.products && data.products.length > 0) {
+          setAllProducts(data.products);
+        }
+      })
+      .catch((err) => console.error("Error fetching shop products:", err));
+  }, []);
 
   // Available Filter Options (Matching Eyenk exactly)
   const filterOptions = {
@@ -108,7 +120,7 @@ function CollectionContent() {
 
   // Filter and sort products
   const products = useMemo(() => {
-    let list = MOCK_PRODUCTS.filter((p) => {
+    let list = allProducts.filter((p) => {
       // Category / Usage
       if (categoryParam !== "all" && categoryParam !== "daily-lens") {
         if (p.categorySlug !== categoryParam) return false;
@@ -147,7 +159,7 @@ function CollectionContent() {
     }
 
     return list;
-  }, [categoryParam, selectedUsage, selectedBrands, selectedPowers, sortBy]);
+  }, [allProducts, categoryParam, selectedUsage, selectedBrands, selectedPowers, sortBy]);
 
   const pageTitle = useMemo(() => {
     if (categoryParam === "daily-lens") return "Daily Lens";

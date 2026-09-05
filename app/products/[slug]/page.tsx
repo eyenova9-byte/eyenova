@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
@@ -76,7 +76,7 @@ export default function ProductDetailPage() {
   const { addItem } = useCart();
 
   // Find product by exact slug, or prefix match (e.g. 1-day-acuvue-moist)
-  const product =
+  const initialProduct =
     MOCK_PRODUCTS.find(
       (p) =>
         p.slug === slug ||
@@ -85,6 +85,19 @@ export default function ProductDetailPage() {
     ) ||
     MOCK_PRODUCTS.find((p) => p.slug === "1-day-acuvue-moist") ||
     MOCK_PRODUCTS[0];
+
+  const [product, setProduct] = useState(initialProduct);
+
+  useEffect(() => {
+    fetch(`/api/products/${slug}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.product) {
+          setProduct(data.product);
+        }
+      })
+      .catch((err) => console.error("Error fetching product from DB:", err));
+  }, [slug]);
 
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
@@ -263,8 +276,8 @@ export default function ProductDetailPage() {
           {/* ================================================================= */}
           {/* LEFT COLUMN: Sticky Media Gallery (Eyenk 45% column, borderless)   */}
           {/* ================================================================= */}
-          <div className="lg:col-span-5">
-            <div className="lg:sticky lg:top-24 flex flex-col gap-3">
+          <div className="lg:col-span-5 lg:sticky lg:top-28 lg:self-start z-10">
+            <div className="flex flex-col gap-3">
               
               {/* Main Featured Image Display - Eyenk 1:1 borderless, natural fit */}
               <div

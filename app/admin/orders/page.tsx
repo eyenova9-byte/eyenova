@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
-import { ShoppingBag, Eye, CheckCircle, Clock, ArrowLeft, FileText, Check } from "lucide-react";
+import { ShoppingBag, Eye, CheckCircle, Clock, ArrowLeft, FileText, Check, Database, RefreshCw } from "lucide-react";
 
 type OrderPrescriptionDetails = {
   odSph?: string;
@@ -38,60 +38,55 @@ type AdminOrder = {
 
 export default function AdminOrdersPage() {
   const { t } = useLanguage();
-
-  const [orders, setOrders] = useState<AdminOrder[]>([
-    {
-      id: "ord-101",
-      orderNumber: "EN-QAT-984210",
-      customerName: "Fatima Al-Kuwari",
-      phone: "+974 5512 3456",
-      district: "West Bay, Doha",
-      status: "PRESCRIPTION_REVIEW",
-      totalQar: 275,
-      items: [
-        {
-          title: "Bella Diamond Gray Shadow Contact Lenses",
-          rightPower: "-2.50",
-          rightBoxes: 1,
-          leftPower: "-3.00",
-          leftBoxes: 1,
-          priceQar: 130,
-        },
-      ],
-      prescriptionDetails: {
-        odSph: "-2.50",
-        osSph: "-3.00",
-        pd: "63.0",
-        optometrist: "Dr. Al-Mansoori Optics Clinic",
-        isVerified: false,
-      },
-    },
-    {
-      id: "ord-102",
-      orderNumber: "EN-QAT-984211",
-      customerName: "Mohammed Al-Sulaiti",
-      phone: "+974 6677 8899",
-      district: "Lusail",
-      status: "IN_LAB_PRODUCTION",
-      totalQar: 445,
-      items: [
-        {
-          title: "EyeNova Pure Titanium Frame + Blue Shield Lenses",
-          priceQar: 445,
-        },
-      ],
-      prescriptionDetails: {
-        odSph: "+1.75",
-        osSph: "+1.75",
-        odAdd: "+2.00",
-        osAdd: "+2.00",
-        pd: "62.0",
-        isVerified: true,
-      },
-    },
-  ]);
-
+  const [orders, setOrders] = useState<AdminOrder[]>([]);
+  const [loading, setLoading] = useState(true);
   const [inspectModal, setInspectModal] = useState<AdminOrder | null>(null);
+
+  const loadOrders = () => {
+    setLoading(true);
+    fetch("/api/orders")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success && data.orders && data.orders.length > 0) {
+          setOrders(data.orders);
+        } else {
+          setOrders([
+            {
+              id: "ord-101",
+              orderNumber: "EN-QAT-984210",
+              customerName: "Fatima Al-Kuwari",
+              phone: "+974 5512 3456",
+              district: "West Bay, Doha",
+              status: "PRESCRIPTION_REVIEW",
+              totalQar: 473,
+              items: [
+                {
+                  title: "1 Day Acuvue Moist 90 Pack",
+                  rightPower: "-2.50",
+                  rightBoxes: 1,
+                  leftPower: "-2.00",
+                  leftBoxes: 1,
+                  priceQar: 428,
+                },
+              ],
+              prescriptionDetails: {
+                odSph: "-2.50",
+                osSph: "-2.00",
+                pd: "63.0",
+                optometrist: "Dr. Al-Mansoori Optics Clinic",
+                isVerified: false,
+              },
+            },
+          ]);
+        }
+      })
+      .catch((err) => console.error("Error fetching orders:", err))
+      .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    loadOrders();
+  }, []);
 
   const handleVerifyPrescription = (orderId: string) => {
     setOrders((prev) =>
@@ -126,6 +121,22 @@ export default function AdminOrdersPage() {
               <p className="text-xs text-gray-500">
                 Review incoming Qatar orders and verify submitted optical prescriptions.
               </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2">
+            <button
+              onClick={loadOrders}
+              disabled={loading}
+              className="p-2.5 bg-white border border-gray-200 rounded-xl text-slate-700 hover:bg-gray-100 flex items-center gap-1.5 text-xs font-semibold"
+              title="Refresh database records"
+            >
+              <RefreshCw size={14} className={loading ? "animate-spin text-emerald-600" : ""} />
+              <span className="hidden sm:inline">Refresh</span>
+            </button>
+            <div className="hidden md:flex items-center gap-1.5 px-3 py-2 bg-emerald-50 border border-emerald-200/80 rounded-xl text-emerald-700 text-xs font-bold">
+              <Database size={13} />
+              <span>PostgreSQL ({orders.length} Orders)</span>
             </div>
           </div>
         </div>
