@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useRef } from "react";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 import { MOCK_PRODUCTS } from "@/lib/mockData";
@@ -14,10 +14,24 @@ import {
   Truck,
   Eye,
   CheckCircle,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
 
 export function EyenkStorefront() {
   const { lang, isRtl } = useLanguage();
+  const contactLensScrollRef = useRef<HTMLDivElement>(null);
+  const brandScrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollContainer = (ref: React.RefObject<HTMLDivElement | null>, direction: "left" | "right") => {
+    if (ref.current) {
+      const scrollAmount = 260;
+      ref.current.scrollBy({
+        left: direction === "left" ? -scrollAmount : scrollAmount,
+        behavior: "smooth",
+      });
+    }
+  };
 
   // Contact Lenses Category Hubs
   const contactLensCircles = [
@@ -274,10 +288,10 @@ export function EyenkStorefront() {
       {/* ========================================================================= */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12 sm:space-y-14 pt-10">
         
-        {/* SECTION 1: Contact Lenses Categories */}
+        {/* SECTION 1: Contact Lenses Categories (One line scrollable with bottom buttons) */}
         <section className="scroll-trigger animate--slide-in" data-cascade>
-          <div className="flex items-baseline justify-between mb-6 sm:mb-8">
-            <h2 className="text-[22px] sm:text-[26px] font-normal tracking-tight text-[#121212] text-left">
+          <div className="flex items-baseline justify-between mb-5 sm:mb-6">
+            <h2 className="text-[20px] sm:text-[24px] font-normal tracking-tight text-[#121212] text-left">
               {lang === "ar" ? "العدسات اللاصقة" : "Contact Lenses"}
             </h2>
             <Link
@@ -288,18 +302,20 @@ export function EyenkStorefront() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 sm:gap-6 text-center">
+          {/* Scrollable Single Row Container */}
+          <div
+            ref={contactLensScrollRef}
+            className="flex items-start gap-4 sm:gap-6 overflow-x-auto no-scrollbar scroll-smooth pb-3 px-1"
+          >
             {contactLensCircles.map((cat, idx) => (
               <Link
                 key={cat.name}
                 href={cat.href}
-                className="group flex flex-col items-center focus:outline-none scroll-trigger animate--slide-in"
-                data-cascade
-                style={{ "--animation-order": idx + 1 } as React.CSSProperties}
+                className="group flex-shrink-0 flex flex-col items-center text-center w-[105px] sm:w-[130px] focus:outline-none"
               >
                 {/* Clean Circular Frame with subtle border and Hover Flash */}
                 <div
-                  className={`w-22 h-22 sm:w-30 sm:h-30 rounded-full ${cat.bgColor} border ${cat.borderColor} flex items-center justify-center p-3 mb-2.5 shadow-2xs group-hover:scale-105 group-hover:shadow-xs transition-all duration-300 overflow-hidden relative hover-flash`}
+                  className={`w-22 h-22 sm:w-28 sm:h-28 rounded-full ${cat.bgColor} border ${cat.borderColor} flex items-center justify-center p-3 mb-2 shadow-2xs group-hover:scale-105 group-hover:shadow-xs transition-all duration-300 overflow-hidden relative hover-flash`}
                 >
                   <img
                     src={cat.img}
@@ -307,18 +323,36 @@ export function EyenkStorefront() {
                     className="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-300"
                   />
                 </div>
-                <span className="text-[12px] sm:text-[14px] font-normal text-[#121212] group-hover:text-[#5c2d76] transition-colors leading-snug">
+                <span className="text-[12px] sm:text-[13px] font-normal text-[#121212] group-hover:text-[#5c2d76] transition-colors leading-tight text-center">
                   {cat.name}
                 </span>
               </Link>
             ))}
           </div>
+
+          {/* Bottom Left & Right Scroll Controls */}
+          <div className="flex items-center justify-center gap-2 pt-2">
+            <button
+              onClick={() => scrollContainer(contactLensScrollRef, "left")}
+              className="w-8 h-8 rounded-full border border-[#E5DDD7] bg-white hover:bg-[#FAF5F2] active:bg-[#F3EBE7] text-[#121212] flex items-center justify-center transition-all shadow-2xs cursor-pointer"
+              aria-label="Scroll left"
+            >
+              <ChevronLeft size={16} />
+            </button>
+            <button
+              onClick={() => scrollContainer(contactLensScrollRef, "right")}
+              className="w-8 h-8 rounded-full border border-[#E5DDD7] bg-white hover:bg-[#FAF5F2] active:bg-[#F3EBE7] text-[#121212] flex items-center justify-center transition-all shadow-2xs cursor-pointer"
+              aria-label="Scroll right"
+            >
+              <ChevronRight size={16} />
+            </button>
+          </div>
         </section>
 
-        {/* SECTION 2: Colour Lenses Brand Showcase */}
+        {/* SECTION 2: Colour Lenses Brand Showcase (One line scrollable with bottom buttons) */}
         <section className="scroll-trigger animate--slide-in" data-cascade>
-          <div className="flex items-baseline justify-between mb-6 sm:mb-8">
-            <h2 className="text-[22px] sm:text-[26px] font-normal tracking-tight text-[#121212] text-left">
+          <div className="flex items-baseline justify-between mb-5 sm:mb-6">
+            <h2 className="text-[20px] sm:text-[24px] font-normal tracking-tight text-[#121212] text-left">
               {lang === "ar" ? "أفخم ماركات العدسات الملونة" : "Colour Lenses Brands"}
             </h2>
             <Link
@@ -329,27 +363,47 @@ export function EyenkStorefront() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 sm:gap-6 text-center">
+          {/* Scrollable Single Row Container */}
+          <div
+            ref={brandScrollRef}
+            className="flex items-start gap-4 sm:gap-6 overflow-x-auto no-scrollbar scroll-smooth pb-3 px-1"
+          >
             {colourLensesBrandCircles.map((brand, idx) => (
               <Link
                 key={brand.name}
                 href={brand.href}
-                className="group flex flex-col items-center focus:outline-none scroll-trigger animate--slide-in"
-                data-cascade
-                style={{ "--animation-order": idx + 1 } as React.CSSProperties}
+                className="group flex-shrink-0 flex flex-col items-center text-center w-[105px] sm:w-[130px] focus:outline-none"
               >
-                <div className="w-22 h-22 sm:w-30 sm:h-30 rounded-full overflow-hidden mb-2.5 border border-[#EFE5DF] shadow-2xs group-hover:scale-105 group-hover:shadow-xs transition-all duration-300 hover-flash">
+                <div className="w-22 h-22 sm:w-28 sm:h-28 rounded-full overflow-hidden mb-2 border border-[#EFE5DF] shadow-2xs group-hover:scale-105 group-hover:shadow-xs transition-all duration-300 hover-flash">
                   <img
                     src={brand.img}
                     alt={brand.name}
                     className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                   />
                 </div>
-                <span className="text-[13px] sm:text-[15px] font-normal text-[#121212] group-hover:text-[#5c2d76] transition-colors">
+                <span className="text-[12px] sm:text-[13px] font-normal text-[#121212] group-hover:text-[#5c2d76] transition-colors leading-tight text-center">
                   {brand.name}
                 </span>
               </Link>
             ))}
+          </div>
+
+          {/* Bottom Left & Right Scroll Controls */}
+          <div className="flex items-center justify-center gap-2 pt-2">
+            <button
+              onClick={() => scrollContainer(brandScrollRef, "left")}
+              className="w-8 h-8 rounded-full border border-[#E5DDD7] bg-white hover:bg-[#FAF5F2] active:bg-[#F3EBE7] text-[#121212] flex items-center justify-center transition-all shadow-2xs cursor-pointer"
+              aria-label="Scroll left"
+            >
+              <ChevronLeft size={16} />
+            </button>
+            <button
+              onClick={() => scrollContainer(brandScrollRef, "right")}
+              className="w-8 h-8 rounded-full border border-[#E5DDD7] bg-white hover:bg-[#FAF5F2] active:bg-[#F3EBE7] text-[#121212] flex items-center justify-center transition-all shadow-2xs cursor-pointer"
+              aria-label="Scroll right"
+            >
+              <ChevronRight size={16} />
+            </button>
           </div>
         </section>
 

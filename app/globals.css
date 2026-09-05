@@ -68,6 +68,16 @@ button {
   color: #121212;
 }
 
+/* Hide scrollbar for Chrome, Safari and Opera */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 /* ========================================================================= */
 /* Eyenk 1:1 Scroll Trigger, Fade In, Slide In & Flash Animations           */
 /* ========================================================================= */

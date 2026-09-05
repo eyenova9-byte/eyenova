@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, useRef, Suspense } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
@@ -14,6 +14,7 @@ import {
   Menu,
   X,
   ChevronDown,
+  ChevronLeft,
   ChevronRight,
   ArrowRight,
   MessageCircle,
@@ -39,6 +40,17 @@ function NavbarContent() {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get("category");
   const brandParam = searchParams.get("brand");
+
+  const drawerCardsScrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollDrawerCards = (direction: "left" | "right") => {
+    if (drawerCardsScrollRef.current) {
+      drawerCardsScrollRef.current.scrollBy({
+        left: direction === "left" ? -180 : 180,
+        behavior: "smooth",
+      });
+    }
+  };
 
   // Lock body scroll whenever mobile menu is open to prevent page bleed-through
   useEffect(() => {
@@ -442,43 +454,104 @@ function NavbarContent() {
 
             {/* 2. Scrollable Body */}
             <div className="flex-1 overflow-y-auto px-4 py-3 space-y-4">
-              {/* Quick Category Hero Cards */}
-              <div className="grid grid-cols-2 gap-2.5">
-                <Link
-                  href="/shop?category=medical-lenses"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="group bg-[#FAF5F2] hover:bg-[#F4ECE8] p-3 rounded-xl border border-[#EFE5DF] transition-all flex flex-col justify-between"
+              {/* Quick Category Hero Cards - One Single Line Scrollable */}
+              <div>
+                <div
+                  ref={drawerCardsScrollRef}
+                  className="flex items-stretch gap-2.5 overflow-x-auto no-scrollbar scroll-smooth pb-1"
                 >
-                  <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-[#5c2d76] shadow-2xs mb-2 group-hover:scale-105 transition-transform">
-                    <Eye size={16} />
-                  </div>
-                  <div>
-                    <span className="text-[13px] font-semibold text-[#121212] block leading-tight">
-                      {lang === "ar" ? "عدسات طبية" : "Medical Lenses"}
-                    </span>
-                    <span className="text-[11px] text-[#707070] mt-0.5 block">
-                      Acuvue, Alcon
-                    </span>
-                  </div>
-                </Link>
+                  <Link
+                    href="/shop?category=medical-lenses"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="group flex-shrink-0 w-[145px] bg-[#FAF5F2] hover:bg-[#F4ECE8] p-3 rounded-xl border border-[#EFE5DF] transition-all flex flex-col justify-between"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-[#5c2d76] shadow-2xs mb-2 group-hover:scale-105 transition-transform">
+                      <Eye size={16} />
+                    </div>
+                    <div>
+                      <span className="text-[13px] font-semibold text-[#121212] block leading-tight">
+                        {lang === "ar" ? "عدسات طبية" : "Medical Lenses"}
+                      </span>
+                      <span className="text-[10px] text-[#707070] mt-0.5 block">
+                        Acuvue, Alcon
+                      </span>
+                    </div>
+                  </Link>
 
-                <Link
-                  href="/shop?category=colored-lenses"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="group bg-[#FAF5F2] hover:bg-[#F4ECE8] p-3 rounded-xl border border-[#EFE5DF] transition-all flex flex-col justify-between"
-                >
-                  <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-[#5c2d76] shadow-2xs mb-2 group-hover:scale-105 transition-transform">
-                    <Sparkles size={16} />
-                  </div>
-                  <div>
-                    <span className="text-[13px] font-semibold text-[#121212] block leading-tight">
-                      {lang === "ar" ? "عدسات ملونة" : "Colour Lenses"}
-                    </span>
-                    <span className="text-[11px] text-[#707070] mt-0.5 block">
-                      Bella, Amara
-                    </span>
-                  </div>
-                </Link>
+                  <Link
+                    href="/shop?category=colored-lenses"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="group flex-shrink-0 w-[145px] bg-[#FAF5F2] hover:bg-[#F4ECE8] p-3 rounded-xl border border-[#EFE5DF] transition-all flex flex-col justify-between"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-[#5c2d76] shadow-2xs mb-2 group-hover:scale-105 transition-transform">
+                      <Sparkles size={16} />
+                    </div>
+                    <div>
+                      <span className="text-[13px] font-semibold text-[#121212] block leading-tight">
+                        {lang === "ar" ? "عدسات ملونة" : "Colour Lenses"}
+                      </span>
+                      <span className="text-[10px] text-[#707070] mt-0.5 block">
+                        Bella, Amara
+                      </span>
+                    </div>
+                  </Link>
+
+                  <Link
+                    href="/shop?category=solutions-drops"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="group flex-shrink-0 w-[145px] bg-[#FAF5F2] hover:bg-[#F4ECE8] p-3 rounded-xl border border-[#EFE5DF] transition-all flex flex-col justify-between"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-[#5c2d76] shadow-2xs mb-2 group-hover:scale-105 transition-transform">
+                      <ShieldCheck size={16} />
+                    </div>
+                    <div>
+                      <span className="text-[13px] font-semibold text-[#121212] block leading-tight">
+                        {lang === "ar" ? "محاليل وقطرات" : "Solutions"}
+                      </span>
+                      <span className="text-[10px] text-[#707070] mt-0.5 block">
+                        Opti-Free, Biotrue
+                      </span>
+                    </div>
+                  </Link>
+
+                  <Link
+                    href="/shop?category=lashes"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="group flex-shrink-0 w-[145px] bg-[#FAF5F2] hover:bg-[#F4ECE8] p-3 rounded-xl border border-[#EFE5DF] transition-all flex flex-col justify-between"
+                  >
+                    <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center text-[#5c2d76] shadow-2xs mb-2 group-hover:scale-105 transition-transform">
+                      <Sparkles size={16} />
+                    </div>
+                    <div>
+                      <span className="text-[13px] font-semibold text-[#121212] block leading-tight">
+                        {lang === "ar" ? "رموش وإكسسوارات" : "Lashes & Beauty"}
+                      </span>
+                      <span className="text-[10px] text-[#707070] mt-0.5 block">
+                        Cases, Accessories
+                      </span>
+                    </div>
+                  </Link>
+                </div>
+
+                {/* Bottom Navigation Buttons for Drawer Quick Cards */}
+                <div className="flex items-center justify-center gap-2 pt-2">
+                  <button
+                    type="button"
+                    onClick={() => scrollDrawerCards("left")}
+                    className="w-7 h-7 rounded-full border border-[#E5DDD7] bg-white hover:bg-[#FAF5F2] active:bg-[#F3EBE7] text-[#121212] flex items-center justify-center transition-all shadow-2xs cursor-pointer"
+                    aria-label="Scroll cards left"
+                  >
+                    <ChevronLeft size={14} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => scrollDrawerCards("right")}
+                    className="w-7 h-7 rounded-full border border-[#E5DDD7] bg-white hover:bg-[#FAF5F2] active:bg-[#F3EBE7] text-[#121212] flex items-center justify-center transition-all shadow-2xs cursor-pointer"
+                    aria-label="Scroll cards right"
+                  >
+                    <ChevronRight size={14} />
+                  </button>
+                </div>
               </div>
 
               {/* Navigation Items */}
