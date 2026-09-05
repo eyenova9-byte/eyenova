@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, Suspense } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { useLanguage } from "@/context/LanguageContext";
@@ -34,6 +34,17 @@ function NavbarContent() {
   const searchParams = useSearchParams();
   const categoryParam = searchParams.get("category");
   const brandParam = searchParams.get("brand");
+
+  // Lock body scroll whenever mobile menu is open to prevent page bleed-through
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      const originalOverflow = document.body.style.overflow;
+      document.body.style.overflow = "hidden";
+      return () => {
+        document.body.style.overflow = originalOverflow || "unset";
+      };
+    }
+  }, [mobileMenuOpen]);
 
   // Determine active menu state
   const isHomeActive = pathname === "/";
@@ -398,22 +409,23 @@ function NavbarContent() {
 
       {/* 4. Refined Mobile Slide-Out Drawer */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 flex lg:hidden">
+        <div className="fixed inset-0 z-[60] flex lg:hidden">
           {/* Backdrop */}
           <div
-            className="fixed inset-0 bg-black/50 backdrop-blur-xs transition-opacity"
+            className="fixed inset-0 bg-black/60 backdrop-blur-xs transition-opacity duration-300"
             onClick={() => setMobileMenuOpen(false)}
+            aria-hidden="true"
           />
 
-          {/* Drawer Panel */}
-          <div className="relative w-full max-w-[320px] bg-white h-full shadow-2xl flex flex-col justify-between overflow-y-auto z-10 animate-slide-in">
-            <div>
-              {/* Drawer Header with EyeNova Brand */}
-              <div className="flex items-center justify-between p-4 border-b border-[#ececec]">
-                <BrandLogo size="sm" />
+          {/* Drawer Panel - Full Viewport Height with safe area support */}
+          <div className="relative w-full max-w-[310px] sm:max-w-[340px] bg-white h-screen min-h-dvh max-h-dvh shadow-2xl flex flex-col justify-between overflow-y-auto z-10 animate-slide-in">
+            <div className="flex-1 overflow-y-auto">
+              {/* Drawer Header with EyeNova Brand & Close Button */}
+              <div className="flex items-center justify-between px-4 py-3.5 border-b border-[#ececec] sticky top-0 bg-white z-10">
+                <BrandLogo size="sm" showArabic={false} />
                 <button
                   onClick={() => setMobileMenuOpen(false)}
-                  className="p-1.5 text-[#121212] hover:bg-[#FAF5F2] rounded-full cursor-pointer"
+                  className="p-2 text-[#121212] hover:bg-[#FAF5F2] active:bg-[#F3EBE7] rounded-full transition-colors cursor-pointer"
                   aria-label="Close menu"
                 >
                   <X size={20} strokeWidth={1.8} />
@@ -511,6 +523,22 @@ function NavbarContent() {
                 </Link>
 
                 <Link
+                  href="/about"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block py-2.5 border-b border-[#f4f4f4] hover:text-[#5c2d76]"
+                >
+                  {lang === "ar" ? "من نحن" : "About EyeNova"}
+                </Link>
+
+                <Link
+                  href="/faq"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block py-2.5 border-b border-[#f4f4f4] hover:text-[#5c2d76]"
+                >
+                  {lang === "ar" ? "الأسئلة الشائعة" : "FAQ & Help"}
+                </Link>
+
+                <Link
                   href="/#locations"
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center gap-1.5 py-2.5 border-b border-[#f4f4f4] hover:text-[#5c2d76]"
@@ -522,7 +550,7 @@ function NavbarContent() {
             </div>
 
             {/* Drawer Bottom Bar: Language, Account & Support */}
-            <div className="p-4 border-t border-[#ececec] bg-[#FAF5F2] space-y-2.5">
+            <div className="p-4 border-t border-[#ececec] bg-[#FAF5F2] space-y-2.5 shrink-0">
               {/* Language Switcher inside Mobile Drawer */}
               <div className="flex items-center justify-between bg-white p-2.5 rounded-lg border border-[#E8DED8]">
                 <span className="text-[12px] text-[#707070] font-medium">
