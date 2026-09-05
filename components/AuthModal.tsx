@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useLanguage } from "@/context/LanguageContext";
-import { setupRecaptcha, firebaseAuth } from "@/lib/firebase";
+import { setupRecaptcha, firebaseAuth, isFirebaseConfigured } from "@/lib/firebase";
 import { signInWithPhoneNumber, ConfirmationResult } from "firebase/auth";
 import {
   X,
@@ -54,14 +54,16 @@ export function AuthModal() {
     setLoading(true);
 
     try {
-      // Try Firebase Phone Auth (10,000 Free SMS/month)
-      if (typeof window !== "undefined" && document.getElementById("recaptcha-container")) {
+      // Try Firebase Phone Auth if real credentials are configured
+      if (isFirebaseConfigured && firebaseAuth && typeof window !== "undefined" && document.getElementById("recaptcha-container")) {
         const verifier = setupRecaptcha("recaptcha-container");
-        const confirmation = await signInWithPhoneNumber(firebaseAuth, formattedPhone, verifier);
-        setConfirmationResult(confirmation);
-        setLoading(false);
-        setStep("otp");
-        return;
+        if (verifier) {
+          const confirmation = await signInWithPhoneNumber(firebaseAuth, formattedPhone, verifier);
+          setConfirmationResult(confirmation);
+          setLoading(false);
+          setStep("otp");
+          return;
+        }
       }
     } catch (firebaseErr: any) {
       console.warn("Firebase phone auth fallback to backend OTP service:", firebaseErr?.message);
