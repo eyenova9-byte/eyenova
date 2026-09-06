@@ -1,27 +1,22 @@
 {% comment %}
-  EyeNova Qatar — Bilingual Language Switcher (EN / AR)
+  EyeNova Qatar - Exact Bilingual Language Switcher matching Next.js Navbar pill
 {% endcomment %}
 
-<div class="lang-switcher" style="display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; font-weight: 600;">
+<div class="nextjs-lang-switch-wrap">
   {% form 'localization', id: 'localization_form', class: 'localization-form' %}
     <input type="hidden" name="locale_code" id="localeCode" value="{{ localization.language.iso_code }}">
     
-    <div style="display: flex; align-items: center; border: 1px solid var(--color-border); border-radius: 9999px; padding: 2px; background: #ffffff;">
-      <button 
-        type="submit" 
-        onclick="document.getElementById('localeCode').value='en'"
-        style="padding: 0.25rem 0.65rem; border-radius: 9999px; border: none; cursor: pointer; background: {% if localization.language.iso_code == 'en' %}var(--color-primary){% else %}transparent{% endif %}; color: {% if localization.language.iso_code == 'en' %}#ffffff{% else %}var(--color-text){% endif %}; font-weight: 600; font-size: 0.78rem;"
-      >
-        EN
-      </button>
-
-      <button 
-        type="submit" 
-        onclick="document.getElementById('localeCode').value='ar'"
-        style="padding: 0.25rem 0.65rem; border-radius: 9999px; border: none; cursor: pointer; background: {% if localization.language.iso_code == 'ar' %}var(--color-primary){% else %}transparent{% endif %}; color: {% if localization.language.iso_code == 'ar' %}#ffffff{% else %}var(--color-text){% endif %}; font-weight: 600; font-size: 0.78rem;"
-      >
+    <button 
+      type="submit" 
+      onclick="document.getElementById('localeCode').value='{% if localization.language.iso_code == 'en' %}ar{% else %}en{% endif %}'"
+      class="nav-lang-btn"
+      aria-label="Toggle language"
+    >
+      {% if localization.language.iso_code == 'en' %}
         العربية
-      </button>
-    </div>
+      {% else %}
+        EN
+      {% endif %}
+    </button>
   {% endform %}
 </div>

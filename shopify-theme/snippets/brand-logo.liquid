@@ -1,0 +1,64 @@
+{%- comment -%}
+  EyeNova Qatar - Exact BrandLogo snippet matching Next.js BrandLogo component
+  Usage: {% render 'brand-logo', size: 'md', variant: 'dark', with_text: true, show_arabic: true %}
+{%- endcomment -%}
+
+{%- assign logo_size = size | default: 'md' -%}
+{%- assign logo_variant = variant | default: 'dark' -%}
+{%- assign show_text = with_text | default: true -%}
+{%- assign show_ar = show_arabic | default: true -%}
+
+{%- if logo_variant == 'dark' -%}
+  {%- assign stroke_outer = '#121212' -%}
+  {%- assign stroke_ring = '#5c2d76' -%}
+  {%- assign fill_center = '#121212' -%}
+  {%- assign text_color = '#121212' -%}
+  {%- assign subtext_color = '#707070' -%}
+{%- else -%}
+  {%- assign stroke_outer = '#ffffff' -%}
+  {%- assign stroke_ring = '#e0c3fc' -%}
+  {%- assign fill_center = '#ffffff' -%}
+  {%- assign text_color = '#ffffff' -%}
+  {%- assign subtext_color = 'rgba(255,255,255,0.8)' -%}
+{%- endif -%}
+
+<a href="/" class="brand-logo-component brand-logo-{{ logo_size }}" aria-label="EyeNova - Home">
+  <div class="brand-logo-svg-wrap">
+    <svg viewBox="0 0 48 32" fill="none" xmlns="http://www.w3.org/2000/svg" class="brand-logo-svg">
+      <!-- Elegant Optical Lens Contour -->
+      <path
+        d="M3 16C8.5 7 16 3.5 24 3.5C32 3.5 39.5 7 45 16C39.5 25 32 28.5 24 28.5C16 28.5 8.5 25 3 16Z"
+        stroke="{{ stroke_outer }}"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      />
+      <!-- Iris Ring with Brand Violet Tone -->
+      <circle
+        cx="24"
+        cy="16"
+        r="8"
+        stroke="{{ stroke_ring }}"
+        stroke-width="2"
+      />
+      <!-- Nova Sparkle / Pupil Center -->
+      <path
+        d="M24 11.5L25.1 14.9L28.5 16L25.1 17.1L24 20.5L22.9 17.1L19.5 16L22.9 14.9L24 11.5Z"
+        fill="{{ fill_center }}"
+      />
+    </svg>
+  </div>
+
+  {%- if show_text -%}
+    <div class="brand-logo-text-wrap">
+      <span class="brand-logo-title" style="color: {{ text_color }};">
+        Eye<span class="brand-logo-light">Nova</span>
+      </span>
+      {%- if show_ar -%}
+        <span class="brand-logo-arabic font-arabic" style="color: {{ subtext_color }};">
+          عين نوفا
+        </span>
+      {%- endif -%}
+    </div>
+  {%- endif -%}
+</a>

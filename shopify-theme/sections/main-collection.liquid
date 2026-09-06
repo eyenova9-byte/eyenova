@@ -68,6 +68,121 @@
     min-width: 0 !important;
     text-align: left !important;
   }
+
+  /* Product Cards Grid - Exactly matching Home Page */
+  .nextjs-product-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+    gap: 2.25rem 1.5rem !important;
+    width: 100% !important;
+    align-items: start !important;
+  }
+
+  /* Product Card - Clean Minimalist (Same as Home Page) */
+  .nextjs-product-grid .nextjs-product-card {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    width: 100% !important;
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    padding: 0 !important;
+    transition: transform 0.2s ease !important;
+  }
+
+  .nextjs-product-grid .nextjs-product-card:hover {
+    transform: translateY(-2px) !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .nextjs-product-grid .nextjs-product-link {
+    width: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-decoration: none !important;
+    color: inherit !important;
+    outline: none !important;
+  }
+
+  .nextjs-product-grid .product-image-box {
+    width: 100% !important;
+    height: 190px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0.5rem !important;
+    margin-bottom: 0.75rem !important;
+    overflow: hidden !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+  }
+
+  .nextjs-product-grid .product-image-box img {
+    max-height: 100% !important;
+    max-width: 100% !important;
+    object-fit: contain !important;
+    mix-blend-mode: multiply !important;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  .nextjs-product-grid .nextjs-product-link:hover .product-image-box img {
+    transform: scale(1.06) !important;
+  }
+
+  .nextjs-product-grid .product-card-title {
+    font-family: inherit !important;
+    font-size: 13px !important;
+    font-weight: 400 !important;
+    color: #121212 !important;
+    line-height: 1.35 !important;
+    text-align: center !important;
+    margin: 0 0 0.4rem 0 !important;
+    padding: 0 0.25rem !important;
+    min-height: 38px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+
+  .nextjs-product-grid .product-card-price {
+    font-family: inherit !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    color: #121212 !important;
+    text-align: center !important;
+  }
+
+  @media (max-width: 1023px) {
+    .nextjs-filter-sidebar {
+      display: none !important;
+    }
+    .desktop-sort-row {
+      display: none !important;
+    }
+    .mobile-filter-bar {
+      display: flex !important;
+      align-items: center !important;
+      justify-content: space-between !important;
+      margin-bottom: 1.25rem !important;
+      padding-bottom: 0.75rem !important;
+      border-bottom: 1px solid #E5E7EB !important;
+    }
+    .nextjs-product-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 1.75rem 1rem !important;
+    }
+    .nextjs-product-grid .product-image-box {
+      height: 150px !important;
+    }
+  }
 </style>
 
 <!-- 1. Top Collection Banner -->
@@ -238,7 +353,7 @@
       <div class="nextjs-product-grid" id="mainCollectionGrid">
         {% if collection.products.size > 0 %}
           {% for product in collection.products %}
-            <div class="nextjs-card-box" 
+            <div class="nextjs-product-card" 
                  data-id="{{ product.id }}" 
                  data-brand="{{ product.vendor | downcase }}" 
                  data-title="{{ product.title | escape }}" 
@@ -246,8 +361,8 @@
                  data-usage="{% if product.tags contains 'daily' %}daily{% elsif product.tags contains 'monthly' %}monthly{% endif %}" 
                  data-type="{% if product.tags contains 'astigmatism' %}astigmatism{% elsif product.tags contains 'multifocal' %}multifocal{% elsif product.tags contains 'colored' %}colored{% else %}standard{% endif %}"
                  data-powers="-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00">
-              <a href="{{ product.url }}" class="card-anchor">
-                <div class="card-img-wrap">
+              <a href="{{ product.url }}" class="nextjs-product-link">
+                <div class="product-image-box">
                   {% if product.featured_image %}
                     <img src="{{ product.featured_image | img_url: '500x500' }}" alt="{{ product.title | escape }}" loading="lazy">
                   {% else %}
@@ -256,253 +371,203 @@
                     </div>
                   {% endif %}
                 </div>
-                <div class="card-details-box">
-                  <h3 class="card-item-title">{{ product.title }}</h3>
-                  <span class="card-item-price">{{ product.price | money }}</span>
-                </div>
+                <h3 class="product-card-title">{{ product.title }}</h3>
+                  <span class="product-card-price">{{ product.price | money }}</span>
               </a>
             </div>
           {% endfor %}
         {% else %}
           <!-- 24 Curated Products from Next.js Retail Catalog -->
-          <div class="nextjs-card-box" data-id="p1" data-brand="bella" data-title="Bella Diamond Gray Shadow Contact Lenses" data-price="130" data-type="colored" data-usage="monthly" data-powers="0.00,-0.50,-0.75,-1.00,-1.25,-1.50,-1.75,-2.00,-2.25,-2.50,-2.75,-3.00,-3.50,-4.00,-4.50,-5.00,-6.00">
-            <a href="/collections/all?brand=bella" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop" alt="Bella Diamond Gray Shadow" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">Bella Diamond Gray Shadow Contact Lenses</h3>
-                <span class="card-item-price">QAR 130.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p1" data-brand="bella" data-title="Bella Diamond Gray Shadow Contact Lenses" data-price="130" data-type="colored" data-usage="monthly" data-powers="0.00,-0.50,-0.75,-1.00,-1.25,-1.50,-1.75,-2.00,-2.25,-2.50,-2.75,-3.00,-3.50,-4.00,-4.50,-5.00,-6.00">
+            <a href="/collections/all?brand=bella" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop" alt="Bella Diamond Gray Shadow" loading="lazy"></div>
+              <h3 class="product-card-title">Bella Diamond Gray Shadow Contact Lenses</h3>
+                <span class="product-card-price">QAR 130.00</span>
+              </a>
           </div>
 
-          <div class="nextjs-card-box" data-id="p2" data-brand="bella" data-title="Bella Elite Sandy Brown Contact Lenses" data-price="135" data-type="colored" data-usage="monthly" data-powers="0.00,-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00">
-            <a href="/collections/all?brand=bella" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&auto=format&fit=crop" alt="Bella Elite Sandy Brown" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">Bella Elite Sandy Brown Contact Lenses</h3>
-                <span class="card-item-price">QAR 135.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p2" data-brand="bella" data-title="Bella Elite Sandy Brown Contact Lenses" data-price="135" data-type="colored" data-usage="monthly" data-powers="0.00,-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00">
+            <a href="/collections/all?brand=bella" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&auto=format&fit=crop" alt="Bella Elite Sandy Brown" loading="lazy"></div>
+              <h3 class="product-card-title">Bella Elite Sandy Brown Contact Lenses</h3>
+                <span class="product-card-price">QAR 135.00</span>
+              </a>
           </div>
 
-          <div class="nextjs-card-box" data-id="p3" data-brand="lensme" data-title="Lensme Caffe Natural Warm Brown Lenses" data-price="145" data-type="colored" data-usage="monthly" data-powers="0.00,-0.50,-0.75,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00">
-            <a href="/collections/all?brand=lensme" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&auto=format&fit=crop" alt="Lensme Caffe Natural Warm Brown" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">Lensme Caffe Natural Warm Brown Lenses</h3>
-                <span class="card-item-price">QAR 145.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p3" data-brand="lensme" data-title="Lensme Caffe Natural Warm Brown Lenses" data-price="145" data-type="colored" data-usage="monthly" data-powers="0.00,-0.50,-0.75,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00">
+            <a href="/collections/all?brand=lensme" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&auto=format&fit=crop" alt="Lensme Caffe Natural Warm Brown" loading="lazy"></div>
+              <h3 class="product-card-title">Lensme Caffe Natural Warm Brown Lenses</h3>
+                <span class="product-card-price">QAR 145.00</span>
+              </a>
           </div>
 
-          <div class="nextjs-card-box" data-id="p4" data-brand="lensme" data-title="Lensme Caramel Golden Hazel Lenses" data-price="145" data-type="colored" data-usage="monthly" data-powers="0.00,-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00">
-            <a href="/collections/all?brand=lensme" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&auto=format&fit=crop" alt="Lensme Caramel Golden Hazel" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">Lensme Caramel Golden Hazel Lenses</h3>
-                <span class="card-item-price">QAR 145.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p4" data-brand="lensme" data-title="Lensme Caramel Golden Hazel Lenses" data-price="145" data-type="colored" data-usage="monthly" data-powers="0.00,-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00">
+            <a href="/collections/all?brand=lensme" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&auto=format&fit=crop" alt="Lensme Caramel Golden Hazel" loading="lazy"></div>
+              <h3 class="product-card-title">Lensme Caramel Golden Hazel Lenses</h3>
+                <span class="product-card-price">QAR 145.00</span>
+              </a>
           </div>
 
-          <div class="nextjs-card-box" data-id="p5" data-brand="amara" data-title="Amara Toffee Hazel Contact Lenses" data-price="140" data-type="colored" data-usage="monthly" data-powers="0.00,-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00">
-            <a href="/collections/all?brand=amara" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=500&auto=format&fit=crop" alt="Amara Toffee Hazel" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">Amara Toffee Hazel Contact Lenses</h3>
-                <span class="card-item-price">QAR 140.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p5" data-brand="amara" data-title="Amara Toffee Hazel Contact Lenses" data-price="140" data-type="colored" data-usage="monthly" data-powers="0.00,-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00">
+            <a href="/collections/all?brand=amara" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=500&auto=format&fit=crop" alt="Amara Toffee Hazel" loading="lazy"></div>
+              <h3 class="product-card-title">Amara Toffee Hazel Contact Lenses</h3>
+                <span class="product-card-price">QAR 140.00</span>
+              </a>
           </div>
 
-          <div class="nextjs-card-box" data-id="p6" data-brand="diva" data-title="Diva Amande Natural Olive Brown Lenses" data-price="150" data-type="colored" data-usage="monthly" data-powers="0.00,-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00">
-            <a href="/collections/all?brand=diva" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop" alt="Diva Amande Natural Olive Brown" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">Diva Amande Natural Olive Brown Lenses</h3>
-                <span class="card-item-price">QAR 150.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p6" data-brand="diva" data-title="Diva Amande Natural Olive Brown Lenses" data-price="150" data-type="colored" data-usage="monthly" data-powers="0.00,-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00">
+            <a href="/collections/all?brand=diva" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop" alt="Diva Amande Natural Olive Brown" loading="lazy"></div>
+              <h3 class="product-card-title">Diva Amande Natural Olive Brown Lenses</h3>
+                <span class="product-card-price">QAR 150.00</span>
+              </a>
           </div>
 
-          <div class="nextjs-card-box" data-id="p7" data-brand="acuvue" data-title="1 Day Acuvue Moist 30 Pack" data-price="159" data-type="standard" data-usage="daily" data-powers="-0.50,-0.75,-1.00,-1.25,-1.50,-1.75,-2.00,-2.25,-2.50,-2.75,-3.00,-3.50,-4.00,-4.50,-5.00,-6.00,-7.00,-8.00">
-            <a href="/collections/all?brand=acuvue" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="1 Day Acuvue Moist" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">1 Day Acuvue Moist 30 Pack</h3>
-                <span class="card-item-price">QAR 159.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p7" data-brand="acuvue" data-title="1 Day Acuvue Moist 30 Pack" data-price="159" data-type="standard" data-usage="daily" data-powers="-0.50,-0.75,-1.00,-1.25,-1.50,-1.75,-2.00,-2.25,-2.50,-2.75,-3.00,-3.50,-4.00,-4.50,-5.00,-6.00,-7.00,-8.00">
+            <a href="/collections/all?brand=acuvue" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="1 Day Acuvue Moist" loading="lazy"></div>
+              <h3 class="product-card-title">1 Day Acuvue Moist 30 Pack</h3>
+                <span class="product-card-price">QAR 159.00</span>
+              </a>
           </div>
 
-          <div class="nextjs-card-box" data-id="p7_define" data-brand="acuvue" data-title="1 Day Acuvue Define Vivid Style" data-price="215" data-type="colored" data-usage="daily" data-powers="0.00,-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00">
-            <a href="/collections/all?brand=acuvue" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Acuvue Define Vivid Style" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">1 Day Acuvue Define Vivid Style</h3>
-                <span class="card-item-price">QAR 215.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p7_define" data-brand="acuvue" data-title="1 Day Acuvue Define Vivid Style" data-price="215" data-type="colored" data-usage="daily" data-powers="0.00,-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00">
+            <a href="/collections/all?brand=acuvue" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Acuvue Define Vivid Style" loading="lazy"></div>
+              <h3 class="product-card-title">1 Day Acuvue Define Vivid Style</h3>
+                <span class="product-card-price">QAR 215.00</span>
+              </a>
           </div>
 
-          <div class="nextjs-card-box" data-id="p7_90" data-brand="acuvue" data-title="1 Day Acuvue Moist 90 Pack" data-price="428" data-type="standard" data-usage="daily" data-powers="-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00,-6.00">
-            <a href="/collections/all?brand=acuvue" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="1 Day Acuvue Moist 90 Pack" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">1 Day Acuvue Moist 90 Pack</h3>
-                <span class="card-item-price">QAR 428.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p7_90" data-brand="acuvue" data-title="1 Day Acuvue Moist 90 Pack" data-price="428" data-type="standard" data-usage="daily" data-powers="-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00,-6.00">
+            <a href="/collections/all?brand=acuvue" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="1 Day Acuvue Moist 90 Pack" loading="lazy"></div>
+              <h3 class="product-card-title">1 Day Acuvue Moist 90 Pack</h3>
+                <span class="product-card-price">QAR 428.00</span>
+              </a>
           </div>
 
-          <div class="nextjs-card-box" data-id="p8" data-brand="acuvue" data-title="Acuvue Oasys 1-Day with HydraLuxe 30PK" data-price="195" data-type="standard" data-usage="daily" data-powers="-0.50,-0.75,-1.00,-1.25,-1.50,-1.75,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00,-6.00">
-            <a href="/collections/all?brand=acuvue" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Acuvue Oasys 1-Day" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">Acuvue Oasys 1-Day with HydraLuxe 30PK</h3>
-                <span class="card-item-price">QAR 195.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p8" data-brand="acuvue" data-title="Acuvue Oasys 1-Day with HydraLuxe 30PK" data-price="195" data-type="standard" data-usage="daily" data-powers="-0.50,-0.75,-1.00,-1.25,-1.50,-1.75,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00,-6.00">
+            <a href="/collections/all?brand=acuvue" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Acuvue Oasys 1-Day" loading="lazy"></div>
+              <h3 class="product-card-title">Acuvue Oasys 1-Day with HydraLuxe 30PK</h3>
+                <span class="product-card-price">QAR 195.00</span>
+              </a>
           </div>
 
-          <div class="nextjs-card-box" data-id="p8_toric" data-brand="acuvue" data-title="1 Day Acuvue Moist for Astigmatism" data-price="210" data-type="astigmatism" data-usage="daily" data-powers="-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00">
-            <a href="/collections/all?brand=acuvue" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Acuvue Moist for Astigmatism" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">1 Day Acuvue Moist for Astigmatism</h3>
-                <span class="card-item-price">QAR 210.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p8_toric" data-brand="acuvue" data-title="1 Day Acuvue Moist for Astigmatism" data-price="210" data-type="astigmatism" data-usage="daily" data-powers="-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00">
+            <a href="/collections/all?brand=acuvue" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Acuvue Moist for Astigmatism" loading="lazy"></div>
+              <h3 class="product-card-title">1 Day Acuvue Moist for Astigmatism</h3>
+                <span class="product-card-price">QAR 210.00</span>
+              </a>
           </div>
 
-          <div class="nextjs-card-box" data-id="p9" data-brand="acuvue" data-title="Acuvue Oasys with Hydraclear Plus 6PK" data-price="170" data-type="standard" data-usage="monthly" data-powers="-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00,-6.00">
-            <a href="/collections/all?brand=acuvue" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Acuvue Oasys 6PK" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">Acuvue Oasys with Hydraclear Plus 6PK</h3>
-                <span class="card-item-price">QAR 170.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p9" data-brand="acuvue" data-title="Acuvue Oasys with Hydraclear Plus 6PK" data-price="170" data-type="standard" data-usage="monthly" data-powers="-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00,-6.00">
+            <a href="/collections/all?brand=acuvue" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Acuvue Oasys 6PK" loading="lazy"></div>
+              <h3 class="product-card-title">Acuvue Oasys with Hydraclear Plus 6PK</h3>
+                <span class="product-card-price">QAR 170.00</span>
+              </a>
           </div>
 
-          <div class="nextjs-card-box" data-id="p10" data-brand="alcon" data-title="Dailies Total 1 Water Gradient 30PK" data-price="205" data-type="standard" data-usage="daily" data-powers="-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00,-6.00">
-            <a href="/collections/all?brand=alcon" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Dailies Total 1" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">Dailies Total 1 Water Gradient 30PK</h3>
-                <span class="card-item-price">QAR 205.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p10" data-brand="alcon" data-title="Dailies Total 1 Water Gradient 30PK" data-price="205" data-type="standard" data-usage="daily" data-powers="-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00,-6.00">
+            <a href="/collections/all?brand=alcon" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Dailies Total 1" loading="lazy"></div>
+              <h3 class="product-card-title">Dailies Total 1 Water Gradient 30PK</h3>
+                <span class="product-card-price">QAR 205.00</span>
+              </a>
           </div>
 
-          <div class="nextjs-card-box" data-id="p11" data-brand="alcon" data-title="Precision1 Daily Contact Lenses 30PK" data-price="185" data-type="standard" data-usage="daily" data-powers="-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00">
-            <a href="/collections/all?brand=alcon" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Precision1 Daily" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">Precision1 Daily Contact Lenses 30PK</h3>
-                <span class="card-item-price">QAR 185.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p11" data-brand="alcon" data-title="Precision1 Daily Contact Lenses 30PK" data-price="185" data-type="standard" data-usage="daily" data-powers="-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00">
+            <a href="/collections/all?brand=alcon" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Precision1 Daily" loading="lazy"></div>
+              <h3 class="product-card-title">Precision1 Daily Contact Lenses 30PK</h3>
+                <span class="product-card-price">QAR 185.00</span>
+              </a>
           </div>
 
-          <div class="nextjs-card-box" data-id="p12" data-brand="alcon" data-title="Air Optix plus HydraGlyde 6PK" data-price="185" data-type="standard" data-usage="monthly" data-powers="-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00,-6.00">
-            <a href="/collections/all?brand=alcon" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Air Optix plus HydraGlyde" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">Air Optix plus HydraGlyde 6PK</h3>
-                <span class="card-item-price">QAR 185.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p12" data-brand="alcon" data-title="Air Optix plus HydraGlyde 6PK" data-price="185" data-type="standard" data-usage="monthly" data-powers="-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00,-6.00">
+            <a href="/collections/all?brand=alcon" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Air Optix plus HydraGlyde" loading="lazy"></div>
+              <h3 class="product-card-title">Air Optix plus HydraGlyde 6PK</h3>
+                <span class="product-card-price">QAR 185.00</span>
+              </a>
           </div>
 
-          <div class="nextjs-card-box" data-id="p12_toric" data-brand="alcon" data-title="Air Optix plus HydraGlyde for Astigmatism" data-price="220" data-type="astigmatism" data-usage="monthly" data-powers="-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00">
-            <a href="/collections/all?brand=alcon" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Air Optix Astigmatism" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">Air Optix plus HydraGlyde for Astigmatism</h3>
-                <span class="card-item-price">QAR 220.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p12_toric" data-brand="alcon" data-title="Air Optix plus HydraGlyde for Astigmatism" data-price="220" data-type="astigmatism" data-usage="monthly" data-powers="-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00">
+            <a href="/collections/all?brand=alcon" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Air Optix Astigmatism" loading="lazy"></div>
+              <h3 class="product-card-title">Air Optix plus HydraGlyde for Astigmatism</h3>
+                <span class="product-card-price">QAR 220.00</span>
+              </a>
           </div>
 
-          <div class="nextjs-card-box" data-id="p13" data-brand="coopervision" data-title="Biofinity Monthly Contact Lenses 6PK" data-price="180" data-type="standard" data-usage="monthly" data-powers="-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00,-6.00">
-            <a href="/collections/all?brand=coopervision" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Biofinity Monthly" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">Biofinity Monthly Contact Lenses 6PK</h3>
-                <span class="card-item-price">QAR 180.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p13" data-brand="coopervision" data-title="Biofinity Monthly Contact Lenses 6PK" data-price="180" data-type="standard" data-usage="monthly" data-powers="-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00,-5.00,-6.00">
+            <a href="/collections/all?brand=coopervision" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Biofinity Monthly" loading="lazy"></div>
+              <h3 class="product-card-title">Biofinity Monthly Contact Lenses 6PK</h3>
+                <span class="product-card-price">QAR 180.00</span>
+              </a>
           </div>
 
-          <div class="nextjs-card-box" data-id="p14" data-brand="coopervision" data-title="Biofinity Toric for Astigmatism 6PK" data-price="225" data-type="astigmatism" data-usage="monthly" data-powers="-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00">
-            <a href="/collections/all?brand=coopervision" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Biofinity Toric" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">Biofinity Toric for Astigmatism 6PK</h3>
-                <span class="card-item-price">QAR 225.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p14" data-brand="coopervision" data-title="Biofinity Toric for Astigmatism 6PK" data-price="225" data-type="astigmatism" data-usage="monthly" data-powers="-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00">
+            <a href="/collections/all?brand=coopervision" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Biofinity Toric" loading="lazy"></div>
+              <h3 class="product-card-title">Biofinity Toric for Astigmatism 6PK</h3>
+                <span class="product-card-price">QAR 225.00</span>
+              </a>
           </div>
 
-          <div class="nextjs-card-box" data-id="p14_multi" data-brand="coopervision" data-title="Biofinity Multifocal Presbyopia 6PK" data-price="245" data-type="multifocal" data-usage="monthly" data-powers="-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00">
-            <a href="/collections/all?brand=coopervision" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Biofinity Multifocal" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">Biofinity Multifocal Presbyopia 6PK</h3>
-                <span class="card-item-price">QAR 245.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p14_multi" data-brand="coopervision" data-title="Biofinity Multifocal Presbyopia 6PK" data-price="245" data-type="multifocal" data-usage="monthly" data-powers="-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-3.50,-4.00">
+            <a href="/collections/all?brand=coopervision" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Biofinity Multifocal" loading="lazy"></div>
+              <h3 class="product-card-title">Biofinity Multifocal Presbyopia 6PK</h3>
+                <span class="product-card-price">QAR 245.00</span>
+              </a>
           </div>
 
-          <div class="nextjs-card-box" data-id="p15" data-brand="alcon" data-title="Opti-Free PureMoist Multi-Purpose Solution 300ml" data-price="48" data-type="standard" data-usage="" data-powers="">
-            <a href="/collections/all?brand=alcon" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&auto=format&fit=crop" alt="Opti-Free PureMoist Solution" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">Opti-Free PureMoist Multi-Purpose Solution 300ml</h3>
-                <span class="card-item-price">QAR 48.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p15" data-brand="alcon" data-title="Opti-Free PureMoist Multi-Purpose Solution 300ml" data-price="48" data-type="standard" data-usage="" data-powers="">
+            <a href="/collections/all?brand=alcon" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&auto=format&fit=crop" alt="Opti-Free PureMoist Solution" loading="lazy"></div>
+              <h3 class="product-card-title">Opti-Free PureMoist Multi-Purpose Solution 300ml</h3>
+                <span class="product-card-price">QAR 48.00</span>
+              </a>
           </div>
 
-          <div class="nextjs-card-box" data-id="p16" data-brand="bausch" data-title="Biotrue Multi-Purpose Solution 300ml Twin Pack" data-price="85" data-type="standard" data-usage="" data-powers="">
-            <a href="/collections/all?brand=bausch" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&auto=format&fit=crop" alt="Biotrue Solution Twin Pack" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">Biotrue Multi-Purpose Solution 300ml Twin Pack</h3>
-                <span class="card-item-price">QAR 85.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p16" data-brand="bausch" data-title="Biotrue Multi-Purpose Solution 300ml Twin Pack" data-price="85" data-type="standard" data-usage="" data-powers="">
+            <a href="/collections/all?brand=bausch" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&auto=format&fit=crop" alt="Biotrue Solution Twin Pack" loading="lazy"></div>
+              <h3 class="product-card-title">Biotrue Multi-Purpose Solution 300ml Twin Pack</h3>
+                <span class="product-card-price">QAR 85.00</span>
+              </a>
           </div>
 
-          <div class="nextjs-card-box" data-id="p17" data-brand="alcon" data-title="Systane Ultra Lubricant Eye Drops 10ml" data-price="42" data-type="standard" data-usage="" data-powers="">
-            <a href="/collections/all?brand=alcon" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&auto=format&fit=crop" alt="Systane Ultra Lubricant Drops" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">Systane Ultra Lubricant Eye Drops 10ml</h3>
-                <span class="card-item-price">QAR 42.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p17" data-brand="alcon" data-title="Systane Ultra Lubricant Eye Drops 10ml" data-price="42" data-type="standard" data-usage="" data-powers="">
+            <a href="/collections/all?brand=alcon" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&auto=format&fit=crop" alt="Systane Ultra Lubricant Drops" loading="lazy"></div>
+              <h3 class="product-card-title">Systane Ultra Lubricant Eye Drops 10ml</h3>
+                <span class="product-card-price">QAR 42.00</span>
+              </a>
           </div>
 
-          <div class="nextjs-card-box" data-id="p18" data-brand="alcon" data-title="FreshLook Colorblends Hazel & Pure Hazel" data-price="110" data-type="colored" data-usage="monthly" data-powers="0.00,-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-4.00">
-            <a href="/collections/all?brand=alcon" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop" alt="FreshLook Colorblends" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">FreshLook Colorblends Hazel & Pure Hazel</h3>
-                <span class="card-item-price">QAR 110.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p18" data-brand="alcon" data-title="FreshLook Colorblends Hazel & Pure Hazel" data-price="110" data-type="colored" data-usage="monthly" data-powers="0.00,-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-4.00">
+            <a href="/collections/all?brand=alcon" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop" alt="FreshLook Colorblends" loading="lazy"></div>
+              <h3 class="product-card-title">FreshLook Colorblends Hazel & Pure Hazel</h3>
+                <span class="product-card-price">QAR 110.00</span>
+              </a>
           </div>
 
-          <div class="nextjs-card-box" data-id="p19" data-brand="amara" data-title="Amara Warm Hazel Golden Lenses" data-price="140" data-type="colored" data-usage="monthly" data-powers="0.00,-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-4.00">
-            <a href="/collections/all?brand=amara" class="card-anchor">
-              <div class="card-img-wrap"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&auto=format&fit=crop" alt="Amara Warm Hazel" loading="lazy"></div>
-              <div class="card-details-box">
-                <h3 class="card-item-title">Amara Warm Hazel Golden Lenses</h3>
-                <span class="card-item-price">QAR 140.00</span>
-              </div>
-            </a>
+          <div class="nextjs-product-card" data-id="p19" data-brand="amara" data-title="Amara Warm Hazel Golden Lenses" data-price="140" data-type="colored" data-usage="monthly" data-powers="0.00,-0.50,-1.00,-1.50,-2.00,-2.50,-3.00,-4.00">
+            <a href="/collections/all?brand=amara" class="nextjs-product-link">
+              <div class="product-image-box"><img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&auto=format&fit=crop" alt="Amara Warm Hazel" loading="lazy"></div>
+              <h3 class="product-card-title">Amara Warm Hazel Golden Lenses</h3>
+                <span class="product-card-price">QAR 140.00</span>
+              </a>
           </div>
         {% endif %}
       </div>
@@ -620,7 +685,7 @@
     // Filter product cards
     var grid = document.getElementById('mainCollectionGrid');
     if (!grid) return;
-    var cards = Array.from(grid.querySelectorAll('.nextjs-card-box'));
+    var cards = Array.from(grid.querySelectorAll('.nextjs-product-card, .nextjs-card-box'));
     var visibleCount = 0;
 
     cards.forEach(function(card) {

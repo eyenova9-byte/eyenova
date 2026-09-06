@@ -1,17 +1,25 @@
 <style>
-  .analog-announcement-bar {
-    background-color: #5c2d76 !important;
-    color: #FFFFFF !important;
-    font-size: 0.78rem !important;
-    padding: 0.5rem 1.25rem !important;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+  .nextjs-announcement-strip {
+    background-color: #FAF5F2 !important;
+    border-bottom: 1px solid #EFE5DF !important;
+    color: #121212 !important;
+    font-size: 12px !important;
+    padding: 0.5rem 1rem !important;
+    letter-spacing: 0.02em !important;
     width: 100% !important;
     position: relative !important;
     z-index: 510 !important;
+    line-height: 1.4 !important;
+  }
+
+  @media (min-width: 640px) {
+    .nextjs-announcement-strip {
+      font-size: 13px !important;
+    }
   }
 
   .announcement-inner {
-    max-width: 1360px !important;
+    max-width: 1280px !important;
     margin: 0 auto !important;
     display: flex !important;
     align-items: center !important;
@@ -19,120 +27,105 @@
     gap: 1rem !important;
   }
 
-  .announcement-left {
-    display: flex !important;
-    align-items: center !important;
-    gap: 0.6rem !important;
+  .announcement-center-wrap {
+    flex: 1 !important;
+    text-align: center !important;
   }
 
-  .announcement-badge {
-    background-color: rgba(255, 255, 255, 0.2) !important;
-    color: #FFFFFF !important;
-    padding: 0.15rem 0.55rem !important;
-    border-radius: 9999px !important;
-    font-size: 0.68rem !important;
-    font-weight: 700 !important;
-    text-transform: uppercase !important;
-    letter-spacing: 0.05em !important;
-    white-space: nowrap !important;
-  }
-
-  .announcement-text {
-    font-weight: 400 !important;
-    color: rgba(255, 255, 255, 0.9) !important;
-    font-size: 0.76rem !important;
-    white-space: nowrap !important;
-  }
-
-  .announcement-center {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-  }
-
-  .announcement-link {
+  .announcement-main-link {
     display: inline-flex !important;
     align-items: center !important;
-    gap: 0.5rem !important;
-    color: #FFFFFF !important;
+    gap: 0.375rem !important;
+    color: #121212 !important;
     text-decoration: none !important;
-    font-weight: 500 !important;
-    font-size: 0.76rem !important;
-    white-space: nowrap !important;
-    transition: opacity 0.15s ease !important;
+    transition: color 0.15s ease !important;
   }
 
-  .announcement-link:hover {
-    opacity: 0.92 !important;
-    text-decoration: underline !important;
+  .announcement-main-link:hover {
+    color: #5c2d76 !important;
   }
 
   .announcement-pulse-dot {
     width: 6px !important;
     height: 6px !important;
-    background-color: #4ADE80 !important;
     border-radius: 9999px !important;
-    animation: analogPulse 2s infinite !important;
+    background-color: #5c2d76 !important;
+    animation: announcementPulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite !important;
     flex-shrink: 0 !important;
   }
 
-  @keyframes analogPulse {
+  @keyframes announcementPulse {
     0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(1.3); }
+    50% { opacity: 0.4; transform: scale(1.2); }
   }
 
-  .announcement-right {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-end !important;
+  .announcement-text-bold {
+    font-weight: 500 !important;
   }
 
-  .announcement-wa {
+  .announcement-arrow {
+    font-size: 12px !important;
+  }
+
+  .announcement-right-contact {
+    display: none !important;
+  }
+
+  @media (min-width: 768px) {
+    .announcement-right-contact {
+      display: flex !important;
+      align-items: center !important;
+      gap: 1rem !important;
+      font-size: 12px !important;
+      color: #707070 !important;
+    }
+  }
+
+  .announcement-wa-link {
     display: inline-flex !important;
     align-items: center !important;
-    gap: 0.4rem !important;
-    color: rgba(255, 255, 255, 0.9) !important;
+    gap: 0.25rem !important;
+    color: #707070 !important;
     text-decoration: none !important;
-    font-size: 0.76rem !important;
-    white-space: nowrap !important;
     transition: color 0.15s ease !important;
   }
 
-  .announcement-wa:hover {
-    color: #FFFFFF !important;
-    text-decoration: underline !important;
+  .announcement-wa-link:hover {
+    color: #121212 !important;
   }
 
-  @media (max-width: 1023px) {
-    .announcement-left,
-    .announcement-right {
-      display: none !important;
-    }
-    .announcement-center {
-      width: 100% !important;
-      text-align: center !important;
-      font-size: 0.72rem !important;
-    }
+  .wa-icon-green {
+    color: #25D366 !important;
   }
 </style>
 
-<div class="analog-announcement-bar">
+<div class="nextjs-announcement-strip">
   <div class="announcement-inner">
-    <div class="announcement-left">
-      <span class="announcement-badge">MOPH APPROVED</span>
-      <span class="announcement-text">100% Authentic Certified Optical Products</span>
-    </div>
-    <div class="announcement-center">
-      <a href="/collections/all" class="announcement-link">
+    <div class="announcement-center-wrap">
+      <a href="/collections/all" class="announcement-main-link">
         <span class="announcement-pulse-dot"></span>
-        <span>Same-Day Express Qatar Delivery &bull; Free on Orders Over QAR 250</span>
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+        <span class="announcement-text-bold">
+          {%- if request.locale.iso_code == 'ar' -%}
+            توصيل سريع بنفس اليوم في قطر | كود خصم RETURN10
+          {%- else -%}
+            Same-Day Delivery in Qatar | Use code RETURN10 for 10% off
+          {%- endif -%}
+        </span>
+        <span class="announcement-arrow">&rarr;</span>
       </a>
     </div>
-    <div class="announcement-right">
-      <a href="https://wa.me/97455123456" target="_blank" rel="noopener noreferrer" class="announcement-wa">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
-        <span>Concierge: +974 5512 3456</span>
+
+    <div class="announcement-right-contact">
+      <a
+        href="https://wa.me/97455123456"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="announcement-wa-link"
+      >
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="wa-icon-green">
+          <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>
+        </svg>
+        <span>+974 5512 3456</span>
       </a>
     </div>
   </div>

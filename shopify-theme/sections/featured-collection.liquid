@@ -1,4 +1,4 @@
-<section class="store-section">
+<section class="store-section" data-reveal>
   <div class="store-container">
     <div class="section-title-row">
       <h2 class="section-title-text">{{ section.settings.title | default: "Best Selling Medical Lens" }}</h2>
@@ -9,7 +9,7 @@
       {% assign featured_col = collections[section.settings.collection] %}
       {% if featured_col != blank and featured_col.products.size > 0 %}
         {% for product in featured_col.products limit: section.settings.products_to_show %}
-          <div class="nextjs-product-card">
+          <div class="nextjs-product-card" data-reveal data-reveal-delay="{{ forloop.index | at_most: 5 }}">
             <a href="{{ product.url }}" class="nextjs-product-link">
               <div class="product-image-box">
                 {% if product.featured_image %}

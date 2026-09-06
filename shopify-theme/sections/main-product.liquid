@@ -1,11 +1,11 @@
-<section class="main-product-section" style="padding: 4rem 2rem; max-width: 1360px; margin: 0 auto;">
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
-    
+<section class="main-product-section" data-reveal style="padding: 4rem 2rem; max-width: 1360px; margin: 0 auto;">
+  <div class="product-layout-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
+
     <!-- Product Gallery -->
-    <div>
-      <div style="background: #ffffff; border: 1px solid var(--color-border); border-radius: 12px; overflow: hidden; margin-bottom: 1rem; box-shadow: var(--shadow-subtle);">
+    <div class="product-gallery">
+      <div class="product-gallery-main" style="background: #ffffff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; margin-bottom: 1rem; box-shadow: var(--shadow-sm);">
         {% if product.featured_image %}
-          <img src="{{ product.featured_image | img_url: '800x800', crop: 'center' }}" alt="{{ product.title | escape }}" style="width: 100%; height: auto; display: block;">
+          <img id="ProductMainImage" src="{{ product.featured_image | img_url: '800x800', crop: 'center' }}" alt="{{ product.title | escape }}" style="width: 100%; height: auto; display: block;">
         {% else %}
           <div style="height: 450px; background: #fdfbf7; display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 1.5rem; color: var(--color-primary);">
             EyeNova Frame Gallery
@@ -15,9 +15,11 @@
 
       <!-- Thumbnails -->
       {% if product.images.size > 1 %}
-        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem;">
+        <div class="product-thumb-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem;">
           {% for img in product.images %}
-            <img src="{{ img | img_url: '200x200', crop: 'center' }}" alt="{{ product.title }}" style="width: 100%; border: 1px solid var(--color-border); border-radius: 6px; cursor: pointer;">
+            <button type="button" class="product-thumb{% if forloop.first %} is-active{% endif %}" data-full="{{ img | img_url: '800x800', crop: 'center' }}" aria-label="View image {{ forloop.index }}">
+              <img src="{{ img | img_url: '200x200', crop: 'center' }}" alt="{{ product.title | escape }} thumbnail {{ forloop.index }}" loading="lazy">
+            </button>
           {% endfor %}
         </div>
       {% endif %}
@@ -119,6 +121,94 @@
 
   </div>
 </section>
+
+  <!-- Related Products / Recommended Lenses (Exact Home Page Card Parity) -->
+  <section class="store-section" style="border-top: 1px solid #E5E7EB; margin-top: 4rem; padding-top: 3rem; width: 100%;">
+    <div class="store-container">
+      <div class="section-title-row">
+        <h2 class="section-title-text">You May Also Like</h2>
+        <a href="/collections/all" class="section-link-more">View all &rarr;</a>
+      </div>
+
+      <div class="nextjs-products-grid">
+        <!-- 1. 1 Day Acuvue Moist -->
+        <div class="nextjs-product-card">
+          <a href="/collections/all?brand=acuvue" class="nextjs-product-link">
+            <div class="product-image-box">
+              <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="1 Day Acuvue Moist" loading="lazy">
+            </div>
+            <h3 class="product-card-title">1 Day Acuvue Moist 30 Pack</h3>
+            <span class="product-card-price">QAR 159.00</span>
+          </a>
+        </div>
+
+        <!-- 2. Bella Diamond Gray Shadow -->
+        <div class="nextjs-product-card">
+          <a href="/collections/all?brand=bella" class="nextjs-product-link">
+            <div class="product-image-box">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop" alt="Bella Diamond Gray Shadow" loading="lazy">
+            </div>
+            <h3 class="product-card-title">Bella Diamond Gray Shadow</h3>
+            <span class="product-card-price">QAR 130.00</span>
+          </a>
+        </div>
+
+        <!-- 3. Acuvue Oasys with HydraLuxe -->
+        <div class="nextjs-product-card">
+          <a href="/collections/all?brand=acuvue" class="nextjs-product-link">
+            <div class="product-image-box">
+              <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Acuvue Oasys 1 DAY with HydraLuxe" loading="lazy">
+            </div>
+            <h3 class="product-card-title">Acuvue Oasys 1 DAY with HydraLuxe</h3>
+            <span class="product-card-price">QAR 195.00</span>
+          </a>
+        </div>
+
+        <!-- 4. Lensme Caramel Golden Hazel -->
+        <div class="nextjs-product-card">
+          <a href="/collections/all?brand=lensme" class="nextjs-product-link">
+            <div class="product-image-box">
+              <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&auto=format&fit=crop" alt="Lensme Caramel Golden Hazel" loading="lazy">
+            </div>
+            <h3 class="product-card-title">Lensme Caramel Golden Hazel</h3>
+            <span class="product-card-price">QAR 145.00</span>
+          </a>
+        </div>
+
+        <!-- 5. Dailies Total 1 -->
+        <div class="nextjs-product-card">
+          <a href="/collections/all?brand=alcon" class="nextjs-product-link">
+            <div class="product-image-box">
+              <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Dailies Total 1" loading="lazy">
+            </div>
+            <h3 class="product-card-title">Dailies Total 1 (30 Lenses)</h3>
+            <span class="product-card-price">QAR 225.00</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+<script>
+  (function () {
+    var thumbs = document.querySelectorAll('.product-thumb');
+    var mainImg = document.getElementById('ProductMainImage');
+    if (!thumbs.length || !mainImg) return;
+    thumbs.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var full = btn.getAttribute('data-full');
+        if (!full) return;
+        mainImg.style.opacity = '0';
+        setTimeout(function () {
+          mainImg.src = full;
+          mainImg.style.opacity = '1';
+        }, 160);
+        thumbs.forEach(function (t) { t.classList.remove('is-active'); });
+        btn.classList.add('is-active');
+      });
+    });
+  })();
+</script>
 
 {% schema %}
 {

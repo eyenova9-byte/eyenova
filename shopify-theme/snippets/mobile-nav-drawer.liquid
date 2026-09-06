@@ -1,83 +1,150 @@
-<!-- Mobile Slideout Navigation Drawer (Full Screen Height, Opaque, Root Stacking Context) -->
+<!-- Mobile Slideout Navigation Drawer (Exact Next.js Parity) -->
 <div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
+
 <aside class="mobile-nav-drawer" id="mobileNavDrawer" aria-label="Mobile Navigation Menu">
+  <!-- 1. Header Bar: Brand Logo & Close Button -->
   <div class="mobile-nav-header">
-    <div class="brand-text-wrap">
-      <span class="brand-title" style="font-size: 1.25rem;">EyeNova</span>
-      <span class="brand-tagline">ATELIER &bull; QATAR</span>
-    </div>
-    <button type="button" class="mobile-nav-close-btn" id="mobileMenuCloseBtn" aria-label="Close Navigation">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+    {% render 'brand-logo', size: 'sm', variant: 'dark', with_text: true, show_arabic: false %}
+    <button type="button" class="mobile-nav-close-btn" id="mobileMenuCloseBtn" data-mobile-nav-close aria-label="Close menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"/>
+        <line x1="6" y1="6" x2="18" y2="18"/>
       </svg>
     </button>
   </div>
 
+  <!-- 2. Scrollable Body -->
   <div class="mobile-nav-body">
-    <ul class="mobile-nav-list">
-      <li><a href="/" class="mobile-nav-item {% if request.path == '/' %}mobile-nav-active{% endif %}">Home</a></li>
-      <li><a href="/collections/all" class="mobile-nav-item">All Products & Catalog</a></li>
+    <!-- Quick Category Hero Cards - One Single Line Scrollable -->
+    <div class="mobile-drawer-cards-section">
+      <div class="mobile-drawer-cards-scroll" id="drawerCardsScrollContainer">
+        <!-- Card 1: Medical Lenses -->
+        <a href="/collections/all?category=medical" class="mobile-drawer-quick-card">
+          <div class="quick-card-icon-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5c2d76" stroke-width="1.8"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <div>
+            <span class="quick-card-title">Medical Lenses</span>
+            <span class="quick-card-subtitle">Acuvue, Alcon</span>
+          </div>
+        </a>
 
-      <li class="mobile-nav-section-label">Medical Lenses</li>
-      <li><a href="/collections/all?type=daily" class="mobile-nav-subitem">Daily Disposable</a></li>
-      <li><a href="/collections/all?type=monthly" class="mobile-nav-subitem">Monthly Disposable</a></li>
-      <li><a href="/collections/all?type=astigmatism" class="mobile-nav-subitem">Astigmatism (Toric)</a></li>
-      <li><a href="/collections/all?type=multifocal" class="mobile-nav-subitem">Multifocal (Presbyopia)</a></li>
+        <!-- Card 2: Colour Lenses -->
+        <a href="/collections/all?category=colored" class="mobile-drawer-quick-card">
+          <div class="quick-card-icon-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5c2d76" stroke-width="1.8"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+          </div>
+          <div>
+            <span class="quick-card-title">Colour Lenses</span>
+            <span class="quick-card-subtitle">Bella, Amara</span>
+          </div>
+        </a>
 
-      <li class="mobile-nav-section-label">Colour Lenses</li>
-      <li><a href="/collections/all?brand=amara" class="mobile-nav-subitem">Amara Celebrity Colours</a></li>
-      <li><a href="/collections/all?brand=bella" class="mobile-nav-subitem">Bella Luxury Shades</a></li>
-      <li><a href="/collections/all?brand=diva" class="mobile-nav-subitem">Diva Natural Collection</a></li>
-      <li><a href="/collections/all?brand=lensme" class="mobile-nav-subitem">LensMe Korea & Arabic Style</a></li>
-      <li><a href="/collections/all?brand=freshlook" class="mobile-nav-subitem">FreshLook Colorblends</a></li>
+        <!-- Card 3: Solutions -->
+        <a href="/collections/all?category=solutions" class="mobile-drawer-quick-card">
+          <div class="quick-card-icon-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5c2d76" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <div>
+            <span class="quick-card-title">Solutions</span>
+            <span class="quick-card-subtitle">Opti-Free, Biotrue</span>
+          </div>
+        </a>
 
-      <li class="mobile-nav-section-label">Care & Eyewear</li>
-      <li><a href="/collections/all?category=solutions" class="mobile-nav-subitem">Solutions & Eye Drops</a></li>
-      <li><a href="/collections/all?category=eyewear" class="mobile-nav-subitem">Eyeglasses & Sunglasses</a></li>
-      <li><a href="/pages/about" class="mobile-nav-item">About & Locations</a></li>
-    </ul>
+        <!-- Card 4: Lashes -->
+        <a href="/collections/all?category=lashes" class="mobile-drawer-quick-card">
+          <div class="quick-card-icon-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5c2d76" stroke-width="1.8"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg>
+          </div>
+          <div>
+            <span class="quick-card-title">Lashes & Beauty</span>
+            <span class="quick-card-subtitle">Cases, Accessories</span>
+          </div>
+        </a>
+      </div>
 
-    <div class="mobile-nav-footer">
-      <a href="https://wa.me/97455123456" target="_blank" rel="noopener noreferrer" class="mobile-nav-wa-btn">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
-        <span>WhatsApp Optical Concierge</span>
-      </a>
+      <!-- Navigation Arrows for Quick Cards -->
+      <div class="mobile-drawer-card-arrows">
+        <button type="button" class="drawer-arrow-btn" onclick="scrollMobileDrawerCards('left')" aria-label="Scroll left">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button type="button" class="drawer-arrow-btn" onclick="scrollMobileDrawerCards('right')" aria-label="Scroll right">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
     </div>
+
+    <!-- Navigation Accordion Items -->
+    <nav class="mobile-drawer-nav-list">
+      <!-- Home -->
+      <a href="/" class="mobile-drawer-nav-link {% if request.path == '/' %}is-active{% endif %}">
+        <span>Home</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+
+      <!-- Medical Lens Accordion -->
+      <details class="mobile-drawer-accordion">
+        <summary class="mobile-drawer-summary">
+          <span>Medical Lens</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="accordion-chevron"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="mobile-drawer-sublist">
+          <a href="/collections/all?type=daily" class="mobile-drawer-sublink">Daily Disposable</a>
+          <a href="/collections/all?type=monthly" class="mobile-drawer-sublink">Monthly Disposable</a>
+          <a href="/collections/all?type=astigmatism" class="mobile-drawer-sublink">Astigmatism (Toric)</a>
+          <a href="/collections/all?type=multifocal" class="mobile-drawer-sublink">Multifocal (Presbyopia)</a>
+          <a href="/collections/all?brand=acuvue" class="mobile-drawer-sublink">Acuvue (Johnson &amp; Johnson)</a>
+          <a href="/collections/all?brand=alcon" class="mobile-drawer-sublink">Alcon Precision</a>
+          <a href="/collections/all?brand=bausch" class="mobile-drawer-sublink">Bausch + Lomb</a>
+          <a href="/collections/all?brand=coopervision" class="mobile-drawer-sublink">CooperVision</a>
+        </div>
+      </details>
+
+      <!-- Colour Lenses Accordion -->
+      <details class="mobile-drawer-accordion">
+        <summary class="mobile-drawer-summary">
+          <span>Colour Lenses</span>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="accordion-chevron"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="mobile-drawer-sublist">
+          <a href="/collections/all?brand=amara" class="mobile-drawer-sublink">Amara Luxury Lenses</a>
+          <a href="/collections/all?brand=bella" class="mobile-drawer-sublink">Bella Natural Collection</a>
+          <a href="/collections/all?brand=diva" class="mobile-drawer-sublink">Diva Cosmetic Series</a>
+          <a href="/collections/all?brand=lensme" class="mobile-drawer-sublink">LensMe Korea Collection</a>
+          <a href="/collections/all?brand=freshlook" class="mobile-drawer-sublink">FreshLook Classic</a>
+          <a href="/collections/all?brand=acuvue" class="mobile-drawer-sublink">Acuvue Define Ring</a>
+        </div>
+      </details>
+
+      <!-- Solutions & Drops -->
+      <a href="/collections/all?category=solutions" class="mobile-drawer-nav-link">
+        <span>Solutions &amp; Drops</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+
+      <!-- Lashes & Accessories -->
+      <a href="/collections/all?category=lashes" class="mobile-drawer-nav-link">
+        <span>Lashes &amp; Accessories</span>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </a>
+    </nav>
+  </div>
+
+  <!-- 3. Drawer Footer: WhatsApp concierge -->
+  <div class="mobile-drawer-footer">
+    <a href="https://wa.me/97455123456" target="_blank" rel="noopener noreferrer" class="drawer-wa-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+      <span>WhatsApp Optical Concierge</span>
+    </a>
   </div>
 </aside>
 
 <script>
-  (function() {
-    function initMobileDrawer() {
-      var openBtn = document.getElementById('mobileMenuOpenBtn');
-      var closeBtn = document.getElementById('mobileMenuCloseBtn');
-      var drawer = document.getElementById('mobileNavDrawer');
-      var backdrop = document.getElementById('mobileNavBackdrop');
-
-      function openDrawer() {
-        if (drawer && backdrop) {
-          drawer.classList.add('mobile-nav-drawer-open');
-          backdrop.classList.add('mobile-nav-backdrop-open');
-          document.body.classList.add('drawer-lock-scroll');
-        }
-      }
-
-      function closeDrawer() {
-        if (drawer && backdrop) {
-          drawer.classList.remove('mobile-nav-drawer-open');
-          backdrop.classList.remove('mobile-nav-backdrop-open');
-          document.body.classList.remove('drawer-lock-scroll');
-        }
-      }
-
-      if (openBtn) openBtn.onclick = openDrawer;
-      if (closeBtn) closeBtn.onclick = closeDrawer;
-      if (backdrop) backdrop.onclick = closeDrawer;
+  function scrollMobileDrawerCards(direction) {
+    var container = document.getElementById('drawerCardsScrollContainer');
+    if (container) {
+      var scrollAmount = direction === 'left' ? -180 : 180;
+      container.scrollBy({ left: scrollAmount, behavior: 'smooth' });
     }
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initMobileDrawer);
-    } else {
-      initMobileDrawer();
-    }
-  })();
+  }
 </script>

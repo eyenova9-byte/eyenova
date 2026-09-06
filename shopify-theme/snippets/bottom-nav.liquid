@@ -1,50 +1,71 @@
-<nav class="mobile-bottom-nav-bar" id="mobileBottomNav" aria-label="Mobile Bottom Navigation">
+<!-- Mobile Bottom Navigation Bar (Exact Next.js Parity: 4 Grid Columns, Icons, Labels, Dots) -->
+<nav class="mobile-bottom-nav-bar" id="mobileBottomNav" aria-label="Mobile Navigation">
   <div class="bottom-nav-grid">
-    <!-- Tab 1: Home -->
-    <a href="/" class="bottom-nav-tab {% if request.path == '/' %}bottom-nav-tab-active{% endif %}">
-      <div class="bottom-nav-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
-        </svg>
-      </div>
-      <span class="bottom-nav-text">Home</span>
+    <!-- Tab 1: Home or Back -->
+    <div class="bottom-nav-cell">
       {% if request.path == '/' %}
-        <span class="bottom-nav-dot"></span>
+        <a href="/" class="bottom-nav-tab bottom-nav-tab-active">
+          <div class="bottom-nav-icon-wrap">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="tab-icon-active">
+              <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+            </svg>
+          </div>
+          <span class="bottom-nav-label tab-label-active">Home</span>
+          <span class="bottom-nav-indicator-dot"></span>
+        </a>
+      {% else %}
+        <button type="button" class="bottom-nav-tab" onclick="window.history.length > 1 ? window.history.back() : window.location.href='/'">
+          <div class="bottom-nav-icon-wrap">
+            <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#121212" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="m12 19-7-7 7-7"/><path d="M19 12H5"/>
+            </svg>
+          </div>
+          <span class="bottom-nav-label" style="color: #121212;">Back</span>
+        </button>
       {% endif %}
-    </a>
+    </div>
 
-    <!-- Tab 2: Categories / Catalog -->
-    <a href="/collections/all" class="bottom-nav-tab {% if request.path contains '/collections' %}bottom-nav-tab-active{% endif %}">
-      <div class="bottom-nav-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
-        </svg>
-      </div>
-      <span class="bottom-nav-text">Categories</span>
-      {% if request.path contains '/collections' %}
-        <span class="bottom-nav-dot"></span>
-      {% endif %}
-    </a>
+    <!-- Tab 2: Categories -->
+    <div class="bottom-nav-cell">
+      <a href="/collections/all" class="bottom-nav-tab {% if request.path contains '/collections' %}bottom-nav-tab-active{% endif %}">
+        <div class="bottom-nav-icon-wrap">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{% if request.path contains '/collections' %}2.2{% else %}1.7{% endif %}" stroke-linecap="round" stroke-linejoin="round" class="{% if request.path contains '/collections' %}tab-icon-active{% else %}tab-icon-inactive{% endif %}">
+            <rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/>
+          </svg>
+        </div>
+        <span class="bottom-nav-label {% if request.path contains '/collections' %}tab-label-active{% else %}tab-label-inactive{% endif %}">Categories</span>
+        {% if request.path contains '/collections' %}
+          <span class="bottom-nav-indicator-dot"></span>
+        {% endif %}
+      </a>
+    </div>
 
-    <!-- Tab 3: Bag with Cart Counter -->
-    <button type="button" class="bottom-nav-tab" data-cart-toggle aria-label="Shopping Bag">
-      <div class="bottom-nav-icon relative-badge-wrap">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
-        </svg>
-        <span class="bottom-cart-badge" id="bottomCartCountBadge">{{ cart.item_count }}</span>
-      </div>
-      <span class="bottom-nav-text">Bag</span>
-    </button>
+    <!-- Tab 3: Bag with live counter bubble -->
+    <div class="bottom-nav-cell">
+      <button type="button" class="bottom-nav-tab" data-cart-toggle aria-label="Shopping Bag">
+        <div class="bottom-nav-icon-wrap">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#707070" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          <span class="bottom-nav-cart-bubble" id="bottomCartCountBadge" style="{% if cart.item_count == 0 %}display:none;{% endif %}">{{ cart.item_count }}</span>
+        </div>
+        <span class="bottom-nav-label tab-label-inactive">Bag</span>
+      </button>
+    </div>
 
-    <!-- Tab 4: WhatsApp Concierge -->
-    <a href="https://wa.me/97455123456" target="_blank" rel="noopener noreferrer" class="bottom-nav-tab">
-      <div class="bottom-nav-icon">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/>
-        </svg>
-      </div>
-      <span class="bottom-nav-text">Concierge</span>
-    </a>
+    <!-- Tab 4: Account -->
+    <div class="bottom-nav-cell">
+      <a href="/account" class="bottom-nav-tab {% if request.path contains '/account' %}bottom-nav-tab-active{% endif %}">
+        <div class="bottom-nav-icon-wrap">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="{% if request.path contains '/account' %}2.2{% else %}1.7{% endif %}" stroke-linecap="round" stroke-linejoin="round" class="{% if request.path contains '/account' %}tab-icon-active{% else %}tab-icon-inactive{% endif %}">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>
+          </svg>
+        </div>
+        <span class="bottom-nav-label {% if request.path contains '/account' %}tab-label-active{% else %}tab-label-inactive{% endif %}">Account</span>
+        {% if request.path contains '/account' %}
+          <span class="bottom-nav-indicator-dot"></span>
+        {% endif %}
+      </a>
+    </div>
   </div>
 </nav>
