@@ -44,7 +44,10 @@ export default function AdminOrdersPage() {
 
   const loadOrders = () => {
     setLoading(true);
-    fetch("/api/orders")
+    const token = typeof window !== "undefined" ? sessionStorage.getItem("eyenova_admin_token") : null;
+    fetch("/api/orders", {
+      headers: token ? { "x-admin-token": token } : {},
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.success && data.orders && data.orders.length > 0) {

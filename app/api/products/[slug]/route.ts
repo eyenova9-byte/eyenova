@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { MOCK_PRODUCTS } from "@/lib/mockData";
+import { verifyAdminRequest } from "@/lib/authGuard";
 
 export async function GET(
   request: Request,
@@ -98,6 +99,14 @@ export async function PUT(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
+    const auth = verifyAdminRequest(request);
+    if (!auth.authorized) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized. Administrator credentials required." },
+        { status: 401 }
+      );
+    }
+
     const { slug } = await params;
     const body = await request.json();
     const {
@@ -175,6 +184,14 @@ export async function DELETE(
   { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
+    const auth = verifyAdminRequest(request);
+    if (!auth.authorized) {
+      return NextResponse.json(
+        { success: false, error: "Unauthorized. Administrator credentials required." },
+        { status: 401 }
+      );
+    }
+
     const { slug } = await params;
 
     const target = await prisma.product.findFirst({

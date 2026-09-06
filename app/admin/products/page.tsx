@@ -99,9 +99,13 @@ export default function AdminProductsPage() {
     e.preventDefault();
     setIsSubmitting(true);
     try {
+      const token = typeof window !== "undefined" ? sessionStorage.getItem("eyenova_admin_token") : null;
       const res = await fetch("/api/products", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { "x-admin-token": token } : {}),
+        },
         body: JSON.stringify({
           titleEn: newTitleEn,
           brandName: newBrand,
@@ -136,9 +140,13 @@ export default function AdminProductsPage() {
     if (!editingProduct) return;
     setIsSubmitting(true);
     try {
+      const token = typeof window !== "undefined" ? sessionStorage.getItem("eyenova_admin_token") : null;
       const res = await fetch(`/api/products/${editingProduct.id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { "x-admin-token": token } : {}),
+        },
         body: JSON.stringify({
           titleEn: editingProduct.titleEn,
           sku: editingProduct.sku,
@@ -167,9 +175,13 @@ export default function AdminProductsPage() {
     if (!stockModalProduct) return;
     setIsSubmitting(true);
     try {
+      const token = typeof window !== "undefined" ? sessionStorage.getItem("eyenova_admin_token") : null;
       const res = await fetch("/api/inventory/adjust", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(token ? { "x-admin-token": token } : {}),
+        },
         body: JSON.stringify({
           productId: stockModalProduct.id,
           storeId: stockStoreId || (stores[0] ? stores[0].id : null),
@@ -195,7 +207,11 @@ export default function AdminProductsPage() {
   const handleDeleteProduct = async (id: string, title: string) => {
     if (!confirm(`Are you sure you want to permanently delete "${title}" from the database and billing software?`)) return;
     try {
-      const res = await fetch(`/api/products/${id}`, { method: "DELETE" });
+      const token = typeof window !== "undefined" ? sessionStorage.getItem("eyenova_admin_token") : null;
+      const res = await fetch(`/api/products/${id}`, {
+        method: "DELETE",
+        headers: token ? { "x-admin-token": token } : {},
+      });
       const data = await res.json();
       if (data.success) {
         setProducts(products.filter((p) => p.id !== id));

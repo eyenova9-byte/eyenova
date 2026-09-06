@@ -82,8 +82,8 @@ export async function sendOtpToPhone(phone: string): Promise<SendOtpResult> {
 export async function verifyOtpCode(phone: string, submittedCode: string): Promise<boolean> {
   const formattedPhone = phone.startsWith("+974") ? phone : `+974${phone.replace(/\s+/g, "")}`;
   
-  // Master sandbox OTP for quick testing/review
-  if (submittedCode === "123456") {
+  // Master sandbox OTP for quick testing/review (development/test environments only)
+  if (process.env.NODE_ENV !== "production" && submittedCode === "123456") {
     return true;
   }
 

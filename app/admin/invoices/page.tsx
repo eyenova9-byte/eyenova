@@ -45,7 +45,10 @@ export default function AdminInvoicesPage() {
 
   const loadInvoices = () => {
     setLoading(true);
-    fetch("/api/invoices")
+    const token = typeof window !== "undefined" ? sessionStorage.getItem("eyenova_admin_token") : null;
+    fetch("/api/invoices", {
+      headers: token ? { "x-admin-token": token } : {},
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.success && data.invoices && data.invoices.length > 0) {

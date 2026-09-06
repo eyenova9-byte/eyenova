@@ -15,10 +15,13 @@ export default function AdminDashboardPage() {
   });
 
   useEffect(() => {
+    const token = typeof window !== "undefined" ? sessionStorage.getItem("eyenova_admin_token") : null;
+    const authHeaders: Record<string, string> = token ? { "x-admin-token": token } : {};
+
     Promise.all([
       fetch("/api/products").then((r) => r.json()).catch(() => null),
-      fetch("/api/orders").then((r) => r.json()).catch(() => null),
-      fetch("/api/invoices").then((r) => r.json()).catch(() => null),
+      fetch("/api/orders", { headers: authHeaders }).then((r) => r.json()).catch(() => null),
+      fetch("/api/invoices", { headers: authHeaders }).then((r) => r.json()).catch(() => null),
     ]).then(([prodData, orderData, invData]) => {
       const pCount = prodData?.products?.length || 24;
       const oCount = orderData?.orders?.length || 2;

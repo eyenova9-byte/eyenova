@@ -74,6 +74,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         setAdminUser(data.user);
         setIsAuthenticated(true);
         sessionStorage.setItem("eyenova_admin_session", JSON.stringify(data.user));
+        if (data.token) {
+          sessionStorage.setItem("eyenova_admin_token", data.token);
+        }
       } else {
         setError(data.error || "Incorrect PIN code. Try again.");
         setPin("");
@@ -88,6 +91,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   const handleLogout = () => {
     sessionStorage.removeItem("eyenova_admin_session");
+    sessionStorage.removeItem("eyenova_admin_token");
     setIsAuthenticated(false);
     setAdminUser(null);
     setPin("");
