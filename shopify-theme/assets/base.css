@@ -4330,3 +4330,638 @@ body.drawer-locked {
   margin: 0 auto;
   padding: 0.5rem 1.25rem;
 }
+
+
+/* ==========================================================================
+   EXACT NEXT.JS ACCORDION FILTER SIDEBAR & PRODUCT GRID (EYE-NOVA PARITY)
+   ========================================================================== */
+
+.shop-banner-clean {
+  background: #FAFAFA;
+  border-bottom: 1px solid #E5E7EB;
+  padding: 2.25rem 0 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.shop-page-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: #111827;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.02em;
+}
+
+.shop-page-subtitle {
+  font-size: 0.95rem;
+  color: #6B7280;
+  max-width: 680px;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.shop-body-container {
+  padding-bottom: 5rem;
+}
+
+/* Main Shop Layout */
+.nextjs-shop-layout {
+  display: flex;
+  gap: 2.5rem;
+  align-items: flex-start;
+}
+
+/* Sidebar Styles (Matching User Image media_1788697942386.png) */
+.nextjs-filter-sidebar {
+  width: 250px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.filter-sidebar-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid #E5E7EB;
+  margin-bottom: 0.25rem;
+}
+
+.filter-main-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #111827;
+  letter-spacing: -0.01em;
+}
+
+.filter-remove-all-cta {
+  font-size: 0.82rem;
+  color: #6B7280;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 0.15s ease;
+}
+
+.filter-remove-all-cta:hover {
+  color: #111827;
+}
+
+/* Accordion Item */
+.filter-accordion-item {
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.filter-accordion-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  cursor: pointer;
+  user-select: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #111827;
+  list-style: none;
+  transition: color 0.15s ease;
+}
+
+.filter-accordion-summary::-webkit-details-marker {
+  display: none;
+}
+
+.filter-accordion-summary:hover {
+  color: #5c2d76;
+}
+
+.accordion-title-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.accordion-count-badge {
+  font-weight: 700;
+  color: #111827;
+}
+
+.accordion-chevron {
+  color: #4B5563;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  flex-shrink: 0;
+}
+
+.filter-accordion-item[open] .accordion-chevron {
+  transform: rotate(180deg);
+}
+
+.filter-options-content {
+  padding: 0.15rem 0 1.15rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+}
+
+.scrollable-options-box {
+  max-height: 220px;
+  overflow-y: auto;
+  padding-right: 0.5rem;
+}
+
+.scrollable-options-box::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollable-options-box::-webkit-scrollbar-thumb {
+  background: #D1D5DB;
+  border-radius: 4px;
+}
+
+/* Custom Eye-Nova Checkbox (Exact Screenshot Match: Solid Black when Active) */
+.nextjs-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+}
+
+.nextjs-checkbox-label input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.checkbox-custom {
+  width: 17px;
+  height: 17px;
+  border: 1.5px solid #D1D5DB;
+  border-radius: 3px;
+  background-color: #FFFFFF;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: all 0.15s ease-in-out;
+}
+
+.nextjs-checkbox-label:hover .checkbox-custom {
+  border-color: #9CA3AF;
+}
+
+.nextjs-checkbox-label input[type="checkbox"]:checked + .checkbox-custom {
+  background-color: #000000;
+  border-color: #000000;
+}
+
+.nextjs-checkbox-label input[type="checkbox"]:checked + .checkbox-custom::after {
+  content: '';
+  width: 4px;
+  height: 8px;
+  border: solid #FFFFFF;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  margin-bottom: 2px;
+}
+
+.nextjs-checkbox-label .label-text {
+  font-size: 0.84rem;
+  color: #374151;
+  line-height: 1.35;
+  transition: color 0.15s ease;
+}
+
+.nextjs-checkbox-label:hover .label-text {
+  color: #111827;
+}
+
+.nextjs-checkbox-label input[type="checkbox"]:checked ~ .label-text {
+  color: #111827;
+  font-weight: 500;
+}
+
+/* Right Main Product Area */
+.nextjs-product-main {
+  flex: 1;
+  min-width: 0;
+}
+
+.desktop-sort-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid #E5E7EB;
+  margin-bottom: 1.5rem;
+}
+
+.sort-select-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.sort-by-label {
+  font-size: 0.85rem;
+  color: #6B7280;
+  font-weight: 500;
+}
+
+.sort-select-inner {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.native-sort-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 6px;
+  padding: 0.45rem 2rem 0.45rem 0.75rem;
+  font-size: 0.85rem;
+  color: #111827;
+  font-weight: 500;
+  cursor: pointer;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.native-sort-select:hover,
+.native-sort-select:focus {
+  border-color: #9CA3AF;
+}
+
+.sort-select-chevron {
+  position: absolute;
+  right: 0.75rem;
+  pointer-events: none;
+  color: #6B7280;
+}
+
+.desktop-product-count {
+  font-size: 0.85rem;
+  color: #6B7280;
+}
+
+/* Active Tags Strip */
+.active-filter-tags-strip {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  padding: 0.75rem 0 1.25rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.active-tags-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.active-filter-tag-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: #F3F4F6;
+  border: 1px solid #E5E7EB;
+  border-radius: 9999px;
+  padding: 0.25rem 0.65rem;
+  font-size: 0.78rem;
+  color: #374151;
+  font-weight: 500;
+}
+
+.tag-x-btn {
+  background: none;
+  border: none;
+  color: #6B7280;
+  cursor: pointer;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tag-x-btn:hover {
+  color: #111827;
+}
+
+.clear-all-tags-btn {
+  background: none;
+  border: none;
+  color: #5c2d76;
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  padding: 0;
+}
+
+/* Product Cards Grid */
+.nextjs-product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.nextjs-card-box {
+  background: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.nextjs-card-box:hover {
+  border-color: #D1D5DB;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+  transform: translateY(-2px);
+}
+
+.card-anchor {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.card-img-wrap {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: #F9FAFB;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.nextjs-card-box:hover .card-img-wrap img {
+  transform: scale(1.03);
+}
+
+.card-placeholder-svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+.card-details-box {
+  padding: 1rem 1.15rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.card-item-title {
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #111827;
+  line-height: 1.35;
+  margin: 0 0 0.5rem 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.card-item-price {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #5c2d76;
+  margin-top: auto;
+}
+
+/* Empty State */
+.nextjs-empty-box {
+  text-align: center;
+  padding: 4rem 1rem;
+  border: 1px dashed #D1D5DB;
+  border-radius: 8px;
+}
+
+.empty-box-text {
+  font-size: 0.95rem;
+  color: #6B7280;
+  margin-bottom: 1rem;
+}
+
+.empty-box-btn {
+  background: #111827;
+  color: #FFFFFF;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* Mobile Filter Bar & Drawer (< 1024px) */
+.mobile-filter-bar {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.mobile-filter-trigger-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #FFFFFF;
+  border: 1px solid #D1D5DB;
+  border-radius: 6px;
+  padding: 0.45rem 0.85rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #111827;
+  cursor: pointer;
+}
+
+.mobile-filter-count-badge {
+  background: #111827;
+  color: #FFFFFF;
+  font-size: 0.72rem;
+  font-weight: 700;
+  border-radius: 9999px;
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.mobile-product-count-text {
+  font-size: 0.85rem;
+  color: #6B7280;
+}
+
+/* Mobile Drawer Styles */
+.mobile-filter-drawer-root {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+}
+
+.mobile-filter-drawer-root.active {
+  display: block;
+}
+
+.mobile-filter-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(2px);
+}
+
+.mobile-filter-sheet {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 85%;
+  max-width: 360px;
+  background: #FFFFFF;
+  display: flex;
+  flex-direction: column;
+  box-shadow: -4px 0 25px rgba(0, 0, 0, 0.15);
+  animation: filterSlideIn 0.25s ease-out;
+}
+
+@keyframes filterSlideIn {
+  from { transform: translateX(100%); }
+  to { transform: translateX(0); }
+}
+
+.mobile-filter-sheet-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.sheet-header-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #111827;
+}
+
+.sheet-close-btn {
+  background: none;
+  border: none;
+  color: #6B7280;
+  cursor: pointer;
+  padding: 4px;
+}
+
+.mobile-filter-sheet-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 1.25rem;
+}
+
+.mobile-filter-sheet-footer {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-top: 1px solid #E5E7EB;
+  background: #FAFAFA;
+}
+
+.mobile-filter-clear-all {
+  flex: 1;
+  background: #FFFFFF;
+  border: 1px solid #D1D5DB;
+  border-radius: 6px;
+  padding: 0.65rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+}
+
+.mobile-filter-apply-btn {
+  flex: 1;
+  background: #111827;
+  border: 1px solid #111827;
+  border-radius: 6px;
+  padding: 0.65rem 1rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  cursor: pointer;
+}
+
+body.filter-drawer-locked {
+  overflow: hidden;
+}
+
+/* Media Queries */
+@media (max-width: 1024px) {
+  .nextjs-filter-sidebar {
+    display: none;
+  }
+  .mobile-filter-bar {
+    display: flex;
+  }
+  .nextjs-product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+  }
+  .desktop-sort-row {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .shop-banner-clean {
+    padding: 1.5rem 0 1.25rem;
+  }
+  .shop-page-title {
+    font-size: 1.35rem;
+  }
+  .nextjs-product-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+  }
+  .card-details-box {
+    padding: 0.65rem 0.75rem 0.85rem;
+  }
+  .card-item-title {
+    font-size: 0.82rem;
+  }
+  .card-item-price {
+    font-size: 0.88rem;
+  }
+}
