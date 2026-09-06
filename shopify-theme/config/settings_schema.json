@@ -1,12 +1,14 @@
-﻿[
+[
   {
     "name": "theme_info",
-    "theme_name": "EyeNova Qatar Luxury Optical",
+    "theme_name": "EyeNova Qatar",
     "theme_version": "1.0.0",
+
     "theme_author": "EyeNova",
     "theme_documentation_url": "https://eyenova.com.qa",
-    "theme_support_url": "mailto:support@eyenova.com.qa"
+    "theme_support_url": "https://eyenova.com.qa"
   },
+
   {
     "name": "Colors & Luxury Aesthetics",
     "settings": [
