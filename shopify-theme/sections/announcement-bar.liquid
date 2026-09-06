@@ -1,21 +1,137 @@
-<div class="announcement-bar">
-  <div class="announcement-container">
-    <div class="announcement-badges-left">
-      <span class="moph-badge">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-        <span>MOPH Qatar Approved</span>
-      </span>
-      <span class="delivery-badge">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-        <span>Same-Day Express Delivery</span>
-      </span>
+<style>
+  .analog-announcement-bar {
+    background-color: #5c2d76 !important;
+    color: #FFFFFF !important;
+    font-size: 0.78rem !important;
+    padding: 0.5rem 1.25rem !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+    width: 100% !important;
+    position: relative !important;
+    z-index: 510 !important;
+  }
+
+  .announcement-inner {
+    max-width: 1360px !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 1rem !important;
+  }
+
+  .announcement-left {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.6rem !important;
+  }
+
+  .announcement-badge {
+    background-color: rgba(255, 255, 255, 0.2) !important;
+    color: #FFFFFF !important;
+    padding: 0.15rem 0.55rem !important;
+    border-radius: 9999px !important;
+    font-size: 0.68rem !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    white-space: nowrap !important;
+  }
+
+  .announcement-text {
+    font-weight: 400 !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-size: 0.76rem !important;
+    white-space: nowrap !important;
+  }
+
+  .announcement-center {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .announcement-link {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    color: #FFFFFF !important;
+    text-decoration: none !important;
+    font-weight: 500 !important;
+    font-size: 0.76rem !important;
+    white-space: nowrap !important;
+    transition: opacity 0.15s ease !important;
+  }
+
+  .announcement-link:hover {
+    opacity: 0.92 !important;
+    text-decoration: underline !important;
+  }
+
+  .announcement-pulse-dot {
+    width: 6px !important;
+    height: 6px !important;
+    background-color: #4ADE80 !important;
+    border-radius: 9999px !important;
+    animation: analogPulse 2s infinite !important;
+    flex-shrink: 0 !important;
+  }
+
+  @keyframes analogPulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(1.3); }
+  }
+
+  .announcement-right {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+  }
+
+  .announcement-wa {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.4rem !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    text-decoration: none !important;
+    font-size: 0.76rem !important;
+    white-space: nowrap !important;
+    transition: color 0.15s ease !important;
+  }
+
+  .announcement-wa:hover {
+    color: #FFFFFF !important;
+    text-decoration: underline !important;
+  }
+
+  @media (max-width: 1023px) {
+    .announcement-left,
+    .announcement-right {
+      display: none !important;
+    }
+    .announcement-center {
+      width: 100% !important;
+      text-align: center !important;
+      font-size: 0.72rem !important;
+    }
+  }
+</style>
+
+<div class="analog-announcement-bar">
+  <div class="announcement-inner">
+    <div class="announcement-left">
+      <span class="announcement-badge">MOPH APPROVED</span>
+      <span class="announcement-text">100% Authentic Certified Optical Products</span>
     </div>
     <div class="announcement-center">
-      <span>100% Guaranteed Authentic Optical Products</span>
+      <a href="/collections/all" class="announcement-link">
+        <span class="announcement-pulse-dot"></span>
+        <span>Same-Day Express Qatar Delivery &bull; Free on Orders Over QAR 250</span>
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      </a>
     </div>
-    <div class="announcement-actions-right">
-      <a href="https://wa.me/97455123456" target="_blank" rel="noopener noreferrer" class="announcement-wa-link">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
+    <div class="announcement-right">
+      <a href="https://wa.me/97455123456" target="_blank" rel="noopener noreferrer" class="announcement-wa">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
         <span>Concierge: +974 5512 3456</span>
       </a>
     </div>
