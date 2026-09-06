@@ -1,0 +1,52 @@
+﻿# Dependabot configuration for EyeNova e-commerce
+# Automates dependency vulnerability alerts, security patches, and version updates.
+# OWASP Top 10 (2025) #3: Software Supply Chain Failures Mitigation
+
+version: 2
+updates:
+  # Maintain Node.js / npm dependencies
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Asia/Qatar"
+    open-pull-requests-limit: 10
+    labels:
+      - "dependencies"
+      - "supply-chain-security"
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    # Group non-breaking minor/patch updates to avoid PR noise while keeping packages current
+    groups:
+      production-dependencies:
+        patterns:
+          - "*"
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
+      development-dependencies:
+        patterns:
+          - "*"
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+
+  # Maintain GitHub Actions workflows
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Asia/Qatar"
+    open-pull-requests-limit: 5
+    labels:
+      - "ci"
+      - "dependencies"
+    commit-message:
+      prefix: "ci(deps)"
