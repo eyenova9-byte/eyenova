@@ -469,16 +469,20 @@ export function EyenkStorefront() {
           </div>
         </section>
 
-        {/* SECTION 5: Physical Store Locations in Qatar */}
+        {/* SECTION 5: Physical Store Locations in Qatar - Opening Soon */}
         <section id="locations" className="pt-8 pb-10 scroll-trigger animate--slide-in scroll-mt-24" data-cascade>
           <div className="text-center mb-8 sm:mb-12">
-            <h2 className="text-[26px] sm:text-[30px] font-normal tracking-tight text-[#121212] mb-2">
-              {lang === "ar" ? "فروعنا في قطر" : "Our Store Locations"}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FAF5F2] border border-[#E8DED8] text-[#5c2d76] text-[12px] font-medium mb-3 shadow-2xs">
+              <span className="w-2 h-2 rounded-full bg-[#5c2d76] animate-ping" />
+              <span>{lang === "ar" ? "قريباً في قطر" : "Coming Soon to Qatar"}</span>
+            </div>
+            <h2 className="text-[26px] sm:text-[32px] font-normal tracking-tight text-[#121212] mb-2.5">
+              {lang === "ar" ? "افتتاح فروعنا قريباً" : "Physical Boutiques — Opening Soon"}
             </h2>
-            <p className="text-[14px] sm:text-[15px] text-[#707070]">
+            <p className="text-[14px] sm:text-[15px] text-[#707070] max-w-2xl mx-auto">
               {lang === "ar"
-                ? "تفضلوا بزيارة أي من فروعنا في الدوحة ومختلف مناطق قطر"
-                : "Visit us at any of our physical optical boutiques across Qatar"}
+                ? "نستعد لافتتاح صالات عرض ونقاط استلام حصرية لعين نوفا في أبرز وجهات التسوق في قطر. في الوقت الحالي، خدمة التوصيل السريع متاحة في نفس اليوم لجميع مناطق الدوحة."
+                : "We are preparing exclusive EyeNova optical boutiques & pickup hubs across Qatar's premier retail destinations. Same-day express home delivery is currently active across Doha."}
             </p>
           </div>
 
@@ -487,46 +491,79 @@ export function EyenkStorefront() {
               {
                 name: "Tawar Mall, Al Markhiya",
                 nameAr: "طوار مول، المرخية",
+                status: "Opening Soon",
+                statusAr: "قريباً",
+                timing: "Q4 2026",
+                timingAr: "الربع الرابع 2026",
                 mapsUrl: "https://www.google.com/maps/search/EyeNova+Contact+Lens+Tawar+Mall+Al+Markhiya+Qatar",
               },
               {
                 name: "Place Vendôme Mall, Lusail",
                 nameAr: "بلاس فاندوم مول، لوسيل",
+                status: "Opening Soon",
+                statusAr: "قريباً",
+                timing: "Q4 2026",
+                timingAr: "الربع الرابع 2026",
                 mapsUrl: "https://www.google.com/maps/search/EyeNova+Contact+Lens+Place+Vendome+Mall+Lusail+Qatar",
               },
               {
                 name: "Ezdan Mall, Al Wakrah",
                 nameAr: "إزدان مول، الوكرة",
+                status: "Coming Soon",
+                statusAr: "قريباً جداً",
+                timing: "2027",
+                timingAr: "2027",
                 mapsUrl: "https://www.google.com/maps/search/EyeNova+Contact+Lens+Ezdan+Mall+Wakrah+Qatar",
               },
               {
-                name: "Umm Salal Ali",
-                nameAr: "أم صلال علي",
-                mapsUrl: "https://www.google.com/maps/search/EyeNova+Contact+Lens+Umm+Salal+Ali+Qatar",
+                name: "Mall of Qatar, Al Rayyan",
+                nameAr: "قطر مول، الريان",
+                status: "Coming Soon",
+                statusAr: "قريباً جداً",
+                timing: "2027",
+                timingAr: "2027",
+                mapsUrl: "https://www.google.com/maps/search/EyeNova+Contact+Lens+Mall+of+Qatar+Rayyan",
               },
             ].map((loc, idx) => (
-              <a
+              <div
                 key={loc.name}
-                href={loc.mapsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="bg-[#FAF5F2] hover:bg-[#F3EBE7] transition-all duration-200 py-12 px-6 flex flex-col items-center justify-center text-center group rounded-xl border border-[#E8DED8] hover:border-[#5c2d76] scroll-trigger animate--slide-in hover-flash shadow-2xs hover:shadow-sm"
+                className="bg-[#FAF5F2] hover:bg-[#F4ECE8] transition-all duration-200 py-8 px-6 flex flex-col items-center justify-between text-center group rounded-2xl border border-[#E8DED8] hover:border-[#5c2d76] scroll-trigger animate--slide-in hover-flash shadow-2xs hover:shadow-sm relative overflow-hidden"
                 data-cascade
                 style={{ "--animation-order": idx + 1 } as React.CSSProperties}
               >
-                <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center text-[#5c2d76] mb-4 group-hover:scale-110 shadow-xs transition-transform duration-200">
+                {/* Coming Soon Top Badge */}
+                <div className="mb-4">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-white text-[#5c2d76] border border-[#E0D2C8] shadow-2xs">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#5c2d76]" />
+                    {lang === "ar" ? loc.statusAr : loc.status}
+                  </span>
+                </div>
+
+                <div className="w-13 h-13 rounded-full bg-white flex items-center justify-center text-[#5c2d76] mb-3 group-hover:scale-105 shadow-xs transition-transform duration-200">
                   <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
                   </svg>
                 </div>
-                <span className="text-[15px] sm:text-[16px] font-medium text-[#121212] leading-snug">
-                  {lang === "ar" ? loc.nameAr : loc.name}
-                </span>
-                <span className="text-[12px] text-[#5c2d76] mt-2 font-medium group-hover:underline">
-                  {lang === "ar" ? "عرض على الخريطة ↗" : "Get Directions ↗"}
-                </span>
-              </a>
+
+                <div className="space-y-1">
+                  <h3 className="text-[15px] sm:text-[16px] font-medium text-[#121212] leading-snug">
+                    {lang === "ar" ? loc.nameAr : loc.name}
+                  </h3>
+                  <p className="text-[12px] text-[#707070]">
+                    {lang === "ar" ? `الافتتاح المتوقع: ${loc.timingAr}` : `Expected: ${loc.timing}`}
+                  </p>
+                </div>
+
+                <a
+                  href={loc.mapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-[12px] text-[#5c2d76] mt-4 font-medium hover:underline inline-flex items-center gap-1"
+                >
+                  <span>{lang === "ar" ? "الموقع التقريبي ↗" : "Planned Location ↗"}</span>
+                </a>
+              </div>
             ))}
           </div>
         </section>

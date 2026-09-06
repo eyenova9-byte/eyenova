@@ -318,6 +318,9 @@ function NavbarContent() {
           >
             <MapPin size={14} className="text-[#5c2d76]" />
             <span>{lang === "ar" ? "فروعنا" : "Stores"}</span>
+            <span className="text-[9px] font-semibold bg-[#FAF5F2] text-[#5c2d76] border border-[#E8DED8] px-1.5 py-0.2 rounded-full ml-0.5">
+              {lang === "ar" ? "قريباً" : "Soon"}
+            </span>
           </Link>
         </nav>
 
@@ -650,10 +653,15 @@ function NavbarContent() {
                 <Link
                   href="/#locations"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center gap-2 py-3 text-[#121212] hover:text-[#5c2d76] transition-colors"
+                  className="flex items-center justify-between py-3 text-[#121212] hover:text-[#5c2d76] transition-colors"
                 >
-                  <MapPin size={16} className="text-[#5c2d76]" />
-                  <span>{lang === "ar" ? "فروعنا في قطر" : "Our Qatar Stores"}</span>
+                  <div className="flex items-center gap-2">
+                    <MapPin size={16} className="text-[#5c2d76]" />
+                    <span>{lang === "ar" ? "فروعنا في قطر" : "Our Qatar Stores"}</span>
+                  </div>
+                  <span className="text-[10px] font-semibold bg-[#FAF5F2] text-[#5c2d76] border border-[#E8DED8] px-2 py-0.5 rounded-full">
+                    {lang === "ar" ? "قريباً" : "Opening Soon"}
+                  </span>
                 </Link>
               </nav>
 

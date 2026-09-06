@@ -32,39 +32,39 @@ const POWER_OPTIONS = [
   "+4.50", "+4.75", "+5.00", "+5.50", "+6.00"
 ];
 
-// Eyenk Store Pickup Locations
+// Eyenk Store Pickup Locations (Opening Soon)
 const STORE_LOCATIONS = [
   {
     name: "Tawar Mall, Al Markhiya",
     nameAr: "طوار مول، المرخية",
-    status: "Usually ready in 2 hours",
-    statusAr: "جاهز عادة خلال ساعتين",
-    hours: "10:00 AM – 10:00 PM",
-    available: true,
-  },
-  {
-    name: "Mall of Qatar, Al Rayyan",
-    nameAr: "قطر مول، الريان",
-    status: "Usually ready in 2 hours",
-    statusAr: "جاهز عادة خلال ساعتين",
-    hours: "10:00 AM – 10:00 PM",
-    available: true,
-  },
-  {
-    name: "Doha Festival City, Umm Salal",
-    nameAr: "دوحة فيستيفال سيتي، أم صلال",
-    status: "Usually ready in 2 hours",
-    statusAr: "جاهز عادة خلال ساعتين",
-    hours: "10:00 AM – 10:00 PM",
-    available: true,
+    status: "Opening Soon (Q4 2026)",
+    statusAr: "الافتتاح قريباً (الربع الرابع 2026)",
+    hours: "Online Delivery Active Now",
+    available: false,
   },
   {
     name: "Place Vendôme, Lusail",
     nameAr: "بلاس فاندوم، لوسيل",
-    status: "Usually ready in 2 hours",
-    statusAr: "جاهز عادة خلال ساعتين",
-    hours: "10:00 AM – 10:00 PM",
-    available: true,
+    status: "Opening Soon (Q4 2026)",
+    statusAr: "الافتتاح قريباً (الربع الرابع 2026)",
+    hours: "Online Delivery Active Now",
+    available: false,
+  },
+  {
+    name: "Ezdan Mall, Al Wakrah",
+    nameAr: "إزدان مول، الوكرة",
+    status: "Coming Soon (2027)",
+    statusAr: "قريباً جداً (2027)",
+    hours: "Online Delivery Active Now",
+    available: false,
+  },
+  {
+    name: "Mall of Qatar, Al Rayyan",
+    nameAr: "قطر مول، الريان",
+    status: "Coming Soon (2027)",
+    statusAr: "قريباً جداً (2027)",
+    hours: "Online Delivery Active Now",
+    available: false,
   },
 ];
 
@@ -914,10 +914,12 @@ export default function ProductDetailPage() {
             </button>
 
             <h3 className="text-lg font-medium text-[#121212] mb-1">
-              Store Pickup Availability
+              {lang === "ar" ? "فروع الاستلام - قريباً" : "Physical Boutiques — Opening Soon"}
             </h3>
             <p className="text-xs text-neutral-500 mb-5">
-              Pickup is available across our Qatar optical branches.
+              {lang === "ar"
+                ? "صالات العرض ونقاط الاستلام قيد التجهيز. حالياً نوفر خدمة التوصيل السريع لجميع مناطق قطر."
+                : "Physical boutiques are preparing for grand opening. Express home delivery across Qatar is fully active."}
             </p>
 
             <div className="space-y-4 divide-y divide-neutral-100">
@@ -928,14 +930,16 @@ export default function ProductDetailPage() {
                       <p className="text-sm font-semibold text-[#121212]">
                         {lang === "ar" ? loc.nameAr : loc.name}
                       </p>
-                      <p className="text-xs text-emerald-700 mt-0.5">
+                      <p className="text-xs text-[#5c2d76] font-medium mt-0.5">
                         {lang === "ar" ? loc.statusAr : loc.status}
                       </p>
                       <p className="text-xs text-neutral-400 mt-0.5">
-                        Hours: {loc.hours}
+                        {lang === "ar" ? "خدمة التوصيل المنزلي متاحة الآن" : loc.hours}
                       </p>
                     </div>
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 mt-1" />
+                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#FAF5F2] text-[#5c2d76] border border-[#E8DED8] mt-1">
+                      {lang === "ar" ? "قريباً" : "Coming Soon"}
+                    </span>
                   </div>
                 </div>
               ))}

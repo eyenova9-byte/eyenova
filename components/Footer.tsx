@@ -189,8 +189,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/#locations" className="hover:text-[#5c2d76] transition-colors">
-                  {lang === "ar" ? "مواقع فروعنا في قطر" : "Store Locations"}
+                <Link href="/#locations" className="hover:text-[#5c2d76] transition-colors inline-flex items-center gap-1.5">
+                  <span>{lang === "ar" ? "مواقع فروعنا في قطر" : "Store Locations"}</span>
+                  <span className="text-[10px] text-[#5c2d76] font-medium bg-[#FAF5F2] border border-[#E8DED8] px-1.5 py-0.2 rounded-full">
+                    {lang === "ar" ? "قريباً" : "Coming Soon"}
+                  </span>
                 </Link>
               </li>
               <li>
