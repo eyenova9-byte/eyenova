@@ -97,37 +97,49 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 3. Physical Boutiques in Qatar */}
+      {/* 3. Opening Soon in Qatar */}
       <section className="bg-[#FAF5F2] border-y border-[#EBE0DA] py-16">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-[#121212] mb-3">
-            {lang === "ar" ? "فروعنا ومراكز الخدمة في قطر" : "Our Qatar Retail Boutiques"}
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#E0D2C8] text-[#5c2d76] text-xs font-semibold shadow-2xs">
+            <Sparkles size={14} />
+            <span>{lang === "ar" ? "قريباً في دولة قطر" : "Opening Soon in Qatar"}</span>
+          </div>
+
+          <h2 className="text-2xl sm:text-3xl font-semibold text-[#121212]">
+            {lang === "ar" ? "عين نوفا — قريباً في قطر" : "EyeNova — Launching Soon Across Qatar"}
           </h2>
-          <p className="text-sm text-[#707070] max-w-xl mx-auto mb-10">
+
+          <p className="text-sm sm:text-base text-[#707070] max-w-2xl mx-auto leading-relaxed">
             {lang === "ar"
-              ? "يسعدنا دائماً استقبالكم في فروعنا لتجربة العدسات وفحص النظر على أيدي أخصائيين معتمدين."
-              : "Experience our collections in person with clinical eye-check services and personalized lens fitting."}
+              ? "نستعد لتقديم تجربة بصرية وبوتيكات رقمية فائقة الفخامة لعملائنا الكرام في دولة قطر. نسعى لأن نكون خياركم الأول للعدسات الطبية والملونة المعتمدة والنظارات الراقية مع خدمة التوصيل السريع."
+              : "We are preparing an exceptional luxury optical experience for our customers in Qatar, becoming your premier destination for certified contact lenses and high-end eyewear with express national delivery."}
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {[
-              { name: "Villaggio Mall", area: "Aspire Zone, Doha", code: "Shop 12, Luxury Wing" },
-              { name: "Doha Festival City", area: "Umm Salal", code: "Ground Floor, Court 3" },
-              { name: "Mall of Qatar", area: "Al Rayyan", code: "Fashion Avenue" },
-              { name: "Central Hub", area: "Logistics Village, Doha", code: "Express Delivery Center" },
-            ].map((store) => (
-              <div
-                key={store.name}
-                className="bg-white p-6 rounded-xl border border-[#E8DED8] text-center shadow-2xs"
-              >
-                <div className="w-10 h-10 rounded-full bg-[#FAF5F2] flex items-center justify-center text-[#5c2d76] mx-auto mb-3">
-                  <MapPin size={18} />
-                </div>
-                <h4 className="font-semibold text-base text-[#121212]">{store.name}</h4>
-                <p className="text-xs text-[#5c2d76] font-medium mt-0.5">{store.area}</p>
-                <p className="text-xs text-[#707070] mt-1">{store.code}</p>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4">
+            <div className="bg-white p-5 rounded-2xl border border-[#E8DED8] text-center shadow-2xs">
+              <h4 className="font-semibold text-sm text-[#121212]">
+                {lang === "ar" ? "منتجات طبية معتمدة" : "Certified Medical Grade"}
+              </h4>
+              <p className="text-xs text-[#707070] mt-1">
+                {lang === "ar" ? "معتمدة من وزارة الصحة وهيئات الدواء العالمية" : "MoPH and FDA/CE certified lenses"}
+              </p>
+            </div>
+            <div className="bg-white p-5 rounded-2xl border border-[#E8DED8] text-center shadow-2xs">
+              <h4 className="font-semibold text-sm text-[#121212]">
+                {lang === "ar" ? "توصيل سريع لكافة المناطق" : "Fast Qatar Delivery"}
+              </h4>
+              <p className="text-xs text-[#707070] mt-1">
+                {lang === "ar" ? "توصيل لكافة مدن ومناطق دولة قطر" : "Covering all Qatar municipalities"}
+              </p>
+            </div>
+            <div className="bg-white p-5 rounded-2xl border border-[#E8DED8] text-center shadow-2xs">
+              <h4 className="font-semibold text-sm text-[#121212]">
+                {lang === "ar" ? "خدمة عملاء راقية" : "Luxury Concierge"}
+              </h4>
+              <p className="text-xs text-[#707070] mt-1">
+                {lang === "ar" ? "استشارات بصرية مخصصة عبر الواتساب" : "Direct WhatsApp assistance"}
+              </p>
+            </div>
           </div>
         </div>
       </section>

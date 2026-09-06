@@ -310,18 +310,6 @@ function NavbarContent() {
               }`}
             />
           </Link>
-
-          {/* Store Locations */}
-          <Link
-            href="/#locations"
-            className="relative py-6 flex items-center gap-1 group transition-colors hover:text-[#5c2d76]"
-          >
-            <MapPin size={14} className="text-[#5c2d76]" />
-            <span>{lang === "ar" ? "فروعنا" : "Stores"}</span>
-            <span className="text-[9px] font-semibold bg-[#FAF5F2] text-[#5c2d76] border border-[#E8DED8] px-1.5 py-0.2 rounded-full ml-0.5">
-              {lang === "ar" ? "قريباً" : "Soon"}
-            </span>
-          </Link>
         </nav>
 
         {/* Right Action Icons: Language Switch (desktop), Search, Account, Bag */}
@@ -648,20 +636,6 @@ function NavbarContent() {
                 >
                   <span>{lang === "ar" ? "الأسئلة الشائعة" : "FAQ & Help"}</span>
                   <ChevronRight size={15} className={`text-[#A09890] ${isRtl ? "rotate-180" : ""}`} />
-                </Link>
-
-                <Link
-                  href="/#locations"
-                  onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between py-3 text-[#121212] hover:text-[#5c2d76] transition-colors"
-                >
-                  <div className="flex items-center gap-2">
-                    <MapPin size={16} className="text-[#5c2d76]" />
-                    <span>{lang === "ar" ? "فروعنا في قطر" : "Our Qatar Stores"}</span>
-                  </div>
-                  <span className="text-[10px] font-semibold bg-[#FAF5F2] text-[#5c2d76] border border-[#E8DED8] px-2 py-0.5 rounded-full">
-                    {lang === "ar" ? "قريباً" : "Opening Soon"}
-                  </span>
                 </Link>
               </nav>
 

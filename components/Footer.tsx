@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import Link from "next/link";
 import { useLanguage } from "@/context/LanguageContext";
 import { BrandLogo } from "@/components/BrandLogo";
-import { ShieldCheck, Truck, Clock, MessageCircle, MapPin, CheckCircle2 } from "lucide-react";
+import { ShieldCheck, Truck, Clock, MessageCircle, MapPin, CheckCircle2, Sparkles } from "lucide-react";
 
 export function Footer() {
   const { lang, setLang } = useLanguage();
@@ -62,13 +62,13 @@ export function Footer() {
 
           <div className="flex flex-col items-center">
             <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#5c2d76] shadow-xs mb-2.5">
-              <MapPin size={20} />
+              <Sparkles size={20} />
             </div>
             <h4 className="text-[13px] sm:text-[14px] font-semibold text-[#121212]">
-              {lang === "ar" ? "4 فروع في قطر" : "4 Physical Stores"}
+              {lang === "ar" ? "قريباً في قطر" : "Opening Soon in Qatar"}
             </h4>
             <p className="text-[11px] sm:text-[12px] text-[#707070] mt-0.5">
-              {lang === "ar" ? "طوار مول، لوسيل، الوكرة، أم صلال" : "Tawar, Vendôme, Ezdan, Umm Salal"}
+              {lang === "ar" ? "وجهتكم الأولى للبصريات والعدسات" : "Premier luxury optical destination"}
             </p>
           </div>
         </div>
@@ -189,11 +189,8 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/#locations" className="hover:text-[#5c2d76] transition-colors inline-flex items-center gap-1.5">
-                  <span>{lang === "ar" ? "مواقع فروعنا في قطر" : "Store Locations"}</span>
-                  <span className="text-[10px] text-[#5c2d76] font-medium bg-[#FAF5F2] border border-[#E8DED8] px-1.5 py-0.2 rounded-full">
-                    {lang === "ar" ? "قريباً" : "Coming Soon"}
-                  </span>
+                <Link href="/about" className="hover:text-[#5c2d76] transition-colors">
+                  {lang === "ar" ? "عن عين نوفا" : "About EyeNova"}
                 </Link>
               </li>
               <li>

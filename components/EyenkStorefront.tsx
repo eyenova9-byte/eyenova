@@ -469,102 +469,70 @@ export function EyenkStorefront() {
           </div>
         </section>
 
-        {/* SECTION 5: Physical Store Locations in Qatar - Opening Soon */}
-        <section id="locations" className="pt-8 pb-10 scroll-trigger animate--slide-in scroll-mt-24" data-cascade>
-          <div className="text-center mb-8 sm:mb-12">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FAF5F2] border border-[#E8DED8] text-[#5c2d76] text-[12px] font-medium mb-3 shadow-2xs">
-              <span className="w-2 h-2 rounded-full bg-[#5c2d76] animate-ping" />
-              <span>{lang === "ar" ? "قريباً في قطر" : "Coming Soon to Qatar"}</span>
-            </div>
-            <h2 className="text-[26px] sm:text-[32px] font-normal tracking-tight text-[#121212] mb-2.5">
-              {lang === "ar" ? "افتتاح فروعنا قريباً" : "Physical Boutiques — Opening Soon"}
-            </h2>
-            <p className="text-[14px] sm:text-[15px] text-[#707070] max-w-2xl mx-auto">
-              {lang === "ar"
-                ? "نستعد لافتتاح صالات عرض ونقاط استلام حصرية لعين نوفا في أبرز وجهات التسوق في قطر. في الوقت الحالي، خدمة التوصيل السريع متاحة في نفس اليوم لجميع مناطق الدوحة."
-                : "We are preparing exclusive EyeNova optical boutiques & pickup hubs across Qatar's premier retail destinations. Same-day express home delivery is currently active across Doha."}
-            </p>
-          </div>
+        {/* SECTION 5: EyeNova Opening Soon in Qatar */}
+        <section id="opening-soon" className="pt-6 pb-12 scroll-trigger animate--slide-in" data-cascade>
+          <div className="bg-[#FAF5F2] border border-[#E8DED8] rounded-3xl p-8 sm:p-12 text-center max-w-4xl mx-auto shadow-xs relative overflow-hidden">
+            {/* Background luxury gradient aura */}
+            <div className="absolute -top-24 -right-24 w-72 h-72 bg-[#5c2d76]/5 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute -bottom-24 -left-24 w-72 h-72 bg-[#5c2d76]/5 rounded-full blur-3xl pointer-events-none" />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {[
-              {
-                name: "Tawar Mall, Al Markhiya",
-                nameAr: "طوار مول، المرخية",
-                status: "Opening Soon",
-                statusAr: "قريباً",
-                timing: "Q4 2026",
-                timingAr: "الربع الرابع 2026",
-                mapsUrl: "https://www.google.com/maps/search/EyeNova+Contact+Lens+Tawar+Mall+Al+Markhiya+Qatar",
-              },
-              {
-                name: "Place Vendôme Mall, Lusail",
-                nameAr: "بلاس فاندوم مول، لوسيل",
-                status: "Opening Soon",
-                statusAr: "قريباً",
-                timing: "Q4 2026",
-                timingAr: "الربع الرابع 2026",
-                mapsUrl: "https://www.google.com/maps/search/EyeNova+Contact+Lens+Place+Vendome+Mall+Lusail+Qatar",
-              },
-              {
-                name: "Ezdan Mall, Al Wakrah",
-                nameAr: "إزدان مول، الوكرة",
-                status: "Coming Soon",
-                statusAr: "قريباً جداً",
-                timing: "2027",
-                timingAr: "2027",
-                mapsUrl: "https://www.google.com/maps/search/EyeNova+Contact+Lens+Ezdan+Mall+Wakrah+Qatar",
-              },
-              {
-                name: "Mall of Qatar, Al Rayyan",
-                nameAr: "قطر مول، الريان",
-                status: "Coming Soon",
-                statusAr: "قريباً جداً",
-                timing: "2027",
-                timingAr: "2027",
-                mapsUrl: "https://www.google.com/maps/search/EyeNova+Contact+Lens+Mall+of+Qatar+Rayyan",
-              },
-            ].map((loc, idx) => (
-              <div
-                key={loc.name}
-                className="bg-[#FAF5F2] hover:bg-[#F4ECE8] transition-all duration-200 py-8 px-6 flex flex-col items-center justify-between text-center group rounded-2xl border border-[#E8DED8] hover:border-[#5c2d76] scroll-trigger animate--slide-in hover-flash shadow-2xs hover:shadow-sm relative overflow-hidden"
-                data-cascade
-                style={{ "--animation-order": idx + 1 } as React.CSSProperties}
-              >
-                {/* Coming Soon Top Badge */}
-                <div className="mb-4">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-white text-[#5c2d76] border border-[#E0D2C8] shadow-2xs">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#5c2d76]" />
-                    {lang === "ar" ? loc.statusAr : loc.status}
-                  </span>
-                </div>
+            <div className="relative z-10 space-y-5">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white border border-[#E0D2C8] text-[#5c2d76] text-[12px] sm:text-[13px] font-semibold shadow-2xs">
+                <span className="w-2 h-2 rounded-full bg-[#5c2d76] animate-ping" />
+                <span>{lang === "ar" ? "قريباً في دولة قطر" : "Opening Soon in Qatar"}</span>
+              </div>
 
-                <div className="w-13 h-13 rounded-full bg-white flex items-center justify-center text-[#5c2d76] mb-3 group-hover:scale-105 shadow-xs transition-transform duration-200">
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.8">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-                  </svg>
-                </div>
+              <h2 className="text-[26px] sm:text-[34px] font-normal tracking-tight text-[#121212]">
+                {lang === "ar" ? "عين نوفا — قريباً في قطر" : "EyeNova — Opening Soon in Qatar"}
+              </h2>
 
-                <div className="space-y-1">
-                  <h3 className="text-[15px] sm:text-[16px] font-medium text-[#121212] leading-snug">
-                    {lang === "ar" ? loc.nameAr : loc.name}
-                  </h3>
-                  <p className="text-[12px] text-[#707070]">
-                    {lang === "ar" ? `الافتتاح المتوقع: ${loc.timingAr}` : `Expected: ${loc.timing}`}
+              <p className="text-[14px] sm:text-[16px] text-[#555555] max-w-2xl mx-auto leading-relaxed">
+                {lang === "ar"
+                  ? "نستعد لافتتاح وجهتكم الأولى للبصريات في قطر، لنقدم لكم أرقى تشكيلات العدسات اللاصقة الطبية والملونة المعتمدة عالمياً والنظارات الفاخرة، مع خدمة التوصيل السريع لجميع مناطق الدولة."
+                  : "We are preparing to launch Qatar's premier optical destination for certified medical & colored contact lenses and luxury eyewear, with express delivery across all Qatar municipalities."}
+              </p>
+
+              {/* Value Highlights */}
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-3 max-w-2xl mx-auto">
+                <div className="bg-white/90 border border-[#EBE0DA] rounded-2xl py-3 px-4 text-center">
+                  <p className="text-[13px] font-semibold text-[#121212]">
+                    {lang === "ar" ? "منتجات أصلية 100%" : "100% Certified Authentic"}
+                  </p>
+                  <p className="text-[11px] text-[#707070] mt-0.5">
+                    {lang === "ar" ? "وكلاء معتمدون لأشهر الماركات" : "Authorized global optical brands"}
                   </p>
                 </div>
+                <div className="bg-white/90 border border-[#EBE0DA] rounded-2xl py-3 px-4 text-center">
+                  <p className="text-[13px] font-semibold text-[#121212]">
+                    {lang === "ar" ? "توصيل سريع لكافة قطر" : "Express Delivery Across Qatar"}
+                  </p>
+                  <p className="text-[11px] text-[#707070] mt-0.5">
+                    {lang === "ar" ? "الدوحة وكافة المناطق" : "Doha & all municipalities"}
+                  </p>
+                </div>
+                <div className="bg-white/90 border border-[#EBE0DA] rounded-2xl py-3 px-4 text-center">
+                  <p className="text-[13px] font-semibold text-[#121212]">
+                    {lang === "ar" ? "استشارات وخدمة مميزة" : "Personalized Concierge"}
+                  </p>
+                  <p className="text-[11px] text-[#707070] mt-0.5">
+                    {lang === "ar" ? "دعم واستشارات نظر فورية" : "Direct optical guidance"}
+                  </p>
+                </div>
+              </div>
 
+              {/* WhatsApp Contact Button */}
+              <div className="pt-2">
                 <a
-                  href={loc.mapsUrl}
+                  href="https://wa.me/97455123456"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-[12px] text-[#5c2d76] mt-4 font-medium hover:underline inline-flex items-center gap-1"
+                  className="inline-flex items-center gap-2.5 bg-[#25D366] hover:bg-[#20ba59] text-white text-[13px] sm:text-[14px] font-medium px-6 py-3 rounded-full shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer"
                 >
-                  <span>{lang === "ar" ? "الموقع التقريبي ↗" : "Planned Location ↗"}</span>
+                  <MessageCircle size={18} />
+                  <span>{lang === "ar" ? "تواصل معنا عبر الواتساب للاستفسارات" : "WhatsApp Inquiries & Early Access"}</span>
                 </a>
               </div>
-            ))}
+            </div>
           </div>
         </section>
 

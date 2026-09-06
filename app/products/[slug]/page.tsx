@@ -18,6 +18,7 @@ import {
   X,
   ZoomIn,
   ZoomOut,
+  Sparkles,
 } from "lucide-react";
 
 // Standard contact lens powers matching Eyenk
@@ -32,41 +33,7 @@ const POWER_OPTIONS = [
   "+4.50", "+4.75", "+5.00", "+5.50", "+6.00"
 ];
 
-// Eyenk Store Pickup Locations (Opening Soon)
-const STORE_LOCATIONS = [
-  {
-    name: "Tawar Mall, Al Markhiya",
-    nameAr: "طوار مول، المرخية",
-    status: "Opening Soon (Q4 2026)",
-    statusAr: "الافتتاح قريباً (الربع الرابع 2026)",
-    hours: "Online Delivery Active Now",
-    available: false,
-  },
-  {
-    name: "Place Vendôme, Lusail",
-    nameAr: "بلاس فاندوم، لوسيل",
-    status: "Opening Soon (Q4 2026)",
-    statusAr: "الافتتاح قريباً (الربع الرابع 2026)",
-    hours: "Online Delivery Active Now",
-    available: false,
-  },
-  {
-    name: "Ezdan Mall, Al Wakrah",
-    nameAr: "إزدان مول، الوكرة",
-    status: "Coming Soon (2027)",
-    statusAr: "قريباً جداً (2027)",
-    hours: "Online Delivery Active Now",
-    available: false,
-  },
-  {
-    name: "Mall of Qatar, Al Rayyan",
-    nameAr: "قطر مول، الريان",
-    status: "Coming Soon (2027)",
-    statusAr: "قريباً جداً (2027)",
-    hours: "Online Delivery Active Now",
-    available: false,
-  },
-];
+
 
 export default function ProductDetailPage() {
   const params = useParams();
@@ -104,7 +71,6 @@ export default function ProductDetailPage() {
   const [modalZoomed, setModalZoomed] = useState(false);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
   const [touchEndX, setTouchEndX] = useState<number | null>(null);
-  const [pickupModalOpen, setPickupModalOpen] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
   const [addedAlert, setAddedAlert] = useState(false);
 
@@ -655,26 +621,21 @@ export default function ProductDetailPage() {
                 </button>
               </div>
 
-              {/* Store Pickup Section (Eyenk exact pickup note) */}
+              {/* EyeNova Qatar Launch Notice */}
               <div className="border-t border-neutral-200 pt-5 pb-6">
                 <div className="flex items-start gap-2.5">
-                  <span className="mt-0.5 text-emerald-600 shrink-0">
-                    <Check size={16} />
+                  <span className="mt-0.5 text-[#5c2d76] shrink-0">
+                    <Sparkles size={16} />
                   </span>
                   <div className="text-[13px] leading-relaxed">
-                    <p className="font-normal text-[#121212]">
-                      Pickup available at <span className="font-semibold">Tawar Mall, Al Markhiya</span>
+                    <p className="font-semibold text-[#121212]">
+                      {lang === "ar" ? "عين نوفا — قريباً في دولة قطر" : "EyeNova — Opening Soon in Qatar"}
                     </p>
                     <p className="text-[12px] text-[#707070] mt-0.5">
-                      Usually ready in 2 hours
+                      {lang === "ar"
+                        ? "نستعد للإطلاق الرسمي في دولة قطر. التوصيل السريع لكافة مناطق الدوحة والمدن سيكون متاحاً فور الافتتاح."
+                        : "Preparing our grand launch in Qatar. Express home delivery across Doha & all regions upon official opening."}
                     </p>
-                    <button
-                      type="button"
-                      onClick={() => setPickupModalOpen(true)}
-                      className="text-[12px] text-[#121212] underline mt-1 block hover:text-neutral-500"
-                    >
-                      Check availability at other stores
-                    </button>
                   </div>
                 </div>
               </div>
@@ -900,61 +861,6 @@ export default function ProductDetailPage() {
         </div>
       )}
 
-      {/* ===================================================================== */}
-      {/* Store Pickup Availability Modal                                       */}
-      {/* ===================================================================== */}
-      {pickupModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
-          <div className="bg-white max-w-md w-full p-6 relative shadow-2xl animate-fade-in">
-            <button
-              onClick={() => setPickupModalOpen(false)}
-              className="absolute top-4 right-4 text-neutral-500 hover:text-black"
-            >
-              <X size={20} />
-            </button>
-
-            <h3 className="text-lg font-medium text-[#121212] mb-1">
-              {lang === "ar" ? "فروع الاستلام - قريباً" : "Physical Boutiques — Opening Soon"}
-            </h3>
-            <p className="text-xs text-neutral-500 mb-5">
-              {lang === "ar"
-                ? "صالات العرض ونقاط الاستلام قيد التجهيز. حالياً نوفر خدمة التوصيل السريع لجميع مناطق قطر."
-                : "Physical boutiques are preparing for grand opening. Express home delivery across Qatar is fully active."}
-            </p>
-
-            <div className="space-y-4 divide-y divide-neutral-100">
-              {STORE_LOCATIONS.map((loc, idx) => (
-                <div key={idx} className="pt-3 first:pt-0">
-                  <div className="flex items-start justify-between">
-                    <div>
-                      <p className="text-sm font-semibold text-[#121212]">
-                        {lang === "ar" ? loc.nameAr : loc.name}
-                      </p>
-                      <p className="text-xs text-[#5c2d76] font-medium mt-0.5">
-                        {lang === "ar" ? loc.statusAr : loc.status}
-                      </p>
-                      <p className="text-xs text-neutral-400 mt-0.5">
-                        {lang === "ar" ? "خدمة التوصيل المنزلي متاحة الآن" : loc.hours}
-                      </p>
-                    </div>
-                    <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#FAF5F2] text-[#5c2d76] border border-[#E8DED8] mt-1">
-                      {lang === "ar" ? "قريباً" : "Coming Soon"}
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <button
-              type="button"
-              onClick={() => setPickupModalOpen(false)}
-              className="mt-6 w-full py-3 bg-[#121212] text-white text-xs uppercase tracking-wider font-medium"
-            >
-              Close
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }
