@@ -1,70 +1,23 @@
 /**
- * EyeNova Qatar — Client Interactions & Optical Customizer
+ * EyeNova Qatar - Client Interactions & Storefront Scripts
  */
 
 (function () {
   'use strict';
 
-  const prefersReducedMotion =
-    window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   /* ------------------------------------------------------------------ *
-   * 1. Scroll-aware shrinking header
-   *    Header starts tall, smoothly collapses once the user scrolls.
+   * 1. Header scroll handler (native sticky positioning)
    * ------------------------------------------------------------------ */
   function initShrinkHeader() {
-    const header = document.getElementById('SiteHeader');
-    if (!header) return;
-
-    const SHRINK_AT = 40; // px scrolled before collapse
-    let ticking = false;
-    let lastState = null;
-
-    function apply() {
-      const scrolled = window.scrollY > SHRINK_AT;
-      if (scrolled !== lastState) {
-        header.classList.toggle('is-shrunk', scrolled);
-        lastState = scrolled;
-      }
-      ticking = false;
-    }
-
-    function onScroll() {
-      if (!ticking) {
-        window.requestAnimationFrame(apply);
-        ticking = true;
-      }
-    }
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    apply(); // set initial state (handles reloads mid-page)
+    // Header uses native CSS sticky positioning for 60/120fps scrolling
   }
 
   /* ------------------------------------------------------------------ *
-   * 2. Scroll reveal — fade / slide sections in as they enter view
+   * 2. Scroll reveal - instant visibility, no animation lag
    * ------------------------------------------------------------------ */
   function initScrollReveal() {
     const targets = document.querySelectorAll('[data-reveal]');
-    if (!targets.length) return;
-
-    if (prefersReducedMotion || !('IntersectionObserver' in window)) {
-      targets.forEach((el) => el.classList.add('is-visible'));
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      (entries, obs) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('is-visible');
-            obs.unobserve(entry.target);
-          }
-        });
-      },
-      { rootMargin: '0px 0px -8% 0px', threshold: 0.08 }
-    );
-
-    targets.forEach((el) => observer.observe(el));
+    targets.forEach((el) => el.classList.add('is-visible'));
   }
 
   /* ------------------------------------------------------------------ *
@@ -86,7 +39,6 @@
       document.body.classList.remove('drawer-lock-scroll');
     }
 
-    // Expose for inline onclick handlers in the header markup
     window.openMobileDrawer = open;
     window.closeMobileDrawer = close;
 
@@ -103,7 +55,6 @@
     if (legacyClose) legacyClose.addEventListener('click', close);
 
     backdrop.addEventListener('click', close);
-    // Close on link tap inside the drawer
     drawer.querySelectorAll('a').forEach((a) => a.addEventListener('click', close));
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') close();

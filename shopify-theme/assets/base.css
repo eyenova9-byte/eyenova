@@ -46,19 +46,17 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
 }
 
 /* ============================================================
    MOTION SYSTEM — scroll reveals + shared utilities
    ============================================================ */
 [data-reveal] {
-  opacity: 0;
-  transform: translateY(26px);
-  transition:
-    opacity var(--dur-reveal) var(--ease-out),
-    transform var(--dur-reveal) var(--ease-out);
-  will-change: opacity, transform;
+  opacity: 1 !important;
+  transform: none !important;
+  transition: none !important;
+  will-change: auto !important;
 }
 [data-reveal].is-visible {
   opacity: 1;
@@ -193,15 +191,10 @@ body {
   text-decoration: underline;
 }
 
-/* Site Header */
+/* Site Header - Reset for Next.js eyenova navbar root */
 .site-header {
-  background: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(12px);
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  border-bottom: 1px solid var(--color-border-subtle);
-  padding: 0.85rem 1.5rem;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
 .header-inner {
@@ -4493,157 +4486,238 @@ body.filter-drawer-locked {
    Loaded last so it refines the base styles above without touching structure.
    ============================================================================= */
 
-/* ---- Section rhythm & headings ---- */
-.store-section { padding-top: 3rem; padding-bottom: 3rem; }
+/* ---- Section rhythm & headings (Exact Next.js spacing) ---- */
+.store-section {
+  padding-top: 1.25rem !important;
+  padding-bottom: 1.25rem !important;
+}
 @media (min-width: 768px) {
-  .store-section { padding-top: 4rem; padding-bottom: 4rem; }
+  .store-section {
+    padding-top: 1.75rem !important;
+    padding-bottom: 1.75rem !important;
+  }
 }
 
 .section-title-row {
-  align-items: center;
-  margin-bottom: 1.75rem;
-  gap: 1rem;
+  display: flex !important;
+  align-items: baseline !important;
+  justify-content: space-between !important;
+  margin-bottom: 1.25rem !important;
 }
 .section-title-text {
-  font-weight: 700;
-  font-size: clamp(1.4rem, 2.6vw, 1.9rem);
-  letter-spacing: -0.025em;
-  position: relative;
-  padding-bottom: 0.5rem;
+  font-family: var(--font-sans) !important;
+  font-weight: 400 !important;
+  font-size: clamp(1.25rem, 2.2vw, 1.5rem) !important;
+  letter-spacing: -0.02em !important;
+  color: #121212 !important;
+  margin: 0 !important;
+  padding-bottom: 0 !important;
 }
 .section-title-text::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 48px;
-  height: 3px;
-  border-radius: 3px;
-  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  display: none !important;
 }
-[dir="rtl"] .section-title-text::after { left: auto; right: 0; }
 
 .section-link-more {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.3rem;
-  font-weight: 600;
-  padding: 0.4rem 0.9rem;
-  border-radius: var(--radius-pill);
-  background: var(--color-primary-soft);
-  transition: background var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out);
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.25rem !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  color: #5c2d76 !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  text-decoration: none !important;
+  transition: color 0.15s ease !important;
 }
 .section-link-more:hover {
-  background: var(--color-primary);
-  color: #fff !important;
-  text-decoration: none;
-  transform: translateX(2px);
+  color: #5c2d76 !important;
+  text-decoration: underline !important;
+  background: transparent !important;
+  transform: none !important;
 }
 
-/* ---- Product cards (homepage grids) ---- */
+/* ---- Product cards (Exact Next.js Parity across Home & Catalog) ---- */
 .nextjs-product-card {
-  background: #fff;
-  border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-lg);
-  padding: 1rem 0.85rem 1.15rem;
-  transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out);
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-align: center !important;
+  width: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  transition: transform 0.2s ease !important;
 }
 .nextjs-product-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-md);
-  border-color: var(--color-border);
+  transform: translateY(-2px) !important;
+  border: none !important;
+  box-shadow: none !important;
 }
+
+.nextjs-product-link {
+  width: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  text-decoration: none !important;
+  color: inherit !important;
+  outline: none !important;
+}
+
 .product-image-box {
-  background: var(--color-primary-tint);
-  border-radius: var(--radius-md);
-  margin-bottom: 1rem;
-  padding: 0.85rem;
+  width: 100% !important;
+  height: 144px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.5rem !important;
+  margin-bottom: 0.75rem !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  overflow: hidden !important;
 }
-.product-card-title { font-weight: 500; }
-.nextjs-product-link:hover .product-card-title { color: var(--color-primary); }
+
+@media (min-width: 640px) {
+  .product-image-box {
+    height: 176px !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-image-box {
+    height: 192px !important;
+  }
+}
+
+.product-image-box img {
+  max-height: 100% !important;
+  max-width: 100% !important;
+  object-fit: contain !important;
+  mix-blend-mode: multiply !important;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+
+.nextjs-product-link:hover .product-image-box img {
+  transform: scale(1.06) !important;
+}
+
+.product-card-title {
+  font-family: var(--font-sans) !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  color: #121212 !important;
+  line-height: 1.35 !important;
+  text-align: center !important;
+  margin: 0 0 0.4rem 0 !important;
+  padding: 0 0.25rem !important;
+  min-height: 38px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  -webkit-line-clamp: 2 !important;
+  -webkit-box-orient: vertical !important;
+  overflow: hidden !important;
+  transition: color 0.15s ease !important;
+}
+
+@media (min-width: 640px) {
+  .product-card-title {
+    font-size: 14px !important;
+  }
+}
+
+.nextjs-product-link:hover .product-card-title {
+  color: #707070 !important;
+}
+
 .product-card-price {
-  font-weight: 700;
-  color: var(--color-primary);
+  font-family: var(--font-sans) !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  color: #121212 !important;
+  text-align: center !important;
+  letter-spacing: 0.04em !important;
+  display: block !important;
+}
+
+@media (min-width: 640px) {
+  .product-card-price {
+    font-size: 14px !important;
+  }
 }
 
 /* ---- Circle category / brand cards ---- */
 .nextjs-circle-frame,
 .nextjs-brand-frame {
-  transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out), border-color var(--dur) var(--ease-out) !important;
+  transition: transform 0.2s ease !important;
 }
 .nextjs-circle-item:hover .nextjs-circle-frame,
 .nextjs-circle-item:hover .nextjs-brand-frame {
-  transform: translateY(-4px) scale(1.04);
-  box-shadow: var(--shadow-md);
+  transform: scale(1.05) !important;
 }
-.nextjs-circle-item { transition: color var(--dur-fast) var(--ease-out); }
-.nextjs-circle-item:hover .nextjs-circle-label { color: var(--color-primary); }
-
-/* ---- Scroll arrow controls ---- */
-.nextjs-nav-arrow {
-  transition: background var(--dur-fast) var(--ease-out), color var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out), border-color var(--dur-fast) var(--ease-out) !important;
+.nextjs-circle-item {
+  text-decoration: none !important;
 }
-.nextjs-nav-arrow:hover {
-  background: var(--color-primary) !important;
-  color: #fff !important;
-  border-color: var(--color-primary) !important;
-  transform: scale(1.08);
+.nextjs-circle-item:hover .nextjs-circle-label {
+  color: #5c2d76 !important;
 }
 
 /* ---- Korea style cards ---- */
 .nextjs-korea-card {
-  border-radius: var(--radius-lg);
-  padding: 0.75rem 0.75rem 1rem;
-  transition: transform var(--dur) var(--ease-out), box-shadow var(--dur) var(--ease-out);
+  text-decoration: none !important;
 }
-.nextjs-korea-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-md);
+.nextjs-korea-card:hover .korea-card-title {
+  color: #5c2d76 !important;
 }
-.korea-pebble-frame img { transition: transform var(--dur-slow) var(--ease-out); }
-.nextjs-korea-card:hover .korea-pebble-frame img { transform: scale(1.06); }
-.nextjs-korea-card:hover .korea-card-title { color: var(--color-primary); }
 
-/* ---- Hero refinements ---- */
-.eyenova-hero-section {
-  background: radial-gradient(1200px 400px at 15% -10%, var(--color-primary-soft) 0%, transparent 60%),
-              linear-gradient(180deg, #FAF5F2 0%, #FDFBFA 60%, #FFFFFF 100%) !important;
+/* ---- Floating WhatsApp Button: Zero Scroll Lag, No Overlaps ---- */
+.floating-whatsapp-btn {
+  position: fixed !important;
+  bottom: 76px !important;
+  right: 16px !important;
+  z-index: 450 !important;
+  width: 50px !important;
+  height: 50px !important;
+  background-color: #25D366 !important;
+  color: #ffffff !important;
+  border-radius: 9999px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  box-shadow: 0 4px 14px rgba(37, 211, 102, 0.4) !important;
+  transition: transform 0.2s ease !important;
+  text-decoration: none !important;
 }
-.hero-badge {
-  animation: eyenova-fade-up 0.6s var(--ease-out) both;
+.floating-whatsapp-btn:hover {
+  transform: scale(1.08) !important;
 }
-.hero-title { animation: eyenova-fade-up 0.6s var(--ease-out) 0.05s both; }
-.hero-subtitle { animation: eyenova-fade-up 0.6s var(--ease-out) 0.12s both; }
-.hero-cta-group { animation: eyenova-fade-up 0.6s var(--ease-out) 0.18s both; }
-.hero-trust-badges { animation: eyenova-fade-up 0.6s var(--ease-out) 0.24s both; }
-.hero-feature-wrapper { animation: eyenova-fade-up 0.7s var(--ease-out) 0.15s both; }
-
-.hero-btn-primary,
-.hero-btn-secondary { border-radius: var(--radius-md); }
-.hero-btn-primary:hover { box-shadow: var(--shadow-primary); }
-.hero-btn-primary svg { transition: transform var(--dur) var(--ease-out); }
-.hero-btn-primary:hover svg { transform: translateX(4px); }
-
-/* ---- Buttons (shared) gentle press feedback ---- */
-.hero-btn-primary:active,
-.hero-btn-secondary:active,
-.section-link-more:active,
-.eh-cart:active,
-.eh-promo-btn:active { transform: translateY(1px) scale(0.99); }
-
-/* ---- WhatsApp float: subtle attention pulse ---- */
 .floating-whatsapp-btn::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.45);
-  animation: eyenova-wa-pulse 2.4s var(--ease-out) infinite;
+  display: none !important;
 }
-@keyframes eyenova-wa-pulse {
-  0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.4); }
-  70% { box-shadow: 0 0 0 16px rgba(37, 211, 102, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+
+@media (min-width: 1024px) {
+  .floating-whatsapp-btn {
+    bottom: 24px !important;
+    right: 24px !important;
+    width: 54px !important;
+    height: 54px !important;
+  }
+}
+
+/* ---- Body Padding to prevent overlap with Mobile Bottom Nav ---- */
+@media (max-width: 1023px) {
+  body {
+    padding-bottom: 68px !important;
+  }
+}
+@media (min-width: 1024px) {
+  body {
+    padding-bottom: 0 !important;
+  }
 }
 
 /* ---- Footer polish ---- */
