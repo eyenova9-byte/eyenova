@@ -4,7 +4,7 @@
     <div class="header-inner">
       <!-- Mobile Hamburger Toggle (Small Screens) -->
       <div class="mobile-menu-toggle-wrap">
-        <button type="button" class="mobile-menu-btn" id="mobileMenuOpenBtn" aria-label="Open Navigation Menu">
+        <button type="button" class="mobile-menu-btn" id="mobileMenuOpenBtn" onclick="openMobileDrawer()" aria-label="Open Navigation Menu">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
           </svg>
@@ -25,14 +25,18 @@
         </div>
       </a>
 
-      <!-- Desktop Center Main Navigation Menu -->
+      <!-- Desktop Center Navigation Menu (Strict Single Line - No Wrapping) -->
       <nav class="desktop-navigation">
         <ul class="nav-links">
-          <li><a href="/" class="nav-link {% if request.path == '/' %}nav-link-active{% endif %}">Home</a></li>
+          <li>
+            <a href="/" class="nav-link {% if request.path == '/' %}nav-link-active{% endif %}">
+              <span>Home</span>
+            </a>
+          </li>
           <li class="nav-dropdown-wrapper">
             <a href="/collections/all?category=medical" class="nav-link">
               <span>Medical Lenses</span>
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+              <svg class="dropdown-arrow" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </a>
             <div class="nav-dropdown-menu">
               <a href="/collections/all?type=daily" class="dropdown-item">Daily Disposable Lenses</a>
@@ -48,7 +52,7 @@
           <li class="nav-dropdown-wrapper">
             <a href="/collections/all?category=colored" class="nav-link">
               <span>Colour Lenses</span>
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+              <svg class="dropdown-arrow" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </a>
             <div class="nav-dropdown-menu">
               <a href="/collections/all?brand=amara" class="dropdown-item">Amara Celebrity Colours</a>
@@ -59,9 +63,21 @@
               <a href="/collections/all?brand=acuvue-define" class="dropdown-item">Acuvue Define Daily Accent</a>
             </div>
           </li>
-          <li><a href="/collections/all?category=solutions" class="nav-link">Solutions & Drops</a></li>
-          <li><a href="/collections/all?category=eyewear" class="nav-link">Eyewear & Shades</a></li>
-          <li><a href="/pages/about" class="nav-link">About & Locations</a></li>
+          <li>
+            <a href="/collections/all?category=solutions" class="nav-link">
+              <span>Solutions & Drops</span>
+            </a>
+          </li>
+          <li>
+            <a href="/collections/all?category=eyewear" class="nav-link">
+              <span>Eyewear & Shades</span>
+            </a>
+          </li>
+          <li>
+            <a href="/pages/about" class="nav-link">
+              <span>About & Locations</span>
+            </a>
+          </li>
         </ul>
       </nav>
 
@@ -91,21 +107,21 @@
     </div>
   </div>
 
-  <!-- Sub-Header Category Navigation Bar (Desktop & Horizontal Scroll on Mobile) -->
+  <!-- Sub-Header Category Navigation Bar (Desktop & Smooth Horizontal Scroll on Mobile) -->
   <div class="header-sub-nav-bar">
     <div class="sub-nav-container">
-      <ul class="sub-nav-list">
-        <li><a href="/collections/all" class="sub-nav-link {% if request.path == '/collections/all' and current_tags == blank %}sub-nav-active{% endif %}">All Collections</a></li>
-        <li><a href="/collections/all?type=daily" class="sub-nav-link">Daily Lenses</a></li>
-        <li><a href="/collections/all?type=monthly" class="sub-nav-link">Monthly Lenses</a></li>
-        <li><a href="/collections/all?category=colored" class="sub-nav-link">Colour Lenses</a></li>
-        <li><a href="/collections/all?type=astigmatism" class="sub-nav-link">Astigmatism (Toric)</a></li>
-        <li><a href="/collections/all?type=multifocal" class="sub-nav-link">Multifocal</a></li>
-        <li><a href="/collections/all?category=solutions" class="sub-nav-link">Solutions & Drops</a></li>
-        <li><a href="/collections/all?category=eyewear" class="sub-nav-link">Eyeglasses</a></li>
-        <li><a href="/collections/all?category=sunglasses" class="sub-nav-link">Sunglasses</a></li>
-        <li><a href="/pages/about" class="sub-nav-link">Locations & Boutique</a></li>
-      </ul>
+      <nav class="sub-nav-track" aria-label="Category Quick Links">
+        <a href="/collections/all" class="sub-nav-pill {% if request.path == '/collections/all' %}active{% endif %}">All Collections</a>
+        <a href="/collections/all?type=daily" class="sub-nav-pill">Daily Lenses</a>
+        <a href="/collections/all?type=monthly" class="sub-nav-pill">Monthly Lenses</a>
+        <a href="/collections/all?category=colored" class="sub-nav-pill">Colour Lenses</a>
+        <a href="/collections/all?type=astigmatism" class="sub-nav-pill">Astigmatism (Toric)</a>
+        <a href="/collections/all?type=multifocal" class="sub-nav-pill">Multifocal</a>
+        <a href="/collections/all?category=solutions" class="sub-nav-pill">Solutions & Drops</a>
+        <a href="/collections/all?category=eyewear" class="sub-nav-pill">Eyeglasses</a>
+        <a href="/collections/all?category=sunglasses" class="sub-nav-pill">Sunglasses</a>
+        <a href="/pages/about" class="sub-nav-pill">Locations & Boutique</a>
+      </nav>
     </div>
   </div>
 </header>
