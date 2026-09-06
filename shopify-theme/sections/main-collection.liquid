@@ -1,40 +1,162 @@
-<section class="store-section" style="padding-top: 2.5rem; padding-bottom: 4rem;">
+<!-- 1. Top Collection Banner (Exact Next.js Banner) -->
+<div class="shop-banner-clean">
   <div class="store-container">
-    <!-- Collection Header -->
-    <div style="text-align: center; margin-bottom: 2.5rem;">
-      <div style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.85rem; border-radius: 9999px; background: #FAF5F2; border: 1px solid #EDE4DE; color: #5c2d76; font-size: 0.78rem; font-weight: 700; margin-bottom: 0.75rem;">
-        <span>MOPH Qatar Certified Optical Catalog</span>
+    <h1 class="shop-page-title">
+      {{ collection.title | default: "All Products" }}
+    </h1>
+  </div>
+</div>
+
+<!-- 2. Main Collection Grid Container -->
+<div class="store-container shop-body-container">
+
+  <!-- Mobile Filter & Sort Bar (Hidden on Desktop) -->
+  <div class="shop-mobile-filter-bar">
+    <button type="button" class="mobile-filter-trigger-btn" id="openMobileFilterBtn">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>
+      </svg>
+      <span>Filter and sort</span>
+      <span class="filter-count-badge" id="mobileFilterCountBadge" style="display: none;">0</span>
+    </button>
+    <span class="shop-product-count-mobile" id="mobileProductCountText">24 products</span>
+  </div>
+
+  <div class="shop-layout-flex">
+
+    <!-- ======================================================================= -->
+    <!-- Left Vertical Accordion Filters (Exact Next.js Accordion Parity)        -->
+    <!-- ======================================================================= -->
+    <aside class="shop-sidebar-filters">
+      <!-- Filter Header & Remove All -->
+      <div class="filter-sidebar-header">
+        <span class="filter-title-label">Filter:</span>
+        <button type="button" class="filter-remove-all-btn" id="removeAllFiltersBtn" style="display: none;">
+          Remove all
+        </button>
       </div>
-      <h1 style="font-family: var(--font-sans); font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 400; color: #121212; letter-spacing: -0.02em; margin-bottom: 0.5rem;">
-        {{ collection.title | default: "All Optical & Contact Lens Collections" }}
-      </h1>
-      {% if collection.description != blank %}
-        <p style="font-size: 0.95rem; color: #555555; max-width: 600px; margin: 0 auto; line-height: 1.6;">
-          {{ collection.description }}
-        </p>
-      {% else %}
-        <p style="font-size: 0.95rem; color: #555555; max-width: 600px; margin: 0 auto; line-height: 1.6;">
-          Explore certified medical contact lenses, trend-setting colored lenses, and optical essentials with express same-day Qatar delivery.
-        </p>
-      {% endif %}
-    </div>
 
-    <!-- Category Filter Pills -->
-    <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem;">
-      <a href="/collections/all" class="cat-pill {% if request.path == '/collections/all' and current_tags == blank %}cat-pill-active{% endif %}">All Products</a>
-      <a href="/collections/all?category=medical" class="cat-pill">Medical Lenses</a>
-      <a href="/collections/all?category=colored" class="cat-pill">Colour Lenses</a>
-      <a href="/collections/all?category=solutions" class="cat-pill">Solutions & Drops</a>
-      <a href="/collections/all?category=eyewear" class="cat-pill">Eyeglasses</a>
-      <a href="/collections/all?category=sunglasses" class="cat-pill">Sunglasses</a>
-    </div>
+      <!-- Filter 1: Usage (Daily, Monthly) -->
+      <details class="filter-accordion-group" open>
+        <summary class="filter-accordion-summary">
+          <span>Usage <span id="usageFilterCount"></span></span>
+          <svg class="summary-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="filter-options-content">
+          <label class="filter-checkbox-label">
+            <input type="checkbox" name="usageFilter" value="daily" class="filter-checkbox-input">
+            <span>Daily</span>
+          </label>
+          <label class="filter-checkbox-label">
+            <input type="checkbox" name="usageFilter" value="monthly" class="filter-checkbox-input">
+            <span>Monthly</span>
+          </label>
+        </div>
+      </details>
 
-    <!-- 5-Column Product Grid (Exact Next.js Match) -->
-    {% paginate collection.products by 20 %}
-      {% if collection.products.size > 0 %}
-        <div class="nextjs-products-grid">
+      <!-- Filter 2: Type -->
+      <details class="filter-accordion-group">
+        <summary class="filter-accordion-summary">
+          <span>Type <span id="typeFilterCount"></span></span>
+          <svg class="summary-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="filter-options-content">
+          <label class="filter-checkbox-label">
+            <input type="checkbox" name="typeFilter" value="standard" class="filter-checkbox-input">
+            <span>Standard Prescription Lens</span>
+          </label>
+          <label class="filter-checkbox-label">
+            <input type="checkbox" name="typeFilter" value="astigmatism" class="filter-checkbox-input">
+            <span>Astigmatism Lenses (Toric)</span>
+          </label>
+          <label class="filter-checkbox-label">
+            <input type="checkbox" name="typeFilter" value="colored" class="filter-checkbox-input">
+            <span>Colored Lenses</span>
+          </label>
+          <label class="filter-checkbox-label">
+            <input type="checkbox" name="typeFilter" value="solution" class="filter-checkbox-input">
+            <span>Solutions & Eye Care</span>
+          </label>
+        </div>
+      </details>
+
+      <!-- Filter 3: Power (Negative Diopters -0.50 to -8.00) -->
+      <details class="filter-accordion-group">
+        <summary class="filter-accordion-summary">
+          <span>Power <span id="powerFilterCount"></span></span>
+          <svg class="summary-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="filter-options-content filter-scroll-box">
+          <label class="filter-checkbox-label"><input type="checkbox" name="powerFilter" value="0.00" class="filter-checkbox-input"><span>0.00 (Plano)</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="powerFilter" value="-0.50" class="filter-checkbox-input"><span>-0.50</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="powerFilter" value="-0.75" class="filter-checkbox-input"><span>-0.75</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="powerFilter" value="-1.00" class="filter-checkbox-input"><span>-1.00</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="powerFilter" value="-1.25" class="filter-checkbox-input"><span>-1.25</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="powerFilter" value="-1.50" class="filter-checkbox-input"><span>-1.50</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="powerFilter" value="-1.75" class="filter-checkbox-input"><span>-1.75</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="powerFilter" value="-2.00" class="filter-checkbox-input"><span>-2.00</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="powerFilter" value="-2.50" class="filter-checkbox-input"><span>-2.50</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="powerFilter" value="-3.00" class="filter-checkbox-input"><span>-3.00</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="powerFilter" value="-3.50" class="filter-checkbox-input"><span>-3.50</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="powerFilter" value="-4.00" class="filter-checkbox-input"><span>-4.00</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="powerFilter" value="-4.50" class="filter-checkbox-input"><span>-4.50</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="powerFilter" value="-5.00" class="filter-checkbox-input"><span>-5.00</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="powerFilter" value="-5.50" class="filter-checkbox-input"><span>-5.50</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="powerFilter" value="-6.00" class="filter-checkbox-input"><span>-6.00</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="powerFilter" value="-7.00" class="filter-checkbox-input"><span>-7.00</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="powerFilter" value="-8.00" class="filter-checkbox-input"><span>-8.00</span></label>
+        </div>
+      </details>
+
+      <!-- Filter 4: Brand -->
+      <details class="filter-accordion-group" open>
+        <summary class="filter-accordion-summary">
+          <span>Brand <span id="brandFilterCount"></span></span>
+          <svg class="summary-caret" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="filter-options-content">
+          <label class="filter-checkbox-label"><input type="checkbox" name="brandFilter" value="acuvue" class="filter-checkbox-input"><span>Acuvue</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="brandFilter" value="alcon" class="filter-checkbox-input"><span>Alcon</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="brandFilter" value="bella" class="filter-checkbox-input"><span>Bella</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="brandFilter" value="amara" class="filter-checkbox-input"><span>Amara</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="brandFilter" value="lensme" class="filter-checkbox-input"><span>LensMe</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="brandFilter" value="diva" class="filter-checkbox-input"><span>Diva</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="brandFilter" value="coopervision" class="filter-checkbox-input"><span>CooperVision</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="brandFilter" value="bausch + lomb" class="filter-checkbox-input"><span>Bausch + Lomb</span></label>
+          <label class="filter-checkbox-label"><input type="checkbox" name="brandFilter" value="eyenova" class="filter-checkbox-input"><span>EyeNova</span></label>
+        </div>
+      </details>
+    </aside>
+
+    <!-- ======================================================================= -->
+    <!-- Right Product Showcase Grid & Sort By Header                           -->
+    <!-- ======================================================================= -->
+    <main class="shop-main-content">
+      <!-- Desktop Sort Bar -->
+      <div class="desktop-sort-bar">
+        <div class="sort-select-wrap">
+          <label for="ShopSortBy" class="sort-label">Sort by:</label>
+          <div class="sort-dropdown-custom">
+            <select id="ShopSortBy" class="sort-native-select">
+              <option value="best-selling">Best selling</option>
+              <option value="featured">Featured</option>
+              <option value="title-ascending">Alphabetically, A-Z</option>
+              <option value="title-descending">Alphabetically, Z-A</option>
+              <option value="price-ascending">Price, low to high</option>
+              <option value="price-descending">Price, high to low</option>
+            </select>
+            <svg class="sort-caret" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+          </div>
+        </div>
+        <span class="desktop-product-count" id="desktopProductCountText">24 products</span>
+      </div>
+
+      <!-- 4-Column Product Grid (Exact Next.js Grid: grid-cols-2 sm:grid-cols-2 lg:grid-cols-4) -->
+      <div class="nextjs-showcase-grid" id="productGridContainer">
+        <!-- Render Products (Shopify Collection or Curated Catalog) -->
+        {% if collection.products.size > 0 %}
           {% for product in collection.products %}
-            <div class="nextjs-product-card">
+            <div class="showcase-card-item" data-id="{{ product.id }}" data-brand="{{ product.vendor | downcase }}" data-title="{{ product.title }}" data-price="{{ product.price }}" data-usage="{% if product.tags contains 'daily' %}daily{% elsif product.tags contains 'monthly' %}monthly{% endif %}" data-type="{% if product.tags contains 'astigmatism' %}astigmatism{% elsif product.tags contains 'colored' %}colored{% else %}standard{% endif %}">
               <a href="{{ product.url }}" class="nextjs-product-link">
                 <div class="product-image-box">
                   {% if product.featured_image %}
@@ -50,74 +172,505 @@
               </a>
             </div>
           {% endfor %}
-        </div>
-
-        {% if paginate.pages > 1 %}
-          <div style="text-align: center; margin-top: 3rem;">
-            {{ paginate | default_pagination }}
-          </div>
+        {% else %}
+          <!-- Full Curated 24 Product Catalog Matching Next.js lib/mockData.ts -->
+          
+            <div class="showcase-card-item" data-id="p1" data-brand="bella" data-title="Bella Diamond Gray Shadow Contact Lenses" data-price="130" data-usage="monthly" data-type="colored" data-powers='["0.00","-0.50","-0.75","-1.00","-1.50","-2.00","-2.50","-3.00","-4.00","-5.00","-6.00"]'>
+              <a href="/collections/all?brand=bella" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop" alt="Bella Diamond Gray Shadow Contact Lenses" loading="lazy">
+                </div>
+                <h3 class="product-card-title">Bella Diamond Gray Shadow Contact Lenses</h3>
+                <span class="product-card-price">QAR 130.00</span>
+              </a>
+            </div>
+          
+            <div class="showcase-card-item" data-id="p2" data-brand="bella" data-title="Bella Elite Sandy Brown Contact Lenses" data-price="135" data-usage="monthly" data-type="colored" data-powers='["0.00","-0.50","-1.00","-1.50","-2.00","-2.50","-3.00","-4.00","-5.00"]'>
+              <a href="/collections/all?brand=bella" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=500&auto=format&fit=crop" alt="Bella Elite Sandy Brown Contact Lenses" loading="lazy">
+                </div>
+                <h3 class="product-card-title">Bella Elite Sandy Brown Contact Lenses</h3>
+                <span class="product-card-price">QAR 135.00</span>
+              </a>
+            </div>
+          
+            <div class="showcase-card-item" data-id="p3" data-brand="lensme" data-title="Lensme Caffe Natural Warm Brown Lenses" data-price="145" data-usage="monthly" data-type="colored" data-powers='["0.00","-0.50","-1.00","-1.50","-2.00","-2.50","-3.00","-4.00","-5.00"]'>
+              <a href="/collections/all?brand=lensme" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&auto=format&fit=crop" alt="Lensme Caffe Natural Warm Brown Lenses" loading="lazy">
+                </div>
+                <h3 class="product-card-title">Lensme Caffe Natural Warm Brown Lenses</h3>
+                <span class="product-card-price">QAR 145.00</span>
+              </a>
+            </div>
+          
+            <div class="showcase-card-item" data-id="p4" data-brand="lensme" data-title="Lensme Caramel Golden Hazel Lenses" data-price="145" data-usage="monthly" data-type="colored" data-powers='["0.00","-0.50","-1.00","-1.50","-2.00","-2.50","-3.00","-4.00","-5.00"]'>
+              <a href="/collections/all?brand=lensme" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?w=500&auto=format&fit=crop" alt="Lensme Caramel Golden Hazel Lenses" loading="lazy">
+                </div>
+                <h3 class="product-card-title">Lensme Caramel Golden Hazel Lenses</h3>
+                <span class="product-card-price">QAR 145.00</span>
+              </a>
+            </div>
+          
+            <div class="showcase-card-item" data-id="p5" data-brand="amara" data-title="Amara Toffee Hazel Contact Lenses" data-price="140" data-usage="monthly" data-type="colored" data-powers='["0.00","-0.50","-1.00","-1.50","-2.00","-2.50","-3.00","-4.00","-5.00"]'>
+              <a href="/collections/all?brand=amara" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=500&auto=format&fit=crop" alt="Amara Toffee Hazel Contact Lenses" loading="lazy">
+                </div>
+                <h3 class="product-card-title">Amara Toffee Hazel Contact Lenses</h3>
+                <span class="product-card-price">QAR 140.00</span>
+              </a>
+            </div>
+          
+            <div class="showcase-card-item" data-id="p6" data-brand="diva" data-title="Diva Amande Natural Olive Brown Lenses" data-price="150" data-usage="monthly" data-type="colored" data-powers='["0.00","-0.50","-1.00","-1.50","-2.00","-2.50","-3.00","-4.00"]'>
+              <a href="/collections/all?brand=diva" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&auto=format&fit=crop" alt="Diva Amande Natural Olive Brown Lenses" loading="lazy">
+                </div>
+                <h3 class="product-card-title">Diva Amande Natural Olive Brown Lenses</h3>
+                <span class="product-card-price">QAR 150.00</span>
+              </a>
+            </div>
+          
+            <div class="showcase-card-item" data-id="p7" data-brand="acuvue" data-title="1 Day Acuvue Moist 30 Pack" data-price="159" data-usage="daily" data-type="standard" data-powers='["-0.50","-0.75","-1.00","-1.25","-1.50","-1.75","-2.00","-2.25","-2.50","-2.75","-3.00","-3.50","-4.00","-4.50","-5.00","-5.50","-6.00","-7.00","-8.00"]'>
+              <a href="/collections/all?brand=acuvue" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="1 Day Acuvue Moist 30 Pack" loading="lazy">
+                </div>
+                <h3 class="product-card-title">1 Day Acuvue Moist 30 Pack</h3>
+                <span class="product-card-price">QAR 159.00</span>
+              </a>
+            </div>
+          
+            <div class="showcase-card-item" data-id="p7_define_vivid" data-brand="acuvue" data-title="1 Day Acuvue Define Vivid Style" data-price="215" data-usage="daily" data-type="colored" data-powers='["0.00","-0.50","-1.00","-1.50","-2.00","-2.50","-3.00","-4.00","-5.00"]'>
+              <a href="/collections/all?brand=acuvue" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="1 Day Acuvue Define Vivid Style" loading="lazy">
+                </div>
+                <h3 class="product-card-title">1 Day Acuvue Define Vivid Style</h3>
+                <span class="product-card-price">QAR 215.00</span>
+              </a>
+            </div>
+          
+            <div class="showcase-card-item" data-id="p7_moist_90pk" data-brand="acuvue" data-title="1 Day Acuvue Moist 90 Pack" data-price="428" data-usage="daily" data-type="standard" data-powers='["-1.00","-1.50","-2.00","-2.50","-3.00","-3.50","-4.00","-4.50","-5.00","-6.00"]'>
+              <a href="/collections/all?brand=acuvue" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="1 Day Acuvue Moist 90 Pack" loading="lazy">
+                </div>
+                <h3 class="product-card-title">1 Day Acuvue Moist 90 Pack</h3>
+                <span class="product-card-price">QAR 428.00</span>
+              </a>
+            </div>
+          
+            <div class="showcase-card-item" data-id="p7_moist_astigmatism" data-brand="acuvue" data-title="1 Day Acuvue Moist for Astigmatism" data-price="230" data-usage="daily" data-type="astigmatism" data-powers='["-0.75","-1.00","-1.50","-2.00","-2.50","-3.00","-3.50","-4.00","-5.00"]'>
+              <a href="/collections/all?brand=acuvue" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="1 Day Acuvue Moist for Astigmatism" loading="lazy">
+                </div>
+                <h3 class="product-card-title">1 Day Acuvue Moist for Astigmatism</h3>
+                <span class="product-card-price">QAR 230.00</span>
+              </a>
+            </div>
+          
+            <div class="showcase-card-item" data-id="p8" data-brand="acuvue" data-title="Acuvue Oasys 1 DAY with HydraLuxe" data-price="195" data-usage="daily" data-type="standard" data-powers='["-0.50","-0.75","-1.00","-1.50","-2.00","-2.50","-3.00","-3.50","-4.00","-5.00","-6.00"]'>
+              <a href="/collections/all?brand=acuvue" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Acuvue Oasys 1 DAY with HydraLuxe" loading="lazy">
+                </div>
+                <h3 class="product-card-title">Acuvue Oasys 1 DAY with HydraLuxe</h3>
+                <span class="product-card-price">QAR 195.00</span>
+              </a>
+            </div>
+          
+            <div class="showcase-card-item" data-id="p9" data-brand="alcon" data-title="Dailies Total 1 (30 Lenses)" data-price="225" data-usage="daily" data-type="standard" data-powers='["-0.50","-1.00","-1.50","-2.00","-2.50","-3.00","-4.00","-5.00","-6.00"]'>
+              <a href="/collections/all?brand=alcon" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Dailies Total 1 (30 Lenses)" loading="lazy">
+                </div>
+                <h3 class="product-card-title">Dailies Total 1 (30 Lenses)</h3>
+                <span class="product-card-price">QAR 225.00</span>
+              </a>
+            </div>
+          
+            <div class="showcase-card-item" data-id="p9_aquacomfort" data-brand="alcon" data-title="Dailies AquaComfort Plus (30 Lenses)" data-price="175" data-usage="daily" data-type="standard" data-powers='["-0.50","-0.75","-1.00","-1.50","-2.00","-2.50","-3.00","-3.50","-4.00","-5.00","-6.00"]'>
+              <a href="/collections/all?brand=alcon" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Dailies AquaComfort Plus (30 Lenses)" loading="lazy">
+                </div>
+                <h3 class="product-card-title">Dailies AquaComfort Plus (30 Lenses)</h3>
+                <span class="product-card-price">QAR 175.00</span>
+              </a>
+            </div>
+          
+            <div class="showcase-card-item" data-id="p9_airoptix" data-brand="alcon" data-title="Air Optix plus HydraGlyde 6 Pack" data-price="220" data-usage="monthly" data-type="standard" data-powers='["-0.50","-1.00","-1.50","-2.00","-2.50","-3.00","-4.00","-5.00","-6.00"]'>
+              <a href="/collections/all?brand=alcon" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Air Optix plus HydraGlyde 6 Pack" loading="lazy">
+                </div>
+                <h3 class="product-card-title">Air Optix plus HydraGlyde 6 Pack</h3>
+                <span class="product-card-price">QAR 220.00</span>
+              </a>
+            </div>
+          
+            <div class="showcase-card-item" data-id="p10" data-brand="coopervision" data-title="Biofinity Monthly Clear Contact Lenses" data-price="175" data-usage="monthly" data-type="standard" data-powers='["-0.50","-1.00","-1.50","-2.00","-2.50","-3.00","-4.00","-5.00","-6.00"]'>
+              <a href="/collections/all?brand=coopervision" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=500&auto=format&fit=crop" alt="Biofinity Monthly Clear Contact Lenses" loading="lazy">
+                </div>
+                <h3 class="product-card-title">Biofinity Monthly Clear Contact Lenses</h3>
+                <span class="product-card-price">QAR 175.00</span>
+              </a>
+            </div>
+          
+            <div class="showcase-card-item" data-id="p11" data-brand="alcon" data-title="Opti-Free PureMoist Multi-Purpose Solution (300ml)" data-price="45" data-usage="care" data-type="solution" data-powers='[]'>
+              <a href="/collections/all?category=solutions" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?w=500&auto=format&fit=crop" alt="Opti-Free PureMoist Multi-Purpose Solution (300ml)" loading="lazy">
+                </div>
+                <h3 class="product-card-title">Opti-Free PureMoist Multi-Purpose Solution (300ml)</h3>
+                <span class="product-card-price">QAR 45.00</span>
+              </a>
+            </div>
+          
+            <div class="showcase-card-item" data-id="p12" data-brand="bausch + lomb" data-title="Biotrue Multi-Purpose Solution 300ml" data-price="50" data-usage="care" data-type="solution" data-powers='[]'>
+              <a href="/collections/all?category=solutions" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?w=500&auto=format&fit=crop" alt="Biotrue Multi-Purpose Solution 300ml" loading="lazy">
+                </div>
+                <h3 class="product-card-title">Biotrue Multi-Purpose Solution 300ml</h3>
+                <span class="product-card-price">QAR 50.00</span>
+              </a>
+            </div>
+          
+            <div class="showcase-card-item" data-id="p13" data-brand="alcon" data-title="Systane Ultra Lubricant Eye Drops (10ml)" data-price="40" data-usage="care" data-type="solution" data-powers='[]'>
+              <a href="/collections/all?category=solutions" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?w=500&auto=format&fit=crop" alt="Systane Ultra Lubricant Eye Drops (10ml)" loading="lazy">
+                </div>
+                <h3 class="product-card-title">Systane Ultra Lubricant Eye Drops (10ml)</h3>
+                <span class="product-card-price">QAR 40.00</span>
+              </a>
+            </div>
+          
+            <div class="showcase-card-item" data-id="p14" data-brand="allergan" data-title="Refresh Plus Lubricant Eye Drops (30 Vials)" data-price="48" data-usage="care" data-type="solution" data-powers='[]'>
+              <a href="/collections/all?category=solutions" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?w=500&auto=format&fit=crop" alt="Refresh Plus Lubricant Eye Drops (30 Vials)" loading="lazy">
+                </div>
+                <h3 class="product-card-title">Refresh Plus Lubricant Eye Drops (30 Vials)</h3>
+                <span class="product-card-price">QAR 48.00</span>
+              </a>
+            </div>
+          
+            <div class="showcase-card-item" data-id="p15" data-brand="eyenova" data-title="EyeNova Pure Titanium Ultra-Light Frame" data-price="350" data-usage="eyewear" data-type="eyewear" data-powers='[]'>
+              <a href="/collections/all?category=eyewear" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1591076482161-42ce6da69f67?w=500&auto=format&fit=crop" alt="EyeNova Pure Titanium Ultra-Light Frame" loading="lazy">
+                </div>
+                <h3 class="product-card-title">EyeNova Pure Titanium Ultra-Light Frame</h3>
+                <span class="product-card-price">QAR 350.00</span>
+              </a>
+            </div>
+          
+            <div class="showcase-card-item" data-id="p16" data-brand="eyenova" data-title="EyeNova TR90 Flexible Frame with Blue Light Shield" data-price="220" data-usage="eyewear" data-type="eyewear" data-powers='[]'>
+              <a href="/collections/all?category=eyewear" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1591076482161-42ce6da69f67?w=500&auto=format&fit=crop" alt="EyeNova TR90 Flexible Frame with Blue Light Shield" loading="lazy">
+                </div>
+                <h3 class="product-card-title">EyeNova TR90 Flexible Frame with Blue Light Shield</h3>
+                <span class="product-card-price">QAR 220.00</span>
+              </a>
+            </div>
+          
+            <div class="showcase-card-item" data-id="p17" data-brand="eyenova" data-title="EyeNova Polarized Luxury Aviator Sunglasses" data-price="280" data-usage="eyewear" data-type="eyewear" data-powers='[]'>
+              <a href="/collections/all?category=eyewear" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=500&auto=format&fit=crop" alt="EyeNova Polarized Luxury Aviator Sunglasses" loading="lazy">
+                </div>
+                <h3 class="product-card-title">EyeNova Polarized Luxury Aviator Sunglasses</h3>
+                <span class="product-card-price">QAR 280.00</span>
+              </a>
+            </div>
+          
+            <div class="showcase-card-item" data-id="p18" data-brand="eyenova" data-title="EyeNova Luxury 3D Silk Lashes - Doha Glow" data-price="65" data-usage="eyewear" data-type="eyewear" data-powers='[]'>
+              <a href="/collections/all?category=eyewear" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1583001809873-a128495da465?w=500&auto=format&fit=crop" alt="EyeNova Luxury 3D Silk Lashes - Doha Glow" loading="lazy">
+                </div>
+                <h3 class="product-card-title">EyeNova Luxury 3D Silk Lashes - Doha Glow</h3>
+                <span class="product-card-price">QAR 65.00</span>
+              </a>
+            </div>
+          
+            <div class="showcase-card-item" data-id="p19" data-brand="eyenova" data-title="Compact Contact Lens Travel Kit with Mirror" data-price="25" data-usage="care" data-type="solution" data-powers='[]'>
+              <a href="/collections/all?category=solutions" class="nextjs-product-link">
+                <div class="product-image-box">
+                  <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=500&auto=format&fit=crop" alt="Compact Contact Lens Travel Kit with Mirror" loading="lazy">
+                </div>
+                <h3 class="product-card-title">Compact Contact Lens Travel Kit with Mirror</h3>
+                <span class="product-card-price">QAR 25.00</span>
+              </a>
+            </div>
+          
         {% endif %}
-      {% else %}
-        <!-- Fallback to curated optical products -->
-        <div class="nextjs-products-grid">
-          <div class="nextjs-product-card">
-            <a href="/collections/all?brand=acuvue" class="nextjs-product-link">
-              <div class="product-image-box">
-                <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="1 Day Acuvue Moist" loading="lazy">
-              </div>
-              <h3 class="product-card-title">1 Day Acuvue Moist 30 Pack</h3>
-              <span class="product-card-price">QAR 159.00</span>
-            </a>
-          </div>
+      </div>
 
-          <div class="nextjs-product-card">
-            <a href="/collections/all?brand=acuvue" class="nextjs-product-link">
-              <div class="product-image-box">
-                <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Acuvue Oasys 1 DAY with HydraLuxe" loading="lazy">
-              </div>
-              <h3 class="product-card-title">Acuvue Oasys 1 DAY with HydraLuxe</h3>
-              <span class="product-card-price">QAR 195.00</span>
-            </a>
-          </div>
+      <!-- Empty State -->
+      <div id="noProductsFoundState" class="empty-products-state" style="display: none;">
+        <p>No products found matching your filters.</p>
+        <button type="button" id="clearEmptyFiltersBtn" class="clear-empty-btn">Clear all filters</button>
+      </div>
+    </main>
 
-          <div class="nextjs-product-card">
-            <a href="/collections/all?brand=alcon" class="nextjs-product-link">
-              <div class="product-image-box">
-                <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Dailies Total 1" loading="lazy">
-              </div>
-              <h3 class="product-card-title">Dailies Total 1 (30 Lenses)</h3>
-              <span class="product-card-price">QAR 225.00</span>
-            </a>
-          </div>
-
-          <div class="nextjs-product-card">
-            <a href="/collections/all?brand=bella" class="nextjs-product-link">
-              <div class="product-image-box">
-                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop" alt="Bella Diamond Gray Shadow" loading="lazy">
-              </div>
-              <h3 class="product-card-title">Bella Diamond Gray Shadow</h3>
-              <span class="product-card-price">QAR 130.00</span>
-            </a>
-          </div>
-
-          <div class="nextjs-product-card">
-            <a href="/collections/all?brand=lensme" class="nextjs-product-link">
-              <div class="product-image-box">
-                <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=500&auto=format&fit=crop" alt="Lensme Caffe Natural Warm Brown" loading="lazy">
-              </div>
-              <h3 class="product-card-title">Lensme Caffe Natural Warm Brown</h3>
-              <span class="product-card-price">QAR 145.00</span>
-            </a>
-          </div>
-        </div>
-      {% endif %}
-    {% endpaginate %}
   </div>
-</section>
+</div>
+
+<!-- =========================================================================== -->
+<!-- Mobile Filter Drawer (Exact Next.js Mobile Filter Parity)                  -->
+<!-- =========================================================================== -->
+<div class="mobile-filter-drawer-overlay" id="mobileFilterOverlay"></div>
+<div class="mobile-filter-drawer-panel" id="mobileFilterPanel">
+  <div class="mobile-filter-panel-header">
+    <h3>Filter and sort</h3>
+    <button type="button" id="closeMobileFilterBtn" class="close-mobile-filter-btn" aria-label="Close Filter">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+
+  <div class="mobile-filter-panel-body">
+    <!-- Sort in mobile -->
+    <div class="mobile-filter-section">
+      <span class="mobile-filter-section-title">Sort by</span>
+      <select id="MobileSortBy" class="mobile-sort-select">
+        <option value="best-selling">Best selling</option>
+        <option value="featured">Featured</option>
+        <option value="title-ascending">Alphabetically, A-Z</option>
+        <option value="title-descending">Alphabetically, Z-A</option>
+        <option value="price-ascending">Price, low to high</option>
+        <option value="price-descending">Price, high to low</option>
+      </select>
+    </div>
+
+    <!-- Usage in mobile -->
+    <div class="mobile-filter-section">
+      <span class="mobile-filter-section-title">Usage</span>
+      <div class="space-y-2">
+        <label class="filter-checkbox-label"><input type="checkbox" name="usageFilter" value="daily" class="filter-checkbox-input"><span>Daily</span></label>
+        <label class="filter-checkbox-label"><input type="checkbox" name="usageFilter" value="monthly" class="filter-checkbox-input"><span>Monthly</span></label>
+      </div>
+    </div>
+
+    <!-- Brand in mobile -->
+    <div class="mobile-filter-section">
+      <span class="mobile-filter-section-title">Brand</span>
+      <div class="space-y-2">
+        <label class="filter-checkbox-label"><input type="checkbox" name="brandFilter" value="acuvue" class="filter-checkbox-input"><span>Acuvue</span></label>
+        <label class="filter-checkbox-label"><input type="checkbox" name="brandFilter" value="alcon" class="filter-checkbox-input"><span>Alcon</span></label>
+        <label class="filter-checkbox-label"><input type="checkbox" name="brandFilter" value="bella" class="filter-checkbox-input"><span>Bella</span></label>
+        <label class="filter-checkbox-label"><input type="checkbox" name="brandFilter" value="amara" class="filter-checkbox-input"><span>Amara</span></label>
+        <label class="filter-checkbox-label"><input type="checkbox" name="brandFilter" value="lensme" class="filter-checkbox-input"><span>LensMe</span></label>
+        <label class="filter-checkbox-label"><input type="checkbox" name="brandFilter" value="diva" class="filter-checkbox-input"><span>Diva</span></label>
+        <label class="filter-checkbox-label"><input type="checkbox" name="brandFilter" value="coopervision" class="filter-checkbox-input"><span>CooperVision</span></label>
+        <label class="filter-checkbox-label"><input type="checkbox" name="brandFilter" value="bausch + lomb" class="filter-checkbox-input"><span>Bausch + Lomb</span></label>
+      </div>
+    </div>
+  </div>
+
+  <div class="mobile-filter-panel-footer">
+    <button type="button" id="mobileClearAllBtn" class="mobile-btn-clear">Clear</button>
+    <button type="button" id="mobileApplyBtn" class="mobile-btn-apply">Apply</button>
+  </div>
+</div>
+
+<!-- =========================================================================== -->
+<!-- Interactive Client-Side Filter & Sort Engine (No Reloading, Instant Update) -->
+<!-- =========================================================================== -->
+<script>
+  (function() {
+    var desktopSort = document.getElementById('ShopSortBy');
+    var mobileSort = document.getElementById('MobileSortBy');
+    var grid = document.getElementById('productGridContainer');
+    var emptyState = document.getElementById('noProductsFoundState');
+    var desktopCount = document.getElementById('desktopProductCountText');
+    var mobileCount = document.getElementById('mobileProductCountText');
+    var removeAllBtn = document.getElementById('removeAllFiltersBtn');
+    var mobileClearAll = document.getElementById('mobileClearAllBtn');
+    var clearEmptyBtn = document.getElementById('clearEmptyFiltersBtn');
+    var mobileFilterCount = document.getElementById('mobileFilterCountBadge');
+
+    // Mobile drawer toggles
+    var openMobileFilterBtn = document.getElementById('openMobileFilterBtn');
+    var closeMobileFilterBtn = document.getElementById('closeMobileFilterBtn');
+    var mobileApplyBtn = document.getElementById('mobileApplyBtn');
+    var mobilePanel = document.getElementById('mobileFilterPanel');
+    var mobileOverlay = document.getElementById('mobileFilterOverlay');
+
+    function openMobileFilter() {
+      if (mobilePanel && mobileOverlay) {
+        mobilePanel.classList.add('mobile-filter-open');
+        mobileOverlay.classList.add('mobile-filter-overlay-open');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeMobileFilter() {
+      if (mobilePanel && mobileOverlay) {
+        mobilePanel.classList.remove('mobile-filter-open');
+        mobileOverlay.classList.remove('mobile-filter-overlay-open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    if (openMobileFilterBtn) openMobileFilterBtn.addEventListener('click', openMobileFilter);
+    if (closeMobileFilterBtn) closeMobileFilterBtn.addEventListener('click', closeMobileFilter);
+    if (mobileApplyBtn) mobileApplyBtn.addEventListener('click', closeMobileFilter);
+    if (mobileOverlay) mobileOverlay.addEventListener('click', closeMobileFilter);
+
+    // Sync Sort
+    if (desktopSort && mobileSort) {
+      desktopSort.addEventListener('change', function() {
+        mobileSort.value = this.value;
+        runFilterAndSort();
+      });
+      mobileSort.addEventListener('change', function() {
+        desktopSort.value = this.value;
+        runFilterAndSort();
+      });
+    }
+
+    // Attach checkbox events
+    var allCheckboxes = document.querySelectorAll('.filter-checkbox-input');
+    allCheckboxes.forEach(function(cb) {
+      cb.addEventListener('change', function() {
+        // Sync checkboxes with same name and value across desktop/mobile
+        var matching = document.querySelectorAll('.filter-checkbox-input[name="' + this.name + '"][value="' + this.value + '"]');
+        var isChecked = this.checked;
+        matching.forEach(function(m) { m.checked = isChecked; });
+        runFilterAndSort();
+      });
+    });
+
+    function getCheckedValues(name) {
+      var arr = [];
+      document.querySelectorAll('.filter-checkbox-input[name="' + name + '"]:checked').forEach(function(cb) {
+        if (arr.indexOf(cb.value) === -1) arr.push(cb.value);
+      });
+      return arr;
+    }
+
+    function clearAll() {
+      allCheckboxes.forEach(function(cb) { cb.checked = false; });
+      runFilterAndSort();
+    }
+
+    if (removeAllBtn) removeAllBtn.addEventListener('click', clearAll);
+    if (mobileClearAll) mobileClearAll.addEventListener('click', clearAll);
+    if (clearEmptyBtn) clearEmptyBtn.addEventListener('click', clearAll);
+
+    function runFilterAndSort() {
+      var selectedUsages = getCheckedValues('usageFilter');
+      var selectedTypes = getCheckedValues('typeFilter');
+      var selectedPowers = getCheckedValues('powerFilter');
+      var selectedBrands = getCheckedValues('brandFilter');
+      var sortBy = desktopSort ? desktopSort.value : 'best-selling';
+
+      var totalActiveFilters = selectedUsages.length + selectedTypes.length + selectedPowers.length + selectedBrands.length;
+
+      // Update badge and remove all button
+      if (removeAllBtn) removeAllBtn.style.display = totalActiveFilters > 0 ? 'inline-block' : 'none';
+      if (mobileFilterCount) {
+        if (totalActiveFilters > 0) {
+          mobileFilterCount.style.display = 'inline-block';
+          mobileFilterCount.textContent = totalActiveFilters;
+        } else {
+          mobileFilterCount.style.display = 'none';
+        }
+      }
+
+      // Update count indicators on sidebar
+      var uCount = document.getElementById('usageFilterCount');
+      if (uCount) uCount.textContent = selectedUsages.length > 0 ? '(' + selectedUsages.length + ')' : '';
+      var tCount = document.getElementById('typeFilterCount');
+      if (tCount) tCount.textContent = selectedTypes.length > 0 ? '(' + selectedTypes.length + ')' : '';
+      var pCount = document.getElementById('powerFilterCount');
+      if (pCount) pCount.textContent = selectedPowers.length > 0 ? '(' + selectedPowers.length + ')' : '';
+      var bCount = document.getElementById('brandFilterCount');
+      if (bCount) bCount.textContent = selectedBrands.length > 0 ? '(' + selectedBrands.length + ')' : '';
+
+      var items = Array.from(document.querySelectorAll('.showcase-card-item'));
+      var visibleCount = 0;
+
+      items.forEach(function(item) {
+        var itemBrand = (item.getAttribute('data-brand') || '').toLowerCase();
+        var itemUsage = (item.getAttribute('data-usage') || '').toLowerCase();
+        var itemType = (item.getAttribute('data-type') || '').toLowerCase();
+        var itemPowersRaw = item.getAttribute('data-powers') || '[]';
+        var itemPowers = [];
+        try { itemPowers = JSON.parse(itemPowersRaw); } catch(e) {}
+
+        var matchUsage = selectedUsages.length === 0 || selectedUsages.indexOf(itemUsage) !== -1;
+        var matchType = selectedTypes.length === 0 || selectedTypes.indexOf(itemType) !== -1;
+        var matchBrand = selectedBrands.length === 0 || selectedBrands.indexOf(itemBrand) !== -1;
+        var matchPower = selectedPowers.length === 0 || selectedPowers.some(function(pow) {
+          return itemPowers.indexOf(pow) !== -1;
+        });
+
+        if (matchUsage && matchType && matchBrand && matchPower) {
+          item.style.display = 'flex';
+          visibleCount++;
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      // Sort items
+      var visibleItems = items.filter(function(i) { return i.style.display !== 'none'; });
+      visibleItems.sort(function(a, b) {
+        var priceA = parseFloat(a.getAttribute('data-price') || '0');
+        var priceB = parseFloat(b.getAttribute('data-price') || '0');
+        var titleA = a.getAttribute('data-title') || '';
+        var titleB = b.getAttribute('data-title') || '';
+
+        if (sortBy === 'price-ascending') return priceA - priceB;
+        if (sortBy === 'price-descending') return priceB - priceA;
+        if (sortBy === 'title-ascending') return titleA.localeCompare(titleB);
+        if (sortBy === 'title-descending') return titleB.localeCompare(titleA);
+        return 0;
+      });
+
+      // Re-append in sorted order
+      visibleItems.forEach(function(item) {
+        grid.appendChild(item);
+      });
+
+      // Update count text
+      var countStr = visibleCount + (visibleCount === 1 ? ' product' : ' products');
+      if (desktopCount) desktopCount.textContent = countStr;
+      if (mobileCount) mobileCount.textContent = countStr;
+
+      // Empty state
+      if (emptyState && grid) {
+        if (visibleCount === 0) {
+          emptyState.style.display = 'block';
+          grid.style.display = 'none';
+        } else {
+          emptyState.style.display = 'none';
+          grid.style.display = 'grid';
+        }
+      }
+    }
+
+    // Run on initial load
+    runFilterAndSort();
+  })();
+</script>
 
 {% schema %}
 {
-  "name": "Collection Grid",
+  "name": "Collection Showcase Grid",
   "settings": []
 }
 {% endschema %}
