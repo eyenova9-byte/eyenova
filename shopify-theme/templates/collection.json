@@ -1,15 +1,11 @@
 {
   "sections": {
-    "collection_grid": {
-      "type": "featured-collection",
-      "settings": {
-        "title": "EyeNova Luxury Catalog",
-        "subtitle": "Explore handcrafted sunglasses and optical frames engineered for precision vision.",
-        "products_to_show": 12
-      }
+    "main_collection": {
+      "type": "main-collection",
+      "settings": {}
     }
   },
   "order": [
-    "collection_grid"
+    "main_collection"
   ]
 }

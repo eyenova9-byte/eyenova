@@ -2,33 +2,73 @@
   <div class="header-inner">
     <!-- Brand Logo -->
     <a href="/" class="brand-logo-link">
-      {% render 'icon-eye-logo' %}
-      <span class="brand-title">EyeNova</span>
+      <div class="brand-logo-symbol">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3" fill="#5c2d76" stroke="none"/>
+          <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" stroke="#5c2d76"/>
+        </svg>
+      </div>
+      <div class="brand-text-wrap">
+        <span class="brand-title">EyeNova</span>
+        <span class="brand-tagline">ATELIER &bull; QATAR</span>
+      </div>
     </a>
 
     <!-- Navigation Menu -->
-    <nav>
+    <nav class="desktop-navigation">
       <ul class="nav-links">
-        <li><a href="/" class="nav-link">{{ 'navigation.home' | t }}</a></li>
-        <li><a href="/collections/sunglasses" class="nav-link">{{ 'navigation.sunglasses' | t }}</a></li>
-        <li><a href="/collections/eyeglasses" class="nav-link">{{ 'navigation.eyeglasses' | t }}</a></li>
-        <li><a href="/collections/contact-lenses" class="nav-link">{{ 'navigation.contact_lenses' | t }}</a></li>
-        <li><a href="/pages/about" class="nav-link">{{ 'navigation.about' | t }}</a></li>
-        <li><a href="/pages/faq" class="nav-link">{{ 'navigation.faq' | t }}</a></li>
+        <li><a href="/" class="nav-link nav-link-active">Home</a></li>
+        <li class="nav-dropdown-wrapper">
+          <a href="/collections/all?category=medical" class="nav-link">Medical Lenses <span class="dropdown-caret">&#9662;</span></a>
+          <div class="nav-dropdown-menu">
+            <a href="/collections/all?type=daily" class="dropdown-item">Daily Disposable Lenses</a>
+            <a href="/collections/all?type=monthly" class="dropdown-item">Monthly Disposable Lenses</a>
+            <a href="/collections/all?type=astigmatism" class="dropdown-item">Astigmatism (Toric) Lenses</a>
+            <a href="/collections/all?type=multifocal" class="dropdown-item">Multifocal (Presbyopia)</a>
+            <div class="dropdown-divider"></div>
+            <a href="/collections/all?brand=acuvue" class="dropdown-item">Acuvue (Johnson & Johnson)</a>
+            <a href="/collections/all?brand=alcon" class="dropdown-item">Alcon Precision Lenses</a>
+            <a href="/collections/all?brand=bausch" class="dropdown-item">Bausch + Lomb</a>
+          </div>
+        </li>
+        <li class="nav-dropdown-wrapper">
+          <a href="/collections/all?category=colored" class="nav-link">Colour Lenses <span class="dropdown-caret">&#9662;</span></a>
+          <div class="nav-dropdown-menu">
+            <a href="/collections/all?brand=amara" class="dropdown-item">Amara Celebrity Colours</a>
+            <a href="/collections/all?brand=bella" class="dropdown-item">Bella Luxury Shades</a>
+            <a href="/collections/all?brand=diva" class="dropdown-item">Diva Natural Collection</a>
+            <a href="/collections/all?brand=lensme" class="dropdown-item">LensMe Korea & Arabic Style</a>
+            <a href="/collections/all?brand=freshlook" class="dropdown-item">FreshLook Colorblends</a>
+            <a href="/collections/all?brand=acuvue-define" class="dropdown-item">Acuvue Define Daily Accent</a>
+          </div>
+        </li>
+        <li><a href="/collections/all?category=solutions" class="nav-link">Solutions & Drops</a></li>
+        <li><a href="/collections/all?category=eyewear" class="nav-link">Eyewear & Shades</a></li>
+        <li><a href="/pages/about" class="nav-link">About & Locations</a></li>
       </ul>
     </nav>
 
     <!-- Header Actions -->
     <div class="header-actions">
-      <!-- Language Switcher -->
+      <!-- Search Trigger -->
+      <a href="/search" class="header-icon-btn" aria-label="Search Catalog">
+        <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+        </svg>
+      </a>
+
+      <!-- Language Selector -->
       {% render 'language-switcher' %}
 
       <!-- Bag / Cart Drawer Button -->
-      <a href="/cart" class="btn btn-primary" data-cart-toggle style="padding: 0.6rem 1.25rem; font-size: 0.85rem; border-radius: 9999px;">
-        <span>{{ 'general.cart' | t }}</span>
-        <span style="background: var(--color-accent); color: #1a1a1a; padding: 0.1rem 0.45rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 800;">
-          {{ cart.item_count }}
-        </span>
+      <a href="/cart" class="header-cart-btn" data-cart-toggle aria-label="Shopping Bag">
+        <div class="cart-icon-wrapper">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          <span class="cart-count-pill" id="CartCountBadge">{{ cart.item_count }}</span>
+        </div>
+        <span class="cart-label-text">Bag</span>
       </a>
     </div>
   </div>

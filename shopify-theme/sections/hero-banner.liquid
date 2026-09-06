@@ -1,44 +1,76 @@
-<section class="hero-section" style="position: relative; padding: 6rem 2rem; background: linear-gradient(135deg, #fdfbf7 0%, #f4eff7 100%); border-bottom: 1px solid var(--color-border); overflow: hidden;">
-  <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 4rem; align-items: center;">
-    <div>
-      <div style="display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(92, 45, 118, 0.08); border: 1px solid rgba(92, 45, 118, 0.2); padding: 0.35rem 0.9rem; border-radius: 9999px; margin-bottom: 1.5rem;">
-        <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--color-accent);"></span>
-        <span style="font-size: 0.8rem; font-weight: 700; color: var(--color-primary); letter-spacing: 0.08em; text-transform: uppercase;">
-          {{ section.settings.badge_text | default: "The Qatar Optical Atelier" }}
-        </span>
-      </div>
-
-      <h1 style="font-size: clamp(2.5rem, 5vw, 4rem); font-weight: 700; line-height: 1.1; margin-bottom: 1.25rem; color: var(--color-primary);">
-        {{ section.settings.heading | default: "Elevate Your Vision With Luxury Eyewear" }}
-      </h1>
-
-      <p style="font-size: 1.15rem; color: var(--color-muted); max-width: 520px; margin-bottom: 2.25rem; line-height: 1.7;">
-        {{ section.settings.subheading | default: "Exquisite craftsmanship, bespoke optical lenses, and international designer eyewear curated exclusively for Qatar." }}
-      </p>
-
-      <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-        <a href="{{ section.settings.button_link | default: '/collections/all' }}" class="btn btn-primary">
-          {{ section.settings.button_text | default: "Explore Eyewear" }}
-        </a>
-        <a href="https://wa.me/97455123456" target="_blank" class="btn btn-gold">
-          {{ 'products.whatsapp_inquire' | t }}
-        </a>
-      </div>
-    </div>
-
-    <!-- Hero Visual / Graphic Presentation -->
-    <div style="position: relative;">
-      <div style="background: #ffffff; border-radius: 20px; padding: 2.5rem; box-shadow: var(--shadow-luxury); border: 1px solid var(--color-border); text-align: center;">
-        <div style="width: 80px; height: 80px; margin: 0 auto 1.5rem; background: rgba(92, 45, 118, 0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
-          {% render 'icon-eye-logo' %}
+<section class="eyenova-hero-section">
+  <div class="hero-container">
+    <div class="hero-grid">
+      <!-- Left Column: Content -->
+      <div class="hero-content">
+        <!-- Badge -->
+        <div class="hero-badge">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/>
+            <path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/>
+          </svg>
+          <span>{{ section.settings.badge_text | default: "Qatar's Premier Optical Boutique" }}</span>
         </div>
-        <h3 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--color-primary);">Bespoke Qatar Service</h3>
-        <p style="font-size: 0.9rem; color: var(--color-muted); margin-bottom: 1.5rem;">
-          Prescription lenses precision-calibrated in Doha with home fitting and complimentary styling consultation.
+
+        <!-- Heading -->
+        <h1 class="hero-title">
+          Clear Vision, <br>
+          <span class="hero-title-highlight">Timeless Optical Style</span>
+        </h1>
+
+        <!-- Subheading -->
+        <p class="hero-subtitle">
+          Discover certified medical contact lenses, trend-setting colored lenses, and eye care essentials with same-day express delivery across Qatar.
         </p>
-        <span style="font-size: 0.8rem; font-weight: 700; color: var(--color-accent); letter-spacing: 0.05em; text-transform: uppercase;">
-          Opening Soon Across Qatar
-        </span>
+
+        <!-- CTA Buttons -->
+        <div class="hero-cta-group">
+          <a href="/collections/all?category=medical" class="hero-btn-primary">
+            <span>Explore Medical Lenses</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a href="/collections/all?category=colored" class="hero-btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5c2d76" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+            <span>Colour Collections</span>
+          </a>
+        </div>
+
+        <!-- Trust Micro-Badges -->
+        <div class="hero-trust-badges">
+          <div class="trust-badge-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5c2d76" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/></svg>
+            <span>MOPH Qatar Approved</span>
+          </div>
+          <div class="trust-badge-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5c2d76" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2"/><path d="M15 18H9"/><path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14"/><circle cx="17" cy="18" r="2"/><circle cx="7" cy="18" r="2"/></svg>
+            <span>Same-Day Delivery</span>
+          </div>
+          <div class="trust-badge-item">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#5c2d76" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/></svg>
+            <span>100% Guaranteed Authentic</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Visual Feature Card -->
+      <div class="hero-feature-wrapper">
+        <div class="hero-feature-card">
+          <div class="feature-image-container">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&auto=format&fit=crop" alt="EyeNova Qatar Optical" loading="eager" width="600" height="450">
+            <div class="floating-badge-left">New Arrival</div>
+            <div class="floating-badge-right">Qatar #1 Optical Store</div>
+          </div>
+          <div class="feature-card-footer">
+            <div>
+              <h3 class="feature-card-title">Bella & Amara Luxury Shades</h3>
+              <p class="feature-card-sub">Available in Plano & Prescription</p>
+            </div>
+            <a href="/collections/all?category=colored" class="feature-card-link">
+              <span>View</span>
+              <span>&rarr;</span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -51,31 +83,8 @@
     {
       "type": "text",
       "id": "badge_text",
-      "label": "Top Badge Text",
-      "default": "The Qatar Optical Atelier"
-    },
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Main Heading",
-      "default": "Elevate Your Vision With Luxury Eyewear"
-    },
-    {
-      "type": "textarea",
-      "id": "subheading",
-      "label": "Subheading",
-      "default": "Exquisite craftsmanship, bespoke optical lenses, and international designer eyewear curated exclusively for Qatar."
-    },
-    {
-      "type": "url",
-      "id": "button_link",
-      "label": "Button Link"
-    },
-    {
-      "type": "text",
-      "id": "button_text",
-      "label": "Button Text",
-      "default": "Explore Eyewear"
+      "label": "Badge Text",
+      "default": "Qatar's Premier Optical Boutique"
     }
   ],
   "presets": [

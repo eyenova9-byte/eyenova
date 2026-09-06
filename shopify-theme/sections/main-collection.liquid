@@ -1,0 +1,162 @@
+<section class="section-container" style="padding-top: 2.5rem; padding-bottom: 4rem;">
+  <!-- Collection Header -->
+  <div style="text-align: center; margin-bottom: 2.5rem;">
+    <div style="display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.35rem 0.85rem; border-radius: 9999px; background: #FAF5F2; border: 1px solid #EDE4DE; color: #5c2d76; font-size: 0.78rem; font-weight: 700; margin-bottom: 0.75rem;">
+      <span>MOPH Qatar Certified Optical Catalog</span>
+    </div>
+    <h1 style="font-family: var(--font-sans); font-size: clamp(2rem, 3.5vw, 2.75rem); font-weight: 600; color: #121212; letter-spacing: -0.02em; margin-bottom: 0.5rem;">
+      {{ collection.title | default: "All Optical & Contact Lens Collections" }}
+    </h1>
+    {% if collection.description != blank %}
+      <p style="font-size: 0.95rem; color: #666666; max-width: 600px; margin: 0 auto;">
+        {{ collection.description }}
+      </p>
+    {% else %}
+      <p style="font-size: 0.95rem; color: #666666; max-width: 600px; margin: 0 auto;">
+        Explore certified medical contact lenses, trend-setting colored lenses, and optical essentials with express same-day Qatar delivery.
+      </p>
+    {% endif %}
+  </div>
+
+  <!-- Category Filter Pills -->
+  <div style="display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.5rem;">
+    <a href="/collections/all" class="cat-pill {% if request.path == '/collections/all' and current_tags == blank %}cat-pill-active{% endif %}">All Products</a>
+    <a href="/collections/all?category=medical" class="cat-pill">Medical Lenses</a>
+    <a href="/collections/all?category=colored" class="cat-pill">Colour Lenses</a>
+    <a href="/collections/all?category=solutions" class="cat-pill">Solutions & Drops</a>
+    <a href="/collections/all?category=eyewear" class="cat-pill">Eyeglasses</a>
+    <a href="/collections/all?category=sunglasses" class="cat-pill">Sunglasses</a>
+  </div>
+
+  <!-- Product Grid -->
+  {% paginate collection.products by 20 %}
+    {% if collection.products.size > 0 %}
+      <div class="medical-lens-grid">
+        {% for product in collection.products %}
+          <div class="medical-lens-card">
+            <a href="{{ product.url }}" class="lens-card-img-link">
+              {% if product.featured_image %}
+                <img src="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" alt="{{ product.title | escape }}" loading="lazy">
+              {% else %}
+                <div class="lens-card-img-placeholder">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#5c2d76" stroke-width="1.5"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                </div>
+              {% endif %}
+              <span class="lens-card-badge">{{ product.tags.first | default: "Certified" }}</span>
+            </a>
+            <div class="lens-card-info">
+              <span class="lens-card-vendor">{{ product.vendor | default: "EyeNova" }}</span>
+              <h3 class="lens-card-title">
+                <a href="{{ product.url }}">{{ product.title }}</a>
+              </h3>
+              <div class="lens-card-price">{{ product.price | money }}</div>
+              <a href="{{ product.url }}" class="lens-card-btn">
+                {% if product.has_only_default_variant %}Add to Bag{% else %}Choose Power{% endif %}
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+
+      {% if paginate.pages > 1 %}
+        <div style="text-align: center; margin-top: 3rem;">
+          {{ paginate | default_pagination }}
+        </div>
+      {% endif %}
+    {% else %}
+      <!-- Curated Catalog Fallback When Store Catalog is Being Initialized -->
+      <div class="medical-lens-grid">
+        <!-- 1. Acuvue Moist -->
+        <div class="medical-lens-card">
+          <a href="/collections/all" class="lens-card-img-link">
+            <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&auto=format&fit=crop" alt="1-Day Acuvue Moist" loading="lazy">
+            <span class="lens-card-badge">Daily Lens</span>
+          </a>
+          <div class="lens-card-info">
+            <span class="lens-card-vendor">Acuvue</span>
+            <h3 class="lens-card-title"><a href="/collections/all">1-Day Acuvue Moist 30 Pack</a></h3>
+            <div class="lens-card-price">QAR 165.00</div>
+            <a href="/collections/all" class="lens-card-btn">Choose Power</a>
+          </div>
+        </div>
+
+        <!-- 2. Acuvue Oasys -->
+        <div class="medical-lens-card">
+          <a href="/collections/all" class="lens-card-img-link">
+            <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&auto=format&fit=crop" alt="Acuvue Oasys 1-Day HydraLuxe" loading="lazy">
+            <span class="lens-card-badge">HydraLuxe</span>
+          </a>
+          <div class="lens-card-info">
+            <span class="lens-card-vendor">Acuvue</span>
+            <h3 class="lens-card-title"><a href="/collections/all">Acuvue Oasys 1-Day HydraLuxe</a></h3>
+            <div class="lens-card-price">QAR 185.00</div>
+            <a href="/collections/all" class="lens-card-btn">Choose Power</a>
+          </div>
+        </div>
+
+        <!-- 3. Alcon Dailies Total 1 -->
+        <div class="medical-lens-card">
+          <a href="/collections/all" class="lens-card-img-link">
+            <img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=400&auto=format&fit=crop" alt="Alcon Dailies Total 1" loading="lazy">
+            <span class="lens-card-badge">Water Gradient</span>
+          </a>
+          <div class="lens-card-info">
+            <span class="lens-card-vendor">Alcon</span>
+            <h3 class="lens-card-title"><a href="/collections/all">Alcon Dailies Total 1</a></h3>
+            <div class="lens-card-price">QAR 210.00</div>
+            <a href="/collections/all" class="lens-card-btn">Choose Power</a>
+          </div>
+        </div>
+
+        <!-- 4. Bella Elite Gray Caramel -->
+        <div class="medical-lens-card">
+          <a href="/collections/all" class="lens-card-img-link">
+            <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=400&auto=format&fit=crop" alt="Bella Elite Gray Caramel" loading="lazy">
+            <span class="lens-card-badge">Colour Lens</span>
+          </a>
+          <div class="lens-card-info">
+            <span class="lens-card-vendor">Bella</span>
+            <h3 class="lens-card-title"><a href="/collections/all">Bella Elite - Gray Caramel - 2 Lenses</a></h3>
+            <div class="lens-card-price">QAR 180.00</div>
+            <a href="/collections/all" class="lens-card-btn">Choose Power</a>
+          </div>
+        </div>
+
+        <!-- 5. Amara Warm Hazel -->
+        <div class="medical-lens-card">
+          <a href="/collections/all" class="lens-card-img-link">
+            <img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=400&auto=format&fit=crop" alt="Amara Warm Hazel" loading="lazy">
+            <span class="lens-card-badge">Monthly Colour</span>
+          </a>
+          <div class="lens-card-info">
+            <span class="lens-card-vendor">Amara</span>
+            <h3 class="lens-card-title"><a href="/collections/all">Amara - Warm Hazel - Monthly Pack</a></h3>
+            <div class="lens-card-price">QAR 175.00</div>
+            <a href="/collections/all" class="lens-card-btn">Choose Power</a>
+          </div>
+        </div>
+
+        <!-- 6. Biotrue Multi-Purpose Solution -->
+        <div class="medical-lens-card">
+          <a href="/collections/all" class="lens-card-img-link">
+            <img src="https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?w=400&auto=format&fit=crop" alt="Biotrue Multi-Purpose Solution" loading="lazy">
+            <span class="lens-card-badge">Solution</span>
+          </a>
+          <div class="lens-card-info">
+            <span class="lens-card-vendor">Bausch + Lomb</span>
+            <h3 class="lens-card-title"><a href="/collections/all">Biotrue Multi-Purpose Solution 300ml</a></h3>
+            <div class="lens-card-price">QAR 65.00</div>
+            <a href="/collections/all" class="lens-card-btn">Add to Bag</a>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  {% endpaginate %}
+</section>
+
+{% schema %}
+{
+  "name": "Collection Grid",
+  "settings": []
+}
+{% endschema %}

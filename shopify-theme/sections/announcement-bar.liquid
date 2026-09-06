@@ -1,22 +1,23 @@
 <div class="announcement-bar">
-  <span class="announcement-badge">
-    {{ 'general.opening_soon' | t }}
-  </span>
-  <span>
-    {{ section.settings.announcement_text | default: "EyeNova Luxury Optical Atelier • Complimentary Doha Concierge Delivery" }}
-  </span>
+  <div class="announcement-container">
+    <div class="announcement-badges-left">
+      <span class="moph-badge">&#10003; MOPH Qatar Approved</span>
+      <span class="delivery-badge">&#128666; Same-Day Express Delivery Across Qatar</span>
+    </div>
+    <div class="announcement-center">
+      <span>100% Guaranteed Authentic Optical Products</span>
+    </div>
+    <div class="announcement-actions-right">
+      <a href="https://wa.me/97455123456" target="_blank" rel="noopener noreferrer" class="announcement-wa-link">
+        <span>Concierge: +974 5512 3456</span>
+      </a>
+    </div>
+  </div>
 </div>
 
 {% schema %}
 {
   "name": "Announcement Bar",
-  "settings": [
-    {
-      "type": "text",
-      "id": "announcement_text",
-      "label": "Notice Text",
-      "default": "EyeNova Luxury Optical Atelier • Complimentary Doha Concierge Delivery"
-    }
-  ]
+  "settings": []
 }
 {% endschema %}

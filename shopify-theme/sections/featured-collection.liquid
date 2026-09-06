@@ -1,90 +1,122 @@
-<section class="featured-collection-section" style="padding: 5rem 2rem; max-width: 1360px; margin: 0 auto;">
-  <div style="text-align: center; margin-bottom: 3.5rem;">
-    <span style="color: var(--color-accent); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;">
-      Curated Selection
-    </span>
-    <h2 style="font-size: clamp(2rem, 3.5vw, 2.75rem); margin-top: 0.5rem; margin-bottom: 1rem;">
-      {{ section.settings.title | default: "Iconic Frames & Sunglasses" }}
-    </h2>
-    <p style="color: var(--color-muted); max-width: 600px; margin: 0 auto; font-size: 1rem;">
-      {{ section.settings.subtitle | default: "Handcrafted Italian acetate, titanium craftsmanship, and precision optical engineering." }}
-    </p>
+<section class="section-container" style="padding-top: 1.5rem; padding-bottom: 3rem;">
+  <div class="section-header-flex">
+    <div>
+      <h2 class="section-heading-clean">{{ section.settings.title | default: "Best Selling Medical Lens" }}</h2>
+      <p style="font-size: 0.9rem; color: #666666; margin-top: 0.25rem;">{{ section.settings.subtitle | default: "MOPH Qatar certified daily and monthly contact lenses with same-day express delivery." }}</p>
+    </div>
+    <a href="/collections/all?category=medical" class="section-link-accent">See more &rarr;</a>
   </div>
 
-  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem;">
-    {% assign collection = collections[section.settings.collection] %}
-    {% if collection != blank and collection.products.size > 0 %}
-      {% for product in collection.products limit: section.settings.products_to_show %}
-        {% render 'product-card', product: product %}
+  <div class="medical-lens-grid">
+    {% assign featured_col = collections[section.settings.collection] %}
+    {% if featured_col != blank and featured_col.products.size > 0 %}
+      {% for product in featured_col.products limit: section.settings.products_to_show %}
+        <div class="medical-lens-card">
+          <a href="{{ product.url }}" class="lens-card-img-link">
+            {% if product.featured_image %}
+              <img src="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" alt="{{ product.title | escape }}" loading="lazy">
+            {% else %}
+              <div class="lens-card-img-placeholder">
+                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#5c2d76" stroke-width="1.5"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+              </div>
+            {% endif %}
+            <span class="lens-card-badge">Daily Lens</span>
+          </a>
+          <div class="lens-card-info">
+            <span class="lens-card-vendor">{{ product.vendor | default: 'EyeNova Medical' }}</span>
+            <h3 class="lens-card-title">
+              <a href="{{ product.url }}">{{ product.title }}</a>
+            </h3>
+            <div class="lens-card-price">{{ product.price | money }}</div>
+            <a href="{{ product.url }}" class="lens-card-btn">Choose Power</a>
+          </div>
+        </div>
       {% endfor %}
     {% else %}
-      {% comment %} Default / Demo Cards when store has no products yet {% endcomment %}
-      <div class="product-card">
-        <div class="product-card-image" style="display: flex; align-items: center; justify-content: center; background: #f4eff7; color: var(--color-primary); font-family: var(--font-serif); font-size: 1.2rem;">
-          Aviator Gold Noir
-        </div>
-        <div class="product-card-info">
-          <div style="font-size: 0.75rem; color: var(--color-muted); text-transform: uppercase;">EyeNova Atelier</div>
-          <h3 class="product-card-title">Aviator Gold Noir</h3>
-          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 1rem;">
-            <span class="product-card-price">650 {{ 'general.currency' | t }}</span>
-            <span class="btn btn-outline" style="padding: 0.45rem 0.9rem; font-size: 0.8rem;">{{ 'general.view_all' | t }}</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="product-card">
-        <div class="product-card-image" style="display: flex; align-items: center; justify-content: center; background: #fdfbf7; color: var(--color-primary); font-family: var(--font-serif); font-size: 1.2rem;">
-          Titanium Round Frame
-        </div>
-        <div class="product-card-info">
-          <div style="font-size: 0.75rem; color: var(--color-muted); text-transform: uppercase;">EyeNova Atelier</div>
-          <h3 class="product-card-title">Titanium Round Frame</h3>
-          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 1rem;">
-            <span class="product-card-price">750 {{ 'general.currency' | t }}</span>
-            <span class="btn btn-outline" style="padding: 0.45rem 0.9rem; font-size: 0.8rem;">{{ 'general.view_all' | t }}</span>
-          </div>
+      <!-- 5 Curated Medical Lens Products (Exact Next.js Match) -->
+      <div class="medical-lens-card">
+        <a href="/collections/all" class="lens-card-img-link">
+          <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&auto=format&fit=crop" alt="1-Day Acuvue Moist" loading="lazy">
+          <span class="lens-card-badge">Daily Lens</span>
+        </a>
+        <div class="lens-card-info">
+          <span class="lens-card-vendor">Acuvue</span>
+          <h3 class="lens-card-title"><a href="/collections/all">1-Day Acuvue Moist 30 Pack</a></h3>
+          <div class="lens-card-price">QAR 165.00</div>
+          <a href="/collections/all" class="lens-card-btn">Choose Power</a>
         </div>
       </div>
 
-      <div class="product-card">
-        <div class="product-card-image" style="display: flex; align-items: center; justify-content: center; background: #f4eff7; color: var(--color-primary); font-family: var(--font-serif); font-size: 1.2rem;">
-          Geometric Square Cat-Eye
+      <div class="medical-lens-card">
+        <a href="/collections/all" class="lens-card-img-link">
+          <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&auto=format&fit=crop" alt="Acuvue Oasys 1-Day HydraLuxe" loading="lazy">
+          <span class="lens-card-badge">HydraLuxe</span>
+        </a>
+        <div class="lens-card-info">
+          <span class="lens-card-vendor">Acuvue</span>
+          <h3 class="lens-card-title"><a href="/collections/all">Acuvue Oasys 1-Day HydraLuxe</a></h3>
+          <div class="lens-card-price">QAR 185.00</div>
+          <a href="/collections/all" class="lens-card-btn">Choose Power</a>
         </div>
-        <div class="product-card-info">
-          <div style="font-size: 0.75rem; color: var(--color-muted); text-transform: uppercase;">EyeNova Atelier</div>
-          <h3 class="product-card-title">Geometric Square Cat-Eye</h3>
-          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 1rem;">
-            <span class="product-card-price">580 {{ 'general.currency' | t }}</span>
-            <span class="btn btn-outline" style="padding: 0.45rem 0.9rem; font-size: 0.8rem;">{{ 'general.view_all' | t }}</span>
-          </div>
+      </div>
+
+      <div class="medical-lens-card">
+        <a href="/collections/all" class="lens-card-img-link">
+          <img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=400&auto=format&fit=crop" alt="Alcon Dailies Total 1" loading="lazy">
+          <span class="lens-card-badge">Water Gradient</span>
+        </a>
+        <div class="lens-card-info">
+          <span class="lens-card-vendor">Alcon</span>
+          <h3 class="lens-card-title"><a href="/collections/all">Alcon Dailies Total 1</a></h3>
+          <div class="lens-card-price">QAR 210.00</div>
+          <a href="/collections/all" class="lens-card-btn">Choose Power</a>
+        </div>
+      </div>
+
+      <div class="medical-lens-card">
+        <a href="/collections/all" class="lens-card-img-link">
+          <img src="https://images.unsplash.com/photo-1591076482161-42ce6da69f67?w=400&auto=format&fit=crop" alt="Dailies AquaComfort Plus" loading="lazy">
+          <span class="lens-card-badge">Moisture Lock</span>
+        </a>
+        <div class="lens-card-info">
+          <span class="lens-card-vendor">Alcon</span>
+          <h3 class="lens-card-title"><a href="/collections/all">Dailies AquaComfort Plus</a></h3>
+          <div class="lens-card-price">QAR 145.00</div>
+          <a href="/collections/all" class="lens-card-btn">Choose Power</a>
+        </div>
+      </div>
+
+      <div class="medical-lens-card">
+        <a href="/collections/all" class="lens-card-img-link">
+          <img src="https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?w=400&auto=format&fit=crop" alt="Air Optix Plus HydraGlyde" loading="lazy">
+          <span class="lens-card-badge">Monthly Lens</span>
+        </a>
+        <div class="lens-card-info">
+          <span class="lens-card-vendor">Alcon</span>
+          <h3 class="lens-card-title"><a href="/collections/all">Air Optix Plus HydraGlyde 6-Pack</a></h3>
+          <div class="lens-card-price">QAR 195.00</div>
+          <a href="/collections/all" class="lens-card-btn">Choose Power</a>
         </div>
       </div>
     {% endif %}
-  </div>
-
-  <div style="text-align: center; margin-top: 3.5rem;">
-    <a href="/collections/all" class="btn btn-primary" style="padding: 1rem 2.5rem;">
-      {{ 'general.view_all' | t }}
-    </a>
   </div>
 </section>
 
 {% schema %}
 {
-  "name": "Featured Collection",
+  "name": "Medical Lenses Grid",
   "settings": [
     {
       "type": "text",
       "id": "title",
       "label": "Heading",
-      "default": "Iconic Frames & Sunglasses"
+      "default": "Best Selling Medical Lens"
     },
     {
       "type": "text",
       "id": "subtitle",
-      "label": "Subheading",
-      "default": "Handcrafted Italian acetate, titanium craftsmanship, and precision optical engineering."
+      "label": "Subtitle",
+      "default": "MOPH Qatar certified daily and monthly contact lenses with same-day express delivery."
     },
     {
       "type": "collection",
@@ -94,16 +126,16 @@
     {
       "type": "range",
       "id": "products_to_show",
-      "min": 2,
+      "label": "Products to show",
+      "min": 4,
       "max": 12,
       "step": 1,
-      "default": 6,
-      "label": "Number of products to show"
+      "default": 5
     }
   ],
   "presets": [
     {
-      "name": "Featured Collection"
+      "name": "Medical Lenses Grid"
     }
   ]
 }

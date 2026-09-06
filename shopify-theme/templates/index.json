@@ -3,31 +3,40 @@
     "hero": {
       "type": "hero-banner",
       "settings": {
-        "badge_text": "The Qatar Optical Atelier",
-        "heading": "Elevate Your Vision With Luxury Eyewear",
-        "subheading": "Exquisite craftsmanship, bespoke optical lenses, and international designer eyewear curated exclusively for Qatar.",
-        "button_text": "Explore Eyewear"
+        "badge_text": "Qatar's Premier Optical Boutique"
       }
     },
-
-    "featured": {
+    "contact_categories": {
+      "type": "contact-lens-categories",
+      "settings": {}
+    },
+    "colour_brands": {
+      "type": "colour-brands",
+      "settings": {}
+    },
+    "medical_lenses": {
       "type": "featured-collection",
       "settings": {
-        "title": "Iconic Frames & Sunglasses",
-        "subtitle": "Handcrafted Italian acetate, titanium craftsmanship, and precision optical engineering.",
-        "products_to_show": 6
+        "title": "Best Selling Medical Lens",
+        "subtitle": "MOPH Qatar certified daily and monthly contact lenses with same-day express delivery.",
+        "products_to_show": 5
       }
     },
-    "services": {
-      "type": "optical-services",
-      "settings": {
-        "heading": "The EyeNova Experience"
-      }
+    "korea_style": {
+      "type": "korea-style",
+      "settings": {}
+    },
+    "opening_soon": {
+      "type": "opening-soon-card",
+      "settings": {}
     }
   },
   "order": [
     "hero",
-    "featured",
-    "services"
+    "contact_categories",
+    "colour_brands",
+    "medical_lenses",
+    "korea_style",
+    "opening_soon"
   ]
 }
