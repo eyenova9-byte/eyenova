@@ -3346,7 +3346,7 @@ body.drawer-locked {
   background-color: #FFFFFF;
   border-bottom: 1px solid #F3F4F6;
   padding: 2.25rem 0 1.75rem;
-  text-align: center;
+  text-align: left;
 }
 
 .shop-page-title {
@@ -3360,9 +3360,10 @@ body.drawer-locked {
 .shop-page-subtitle {
   font-size: 0.95rem;
   color: #6B7280;
-  max-width: 620px;
-  margin: 0 auto;
+  max-width: 680px;
+  margin: 0;
   line-height: 1.5;
+  text-align: left;
 }
 
 .shop-body-container {
@@ -4337,18 +4338,20 @@ body.drawer-locked {
    ========================================================================== */
 
 .shop-banner-clean {
-  background: #FAFAFA;
-  border-bottom: 1px solid #E5E7EB;
-  padding: 2.25rem 0 2rem;
-  margin-bottom: 1.5rem;
+  background: #FFFFFF;
+  border-bottom: 1px solid #F3F4F6;
+  padding: 2.5rem 0 2rem;
+  margin-bottom: 0;
+  text-align: left;
 }
 
 .shop-page-title {
-  font-size: 1.75rem;
+  font-size: 2rem;
   font-weight: 700;
   color: #111827;
   margin: 0 0 0.5rem 0;
   letter-spacing: -0.02em;
+  text-align: left;
 }
 
 .shop-page-subtitle {
@@ -4357,6 +4360,7 @@ body.drawer-locked {
   max-width: 680px;
   line-height: 1.5;
   margin: 0;
+  text-align: left;
 }
 
 .shop-body-container {
