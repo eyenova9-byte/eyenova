@@ -192,9 +192,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <Link href="/" className="hover:text-[#5c2d76] transition-colors">
               ← Return to Store
             </Link>
-            <span className="font-mono text-[11px] bg-gray-100 px-2 py-0.5 rounded text-gray-500">
-              Default PIN: 1234
-            </span>
+            {process.env.NODE_ENV !== "production" ? (
+              <span className="font-mono text-[11px] bg-gray-100 px-2 py-0.5 rounded text-gray-500">
+                Dev PIN: 1234
+              </span>
+            ) : (
+              <span className="font-mono text-[11px] text-gray-400">
+                Secure Terminal
+              </span>
+            )}
           </div>
         </div>
       </div>

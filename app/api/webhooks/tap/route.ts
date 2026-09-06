@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { verifyTapWebhookSignature, verifyTapTransaction } from "@/lib/payment/tap";
 import { confirmPayment } from "@/lib/payment/confirmPayment";
+import { logSecurityEvent } from "@/lib/security/auditLogger";
 
 export async function POST(request: Request) {
   try {
@@ -10,7 +11,12 @@ export async function POST(request: Request) {
     // 1. Cryptographic HMAC Signature Verification
     const isSignatureValid = verifyTapWebhookSignature(rawBody, signature);
     if (!isSignatureValid) {
-      console.error("[TAP WEBHOOK SECURITY ALERT] Invalid HMAC signature detected on webhook payload!");
+      logSecurityEvent({
+        eventType: "WEBHOOK_FORGED_SIGNATURE",
+        severity: "SECURITY_ALERT",
+        details: { gateway: "TAP", incomingSignature: signature ? "[REDACTED_SIG]" : "NONE" },
+      });
+
       return NextResponse.json(
         { success: false, error: "Invalid webhook cryptographic signature." },
         { status: 401 }
@@ -69,7 +75,10 @@ export async function POST(request: Request) {
   } catch (error: any) {
     console.error("[TAP WEBHOOK ERROR]", error);
     return NextResponse.json(
-      { success: false, error: error.message || "Internal webhook processing error." },
+      {
+        success: false,
+        error: process.env.NODE_ENV === "production" ? "Webhook processing could not be completed." : (error.message || "Internal webhook processing error."),
+      },
       { status: 500 }
     );
   }

@@ -7,6 +7,7 @@ import {
   createAdminSession,
 } from "@/lib/authGuard";
 import { AdminAuthSchema } from "@/lib/validations/schemas";
+import { logSecurityEvent } from "@/lib/security/auditLogger";
 
 export async function POST(request: Request) {
   try {
@@ -15,6 +16,13 @@ export async function POST(request: Request) {
 
     // 1. Brute-Force Rate Limiting (15-min lockout after 5 consecutive failures)
     if (isIpRateLimited(clientIp)) {
+      logSecurityEvent({
+        eventType: "ACCOUNT_LOCKED",
+        severity: "SECURITY_ALERT",
+        ip: clientIp,
+        details: { reason: "Rate limited due to excessive failed attempts" },
+      });
+
       return NextResponse.json(
         {
           success: false,
@@ -60,25 +68,42 @@ export async function POST(request: Request) {
       console.warn("DB user account check error:", e);
     }
 
-    // 3. Fallback master credentials if initial seed or offline
-    if (!account && pinCode === "1234") {
-      account = {
-        id: "usr-admin-master",
-        username: "admin",
-        email: "admin@eyenova.com.qa",
-        fullName: "System Administrator",
-        pinCode: "1234",
-        role: "SUPER_ADMIN",
-        storeId: null,
-        isActive: true,
-        store: null,
-        createdAt: new Date(),
-      };
+    // 3. Fallback master credentials:
+    // In production, '1234' is strictly disallowed; requires ADMIN_MASTER_PIN environment variable.
+    const isDev = process.env.NODE_ENV !== "production";
+    const masterPin = process.env.ADMIN_MASTER_PIN;
+
+    if (!account) {
+      const isAllowedDevMaster = isDev && pinCode === "1234";
+      const isAllowedProdMaster = masterPin && pinCode === masterPin;
+
+      if (isAllowedDevMaster || isAllowedProdMaster) {
+        account = {
+          id: "usr-admin-master",
+          username: "admin",
+          email: "admin@eyenova.com.qa",
+          fullName: "System Administrator",
+          pinCode,
+          role: "SUPER_ADMIN",
+          storeId: null,
+          isActive: true,
+          store: null,
+          createdAt: new Date(),
+        };
+      }
     }
 
     // 4. Failed Authentication Handling
     if (!account) {
       const attempt = recordFailedAttempt(clientIp);
+
+      logSecurityEvent({
+        eventType: attempt.locked ? "ACCOUNT_LOCKED" : "AUTH_FAILURE",
+        severity: attempt.locked ? "SECURITY_ALERT" : "WARN",
+        ip: clientIp,
+        details: { attemptedUser: cleanIdentifier, remaining: attempt.remaining },
+      });
+
       const remainingMsg = attempt.locked
         ? "Account locked for 15 minutes due to repeated failures."
         : `Invalid PIN. ${attempt.remaining} attempts remaining before security lockout.`;
@@ -97,6 +122,14 @@ export async function POST(request: Request) {
       username: account.username,
       email: account.email || "admin@eyenova.com.qa",
       role: account.role,
+    });
+
+    logSecurityEvent({
+      eventType: "AUTH_SUCCESS",
+      severity: "INFO",
+      ip: clientIp,
+      userId: account.id,
+      details: { username: account.username, role: account.role },
     });
 
     const response = NextResponse.json({
@@ -129,7 +162,10 @@ export async function POST(request: Request) {
   } catch (error) {
     console.error("Admin authentication error:", error);
     return NextResponse.json(
-      { success: false, error: "Authentication failed" },
+      {
+        success: false,
+        error: process.env.NODE_ENV === "production" ? "Authentication request could not be completed." : "Authentication failed",
+      },
       { status: 500 }
     );
   }

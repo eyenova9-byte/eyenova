@@ -1,4 +1,5 @@
 import { prisma } from "@/lib/prisma";
+import { logSecurityEvent } from "@/lib/security/auditLogger";
 
 export type PaymentGatewayType = "TAP" | "SKIPCASH" | "COD" | "QPAY_MANUAL";
 
@@ -70,9 +71,18 @@ export async function confirmPayment({
     const expectedAmount = Number(order.totalQar);
     // Allow slight float variance up to 0.05 QAR for rounding
     if (Math.abs(expectedAmount - amountQar) > 0.05) {
-      console.error(
-        `[PAYMENT SECURITY ALERT] Amount mismatch for Order ${order.orderNumber}! Expected: ${expectedAmount} QAR, Received: ${amountQar} QAR via ${gateway}. Transaction ID: ${transactionId}`
-      );
+      logSecurityEvent({
+        eventType: "PAYMENT_UNDERPAID",
+        severity: "SECURITY_ALERT",
+        orderNumber: order.orderNumber,
+        details: {
+          expectedAmount,
+          receivedAmount: amountQar,
+          gateway,
+          transactionId,
+        },
+      });
+
       return {
         success: false,
         orderId,
@@ -161,9 +171,12 @@ export async function confirmPayment({
       }
     });
 
-    console.log(
-      `[PAYMENT SUCCESS] Order ${order.orderNumber} successfully confirmed via ${gateway}. Transaction: ${transactionId}, Amount: ${amountQar} QAR.`
-    );
+    logSecurityEvent({
+      eventType: "PAYMENT_CONFIRMED",
+      severity: "INFO",
+      orderNumber: order.orderNumber,
+      details: { gateway, transactionId, amountQar },
+    });
 
     return {
       success: true,
@@ -173,12 +186,17 @@ export async function confirmPayment({
       message: `Payment of ${amountQar} QAR successfully confirmed via ${gateway}.`,
     };
   } catch (error: any) {
-    console.error(`[PAYMENT CONFIRMATION ERROR] Failed for order ${orderId}:`, error);
+    logSecurityEvent({
+      eventType: "PAYMENT_FAILED",
+      severity: "SECURITY_ALERT",
+      details: { orderId, gateway, transactionId, error: error?.message },
+    });
+
     return {
       success: false,
       orderId,
       status: "ERROR",
-      message: error?.message || "Internal payment processing error.",
+      message: process.env.NODE_ENV === "production" ? "Payment confirmation could not be finalized." : (error?.message || "Internal payment processing error."),
     };
   }
 }

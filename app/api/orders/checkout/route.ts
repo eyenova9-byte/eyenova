@@ -5,6 +5,7 @@ import { CheckoutOrderSchema } from "@/lib/validations/schemas";
 import { confirmPayment } from "@/lib/payment/confirmPayment";
 import { createTapCharge } from "@/lib/payment/tap";
 import { createSkipCashPayment } from "@/lib/payment/skipcash";
+import { sanitizeText } from "@/lib/security/sanitize";
 
 export async function POST(request: Request) {
   try {
@@ -34,6 +35,12 @@ export async function POST(request: Request) {
       preferredGateway,
       items,
     } = validationResult.data;
+
+    // Sanitize user-generated text against XSS
+    const cleanCustomerName = sanitizeText(customerName);
+    const cleanDistrict = sanitizeText(district);
+    const cleanStreetAddress = sanitizeText(streetAddress);
+    const cleanDeliveryNotes = deliveryNotes ? sanitizeText(deliveryNotes) : "";
 
     // 2. Server-Side Price & Inventory Recalculation (Client prices discarded!)
     const productIds = items.map((i) => i.productId);
@@ -95,15 +102,15 @@ export async function POST(request: Request) {
       order = await prisma.order.create({
         data: {
           orderNumber,
-          customerName,
+          customerName: cleanCustomerName,
           customerPhone,
           customerEmail: customerEmail || null,
           shippingAddress: {
-            district,
-            streetAddress,
-            notes: deliveryNotes || "",
+            district: cleanDistrict,
+            streetAddress: cleanStreetAddress,
+            notes: cleanDeliveryNotes,
           },
-          deliveryZone: district,
+          deliveryZone: cleanDistrict,
           paymentMethod:
             paymentMethod === "CASH_ON_DELIVERY" || paymentMethod === "COD"
               ? "CASH_ON_DELIVERY"
@@ -216,7 +223,10 @@ export async function POST(request: Request) {
   } catch (error: any) {
     console.error("[CHECKOUT ERROR]", error);
     return NextResponse.json(
-      { success: false, error: error?.message || "Checkout failed due to server error." },
+      {
+        success: false,
+        error: process.env.NODE_ENV === "production" ? "Unable to process order. Please try again or contact EyeNova support." : (error?.message || "Checkout failed due to server error."),
+      },
       { status: 500 }
     );
   }
