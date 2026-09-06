@@ -130,6 +130,7 @@
     list-style-type: none !important;
     margin: 0 !important;
     padding: 0 !important;
+    position: static !important;
   }
 
   .analog-nav-menu-item {
@@ -145,6 +146,11 @@
     padding: 0 !important;
   }
 
+  /* FOR MEGA MENU ITEMS: Must be position static so the mega panel centers on the entire header */
+  .analog-nav-menu-item.analog-has-mega {
+    position: static !important;
+  }
+
   .analog-menu-link {
     display: inline-flex !important;
     align-items: center !important;
@@ -155,8 +161,8 @@
     text-decoration: none !important;
     white-space: nowrap !important;
     word-break: keep-all !important;
-    line-height: 1 !important;
-    padding: 0.5rem 0.15rem !important;
+    line-height: 1.2 !important;
+    padding: 0.4rem 0.2rem !important;
     position: relative !important;
     transition: color 0.15s ease !important;
   }
@@ -165,20 +171,21 @@
     white-space: nowrap !important;
     word-break: keep-all !important;
     display: inline !important;
-    line-height: 1 !important;
+    line-height: 1.2 !important;
   }
 
   .analog-menu-link::after {
     content: '' !important;
     position: absolute !important;
-    bottom: 12px !important;
+    bottom: -3px !important;
     left: 0 !important;
     right: 0 !important;
     height: 2px !important;
     background-color: #5c2d76 !important;
     opacity: 0 !important;
     transform: scaleX(0) !important;
-    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    transform-origin: center !important;
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease !important;
   }
 
   .analog-nav-menu-item:hover .analog-menu-link,
@@ -190,6 +197,16 @@
   .analog-menu-link.active-link::after {
     opacity: 1 !important;
     transform: scaleX(1) !important;
+  }
+
+  /* Dim active link when another nav item is being hovered */
+  .analog-nav-menu-list:hover .analog-nav-menu-item:not(:hover) .analog-menu-link.active-link::after {
+    opacity: 0 !important;
+    transform: scaleX(0) !important;
+  }
+
+  .analog-nav-menu-list:hover .analog-nav-menu-item:not(:hover) .analog-menu-link.active-link {
+    color: #121212 !important;
   }
 
   .analog-chevron-svg {
@@ -210,8 +227,8 @@
     position: absolute !important;
     top: 76px !important;
     left: 50% !important;
-    transform: translateX(-50%) translateY(12px) !important;
-    width: 100vw !important;
+    transform: translateX(-50%) translateY(8px) !important;
+    width: min(1280px, calc(100vw - 48px)) !important;
     max-width: 1280px !important;
     background-color: #FFFFFF !important;
     border: 1px solid #E5E7EB !important;
@@ -223,6 +240,17 @@
     transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
     z-index: 600 !important;
     padding: 2.5rem !important;
+  }
+
+  /* Invisible hover bridge between header link and mega panel */
+  .analog-mega-panel::before {
+    content: '' !important;
+    position: absolute !important;
+    top: -10px !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 10px !important;
+    background: transparent !important;
   }
 
   .analog-has-mega:hover .analog-mega-panel {
