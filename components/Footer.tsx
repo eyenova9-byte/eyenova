@@ -95,7 +95,7 @@ export function Footer() {
                 <MessageCircle size={15} />
                 <span>+974 5512 3456</span>
               </a>
-              <span className="text-[12px] text-[#707070]">support@eyenova.com</span>
+              <span className="text-[12px] text-[#707070]">support@eyenova.com.qa</span>
             </div>
           </div>
 

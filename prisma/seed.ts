@@ -43,7 +43,7 @@ async function main() {
     data: {
       nameEn: "EyeNova Optical & Eye Care",
       nameAr: "عين نوفا للبصريات والعناية بالعين",
-      email: "support@eyenova.com",
+      email: "support@eyenova.com.qa",
       phone: "+974 4411 2233",
       addressEn: "Shop 12, Villaggio Mall, West Bay, Doha, Qatar",
       addressAr: "محل ١٢، فيلاجو مول، الخليج الغربي، الدوحة، قطر",
@@ -98,6 +98,37 @@ async function main() {
   });
 
   const stores = [storeVillaggio, storeFestivalCity, storeMallOfQatar, storeCentralHub];
+
+  // 3.5 Seed Official EyeNova Qatar Admin & Staff Accounts
+  console.log("Creating Official Staff & Admin UserAccounts...");
+  await prisma.userAccount.createMany({
+    data: [
+      {
+        username: "admin",
+        email: "admin@eyenova.com.qa",
+        fullName: "Administrator",
+        pinCode: "1234",
+        role: "SUPER_ADMIN",
+        isActive: true,
+      },
+      {
+        username: "info",
+        email: "info@eyenova.com.qa",
+        fullName: "Info Desk",
+        pinCode: "1234",
+        role: "STAFF",
+        isActive: true,
+      },
+      {
+        username: "support",
+        email: "support@eyenova.com.qa",
+        fullName: "Customer Support",
+        pinCode: "1234",
+        role: "STAFF",
+        isActive: true,
+      },
+    ],
+  });
 
   // 4. Categories (Eyenk.com Structure)
   console.log("Creating Categories...");

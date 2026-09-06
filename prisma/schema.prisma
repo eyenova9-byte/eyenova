@@ -619,6 +619,7 @@ model Store {
 model UserAccount {
   id        String   @id @default(uuid())
   username  String   @unique
+  email     String?  @unique
   fullName  String
   pinCode   String   @default("0000")
   role      String   @default("STAFF") // SUPER_ADMIN | STORE_ADMIN | STAFF
@@ -628,6 +629,7 @@ model UserAccount {
   createdAt DateTime @default(now())
 
   @@index([username])
+  @@index([email])
   @@index([storeId])
 }
 

@@ -61,8 +61,8 @@ export default function TermsPage() {
           </h2>
           <p>
             {lang === "ar"
-              ? "لأي استفسارات حول الطلبات أو الشروط، يمكنكم التواصل مع فريق خدمة العملاء عبر الواتساب على +974 5512 3456 أو البريد الإلكتروني support@eyenova.com."
-              : "For any questions regarding orders or our terms, please contact our support concierge via WhatsApp at +974 5512 3456 or email support@eyenova.com."}
+              ? "لأي استفسارات حول الطلبات أو الشروط، يمكنكم التواصل مع فريق خدمة العملاء عبر الواتساب على +974 5512 3456 أو البريد الإلكتروني support@eyenova.com.qa."
+              : "For any questions regarding orders or our terms, please contact our support concierge via WhatsApp at +974 5512 3456 or email support@eyenova.com.qa."}
           </p>
         </section>
       </div>

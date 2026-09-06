@@ -12,13 +12,22 @@ export async function POST(request: Request) {
       );
     }
 
-    // Allow quick master PIN 1234 or match by username/pin in database
+    const cleanIdentifier = (username || "").trim().toLowerCase();
+
+    // Match by username, email, or PIN code
     let account = null;
     try {
       account = await prisma.userAccount.findFirst({
         where: {
           pinCode: pinCode.trim(),
-          ...(username ? { username: username.trim().toLowerCase() } : {}),
+          ...(cleanIdentifier
+            ? {
+                OR: [
+                  { username: cleanIdentifier },
+                  { email: cleanIdentifier },
+                ],
+              }
+            : {}),
           isActive: true,
         },
         include: {
@@ -29,14 +38,18 @@ export async function POST(request: Request) {
       console.warn("DB user account check error:", e);
     }
 
-    // Fallback master credentials if offline
+    // Fallback master credentials if offline or initial seed
     if (!account && (pinCode === "1234" || pinCode === "0000")) {
+      const isInfo = cleanIdentifier.includes("info");
+      const isSupport = cleanIdentifier.includes("support");
+
       account = {
-        id: "usr-admin-master",
-        username: username || "admin",
-        fullName: "System Administrator",
+        id: isInfo ? "usr-info" : isSupport ? "usr-support" : "usr-admin-master",
+        username: isInfo ? "info" : isSupport ? "support" : "admin",
+        email: isInfo ? "info@eyenova.com.qa" : isSupport ? "support@eyenova.com.qa" : "admin@eyenova.com.qa",
+        fullName: isInfo ? "Info Desk" : isSupport ? "Customer Support" : "Administrator",
         pinCode: "1234",
-        role: "SUPER_ADMIN",
+        role: isInfo || isSupport ? "STAFF" : "SUPER_ADMIN",
         storeId: null,
         isActive: true,
         store: null,
@@ -46,7 +59,7 @@ export async function POST(request: Request) {
 
     if (!account) {
       return NextResponse.json(
-        { success: false, error: "Invalid PIN or username" },
+        { success: false, error: "Invalid PIN or account credentials" },
         { status: 401 }
       );
     }
@@ -56,12 +69,13 @@ export async function POST(request: Request) {
       user: {
         id: account.id,
         username: account.username,
+        email: account.email || `${account.username}@eyenova.com.qa`,
         fullName: account.fullName,
         role: account.role,
         storeId: account.storeId,
         storeName: account.store?.name || "All Branches",
       },
-      message: "Admin authenticated successfully",
+      message: "Authenticated successfully",
     });
   } catch (error) {
     console.error("Admin authentication error:", error);

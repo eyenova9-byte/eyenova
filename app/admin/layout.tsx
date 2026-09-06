@@ -119,8 +119,45 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </p>
           </div>
 
+          {/* Account Selector (Admin / Info / Support) */}
+          <div className="flex items-center justify-center gap-1.5 p-1 bg-[#FAF5F2] border border-[#E8DED8] rounded-2xl mb-4">
+            {[
+              { id: "admin", label: "Admin", email: "admin@eyenova.com.qa", initials: "AD" },
+              { id: "info", label: "Info", email: "info@eyenova.com.qa", initials: "IN" },
+              { id: "support", label: "Support", email: "support@eyenova.com.qa", initials: "SU" },
+            ].map((acc) => {
+              const active = username === acc.id;
+              return (
+                <button
+                  key={acc.id}
+                  type="button"
+                  onClick={() => {
+                    setUsername(acc.id);
+                    setError("");
+                  }}
+                  className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-medium transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
+                    active
+                      ? "bg-white text-[#5c2d76] shadow-2xs font-semibold"
+                      : "text-[#707070] hover:text-[#121212]"
+                  }`}
+                >
+                  <span className={`w-5 h-5 rounded-full text-[10px] flex items-center justify-center font-bold ${
+                    active ? "bg-[#5c2d76] text-white" : "bg-[#E8DED8] text-[#707070]"
+                  }`}>
+                    {acc.initials}
+                  </span>
+                  <span>{acc.label}</span>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="text-[11px] text-[#707070] mb-2 font-mono">
+            Logging in as: <span className="text-[#121212] font-semibold">{username}@eyenova.com.qa</span>
+          </div>
+
           {/* PIN Dots Display */}
-          <div className="flex justify-center items-center gap-3 my-4">
+          <div className="flex justify-center items-center gap-3 my-3">
             {[0, 1, 2, 3].map((idx) => (
               <div
                 key={idx}
@@ -232,7 +269,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-2 bg-[#FAF5F2] border border-[#E8DED8] px-3 py-1 rounded-full text-xs">
             <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
-            <span className="font-medium text-[#121212]">{adminUser?.fullName || "Admin"}</span>
+            <span className="font-medium text-[#121212]">{adminUser?.email || adminUser?.fullName || "Admin"}</span>
             <span className="text-[#707070] hidden sm:inline">({adminUser?.role})</span>
           </div>
           <button
