@@ -1,257 +1,664 @@
-<header class="site-header analog-header" id="SiteHeader">
-  <!-- 1. Analog Announcement Bar -->
-  <div class="analog-announcement-bar">
-    <div class="header-inner announcement-inner">
-      <div class="announcement-left">
-        <span class="announcement-badge">MOPH Approved</span>
-        <span class="announcement-text">100% Authentic Certified Optical Products</span>
-      </div>
-      <div class="announcement-center">
-        <a href="/collections/all" class="announcement-link">
-          <span class="announcement-pulse-dot"></span>
-          <span>Same-Day Express Qatar Delivery &bull; Free on Orders Over QAR 250</span>
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
-        </a>
-      </div>
-      <div class="announcement-right">
-        <a href="https://wa.me/97455989711" target="_blank" rel="noopener noreferrer" class="announcement-wa">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.025 3.284l-.711 2.6 2.664-.698c.96.523 1.956.814 3.037.814 3.182 0 5.768-2.586 5.769-5.766.001-3.18-2.585-5.766-5.768-5.766zm3.374 8.169c-.147.414-.755.772-1.042.822-.287.05-.658.077-2.115-.494-1.782-.698-2.915-2.525-3.003-2.643-.089-.118-.72-1.002-.72-1.91 0-.909.475-1.354.644-1.538.169-.184.368-.231.491-.231.123 0 .245.002.352.007.112.006.262-.043.41.314.153.37.522 1.272.568 1.365.046.092.077.2.015.323-.061.123-.092.2-.184.308-.092.108-.194.24-.277.323-.092.092-.188.192-.081.376.107.184.476.786 1.02 1.27.701.625 1.293.818 1.477.91.184.092.292.077.4-.046.107-.123.46-.538.583-.722.123-.184.246-.153.414-.092.169.061 1.074.507 1.258.6.184.092.307.138.352.215.046.077.046.445-.101.859z"/></svg>
-          <span>Concierge: +974 5598 9711</span>
-        </a>
-      </div>
-    </div>
-  </div>
+<style>
+  .analog-header-root {
+    background: #FFFFFF !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 500 !important;
+    border-bottom: 1px solid #E5E7EB !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04) !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
 
-  <!-- 2. Analog Main Navigation Bar -->
-  <div class="analog-main-nav">
-    <div class="header-inner main-nav-inner">
-      <!-- Mobile Hamburger Button -->
-      <div class="mobile-nav-toggle-wrap">
-        <button type="button" class="mobile-hamburger-btn" onclick="openMobileDrawer()" aria-label="Open navigation menu">
+  /* Main Navbar Row */
+  .analog-main-navbar {
+    height: 76px !important;
+    display: flex !important;
+    align-items: center !important;
+    background: #FFFFFF !important;
+    position: relative !important;
+    width: 100% !important;
+  }
+
+  .analog-navbar-container {
+    max-width: 1360px !important;
+    margin: 0 auto !important;
+    width: 100% !important;
+    padding: 0 1.5rem !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 1rem !important;
+  }
+
+  /* Mobile Toggle */
+  .analog-mobile-toggle {
+    display: none !important;
+  }
+
+  @media (max-width: 1023px) {
+    .analog-mobile-toggle {
+      display: flex !important;
+      align-items: center !important;
+    }
+    .analog-hamburger-btn {
+      background: transparent !important;
+      border: none !important;
+      color: #121212 !important;
+      cursor: pointer !important;
+      padding: 0.5rem !important;
+      margin-left: -0.5rem !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+  }
+
+  /* Logo */
+  .analog-brand-container {
+    flex-shrink: 0 !important;
+  }
+
+  .analog-logo-anchor {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.75rem !important;
+    text-decoration: none !important;
+  }
+
+  .analog-logo-box {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 12px !important;
+    background-color: #FAF5F2 !important;
+    border: 1px solid #EDE4DE !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    transition: transform 0.2s ease !important;
+  }
+
+  .analog-logo-anchor:hover .analog-logo-box {
+    transform: scale(1.04) !important;
+  }
+
+  .analog-brand-typography {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  .analog-site-name {
+    font-size: 1.55rem !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.03em !important;
+    color: #5c2d76 !important;
+    line-height: 1.1 !important;
+  }
+
+  .analog-site-tagline {
+    font-size: 0.62rem !important;
+    letter-spacing: 0.16em !important;
+    font-weight: 700 !important;
+    color: #888888 !important;
+  }
+
+  /* Desktop Nav Links - STRICT SINGLE LINE, ZERO WRAPPING EVER */
+  .analog-nav-desktop-wrap {
+    display: none !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    margin: 0 0.5rem !important;
+  }
+
+  @media (min-width: 1024px) {
+    .analog-nav-desktop-wrap {
+      display: flex !important;
+    }
+  }
+
+  .analog-nav-menu-list {
+    display: flex !important;
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: clamp(0.6rem, 1.4vw, 1.9rem) !important;
+    list-style: none !important;
+    list-style-type: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .analog-nav-menu-item {
+    position: relative !important;
+    height: 76px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    flex-shrink: 0 !important;
+    white-space: nowrap !important;
+    list-style: none !important;
+    list-style-type: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .analog-menu-link {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.35rem !important;
+    font-size: clamp(0.85rem, 0.92vw, 0.94rem) !important;
+    font-weight: 500 !important;
+    color: #121212 !important;
+    text-decoration: none !important;
+    white-space: nowrap !important;
+    word-break: keep-all !important;
+    line-height: 1 !important;
+    padding: 0.5rem 0.15rem !important;
+    position: relative !important;
+    transition: color 0.15s ease !important;
+  }
+
+  .analog-menu-link span {
+    white-space: nowrap !important;
+    word-break: keep-all !important;
+    display: inline !important;
+    line-height: 1 !important;
+  }
+
+  .analog-menu-link::after {
+    content: '' !important;
+    position: absolute !important;
+    bottom: 12px !important;
+    left: 0 !important;
+    right: 0 !important;
+    height: 2px !important;
+    background-color: #5c2d76 !important;
+    opacity: 0 !important;
+    transform: scaleX(0) !important;
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+  }
+
+  .analog-nav-menu-item:hover .analog-menu-link,
+  .analog-menu-link.active-link {
+    color: #5c2d76 !important;
+  }
+
+  .analog-nav-menu-item:hover .analog-menu-link::after,
+  .analog-menu-link.active-link::after {
+    opacity: 1 !important;
+    transform: scaleX(1) !important;
+  }
+
+  .analog-chevron-svg {
+    transition: transform 0.2s ease !important;
+    color: #707070 !important;
+    flex-shrink: 0 !important;
+    margin-left: 2px !important;
+    vertical-align: middle !important;
+  }
+
+  .analog-nav-menu-item:hover .analog-chevron-svg {
+    transform: rotate(180deg) !important;
+    color: #5c2d76 !important;
+  }
+
+  /* Analog Mega Menu Panel */
+  .analog-mega-panel {
+    position: absolute !important;
+    top: 76px !important;
+    left: 50% !important;
+    transform: translateX(-50%) translateY(12px) !important;
+    width: 100vw !important;
+    max-width: 1280px !important;
+    background-color: #FFFFFF !important;
+    border: 1px solid #E5E7EB !important;
+    border-radius: 0 0 16px 16px !important;
+    box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.14) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    z-index: 600 !important;
+    padding: 2.5rem !important;
+  }
+
+  .analog-has-mega:hover .analog-mega-panel {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateX(-50%) translateY(0) !important;
+  }
+
+  .analog-mega-grid {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) 1.35fr !important;
+    gap: 2.5rem !important;
+    align-items: start !important;
+  }
+
+  .mega-category-title {
+    font-size: 0.74rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em !important;
+    text-transform: uppercase !important;
+    color: #9CA3AF !important;
+    margin-bottom: 1.25rem !important;
+    padding-bottom: 0.4rem !important;
+    border-bottom: 1px solid #F3F4F6 !important;
+  }
+
+  .mega-item-list {
+    list-style: none !important;
+    list-style-type: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+  }
+
+  .mega-sub-link {
+    font-size: 0.88rem !important;
+    color: #374151 !important;
+    text-decoration: none !important;
+    transition: color 0.15s ease, transform 0.15s ease !important;
+    display: inline-block !important;
+    white-space: nowrap !important;
+  }
+
+  .mega-sub-link:hover {
+    color: #5c2d76 !important;
+    transform: translateX(4px) !important;
+    font-weight: 500 !important;
+  }
+
+  .mega-view-all-cta {
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    color: #5c2d76 !important;
+    margin-top: 0.5rem !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.25rem !important;
+    text-decoration: none !important;
+  }
+
+  .mega-view-all-cta:hover {
+    text-decoration: underline !important;
+  }
+
+  .mega-promo-wrapper {
+    border-left: 1px solid #F3F4F6 !important;
+    padding-left: 2rem !important;
+  }
+
+  .mega-promo-box {
+    background-color: #FAF5F2 !important;
+    border: 1px solid #EDE4DE !important;
+    border-radius: 14px !important;
+    overflow: hidden !important;
+    padding: 1rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0.75rem !important;
+    transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+  }
+
+  .mega-promo-box:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 10px 24px rgba(92, 45, 118, 0.12) !important;
+  }
+
+  .mega-promo-media {
+    position: relative !important;
+    aspect-ratio: 16 / 10 !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    background-color: #FFFFFF !important;
+  }
+
+  .mega-promo-media img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    transition: transform 0.4s ease !important;
+  }
+
+  .mega-promo-box:hover .mega-promo-media img {
+    transform: scale(1.05) !important;
+  }
+
+  .mega-promo-tag-badge {
+    position: absolute !important;
+    top: 8px !important;
+    left: 8px !important;
+    background-color: #5c2d76 !important;
+    color: #FFFFFF !important;
+    font-size: 0.65rem !important;
+    font-weight: 700 !important;
+    padding: 0.2rem 0.6rem !important;
+    border-radius: 9999px !important;
+  }
+
+  .mega-promo-caption {
+    font-size: 0.72rem !important;
+    font-weight: 600 !important;
+    color: #888888 !important;
+    text-transform: uppercase !important;
+  }
+
+  .mega-promo-product-name {
+    font-size: 0.94rem !important;
+    font-weight: 700 !important;
+    color: #121212 !important;
+    line-height: 1.25 !important;
+    margin: 0 !important;
+  }
+
+  .mega-promo-product-price {
+    font-size: 0.94rem !important;
+    font-weight: 700 !important;
+    color: #5c2d76 !important;
+  }
+
+  .mega-promo-action-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0.5rem 1rem !important;
+    background-color: #5c2d76 !important;
+    color: #FFFFFF !important;
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    text-decoration: none !important;
+    margin-top: 0.4rem !important;
+    transition: opacity 0.15s ease !important;
+  }
+
+  .mega-promo-action-btn:hover {
+    opacity: 0.92 !important;
+  }
+
+  /* Right Header Utilities */
+  .analog-right-tools {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.85rem !important;
+    flex-shrink: 0 !important;
+  }
+
+  .analog-tool-icon-btn {
+    width: 40px !important;
+    height: 40px !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #121212 !important;
+    text-decoration: none !important;
+    transition: background-color 0.15s ease, color 0.15s ease !important;
+  }
+
+  .analog-tool-icon-btn:hover {
+    background-color: #FAF5F2 !important;
+    color: #5c2d76 !important;
+  }
+
+  .analog-cart-pill-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    background-color: #121212 !important;
+    color: #FFFFFF !important;
+    padding: 0.55rem 1.1rem !important;
+    border-radius: 9999px !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease !important;
+  }
+
+  .analog-cart-pill-btn:hover {
+    background-color: #5c2d76 !important;
+    box-shadow: 0 4px 14px rgba(92, 45, 118, 0.3) !important;
+  }
+
+  .analog-cart-icon-wrapper {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  .analog-cart-badge-counter {
+    background-color: #5c2d76 !important;
+    color: #FFFFFF !important;
+    font-size: 0.65rem !important;
+    font-weight: 700 !important;
+    min-width: 17px !important;
+    height: 17px !important;
+    border-radius: 9999px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-left: -4px !important;
+    border: 1px solid #FFFFFF !important;
+    line-height: 1 !important;
+    padding: 0 3px !important;
+  }
+
+  .analog-cart-pill-btn:hover .analog-cart-badge-counter {
+    background-color: #FFFFFF !important;
+    color: #5c2d76 !important;
+    border-color: #5c2d76 !important;
+  }
+
+  .analog-cart-button-label {
+    font-size: 0.84rem !important;
+    font-weight: 600 !important;
+  }
+
+  /* ABSOLUTELY NO BULLET LISTS ON PAGE */
+  ul, li {
+    list-style-type: none;
+  }
+</style>
+
+<header class="site-header analog-header-root" id="SiteHeader">
+  <div class="analog-main-navbar">
+    <div class="analog-navbar-container">
+      <!-- Mobile Toggle -->
+      <div class="analog-mobile-toggle">
+        <button type="button" class="analog-hamburger-btn" onclick="openMobileDrawer()" aria-label="Open navigation menu">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
             <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
           </svg>
         </button>
       </div>
 
-      <!-- Analog Brand Logo (High-fashion Atelier typography) -->
-      <div class="analog-logo-wrap">
-        <a href="/" class="analog-brand-link" aria-label="EyeNova Home">
-          <div class="analog-logo-symbol">
+      <!-- Analog Brand Identity -->
+      <div class="analog-brand-container">
+        <a href="/" class="analog-logo-anchor" aria-label="EyeNova Home">
+          <div class="analog-logo-box">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="12" cy="12" r="3" fill="#5c2d76" stroke="none"/>
               <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" stroke="#5c2d76"/>
             </svg>
           </div>
-          <div class="analog-logo-text">
-            <span class="analog-brand-name">EyeNova</span>
-            <span class="analog-brand-sub">ATELIER &bull; QATAR</span>
+          <div class="analog-brand-typography">
+            <span class="analog-site-name">EyeNova</span>
+            <span class="analog-site-tagline">ATELIER &bull; QATAR</span>
           </div>
         </a>
       </div>
 
-      <!-- Analog Center Desktop Navigation with Mega Menus & Promos -->
-      <nav class="analog-desktop-nav" aria-label="Main Navigation">
-        <ul class="analog-nav-list">
-          <!-- Home -->
-          <li class="analog-nav-item">
-            <a href="/" class="analog-nav-link {% if request.path == '/' %}analog-nav-active{% endif %}">
+      <!-- Desktop Links with Mega Menus (Strict Non-Wrapping) -->
+      <nav class="analog-nav-desktop-wrap" aria-label="Main Navigation">
+        <ul class="analog-nav-menu-list">
+          <!-- Link 1: Home -->
+          <li class="analog-nav-menu-item">
+            <a href="/" class="analog-menu-link {% if request.path == '/' %}active-link{% endif %}">
               <span>Home</span>
             </a>
           </li>
 
-          <!-- Medical Lenses (Analog Mega Menu) -->
-          <li class="analog-nav-item analog-megamenu-parent">
-            <a href="/collections/all?category=medical" class="analog-nav-link">
+          <!-- Link 2: Medical Lenses (with Analog Mega Menu) -->
+          <li class="analog-nav-menu-item analog-has-mega">
+            <a href="/collections/all?category=medical" class="analog-menu-link">
               <span>Medical Lenses</span>
-              <svg class="analog-nav-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+              <svg class="analog-chevron-svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </a>
-            <!-- Mega Menu Panel -->
-            <div class="analog-megamenu-panel">
-              <div class="megamenu-inner">
-                <!-- Column 1: By Duration -->
-                <div class="megamenu-col">
-                  <h4 class="megamenu-heading">By Wear Duration</h4>
-                  <ul class="megamenu-links">
-                    <li><a href="/collections/all?type=daily" class="megamenu-link">Daily Disposable Lenses</a></li>
-                    <li><a href="/collections/all?type=monthly" class="megamenu-link">Monthly Disposable Lenses</a></li>
-                    <li><a href="/collections/all?type=3_months" class="megamenu-link">3-Month Extended Wear</a></li>
-                    <li><a href="/collections/all?type=6_months" class="megamenu-link">6-Month Precision Wear</a></li>
-                    <li><a href="/collections/all" class="megamenu-link view-all-link">View All Modalities &rarr;</a></li>
+            <!-- Mega Menu Dropdown -->
+            <div class="analog-mega-panel">
+              <div class="analog-mega-grid">
+                <div>
+                  <h4 class="mega-category-title">Wear Duration</h4>
+                  <ul class="mega-item-list">
+                    <li><a href="/collections/all?type=daily" class="mega-sub-link">Daily Disposable Lenses</a></li>
+                    <li><a href="/collections/all?type=monthly" class="mega-sub-link">Monthly Disposable Lenses</a></li>
+                    <li><a href="/collections/all?type=3_months" class="mega-sub-link">3-Month Extended Wear</a></li>
+                    <li><a href="/collections/all?type=6_months" class="mega-sub-link">6-Month Precision Wear</a></li>
+                    <li><a href="/collections/all" class="mega-view-all-cta">View All Modalities &rarr;</a></li>
                   </ul>
                 </div>
-
-                <!-- Column 2: By Prescription Condition -->
-                <div class="megamenu-col">
-                  <h4 class="megamenu-heading">Vision Correction</h4>
-                  <ul class="megamenu-links">
-                    <li><a href="/collections/all?type=standard" class="megamenu-link">Myopia / Hyperopia (Sphere)</a></li>
-                    <li><a href="/collections/all?type=astigmatism" class="megamenu-link">Astigmatism Lenses (Toric)</a></li>
-                    <li><a href="/collections/all?type=multifocal" class="megamenu-link">Multifocal / Presbyopia</a></li>
-                    <li><a href="/collections/all?category=medical" class="megamenu-link">Silicon Hydrogel Breathable</a></li>
-                    <li><a href="/collections/all?type=daily" class="megamenu-link view-all-link">Shop Daily Moist &rarr;</a></li>
+                <div>
+                  <h4 class="mega-category-title">Vision Correction</h4>
+                  <ul class="mega-item-list">
+                    <li><a href="/collections/all?type=standard" class="mega-sub-link">Myopia / Hyperopia (Sphere)</a></li>
+                    <li><a href="/collections/all?type=astigmatism" class="mega-sub-link">Astigmatism Lenses (Toric)</a></li>
+                    <li><a href="/collections/all?type=multifocal" class="mega-sub-link">Multifocal / Presbyopia</a></li>
+                    <li><a href="/collections/all?category=medical" class="mega-sub-link">Silicon Hydrogel Breathable</a></li>
+                    <li><a href="/collections/all?type=daily" class="mega-view-all-cta">Shop Daily Moist &rarr;</a></li>
                   </ul>
                 </div>
-
-                <!-- Column 3: Certified Brands -->
-                <div class="megamenu-col">
-                  <h4 class="megamenu-heading">Authorized Brands</h4>
-                  <ul class="megamenu-links">
-                    <li><a href="/collections/all?brand=acuvue" class="megamenu-link">Acuvue (Johnson & Johnson)</a></li>
-                    <li><a href="/collections/all?brand=alcon" class="megamenu-link">Alcon Precision & Dailies</a></li>
-                    <li><a href="/collections/all?brand=coopervision" class="megamenu-link">CooperVision Biofinity</a></li>
-                    <li><a href="/collections/all?brand=bausch" class="megamenu-link">Bausch + Lomb Biotrue</a></li>
-                    <li><a href="/collections/all" class="megamenu-link view-all-link">Browse All 8 Brands &rarr;</a></li>
+                <div>
+                  <h4 class="mega-category-title">Authorized Brands</h4>
+                  <ul class="mega-item-list">
+                    <li><a href="/collections/all?brand=acuvue" class="mega-sub-link">Acuvue (Johnson & Johnson)</a></li>
+                    <li><a href="/collections/all?brand=alcon" class="mega-sub-link">Alcon Precision & Dailies</a></li>
+                    <li><a href="/collections/all?brand=coopervision" class="mega-sub-link">CooperVision Biofinity</a></li>
+                    <li><a href="/collections/all?brand=bausch" class="mega-sub-link">Bausch + Lomb Biotrue</a></li>
+                    <li><a href="/collections/all" class="mega-view-all-cta">Browse All Brands &rarr;</a></li>
                   </ul>
                 </div>
-
-                <!-- Column 4: Analog In-Menu Featured Promo Card -->
-                <div class="megamenu-col megamenu-promo-col">
-                  <div class="megamenu-promo-card">
-                    <div class="promo-image-wrap">
+                <div class="mega-promo-wrapper">
+                  <div class="mega-promo-box">
+                    <div class="mega-promo-media">
                       <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=450&auto=format&fit=crop" alt="1 Day Acuvue Moist" loading="lazy">
-                      <span class="promo-badge">Top Seller</span>
+                      <span class="mega-promo-tag-badge">Top Seller</span>
                     </div>
-                    <div class="promo-info">
-                      <span class="promo-tag">Johnson & Johnson</span>
-                      <h5 class="promo-title">1 Day Acuvue Moist 30PK</h5>
-                      <span class="promo-price">QAR 159.00</span>
-                      <a href="/collections/all?brand=acuvue" class="promo-btn">Explore Lenses</a>
-                    </div>
+                    <span class="mega-promo-caption">Johnson & Johnson</span>
+                    <h5 class="mega-promo-product-name">1 Day Acuvue Moist 30PK</h5>
+                    <span class="mega-promo-product-price">QAR 159.00</span>
+                    <a href="/collections/all?brand=acuvue" class="mega-promo-action-btn">Explore Lenses</a>
                   </div>
                 </div>
               </div>
             </div>
           </li>
 
-          <!-- Colour Lenses (Analog Mega Menu) -->
-          <li class="analog-nav-item analog-megamenu-parent">
-            <a href="/collections/all?category=colored" class="analog-nav-link">
+          <!-- Link 3: Colour Lenses (with Analog Mega Menu) -->
+          <li class="analog-nav-menu-item analog-has-mega">
+            <a href="/collections/all?category=colored" class="analog-menu-link">
               <span>Colour Lenses</span>
-              <svg class="analog-nav-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+              <svg class="analog-chevron-svg" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
             </a>
-            <!-- Mega Menu Panel -->
-            <div class="analog-megamenu-panel">
-              <div class="megamenu-inner">
-                <!-- Column 1: Trending Collections -->
-                <div class="megamenu-col">
-                  <h4 class="megamenu-heading">Celebrity Collections</h4>
-                  <ul class="megamenu-links">
-                    <li><a href="/collections/all?brand=bella" class="megamenu-link">Bella Diamond & Elite</a></li>
-                    <li><a href="/collections/all?brand=amara" class="megamenu-link">Amara Celebrity Colours</a></li>
-                    <li><a href="/collections/all?brand=lensme" class="megamenu-link">LensMe Korea & Natural</a></li>
-                    <li><a href="/collections/all?brand=diva" class="megamenu-link">Diva Natural Shades</a></li>
-                    <li><a href="/collections/all?category=colored" class="megamenu-link view-all-link">View All Colours &rarr;</a></li>
+            <!-- Mega Menu Dropdown -->
+            <div class="analog-mega-panel">
+              <div class="analog-mega-grid">
+                <div>
+                  <h4 class="mega-category-title">Celebrity Lines</h4>
+                  <ul class="mega-item-list">
+                    <li><a href="/collections/all?brand=bella" class="mega-sub-link">Bella Diamond & Elite</a></li>
+                    <li><a href="/collections/all?brand=amara" class="mega-sub-link">Amara Celebrity Colours</a></li>
+                    <li><a href="/collections/all?brand=lensme" class="mega-sub-link">LensMe Korea & Natural</a></li>
+                    <li><a href="/collections/all?brand=diva" class="mega-sub-link">Diva Natural Collection</a></li>
+                    <li><a href="/collections/all?category=colored" class="mega-view-all-cta">View All Colours &rarr;</a></li>
                   </ul>
                 </div>
-
-                <!-- Column 2: Shades by Tone -->
-                <div class="megamenu-col">
-                  <h4 class="megamenu-heading">Shop By Shade</h4>
-                  <ul class="megamenu-links">
-                    <li><a href="/collections/all?category=colored" class="megamenu-link">Natural Hazel & Sandy Brown</a></li>
-                    <li><a href="/collections/all?category=colored" class="megamenu-link">Diamond Gray & Shadow</a></li>
-                    <li><a href="/collections/all?category=colored" class="megamenu-link">Olive Green & Mint</a></li>
-                    <li><a href="/collections/all?category=colored" class="megamenu-link">Deep Ocean Blue & Aqua</a></li>
-                    <li><a href="/collections/all?category=colored" class="megamenu-link view-all-link">Browse Shade Guide &rarr;</a></li>
+                <div>
+                  <h4 class="mega-category-title">Shop by Shade</h4>
+                  <ul class="mega-item-list">
+                    <li><a href="/collections/all?category=colored" class="mega-sub-link">Natural Hazel & Sandy Brown</a></li>
+                    <li><a href="/collections/all?category=colored" class="mega-sub-link">Diamond Gray & Shadow</a></li>
+                    <li><a href="/collections/all?category=colored" class="mega-sub-link">Olive Green & Mint</a></li>
+                    <li><a href="/collections/all?category=colored" class="mega-sub-link">Deep Ocean Blue & Aqua</a></li>
+                    <li><a href="/collections/all?category=colored" class="mega-view-all-cta">Browse Shade Guide &rarr;</a></li>
                   </ul>
                 </div>
-
-                <!-- Column 3: Duration & Care -->
-                <div class="megamenu-col">
-                  <h4 class="megamenu-heading">Wear & Prescription</h4>
-                  <ul class="megamenu-links">
-                    <li><a href="/collections/all?brand=acuvue" class="megamenu-link">Acuvue Define Daily Accent</a></li>
-                    <li><a href="/collections/all?type=monthly" class="megamenu-link">Monthly Beauty Lenses</a></li>
-                    <li><a href="/collections/all?type=colored" class="megamenu-link">Plano (0.00 Cosmetic Only)</a></li>
-                    <li><a href="/collections/all?type=colored" class="megamenu-link">Power Correction (-0.50 to -8.00)</a></li>
-                    <li><a href="/collections/all?category=solutions" class="megamenu-link view-all-link">Lens Solutions & Drops &rarr;</a></li>
+                <div>
+                  <h4 class="mega-category-title">Wear & Prescription</h4>
+                  <ul class="mega-item-list">
+                    <li><a href="/collections/all?brand=acuvue" class="mega-sub-link">Acuvue Define Daily Accent</a></li>
+                    <li><a href="/collections/all?type=monthly" class="mega-sub-link">Monthly Beauty Lenses</a></li>
+                    <li><a href="/collections/all?type=colored" class="mega-sub-link">Plano (0.00 Cosmetic Only)</a></li>
+                    <li><a href="/collections/all?type=colored" class="mega-sub-link">Power (-0.50 to -8.00)</a></li>
+                    <li><a href="/collections/all?category=solutions" class="mega-view-all-cta">Lens Solutions & Drops &rarr;</a></li>
                   </ul>
                 </div>
-
-                <!-- Column 4: Analog In-Menu Featured Promo Card -->
-                <div class="megamenu-col megamenu-promo-col">
-                  <div class="megamenu-promo-card">
-                    <div class="promo-image-wrap">
+                <div class="mega-promo-wrapper">
+                  <div class="mega-promo-box">
+                    <div class="mega-promo-media">
                       <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=450&auto=format&fit=crop" alt="Bella Diamond Gray Shadow" loading="lazy">
-                      <span class="promo-badge">Celebrity Pick</span>
+                      <span class="mega-promo-tag-badge">Celebrity Pick</span>
                     </div>
-                    <div class="promo-info">
-                      <span class="promo-tag">Bella Elite</span>
-                      <h5 class="promo-title">Bella Diamond Gray Shadow</h5>
-                      <span class="promo-price">QAR 130.00</span>
-                      <a href="/collections/all?brand=bella" class="promo-btn">View Colorway</a>
-                    </div>
+                    <span class="mega-promo-caption">Bella Elite</span>
+                    <h5 class="mega-promo-product-name">Bella Diamond Gray Shadow</h5>
+                    <span class="mega-promo-product-price">QAR 130.00</span>
+                    <a href="/collections/all?brand=bella" class="mega-promo-action-btn">View Colorway</a>
                   </div>
                 </div>
               </div>
             </div>
           </li>
 
-          <!-- Solutions & Drops -->
-          <li class="analog-nav-item">
-            <a href="/collections/all?category=solutions" class="analog-nav-link">
+          <!-- Link 4: Solutions & Drops -->
+          <li class="analog-nav-menu-item">
+            <a href="/collections/all?category=solutions" class="analog-menu-link">
               <span>Solutions & Drops</span>
             </a>
           </li>
 
-          <!-- Eyewear & Shades -->
-          <li class="analog-nav-item">
-            <a href="/collections/all?category=eyewear" class="analog-nav-link">
+          <!-- Link 5: Eyewear & Shades -->
+          <li class="analog-nav-menu-item">
+            <a href="/collections/all?category=eyewear" class="analog-menu-link">
               <span>Eyewear & Shades</span>
             </a>
           </li>
 
-          <!-- About & Locations -->
-          <li class="analog-nav-item">
-            <a href="/pages/about" class="analog-nav-link">
+          <!-- Link 6: About & Locations -->
+          <li class="analog-nav-menu-item">
+            <a href="/pages/about" class="analog-menu-link">
               <span>About & Locations</span>
             </a>
           </li>
         </ul>
       </nav>
 
-      <!-- Analog Right Utilities (Search, Language, Bag) -->
-      <div class="analog-utilities">
+      <!-- Right Action Tools -->
+      <div class="analog-right-tools">
         <!-- Search Trigger -->
-        <a href="/search" class="analog-util-btn" aria-label="Search catalog">
+        <a href="/search" class="analog-tool-icon-btn" aria-label="Search Catalog">
           <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
           </svg>
         </a>
 
-        <!-- Language Switcher -->
+        <!-- Language Selector -->
         {% render 'language-switcher' %}
 
         <!-- Shopping Bag Trigger -->
-        <a href="/cart" class="analog-bag-btn" data-cart-toggle aria-label="Shopping Bag">
-          <div class="analog-bag-icon-wrap">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <a href="/cart" class="analog-cart-pill-btn" data-cart-toggle aria-label="Shopping Bag">
+          <div class="analog-cart-icon-wrapper">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
               <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
             </svg>
-            <span class="analog-bag-badge" id="CartCountBadge">{{ cart.item_count }}</span>
+            <span class="analog-cart-badge-counter" id="CartCountBadge">{{ cart.item_count }}</span>
           </div>
-          <span class="analog-bag-label">Bag</span>
+          <span class="analog-cart-button-label">Bag</span>
         </a>
       </div>
-    </div>
-  </div>
-
-  <!-- 3. Analog Sub-Header Category Navigation Strip -->
-  <div class="analog-sub-header">
-    <div class="header-inner sub-header-inner">
-      <nav class="sub-nav-track" aria-label="Category Quick Links">
-        <a href="/collections/all" class="sub-nav-pill {% if request.path == '/collections/all' %}active{% endif %}">All Collections</a>
-        <a href="/collections/all?type=daily" class="sub-nav-pill">Daily Lenses</a>
-        <a href="/collections/all?type=monthly" class="sub-nav-pill">Monthly Lenses</a>
-        <a href="/collections/all?category=colored" class="sub-nav-pill">Colour Lenses</a>
-        <a href="/collections/all?type=astigmatism" class="sub-nav-pill">Astigmatism (Toric)</a>
-        <a href="/collections/all?type=multifocal" class="sub-nav-pill">Multifocal</a>
-        <a href="/collections/all?category=solutions" class="sub-nav-pill">Solutions & Drops</a>
-        <a href="/collections/all?category=eyewear" class="sub-nav-pill">Eyeglasses</a>
-        <a href="/collections/all?category=sunglasses" class="sub-nav-pill">Sunglasses</a>
-        <a href="/pages/about" class="sub-nav-pill">Locations & Boutique</a>
-      </nav>
     </div>
   </div>
 </header>
