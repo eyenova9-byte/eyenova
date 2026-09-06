@@ -1,0 +1,37 @@
+id: eyenova-forged-webhook-rejection
+
+info:
+  name: EyeNova Forged Webhook Signature Rejection
+  author: eyenova-security-team
+  severity: critical
+  description: Verifies that forged webhook payloads to /api/webhooks/tap and /api/webhooks/skipcash without valid HMAC signatures are rejected with 401 Unauthorized.
+  tags: payment,tamper,webhook,signature
+
+http:
+  - method: POST
+    path:
+      - "{{BaseURL}}/api/webhooks/tap"
+    headers:
+      Content-Type: application/json
+      hashstring: deadbeef1234567890abcdefdeadbeef1234567890abcdefdeadbeef12345678
+    body: '{"id":"chg_forged_999","amount":1,"status":"CAPTURED","reference":{"order":"ord_123"}}'
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 401
+
+  - method: POST
+    path:
+      - "{{BaseURL}}/api/webhooks/skipcash"
+    headers:
+      Content-Type: application/json
+      x-signature: deadbeef1234567890abcdefdeadbeef1234567890abcdefdeadbeef12345678
+    body: '{"PaymentId":"sc_forged_999","Amount":1,"Status":"Paid","Uid":"ord_123"}'
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 401

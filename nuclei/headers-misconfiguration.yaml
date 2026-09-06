@@ -1,0 +1,28 @@
+id: eyenova-security-headers-check
+
+info:
+  name: EyeNova Security Headers Verification
+  author: eyenova-security-team
+  severity: medium
+  description: Verifies that strict HSTS, CSP, X-Frame-Options, and X-Content-Type-Options headers are enforced.
+  tags: misconfig,headers,owasp
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+
+      - type: word
+        part: header
+        words:
+          - "Content-Security-Policy"
+          - "Strict-Transport-Security"
+          - "X-Content-Type-Options: nosniff"
+          - "X-Frame-Options: SAMEORIGIN"
+        condition: and

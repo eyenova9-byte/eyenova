@@ -1,0 +1,27 @@
+id: eyenova-admin-unauthenticated-access
+
+info:
+  name: EyeNova Admin Endpoint Authentication Check
+  author: eyenova-security-team
+  severity: high
+  description: Verifies that sensitive admin routes (/api/invoices, /api/orders) reject unauthenticated requests with 401 Unauthorized.
+  tags: idor,auth-bypass,broken-access-control
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/api/invoices"
+      - "{{BaseURL}}/api/orders"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 401
+
+      - type: word
+        part: body
+        words:
+          - "Unauthorized"
+          - "Administrator"
+        condition: or
