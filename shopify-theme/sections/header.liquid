@@ -1,167 +1,113 @@
-<header class="site-header">
-  <div class="header-inner">
-    <!-- Mobile Hamburger Toggle (Small Screens) -->
-    <div class="mobile-menu-toggle-wrap">
-      <button type="button" class="mobile-menu-btn" id="mobileMenuOpenBtn" aria-label="Open Navigation Menu">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
-        </svg>
-      </button>
-    </div>
-
-    <!-- Brand Logo -->
-    <a href="/" class="brand-logo-link">
-      <div class="brand-logo-symbol">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="3" fill="#5c2d76" stroke="none"/>
-          <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" stroke="#5c2d76"/>
-        </svg>
-      </div>
-      <div class="brand-text-wrap">
-        <span class="brand-title">EyeNova</span>
-        <span class="brand-tagline">ATELIER &bull; QATAR</span>
-      </div>
-    </a>
-
-    <!-- Desktop Navigation Menu -->
-    <nav class="desktop-navigation">
-      <ul class="nav-links">
-        <li><a href="/" class="nav-link nav-link-active">Home</a></li>
-        <li class="nav-dropdown-wrapper">
-          <a href="/collections/all?category=medical" class="nav-link">
-            <span>Medical Lenses</span>
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-          </a>
-          <div class="nav-dropdown-menu">
-            <a href="/collections/all?type=daily" class="dropdown-item">Daily Disposable Lenses</a>
-            <a href="/collections/all?type=monthly" class="dropdown-item">Monthly Disposable Lenses</a>
-            <a href="/collections/all?type=astigmatism" class="dropdown-item">Astigmatism (Toric) Lenses</a>
-            <a href="/collections/all?type=multifocal" class="dropdown-item">Multifocal (Presbyopia)</a>
-            <div class="dropdown-divider"></div>
-            <a href="/collections/all?brand=acuvue" class="dropdown-item">Acuvue (Johnson & Johnson)</a>
-            <a href="/collections/all?brand=alcon" class="dropdown-item">Alcon Precision Lenses</a>
-            <a href="/collections/all?brand=bausch" class="dropdown-item">Bausch + Lomb</a>
-          </div>
-        </li>
-        <li class="nav-dropdown-wrapper">
-          <a href="/collections/all?category=colored" class="nav-link">
-            <span>Colour Lenses</span>
-            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
-          </a>
-          <div class="nav-dropdown-menu">
-            <a href="/collections/all?brand=amara" class="dropdown-item">Amara Celebrity Colours</a>
-            <a href="/collections/all?brand=bella" class="dropdown-item">Bella Luxury Shades</a>
-            <a href="/collections/all?brand=diva" class="dropdown-item">Diva Natural Collection</a>
-            <a href="/collections/all?brand=lensme" class="dropdown-item">LensMe Korea & Arabic Style</a>
-            <a href="/collections/all?brand=freshlook" class="dropdown-item">FreshLook Colorblends</a>
-            <a href="/collections/all?brand=acuvue-define" class="dropdown-item">Acuvue Define Daily Accent</a>
-          </div>
-        </li>
-        <li><a href="/collections/all?category=solutions" class="nav-link">Solutions & Drops</a></li>
-        <li><a href="/collections/all?category=eyewear" class="nav-link">Eyewear & Shades</a></li>
-        <li><a href="/pages/about" class="nav-link">About & Locations</a></li>
-      </ul>
-    </nav>
-
-    <!-- Header Actions -->
-    <div class="header-actions">
-      <!-- Search Trigger -->
-      <a href="/search" class="header-icon-btn" aria-label="Search Catalog">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-        </svg>
-      </a>
-
-      <!-- Language Selector -->
-      {% render 'language-switcher' %}
-
-      <!-- Bag / Cart Drawer Button -->
-      <a href="/cart" class="header-cart-btn" data-cart-toggle aria-label="Shopping Bag">
-        <div class="cart-icon-wrapper">
-          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
+<header class="site-header" id="SiteHeader">
+  <!-- Main Header Row -->
+  <div class="header-main-row">
+    <div class="header-inner">
+      <!-- Mobile Hamburger Toggle (Small Screens) -->
+      <div class="mobile-menu-toggle-wrap">
+        <button type="button" class="mobile-menu-btn" id="mobileMenuOpenBtn" aria-label="Open Navigation Menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/>
           </svg>
-          <span class="cart-count-pill" id="CartCountBadge">{{ cart.item_count }}</span>
-        </div>
-        <span class="cart-label-text">Bag</span>
-      </a>
-    </div>
-  </div>
-
-  <!-- Mobile Slideout Navigation Drawer (Small Screens) -->
-  <div class="mobile-nav-backdrop" id="mobileNavBackdrop"></div>
-  <div class="mobile-nav-drawer" id="mobileNavDrawer">
-    <div class="mobile-nav-header">
-      <div class="brand-text-wrap">
-        <span class="brand-title" style="font-size: 1.25rem;">EyeNova</span>
-        <span class="brand-tagline">ATELIER &bull; QATAR</span>
+        </button>
       </div>
-      <button type="button" class="mobile-nav-close-btn" id="mobileMenuCloseBtn" aria-label="Close Navigation">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
-        </svg>
-      </button>
-    </div>
 
-    <div class="mobile-nav-body">
-      <ul class="mobile-nav-list">
-        <li><a href="/" class="mobile-nav-item mobile-nav-active">Home</a></li>
-        <li class="mobile-nav-section-label">Medical Lenses</li>
-        <li><a href="/collections/all?type=daily" class="mobile-nav-subitem">Daily Disposable</a></li>
-        <li><a href="/collections/all?type=monthly" class="mobile-nav-subitem">Monthly Disposable</a></li>
-        <li><a href="/collections/all?type=astigmatism" class="mobile-nav-subitem">Astigmatism (Toric)</a></li>
-        <li><a href="/collections/all?type=multifocal" class="mobile-nav-subitem">Multifocal (Presbyopia)</a></li>
+      <!-- Brand Logo -->
+      <a href="/" class="brand-logo-link">
+        <div class="brand-logo-symbol">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3" fill="#5c2d76" stroke="none"/>
+            <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" stroke="#5c2d76"/>
+          </svg>
+        </div>
+        <div class="brand-text-wrap">
+          <span class="brand-title">EyeNova</span>
+          <span class="brand-tagline">ATELIER &bull; QATAR</span>
+        </div>
+      </a>
 
-        <li class="mobile-nav-section-label">Colour Lenses</li>
-        <li><a href="/collections/all?brand=amara" class="mobile-nav-subitem">Amara Lenses</a></li>
-        <li><a href="/collections/all?brand=bella" class="mobile-nav-subitem">Bella Luxury Shades</a></li>
-        <li><a href="/collections/all?brand=diva" class="mobile-nav-subitem">Diva Natural Collection</a></li>
-        <li><a href="/collections/all?brand=lensme" class="mobile-nav-subitem">LensMe Korea Style</a></li>
-        <li><a href="/collections/all?brand=freshlook" class="mobile-nav-subitem">FreshLook</a></li>
+      <!-- Desktop Center Main Navigation Menu -->
+      <nav class="desktop-navigation">
+        <ul class="nav-links">
+          <li><a href="/" class="nav-link {% if request.path == '/' %}nav-link-active{% endif %}">Home</a></li>
+          <li class="nav-dropdown-wrapper">
+            <a href="/collections/all?category=medical" class="nav-link">
+              <span>Medical Lenses</span>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </a>
+            <div class="nav-dropdown-menu">
+              <a href="/collections/all?type=daily" class="dropdown-item">Daily Disposable Lenses</a>
+              <a href="/collections/all?type=monthly" class="dropdown-item">Monthly Disposable Lenses</a>
+              <a href="/collections/all?type=astigmatism" class="dropdown-item">Astigmatism (Toric) Lenses</a>
+              <a href="/collections/all?type=multifocal" class="dropdown-item">Multifocal (Presbyopia)</a>
+              <div class="dropdown-divider"></div>
+              <a href="/collections/all?brand=acuvue" class="dropdown-item">Acuvue (Johnson & Johnson)</a>
+              <a href="/collections/all?brand=alcon" class="dropdown-item">Alcon Precision Lenses</a>
+              <a href="/collections/all?brand=bausch" class="dropdown-item">Bausch + Lomb</a>
+            </div>
+          </li>
+          <li class="nav-dropdown-wrapper">
+            <a href="/collections/all?category=colored" class="nav-link">
+              <span>Colour Lenses</span>
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg>
+            </a>
+            <div class="nav-dropdown-menu">
+              <a href="/collections/all?brand=amara" class="dropdown-item">Amara Celebrity Colours</a>
+              <a href="/collections/all?brand=bella" class="dropdown-item">Bella Luxury Shades</a>
+              <a href="/collections/all?brand=diva" class="dropdown-item">Diva Natural Collection</a>
+              <a href="/collections/all?brand=lensme" class="dropdown-item">LensMe Korea & Arabic Style</a>
+              <a href="/collections/all?brand=freshlook" class="dropdown-item">FreshLook Colorblends</a>
+              <a href="/collections/all?brand=acuvue-define" class="dropdown-item">Acuvue Define Daily Accent</a>
+            </div>
+          </li>
+          <li><a href="/collections/all?category=solutions" class="nav-link">Solutions & Drops</a></li>
+          <li><a href="/collections/all?category=eyewear" class="nav-link">Eyewear & Shades</a></li>
+          <li><a href="/pages/about" class="nav-link">About & Locations</a></li>
+        </ul>
+      </nav>
 
-        <li class="mobile-nav-section-label">Care & Eyewear</li>
-        <li><a href="/collections/all?category=solutions" class="mobile-nav-subitem">Solutions & Eye Drops</a></li>
-        <li><a href="/collections/all?category=eyewear" class="mobile-nav-subitem">Eyeglasses & Sunglasses</a></li>
-        <li><a href="/pages/about" class="mobile-nav-item">About & Locations</a></li>
-      </ul>
+      <!-- Header Actions -->
+      <div class="header-actions">
+        <!-- Search -->
+        <a href="/search" class="header-icon-btn" aria-label="Search Catalog">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+          </svg>
+        </a>
 
-      <div class="mobile-nav-footer">
-        <a href="https://wa.me/97455123456" target="_blank" rel="noopener noreferrer" class="mobile-nav-wa-btn">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z"/></svg>
-          <span>WhatsApp Optical Concierge</span>
+        <!-- Language Selector -->
+        {% render 'language-switcher' %}
+
+        <!-- Bag / Cart Drawer Button -->
+        <a href="/cart" class="header-cart-btn" data-cart-toggle aria-label="Shopping Bag">
+          <div class="cart-icon-wrapper">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/>
+            </svg>
+            <span class="cart-count-pill" id="CartCountBadge">{{ cart.item_count }}</span>
+          </div>
+          <span class="cart-label-text">Bag</span>
         </a>
       </div>
     </div>
   </div>
 
-  <script>
-    (function() {
-      var openBtn = document.getElementById('mobileMenuOpenBtn');
-      var closeBtn = document.getElementById('mobileMenuCloseBtn');
-      var drawer = document.getElementById('mobileNavDrawer');
-      var backdrop = document.getElementById('mobileNavBackdrop');
-
-      function openDrawer() {
-        if (drawer && backdrop) {
-          drawer.classList.add('mobile-nav-drawer-open');
-          backdrop.classList.add('mobile-nav-backdrop-open');
-          document.body.style.overflow = 'hidden';
-        }
-      }
-
-      function closeDrawer() {
-        if (drawer && backdrop) {
-          drawer.classList.remove('mobile-nav-drawer-open');
-          backdrop.classList.remove('mobile-nav-backdrop-open');
-          document.body.style.overflow = '';
-        }
-      }
-
-      if (openBtn) openBtn.addEventListener('click', openDrawer);
-      if (closeBtn) closeBtn.addEventListener('click', closeDrawer);
-      if (backdrop) backdrop.addEventListener('click', closeDrawer);
-    })();
-  </script>
+  <!-- Sub-Header Category Navigation Bar (Desktop & Horizontal Scroll on Mobile) -->
+  <div class="header-sub-nav-bar">
+    <div class="sub-nav-container">
+      <ul class="sub-nav-list">
+        <li><a href="/collections/all" class="sub-nav-link {% if request.path == '/collections/all' and current_tags == blank %}sub-nav-active{% endif %}">All Collections</a></li>
+        <li><a href="/collections/all?type=daily" class="sub-nav-link">Daily Lenses</a></li>
+        <li><a href="/collections/all?type=monthly" class="sub-nav-link">Monthly Lenses</a></li>
+        <li><a href="/collections/all?category=colored" class="sub-nav-link">Colour Lenses</a></li>
+        <li><a href="/collections/all?type=astigmatism" class="sub-nav-link">Astigmatism (Toric)</a></li>
+        <li><a href="/collections/all?type=multifocal" class="sub-nav-link">Multifocal</a></li>
+        <li><a href="/collections/all?category=solutions" class="sub-nav-link">Solutions & Drops</a></li>
+        <li><a href="/collections/all?category=eyewear" class="sub-nav-link">Eyeglasses</a></li>
+        <li><a href="/collections/all?category=sunglasses" class="sub-nav-link">Sunglasses</a></li>
+        <li><a href="/pages/about" class="sub-nav-link">Locations & Boutique</a></li>
+      </ul>
+    </div>
+  </div>
 </header>
 
 {% schema %}

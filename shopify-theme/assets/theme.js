@@ -1,4 +1,4 @@
-﻿/**
+/**
  * EyeNova Qatar — Client Interactions & Optical Customizer
  */
 
