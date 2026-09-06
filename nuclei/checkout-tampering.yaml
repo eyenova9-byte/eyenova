@@ -1,0 +1,29 @@
+﻿id: eyenova-checkout-tampering-rejection
+
+info:
+  name: EyeNova Checkout Tampering & Price Manipulation Rejection
+  author: eyenova-security-team
+  severity: critical
+  description: Verifies that forged or tampered checkout requests (negative amounts, zero items, invalid phones) are rejected by Zod validation schemas.
+  tags: payment,tamper,checkout,anti-defraud,owasp-a01
+
+http:
+  - method: POST
+    path:
+      - "{{BaseURL}}/api/orders/checkout"
+    headers:
+      Content-Type: application/json
+    body: '{"customerName":"Attacker","customerPhone":"123","paymentMethod":"CASH_ON_DELIVERY","items":[]}'
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 400
+
+      - type: word
+        part: body
+        words:
+          - "Validation failed"
+          - "Invalid"
+        condition: or

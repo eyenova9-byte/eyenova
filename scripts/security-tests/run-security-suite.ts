@@ -7,6 +7,7 @@
  * 4. Zod Input Validation & Malformed Payload Rejection
  */
 
+import crypto from "crypto";
 import { verifyTapWebhookSignature } from "../../lib/payment/tap";
 import { verifySkipCashWebhookSignature } from "../../lib/payment/skipcash";
 import { confirmPayment } from "../../lib/payment/confirmPayment";
@@ -16,6 +17,10 @@ import {
   InventoryAdjustSchema,
 } from "../../lib/validations/schemas";
 import { prisma } from "../../lib/prisma";
+import { sanitizeText, sanitizeObject } from "../../lib/security/sanitize";
+import { isSafeExternalUrl } from "../../lib/security/ssrfValidator";
+import { logSecurityEvent } from "../../lib/security/auditLogger";
+
 
 let passedCount = 0;
 let failedCount = 0;
@@ -107,9 +112,8 @@ async function runSecuritySuite() {
   assert(!skipForgedCheck, "SkipCash webhook rejects forged signature / tampered payload");
 
   // Test 2.3: Valid Signature Passes on Tap
-  const crypto = require("crypto");
   const validTapSignature = crypto
-    .createHmac("sha256", process.env.TAP_WEBHOOK_SECRET)
+    .createHmac("sha256", process.env.TAP_WEBHOOK_SECRET || "dummy_secret")
     .update(originalPayload)
     .digest("hex");
   const tapValidCheck = verifyTapWebhookSignature(originalPayload, validTapSignature);
@@ -117,7 +121,7 @@ async function runSecuritySuite() {
 
   // Test 2.4: Valid Signature Passes on SkipCash
   const validSkipSignature = crypto
-    .createHmac("sha256", process.env.SKIPCASH_WEBHOOK_SECRET)
+    .createHmac("sha256", process.env.SKIPCASH_WEBHOOK_SECRET || "dummy_secret")
     .update(originalPayload)
     .digest("base64");
   const skipValidCheck = verifySkipCashWebhookSignature(originalPayload, validSkipSignature);
@@ -129,8 +133,9 @@ async function runSecuritySuite() {
   console.log("\n>> 3. Running Payment Idempotency & Replay Defense Tests...");
 
   // Create a mock order in DB (or mock environment) to test idempotency
-  let testOrderId = `test-ord-${Date.now()}`;
-  let testOrderNumber = `EN-TEST-${Math.floor(1000 + Math.random() * 9000)}`;
+  const testOrderId = `test-ord-${Date.now()}`;
+  const testOrderNumber = `EN-TEST-${Math.floor(1000 + Math.random() * 9000)}`;
+
 
   try {
     const createdOrder = await prisma.order.create({
@@ -218,8 +223,9 @@ async function runSecuritySuite() {
 
     // Clean up
     await prisma.order.delete({ where: { id: underpaidOrder.id } });
-  } catch (e) {
-    console.warn("  [NOTE] DB test skipped or completed with fallback:", (e as any)?.message);
+  } catch (e: unknown) {
+    const err = e as Error;
+    console.warn("  [NOTE] DB test skipped or completed with fallback:", err?.message);
     assert(true, "Amount mismatch protection verified");
   }
 
@@ -227,7 +233,6 @@ async function runSecuritySuite() {
   // TEST GROUP 5: Anti-XSS User Input Sanitization (OWASP #5)
   // -------------------------------------------------------------------------
   console.log("\n>> 5. Running Anti-XSS Sanitization Tests...");
-  const { sanitizeText, sanitizeObject } = require("../../lib/security/sanitize");
   const dangerousString = "<script>alert('xss')</script>Hello <img src=x onerror=alert(1)>";
   const cleaned = sanitizeText(dangerousString);
   assert(
@@ -251,8 +256,6 @@ async function runSecuritySuite() {
   // TEST GROUP 6: SSRF (Server-Side Request Forgery) Defense (OWASP #1)
   // -------------------------------------------------------------------------
   console.log("\n>> 6. Running SSRF Defense & IP Range Tests...");
-  const { isSafeExternalUrl } = require("../../lib/security/ssrfValidator");
-
   assert(!isSafeExternalUrl("http://localhost:3000"), "Blocks localhost URL");
   assert(!isSafeExternalUrl("http://127.0.0.1:8080"), "Blocks 127.0.0.1 loopback");
   assert(!isSafeExternalUrl("http://169.254.169.254/latest/meta-data/"), "Blocks AWS/GCP cloud metadata IP");
@@ -265,14 +268,15 @@ async function runSecuritySuite() {
   // TEST GROUP 7: Sensitive Data Redaction in Security Logger (OWASP #9)
   // -------------------------------------------------------------------------
   console.log("\n>> 7. Running Audit Logger Redaction Tests...");
-  const { logSecurityEvent } = require("../../lib/security/auditLogger");
   // Ensure logSecurityEvent does not throw and redacts sensitive keys
   let loggerRanWithoutError = true;
   try {
     logSecurityEvent({
+
       eventType: "AUTH_FAILURE",
       severity: "WARN",
       ip: "127.0.0.1",
+
       details: {
         pin: "1234",
         password: "SuperSecretPassword123!",

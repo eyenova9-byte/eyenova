@@ -22,7 +22,7 @@ export type SecurityEvent = {
   ip?: string;
   userId?: string;
   orderNumber?: string;
-  details?: Record<string, any>;
+  details?: Record<string, unknown>;
 };
 
 const SENSITIVE_KEYS = new Set([
@@ -37,19 +37,20 @@ const SENSITIVE_KEYS = new Set([
   "hashstring",
 ]);
 
-function redactSensitiveData(data: Record<string, any>): Record<string, any> {
-  const clean: Record<string, any> = {};
+function redactSensitiveData(data: Record<string, unknown>): Record<string, unknown> {
+  const clean: Record<string, unknown> = {};
   for (const [key, value] of Object.entries(data)) {
     if (SENSITIVE_KEYS.has(key.toLowerCase())) {
       clean[key] = "[REDACTED]";
     } else if (value && typeof value === "object" && !Array.isArray(value)) {
-      clean[key] = redactSensitiveData(value);
+      clean[key] = redactSensitiveData(value as Record<string, unknown>);
     } else {
       clean[key] = value;
     }
   }
   return clean;
 }
+
 
 export function logSecurityEvent(event: SecurityEvent): void {
   const timestamp = new Date().toISOString();

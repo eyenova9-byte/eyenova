@@ -8,8 +8,9 @@ export type ConfirmPaymentParams = {
   gateway: PaymentGatewayType;
   transactionId: string;
   amountQar: number;
-  metadata?: Record<string, any>;
+  metadata?: Record<string, unknown>;
 };
+
 
 export type ConfirmPaymentResult = {
   success: boolean;
@@ -185,18 +186,20 @@ export async function confirmPayment({
       status: "PAYMENT_CONFIRMED",
       message: `Payment of ${amountQar} QAR successfully confirmed via ${gateway}.`,
     };
-  } catch (error: any) {
+  } catch (error: unknown) {
+    const err = error as Error;
     logSecurityEvent({
       eventType: "PAYMENT_FAILED",
       severity: "SECURITY_ALERT",
-      details: { orderId, gateway, transactionId, error: error?.message },
+      details: { orderId, gateway, transactionId, error: err?.message },
     });
 
     return {
       success: false,
       orderId,
       status: "ERROR",
-      message: process.env.NODE_ENV === "production" ? "Payment confirmation could not be finalized." : (error?.message || "Internal payment processing error."),
+      message: process.env.NODE_ENV === "production" ? "Payment confirmation could not be finalized." : (err?.message || "Internal payment processing error."),
     };
   }
+
 }

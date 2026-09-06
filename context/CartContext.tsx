@@ -43,17 +43,18 @@ type CartContextType = {
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-
-  useEffect(() => {
+  const [items, setItems] = useState<CartItem[]>(() => {
+    if (typeof window === "undefined") return [];
     try {
       const saved = localStorage.getItem("eyenova_cart");
-      if (saved) setItems(JSON.parse(saved));
+      return saved ? JSON.parse(saved) : [];
     } catch (e) {
       console.error("Failed to load cart from localStorage", e);
+      return [];
     }
-  }, []);
+  });
+  const [isCartOpen, setIsCartOpen] = useState(false);
+
 
   useEffect(() => {
     try {

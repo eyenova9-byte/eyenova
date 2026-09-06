@@ -1,0 +1,29 @@
+﻿id: eyenova-inventory-idor-protection
+
+info:
+  name: EyeNova Inventory Manipulation Protection
+  author: eyenova-security-team
+  severity: high
+  description: Verifies that unauthorized actors cannot manipulate store inventory or stock counts via /api/inventory/adjust without admin authorization.
+  tags: idor,inventory,access-control,owasp-a01
+
+http:
+  - method: POST
+    path:
+      - "{{BaseURL}}/api/inventory/adjust"
+    headers:
+      Content-Type: application/json
+    body: '{"productId":"prod-test","delta":-9999,"reason":"Hacked adjustment"}'
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 401
+
+      - type: word
+        part: body
+        words:
+          - "Unauthorized"
+          - "Admin"
+        condition: or

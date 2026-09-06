@@ -1,0 +1,33 @@
+﻿id: eyenova-cors-origin-verification
+
+info:
+  name: EyeNova CORS Origin Security Verification
+  author: eyenova-security-team
+  severity: medium
+  description: Verifies that arbitrary malicious Origin headers do not receive permissive wildcard Access-Control-Allow-Origin headers.
+  tags: cors,headers,misconfiguration,owasp-a05
+
+http:
+  - method: OPTIONS
+    path:
+      - "{{BaseURL}}/api/orders/checkout"
+    headers:
+      Origin: "https://malicious-phishing-attacker.com"
+      Access-Control-Request-Method: "POST"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+          - 204
+          - 400
+          - 403
+        condition: or
+
+      - type: word
+        negative: true
+        part: header
+        words:
+          - "Access-Control-Allow-Origin: *"
+          - "Access-Control-Allow-Origin: https://malicious-phishing-attacker.com"

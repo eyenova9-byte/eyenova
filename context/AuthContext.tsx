@@ -23,30 +23,27 @@ type AuthContextType = {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
-  const [user, setUser] = useState<UserProfile | null>(null);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-
-  useEffect(() => {
+  const [user, setUser] = useState<UserProfile | null>(() => {
+    if (typeof window === "undefined") return null;
     try {
       const saved = localStorage.getItem("eyenova_user");
-      if (saved) {
-        setUser(JSON.parse(saved));
-      } else {
-        // Default guest / demo Qatar customer
-        const demoUser: UserProfile = {
-          id: "usr-demo-qat",
-          phone: "+974 5512 3456",
-          fullName: "Fatima Al-Kuwari",
-          email: "fatima.alkuwari@example.qa",
-          role: "CUSTOMER",
-        };
-        setUser(demoUser);
-        localStorage.setItem("eyenova_user", JSON.stringify(demoUser));
-      }
+      if (saved) return JSON.parse(saved);
+      const demoUser: UserProfile = {
+        id: "usr-demo-qat",
+        phone: "+974 5512 3456",
+        fullName: "Fatima Al-Kuwari",
+        email: "fatima.alkuwari@example.qa",
+        role: "CUSTOMER",
+      };
+      localStorage.setItem("eyenova_user", JSON.stringify(demoUser));
+      return demoUser;
     } catch (e) {
       console.error("Failed to load user session", e);
+      return null;
     }
-  }, []);
+  });
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
 
   const sendOtp = async (phone: string) => {
     try {

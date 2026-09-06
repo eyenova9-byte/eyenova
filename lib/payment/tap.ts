@@ -113,9 +113,10 @@ export async function createTapCharge(params: CreateTapChargeParams): Promise<{ 
 
     if (!response.ok || !data.id) {
       console.error("[TAP CHARGE ERROR]", data);
+      const errDetail = (data as unknown as { errors?: Array<{ description?: string }> })?.errors?.[0]?.description;
       return {
         success: false,
-        error: (data as any)?.errors?.[0]?.description || "Failed to initialize Tap checkout session.",
+        error: errDetail || "Failed to initialize Tap checkout session.",
       };
     }
 
@@ -125,11 +126,12 @@ export async function createTapCharge(params: CreateTapChargeParams): Promise<{ 
       chargeId: data.id,
       checkoutUrl: redirectUrl,
     };
-  } catch (err: any) {
-    console.error("[TAP API EXCEPTION]", err);
+  } catch (err: unknown) {
+    const error = err as Error;
+    console.error("[TAP API EXCEPTION]", error);
     return {
       success: false,
-      error: err.message || "Network error connecting to Tap Payments API.",
+      error: error.message || "Network error connecting to Tap Payments API.",
     };
   }
 }
@@ -143,7 +145,7 @@ export async function verifyTapTransaction(chargeId: string): Promise<{
   status: string;
   amount: number;
   orderId?: string;
-  raw?: any;
+  raw?: unknown;
 }> {
   const secretKey = process.env.TAP_SECRET_KEY;
 
@@ -188,20 +190,15 @@ export async function verifyTapTransaction(chargeId: string): Promise<{
 
 /**
  * Webhook HMAC Signature Verification for Tap Payments
+ * Strict Fail-Closed: Never allows forged or unverified signatures under any circumstances.
  */
 export function verifyTapWebhookSignature(rawBody: string, incomingSignature: string | null): boolean {
   const webhookSecret = process.env.TAP_WEBHOOK_SECRET;
 
-  // In local development / test without webhook secret configured, permit if deliberate test
-  if (!webhookSecret) {
-    if (process.env.NODE_ENV !== "production") {
-      console.warn("[TAP WARNING] TAP_WEBHOOK_SECRET not configured. Allowing test payload in development.");
-      return true;
+  if (!webhookSecret || !incomingSignature) {
+    if (!webhookSecret) {
+      console.error("[TAP CRITICAL] TAP_WEBHOOK_SECRET is not configured. Rejecting webhook by default (fail-closed).");
     }
-    return false;
-  }
-
-  if (!incomingSignature) {
     return false;
   }
 
@@ -223,3 +220,4 @@ export function verifyTapWebhookSignature(rawBody: string, incomingSignature: st
     return false;
   }
 }
+

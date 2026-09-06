@@ -83,11 +83,12 @@ export async function createSkipCashPayment(params: CreateSkipCashParams): Promi
       paymentId: data.resultObj.paymentId,
       paymentUrl: data.resultObj.payUrl,
     };
-  } catch (err: any) {
-    console.error("[SKIPCASH API EXCEPTION]", err);
+  } catch (err: unknown) {
+    const error = err as Error;
+    console.error("[SKIPCASH API EXCEPTION]", error);
     return {
       success: false,
-      error: err.message || "Network error connecting to SkipCash API.",
+      error: error.message || "Network error connecting to SkipCash API.",
     };
   }
 }
@@ -100,7 +101,7 @@ export async function verifySkipCashPayment(paymentId: string): Promise<{
   status: string;
   amount: number;
   orderId?: string;
-  raw?: any;
+  raw?: unknown;
 }> {
   const secretKey = process.env.SKIPCASH_SECRET_KEY;
   const clientId = process.env.SKIPCASH_CLIENT_ID;
@@ -118,25 +119,23 @@ export async function verifySkipCashPayment(paymentId: string): Promise<{
     const response = await fetch(`${SKIPCASH_BASE_URL}/payments/${paymentId}`, {
       method: "GET",
       headers: {
-        "x-client-id": clientId,
         Authorization: secretKey,
       },
     });
 
     if (!response.ok) {
-      console.error(`[SKIPCASH VERIFY ERROR] Status ${response.status}`);
+      console.error(`[SKIPCASH VERIFY ERROR] SkipCash API returned status ${response.status}`);
       return { verified: false, status: "FAILED", amount: 0 };
     }
 
     const data = await response.json();
-    const resultObj = data.resultObj;
-    const isPaid = resultObj?.statusId === 2 || resultObj?.status === "Paid";
+    const isPaid = data.resultObj?.statusId === 2 || data.resultObj?.status === "Paid";
 
     return {
       verified: isPaid,
-      status: isPaid ? "PAID" : "PENDING",
-      amount: Number(resultObj?.amount || 0),
-      orderId: resultObj?.uid,
+      status: data.resultObj?.status || "UNKNOWN",
+      amount: Number(data.resultObj?.amount || 0),
+      orderId: data.resultObj?.transactionId,
       raw: data,
     };
   } catch (error) {
@@ -147,19 +146,15 @@ export async function verifySkipCashPayment(paymentId: string): Promise<{
 
 /**
  * Webhook Signature Verification for SkipCash Qatar
+ * Strict Fail-Closed: Never allows forged or unverified signatures under any circumstances.
  */
 export function verifySkipCashWebhookSignature(rawBody: string, incomingSignature: string | null): boolean {
-  const webhookSecret = process.env.SKIPCASH_WEBHOOK_SECRET;
+  const webhookSecret = process.env.SKIPCASH_WEBHOOK_SECRET || process.env.SKIPCASH_SECRET_KEY;
 
-  if (!webhookSecret) {
-    if (process.env.NODE_ENV !== "production") {
-      console.warn("[SKIPCASH WARNING] SKIPCASH_WEBHOOK_SECRET not configured. Allowing in development.");
-      return true;
+  if (!webhookSecret || !incomingSignature) {
+    if (!webhookSecret) {
+      console.error("[SKIPCASH CRITICAL] SKIPCASH_WEBHOOK_SECRET is not configured. Rejecting webhook by default (fail-closed).");
     }
-    return false;
-  }
-
-  if (!incomingSignature) {
     return false;
   }
 

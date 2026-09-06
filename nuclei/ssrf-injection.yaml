@@ -1,0 +1,32 @@
+﻿id: eyenova-ssrf-protection-verification
+
+info:
+  name: EyeNova SSRF & Internal IP Scan Protection
+  author: eyenova-security-team
+  severity: high
+  description: Verifies that requests attempting to use the application to query internal loopback (127.0.0.1) or cloud metadata (169.254.169.254) are rejected.
+  tags: ssrf,internal-scan,owasp-a10
+
+http:
+  - method: GET
+    path:
+      - "{{BaseURL}}/api/products?imageUrl=http://169.254.169.254/latest/meta-data/"
+      - "{{BaseURL}}/api/products?imageUrl=http://127.0.0.1:8080/admin"
+      - "{{BaseURL}}/api/products?callbackUrl=http://10.0.0.1/internal"
+
+    matchers-condition: and
+    matchers:
+      - type: status
+        status:
+          - 200
+          - 400
+          - 403
+        condition: or
+
+      - type: word
+        negative: true
+        part: body
+        words:
+          - "ami-id"
+          - "instance-id"
+          - "security-credentials"

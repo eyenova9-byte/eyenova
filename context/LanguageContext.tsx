@@ -14,14 +14,16 @@ type LanguageContextType = {
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [lang, setLangState] = useState<Language>("en");
-
-  useEffect(() => {
-    const saved = localStorage.getItem("eyenova_lang") as Language;
-    if (saved === "ar" || saved === "en") {
-      setLangState(saved);
+  const [lang, setLangState] = useState<Language>(() => {
+    if (typeof window === "undefined") return "en";
+    try {
+      const saved = localStorage.getItem("eyenova_lang") as Language;
+      return saved === "ar" || saved === "en" ? saved : "en";
+    } catch {
+      return "en";
     }
-  }, []);
+  });
+
 
   const setLang = (newLang: Language) => {
     setLangState(newLang);
