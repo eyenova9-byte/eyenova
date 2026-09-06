@@ -6,6 +6,7 @@ import {
   clearFailedAttempts,
   createAdminSession,
 } from "@/lib/authGuard";
+import { AdminAuthSchema } from "@/lib/validations/schemas";
 
 export async function POST(request: Request) {
   try {
@@ -23,15 +24,16 @@ export async function POST(request: Request) {
       );
     }
 
-    const { username, pinCode } = await request.json();
-
-    if (!pinCode || typeof pinCode !== "string") {
+    const body = await request.json();
+    const validation = AdminAuthSchema.safeParse(body);
+    if (!validation.success) {
       return NextResponse.json(
-        { success: false, error: "Valid PIN code is required" },
+        { success: false, error: "A valid 4-digit PIN code is required." },
         { status: 400 }
       );
     }
 
+    const { username, pinCode } = validation.data;
     const cleanIdentifier = (username || "admin").trim().toLowerCase();
 
     // 2. Database account lookup

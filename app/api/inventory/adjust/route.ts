@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { verifyAdminRequest } from "@/lib/authGuard";
+import { InventoryAdjustSchema } from "@/lib/validations/schemas";
 
 export async function POST(request: Request) {
   try {
@@ -11,7 +12,20 @@ export async function POST(request: Request) {
         { status: 401 }
       );
     }
+
     const body = await request.json();
+    const validation = InventoryAdjustSchema.safeParse(body);
+    if (!validation.success) {
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Invalid inventory adjustment data",
+          details: validation.error.flatten().fieldErrors,
+        },
+        { status: 400 }
+      );
+    }
+
     const {
       productId,
       storeId,
@@ -19,7 +33,7 @@ export async function POST(request: Request) {
       deltaQuantity,
       reason,
       note,
-    } = body;
+    } = validation.data;
 
     if (!productId) {
       return NextResponse.json(

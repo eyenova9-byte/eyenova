@@ -36,54 +36,93 @@ export default function CheckoutPage() {
   const [isOrdered, setIsOrdered] = useState(false);
   const [orderId, setOrderId] = useState("");
   const [paymentResult, setPaymentResult] = useState<PaymentResult | null>(null);
+  const [loadingCheckout, setLoadingCheckout] = useState(false);
+  const [checkoutError, setCheckoutError] = useState("");
+  const [checkoutSession, setCheckoutSession] = useState<{
+    checkoutUrl?: string;
+    orderNumber?: string;
+    gateway?: "TAP" | "SKIPCASH";
+  } | null>(null);
 
   const deliveryFee = subtotalQar >= 250 ? 0 : 15;
   const grandTotal = subtotalQar + deliveryFee;
 
-  const handleStartCheckout = (e: React.FormEvent) => {
+  const handleStartCheckout = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (paymentMethod === "COD") {
-      // Process Cash on Delivery directly
-      submitFinalOrder({
-        success: true,
-        transactionId: `COD-${Date.now()}`,
-        paymentReference: "CASH_ON_DELIVERY",
-        paidAmountQar: grandTotal,
-        paymentMethod: "COD",
-        status: "PAID",
-      });
-    } else {
-      // Launch Real Online Payment Gateway (QPay / Card)
-      setIsGatewayOpen(true);
-    }
-  };
+    setCheckoutError("");
+    setLoadingCheckout(true);
 
-  const submitFinalOrder = async (payResult: PaymentResult) => {
     try {
-      const res = await fetch("/api/orders", {
+      const cleanPhone = phone.trim().replace(/\s+/g, "");
+      const res = await fetch("/api/orders/checkout", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          customerName: fullName,
-          customerPhone: phone,
-          customerEmail: email,
-          deliveryZone: district,
-          shippingAddress: { district, zoneNo, streetNo, buildingNo },
-          paymentMethod: payResult.paymentMethod,
-          paymentReference: payResult.paymentReference,
-          transactionId: payResult.transactionId,
-          items,
-          subtotalQar,
-          deliveryFeeQar: deliveryFee,
-          totalQar: grandTotal,
+          customerName: fullName.trim() || "Valued Customer",
+          customerPhone: cleanPhone.startsWith("+") ? cleanPhone : `+974${cleanPhone.replace(/^974/, "")}`,
+          customerEmail: email.trim() || undefined,
+          district: district || "Doha",
+          streetAddress: `Zone ${zoneNo || "00"}, Street ${streetNo || "00"}, Building ${buildingNo || "00"}`,
+          paymentMethod: paymentMethod === "COD" ? "CASH_ON_DELIVERY" : paymentMethod === "QPAY_DEBIT" ? "DEBIT_CARD_QPAY" : "CREDIT_CARD",
+          preferredGateway: paymentMethod === "QPAY_DEBIT" ? "SKIPCASH" : "TAP",
+          items: items.map((item) => ({
+            productId: item.productId,
+            quantity: item.quantity,
+            isContactLensOrder: Boolean(item.isContactLens),
+            isPlano: Boolean(item.isPlano),
+            rightEyePower: item.rightEyePower ? Number(item.rightEyePower) : undefined,
+            leftEyePower: item.leftEyePower ? Number(item.leftEyePower) : undefined,
+          })),
         }),
       });
+
       const data = await res.json();
-      setOrderId(data.orderNumber || `EYE-QAT-${Math.floor(100000 + Math.random() * 900000)}`);
+
+      if (!res.ok || !data.success) {
+        setCheckoutError(data.error || "Failed to process checkout. Please check your information.");
+        setLoadingCheckout(false);
+        return;
+      }
+
+      if (data.isCod) {
+        setOrderId(data.orderNumber);
+        setPaymentResult({
+          success: true,
+          transactionId: `COD-${data.orderNumber}`,
+          paymentReference: `COD-${data.orderNumber}`,
+          paymentMethod: "COD",
+          paidAmountQar: data.totalQar,
+          status: "PAID",
+        });
+        setIsOrdered(true);
+        clearCart();
+        return;
+      }
+
+      // Online payment session created
+      setCheckoutSession({
+        checkoutUrl: data.checkoutUrl,
+        orderNumber: data.orderNumber,
+        gateway: data.gateway,
+      });
+      setIsGatewayOpen(true);
     } catch {
-      setOrderId(`EYE-QAT-${Math.floor(100000 + Math.random() * 900000)}`);
+      setCheckoutError("Network error. Please try again.");
+    } finally {
+      setLoadingCheckout(false);
     }
-    setPaymentResult(payResult);
+  };
+
+  const handleOnlinePaymentFinished = (result: any) => {
+    setOrderId(checkoutSession?.orderNumber || `EN-QAT-${Date.now()}`);
+    setPaymentResult({
+      success: true,
+      transactionId: result.transactionId || `TXN-${Date.now()}`,
+      paymentReference: result.paymentReference || "ONLINE-CONFIRMED",
+      paymentMethod: paymentMethod,
+      paidAmountQar: grandTotal,
+      status: "PAID",
+    });
     setIsOrdered(true);
     clearCart();
   };
@@ -373,11 +412,20 @@ export default function CheckoutPage() {
               </div>
             </div>
 
+            {checkoutError && (
+              <div className="p-3 bg-red-50 text-red-700 text-xs font-medium border border-red-200">
+                {checkoutError}
+              </div>
+            )}
+
             <button
               type="submit"
-              className="w-full py-3.5 bg-[#121212] text-white text-[13px] uppercase tracking-[0.06em] font-medium hover:bg-black transition flex items-center justify-center gap-2 cursor-pointer"
+              disabled={loadingCheckout}
+              className="w-full py-3.5 bg-[#121212] text-white text-[13px] uppercase tracking-[0.06em] font-medium hover:bg-black transition flex items-center justify-center gap-2 cursor-pointer disabled:opacity-60"
             >
-              {paymentMethod === "COD" ? (
+              {loadingCheckout ? (
+                <span>Validating Order with Server...</span>
+              ) : paymentMethod === "COD" ? (
                 <>
                   <span>Confirm Order (Cash on Delivery)</span>
                   <ArrowRight size={15} />
@@ -398,11 +446,13 @@ export default function CheckoutPage() {
         isOpen={isGatewayOpen}
         onClose={() => setIsGatewayOpen(false)}
         amountQar={grandTotal}
-        orderNumber={`EN-QAT-${Math.floor(100000 + Math.random() * 900000)}`}
+        orderNumber={checkoutSession?.orderNumber || `EN-QAT-${Math.floor(100000 + Math.random() * 900000)}`}
         customerName={fullName}
         customerPhone={phone}
         paymentType={paymentMethod as "QPAY_DEBIT" | "CREDIT_CARD"}
-        onPaymentSuccess={submitFinalOrder}
+        checkoutUrl={checkoutSession?.checkoutUrl}
+        gatewayName={checkoutSession?.gateway}
+        onPaymentSuccess={handleOnlinePaymentFinished}
       />
     </div>
   );
