@@ -1,0 +1,62 @@
+﻿{
+  "general": {
+    "brand_name": "EyeNova Qatar",
+    "tagline": "Luxury Eyewear & Optical Atelier",
+    "currency": "QAR",
+    "cart": "Bag",
+    "checkout": "Proceed to Checkout",
+    "continue_shopping": "Explore Eyewear",
+    "search": "Search sunglasses, optical frames...",
+    "empty_cart": "Your shopping bag is empty",
+    "view_all": "View Collection",
+    "contact_us": "Contact Atelier",
+    "opening_soon": "Opening Soon in Qatar"
+  },
+  "navigation": {
+    "home": "Home",
+    "shop": "Shop",
+    "sunglasses": "Sunglasses",
+    "eyeglasses": "Eyeglasses",
+    "contact_lenses": "Contact Lenses",
+    "accessories": "Accessories",
+    "virtual_try_on": "Virtual Try-On",
+    "about": "Atelier Story",
+    "faq": "Client Care"
+  },
+  "products": {
+    "add_to_cart": "Add to Bag",
+    "sold_out": "Sold Out",
+    "configure_lenses": "Select Prescription Lenses",
+    "frame_details": "Frame Architecture",
+    "dimensions": "Dimensions",
+    "prescription_lens": "Optical Prescription",
+    "non_prescription": "Frame Only / Fashion",
+    "single_vision": "Single Vision (+150 QAR)",
+    "progressive": "Progressive Multifocal (+350 QAR)",
+    "blue_light": "Blue Light Filter (+80 QAR)",
+    "upload_prescription": "Upload Prescription Note (Rx)",
+    "sphere_od": "Right Eye (OD Sphere)",
+    "sphere_os": "Left Eye (OS Sphere)",
+    "cylinder": "Cylinder (CYL)",
+    "axis": "Axis",
+    "pd": "Pupillary Distance (PD mm)",
+    "whatsapp_inquire": "Inquire via WhatsApp",
+    "try_on_cta": "Try On with Camera"
+  },
+  "cart": {
+    "title": "Your Luxury Selection",
+    "subtotal": "Subtotal",
+    "shipping_note": "Taxes & Doha delivery calculated at checkout",
+    "lens_option": "Lens Customization",
+    "rx_file": "Prescription Attachment"
+  },
+  "footer": {
+    "support_title": "Concierge Care",
+    "location_title": "Flagship Boutique",
+    "location_desc": "Opening Soon in Doha, Qatar",
+    "rights": "All rights reserved. EyeNova Qatar.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "refund": "Exchange & Return Policy"
+  }
+}

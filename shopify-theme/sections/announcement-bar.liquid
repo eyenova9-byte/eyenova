@@ -1,0 +1,22 @@
+﻿<div class="announcement-bar">
+  <span class="announcement-badge">
+    {{ 'general.opening_soon' | t }}
+  </span>
+  <span>
+    {{ section.settings.announcement_text | default: "EyeNova Luxury Optical Atelier • Complimentary Doha Concierge Delivery" }}
+  </span>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement Bar",
+  "settings": [
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Notice Text",
+      "default": "EyeNova Luxury Optical Atelier • Complimentary Doha Concierge Delivery"
+    }
+  ]
+}
+{% endschema %}

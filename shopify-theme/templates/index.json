@@ -1,0 +1,33 @@
+﻿{
+  "sections": {
+    "hero": {
+      "type": "hero-banner",
+      "settings": {
+        "badge_text": "The Qatar Optical Atelier",
+        "heading": "Elevate Your Vision With Luxury Eyewear",
+        "subheading": "Exquisite craftsmanship, bespoke optical lenses, and international designer eyewear curated exclusively for Qatar.",
+        "button_text": "Explore Eyewear",
+        "button_link": "/collections/all"
+      }
+    },
+    "featured": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Iconic Frames & Sunglasses",
+        "subtitle": "Handcrafted Italian acetate, titanium craftsmanship, and precision optical engineering.",
+        "products_to_show": 6
+      }
+    },
+    "services": {
+      "type": "optical-services",
+      "settings": {
+        "heading": "The EyeNova Experience"
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "featured",
+    "services"
+  ]
+}

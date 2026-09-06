@@ -1,0 +1,110 @@
+﻿<section class="featured-collection-section" style="padding: 5rem 2rem; max-width: 1360px; margin: 0 auto;">
+  <div style="text-align: center; margin-bottom: 3.5rem;">
+    <span style="color: var(--color-accent); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;">
+      Curated Selection
+    </span>
+    <h2 style="font-size: clamp(2rem, 3.5vw, 2.75rem); margin-top: 0.5rem; margin-bottom: 1rem;">
+      {{ section.settings.title | default: "Iconic Frames & Sunglasses" }}
+    </h2>
+    <p style="color: var(--color-muted); max-width: 600px; margin: 0 auto; font-size: 1rem;">
+      {{ section.settings.subtitle | default: "Handcrafted Italian acetate, titanium craftsmanship, and precision optical engineering." }}
+    </p>
+  </div>
+
+  <div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem;">
+    {% assign collection = collections[section.settings.collection] %}
+    {% if collection != blank and collection.products.size > 0 %}
+      {% for product in collection.products limit: section.settings.products_to_show %}
+        {% render 'product-card', product: product %}
+      {% endfor %}
+    {% else %}
+      {% comment %} Default / Demo Cards when store has no products yet {% endcomment %}
+      <div class="product-card">
+        <div class="product-card-image" style="display: flex; align-items: center; justify-content: center; background: #f4eff7; color: var(--color-primary); font-family: var(--font-serif); font-size: 1.2rem;">
+          Aviator Gold Noir
+        </div>
+        <div class="product-card-info">
+          <div style="font-size: 0.75rem; color: var(--color-muted); text-transform: uppercase;">EyeNova Atelier</div>
+          <h3 class="product-card-title">Aviator Gold Noir</h3>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 1rem;">
+            <span class="product-card-price">650 {{ 'general.currency' | t }}</span>
+            <span class="btn btn-outline" style="padding: 0.45rem 0.9rem; font-size: 0.8rem;">{{ 'general.view_all' | t }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-image" style="display: flex; align-items: center; justify-content: center; background: #fdfbf7; color: var(--color-primary); font-family: var(--font-serif); font-size: 1.2rem;">
+          Titanium Round Frame
+        </div>
+        <div class="product-card-info">
+          <div style="font-size: 0.75rem; color: var(--color-muted); text-transform: uppercase;">EyeNova Atelier</div>
+          <h3 class="product-card-title">Titanium Round Frame</h3>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 1rem;">
+            <span class="product-card-price">750 {{ 'general.currency' | t }}</span>
+            <span class="btn btn-outline" style="padding: 0.45rem 0.9rem; font-size: 0.8rem;">{{ 'general.view_all' | t }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-card">
+        <div class="product-card-image" style="display: flex; align-items: center; justify-content: center; background: #f4eff7; color: var(--color-primary); font-family: var(--font-serif); font-size: 1.2rem;">
+          Geometric Square Cat-Eye
+        </div>
+        <div class="product-card-info">
+          <div style="font-size: 0.75rem; color: var(--color-muted); text-transform: uppercase;">EyeNova Atelier</div>
+          <h3 class="product-card-title">Geometric Square Cat-Eye</h3>
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 1rem;">
+            <span class="product-card-price">580 {{ 'general.currency' | t }}</span>
+            <span class="btn btn-outline" style="padding: 0.45rem 0.9rem; font-size: 0.8rem;">{{ 'general.view_all' | t }}</span>
+          </div>
+        </div>
+      </div>
+    {% endif %}
+  </div>
+
+  <div style="text-align: center; margin-top: 3.5rem;">
+    <a href="/collections/all" class="btn btn-primary" style="padding: 1rem 2.5rem;">
+      {{ 'general.view_all' | t }}
+    </a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Collection",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Heading",
+      "default": "Iconic Frames & Sunglasses"
+    },
+    {
+      "type": "text",
+      "id": "subtitle",
+      "label": "Subheading",
+      "default": "Handcrafted Italian acetate, titanium craftsmanship, and precision optical engineering."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 6,
+      "label": "Number of products to show"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Featured Collection"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,21 @@
+﻿<section class="main-page-section" style="padding: 5rem 2rem; max-width: 900px; margin: 0 auto;">
+  <div style="text-align: center; margin-bottom: 3rem;">
+    <span style="color: var(--color-accent); font-weight: 700; font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase;">
+      EyeNova Atelier
+    </span>
+    <h1 style="font-family: var(--font-serif); font-size: clamp(2.2rem, 4vw, 3.2rem); color: var(--color-primary); margin-top: 0.5rem;">
+      {{ page.title }}
+    </h1>
+  </div>
+
+  <div class="page-content" style="background: #ffffff; border: 1px solid var(--color-border); border-radius: 12px; padding: 3rem; line-height: 1.9; font-size: 1.05rem; color: #333333; box-shadow: var(--shadow-subtle);">
+    {{ page.content }}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Page Content",
+  "settings": []
+}
+{% endschema %}

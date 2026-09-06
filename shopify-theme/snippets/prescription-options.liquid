@@ -1,0 +1,78 @@
+﻿{% comment %}
+  EyeNova Qatar — Optical Prescription & Lens Configuration Snippet
+  Saves details directly to Shopify Line Item Properties.
+{% endcomment %}
+
+<div class="rx-customizer-box">
+  <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+    <h4 style="font-family: var(--font-serif); font-size: 1.1rem; color: var(--color-primary); margin: 0;">
+      {{ 'products.configure_lenses' | t }}
+    </h4>
+    <span style="font-size: 0.75rem; color: var(--color-accent); font-weight: 700; text-transform: uppercase;">
+      Atelier Lens Lab
+    </span>
+  </div>
+
+  <p style="font-size: 0.85rem; color: var(--color-muted); margin-bottom: 1rem;">
+    Select your required vision correction. Lenses are precision crafted in Qatar.
+  </p>
+
+  <!-- Hidden field that submits selected lens to Shopify cart item properties -->
+  <input type="hidden" id="selected-lens-type" name="properties[Lens Type]" value="{{ 'products.non_prescription' | t }}">
+
+  <div class="rx-lens-types" style="margin-bottom: 1.25rem;">
+    <span class="rx-option-pill active" data-value="{{ 'products.non_prescription' | t }}">
+      {{ 'products.non_prescription' | t }}
+    </span>
+    <span class="rx-option-pill" data-value="{{ 'products.single_vision' | t }}">
+      {{ 'products.single_vision' | t }}
+    </span>
+    <span class="rx-option-pill" data-value="{{ 'products.progressive' | t }}">
+      {{ 'products.progressive' | t }}
+    </span>
+    <span class="rx-option-pill" data-value="{{ 'products.blue_light' | t }}">
+      {{ 'products.blue_light' | t }}
+    </span>
+  </div>
+
+  <!-- Manual Prescription Values (Shown when prescription lens is chosen) -->
+  <div id="manual-rx-fields" style="display: none; padding-top: 1rem; border-top: 1px dashed var(--color-border);">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+      <div>
+        <label style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.25rem;">
+          {{ 'products.sphere_od' | t }}
+        </label>
+        <input type="text" name="properties[OD Right Sphere]" placeholder="-1.50" style="width: 100%; padding: 0.6rem; border: 1px solid var(--color-border); border-radius: 4px;">
+      </div>
+      <div>
+        <label style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.25rem;">
+          {{ 'products.sphere_os' | t }}
+        </label>
+        <input type="text" name="properties[OS Left Sphere]" placeholder="-1.25" style="width: 100%; padding: 0.6rem; border: 1px solid var(--color-border); border-radius: 4px;">
+      </div>
+    </div>
+
+    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.75rem; margin-bottom: 1rem;">
+      <div>
+        <label style="display: block; font-size: 0.75rem; font-weight: 600; margin-bottom: 0.25rem;">{{ 'products.cylinder' | t }}</label>
+        <input type="text" name="properties[Cylinder CYL]" placeholder="-0.50" style="width: 100%; padding: 0.6rem; border: 1px solid var(--color-border); border-radius: 4px;">
+      </div>
+      <div>
+        <label style="display: block; font-size: 0.75rem; font-weight: 600; margin-bottom: 0.25rem;">{{ 'products.axis' | t }}</label>
+        <input type="text" name="properties[Axis]" placeholder="180" style="width: 100%; padding: 0.6rem; border: 1px solid var(--color-border); border-radius: 4px;">
+      </div>
+      <div>
+        <label style="display: block; font-size: 0.75rem; font-weight: 600; margin-bottom: 0.25rem;">{{ 'products.pd' | t }}</label>
+        <input type="text" name="properties[Pupillary Distance PD]" placeholder="63" style="width: 100%; padding: 0.6rem; border: 1px solid var(--color-border); border-radius: 4px;">
+      </div>
+    </div>
+
+    <!-- Rx Attachment / Upload Option -->
+    <div style="margin-top: 0.75rem;">
+      <label style="display: block; font-size: 0.8rem; font-weight: 600; margin-bottom: 0.25rem;">
+        {{ 'products.upload_prescription' | t }}
+      </label>
+      <input type="text" name="properties[Prescription Attachment Note]" placeholder="Optionally note your clinic or optometrist name" style="width: 100%; padding: 0.6rem; border: 1px solid var(--color-border); border-radius: 4px;">
+    </div>
+  </div>
+</div>

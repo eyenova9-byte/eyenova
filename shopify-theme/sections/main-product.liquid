@@ -1,0 +1,91 @@
+﻿<section class="main-product-section" style="padding: 4rem 2rem; max-width: 1360px; margin: 0 auto;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;">
+    
+    <!-- Product Gallery -->
+    <div>
+      <div style="background: #ffffff; border: 1px solid var(--color-border); border-radius: 12px; overflow: hidden; margin-bottom: 1rem; box-shadow: var(--shadow-subtle);">
+        {% if product.featured_image %}
+          <img src="{{ product.featured_image | img_url: '800x800', crop: 'center' }}" alt="{{ product.title | escape }}" style="width: 100%; height: auto; display: block;">
+        {% else %}
+          <div style="height: 450px; background: #fdfbf7; display: flex; align-items: center; justify-content: center; font-family: var(--font-serif); font-size: 1.5rem; color: var(--color-primary);">
+            EyeNova Frame Gallery
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Thumbnails -->
+      {% if product.images.size > 1 %}
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem;">
+          {% for img in product.images %}
+            <img src="{{ img | img_url: '200x200', crop: 'center' }}" alt="{{ product.title }}" style="width: 100%; border: 1px solid var(--color-border); border-radius: 6px; cursor: pointer;">
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <!-- Product Info & Optical Customizer Form -->
+    <div>
+      <div style="font-size: 0.8rem; color: var(--color-accent); font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.5rem;">
+        {{ product.vendor | default: "EyeNova Qatar" }}
+      </div>
+
+      <h1 style="font-size: clamp(2rem, 3.5vw, 2.75rem); margin-bottom: 0.75rem; color: var(--color-primary);">
+        {{ product.title }}
+      </h1>
+
+      <div style="font-size: 1.6rem; font-weight: 700; color: var(--color-primary); margin-bottom: 1.5rem;">
+        {{ product.price | money_without_trailing_zeros }} {{ 'general.currency' | t }}
+      </div>
+
+      <div style="font-size: 0.95rem; color: var(--color-muted); line-height: 1.8; margin-bottom: 2rem;">
+        {{ product.description }}
+      </div>
+
+      {% form 'product', product, id: 'AddToCartForm', class: 'product-form' %}
+        <!-- Hidden variant selection -->
+        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+
+        <!-- Prescription & Optical Lens Customizer Snippet -->
+        {% render 'prescription-options' %}
+
+        <!-- Quantity & Add to Cart -->
+        <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
+          <input type="number" name="quantity" value="1" min="1" style="width: 70px; padding: 0.85rem; border: 1px solid var(--color-border); border-radius: 6px; font-weight: 700; text-align: center;">
+          
+          <button type="submit" class="btn btn-primary" style="flex-grow: 1; padding: 1rem;">
+            {{ 'products.add_to_cart' | t }}
+          </button>
+        </div>
+      {% endform %}
+
+      <!-- WhatsApp Concierge Support -->
+      <div style="margin-top: 1.5rem; text-align: center;">
+        <a href="https://wa.me/97455123456?text=Hello%20EyeNova%20Qatar,%20I%20would%20like%20to%20inquire%20about%20{{ product.title | url_encode }}" target="_blank" class="btn btn-outline" style="width: 100%; padding: 0.85rem;">
+          {{ 'products.whatsapp_inquire' | t }}
+        </a>
+      </div>
+
+      <!-- Specifications Box -->
+      <div style="margin-top: 2.5rem; padding: 1.5rem; background: #ffffff; border: 1px solid var(--color-border); border-radius: 8px;">
+        <h4 style="font-family: var(--font-serif); font-size: 1.1rem; color: var(--color-primary); margin-bottom: 1rem;">
+          {{ 'products.frame_details' | t }}
+        </h4>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; font-size: 0.85rem;">
+          <div><strong style="color: var(--color-muted);">Material:</strong> Premium Mazzucchelli Acetate</div>
+          <div><strong style="color: var(--color-muted);">Hinges:</strong> 5-Barrel Precision German Steel</div>
+          <div><strong style="color: var(--color-muted);">UV Protection:</strong> 100% UVA/UVB Filter</div>
+          <div><strong style="color: var(--color-muted);">Origin:</strong> Designed for Doha, Qatar</div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product Information",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,91 @@
+﻿[
+  {
+    "name": "theme_info",
+    "theme_name": "EyeNova Qatar Luxury Optical",
+    "theme_version": "1.0.0",
+    "theme_author": "EyeNova",
+    "theme_documentation_url": "https://eyenova.com.qa",
+    "theme_support_url": "mailto:support@eyenova.com.qa"
+  },
+  {
+    "name": "Colors & Luxury Aesthetics",
+    "settings": [
+      {
+        "type": "color",
+        "id": "color_primary",
+        "label": "Primary Royal Purple",
+        "default": "#5c2d76"
+      },
+      {
+        "type": "color",
+        "id": "color_accent",
+        "label": "Champagne Gold Accent",
+        "default": "#dfb76c"
+      },
+      {
+        "type": "color",
+        "id": "color_bg",
+        "label": "Background Color",
+        "default": "#fcfbfa"
+      },
+      {
+        "type": "color",
+        "id": "color_text",
+        "label": "Text Color",
+        "default": "#1a1a1a"
+      },
+      {
+        "type": "color",
+        "id": "color_card_bg",
+        "label": "Card Background",
+        "default": "#ffffff"
+      }
+    ]
+  },
+  {
+    "name": "Qatar Concierge & Support",
+    "settings": [
+      {
+        "type": "text",
+        "id": "whatsapp_number",
+        "label": "WhatsApp Support Number",
+        "default": "+974 5512 3456"
+      },
+      {
+        "type": "text",
+        "id": "support_email",
+        "label": "Support Email",
+        "default": "support@eyenova.com.qa"
+      },
+      {
+        "type": "text",
+        "id": "info_email",
+        "label": "General Info Email",
+        "default": "info@eyenova.com.qa"
+      },
+      {
+        "type": "text",
+        "id": "opening_soon_badge",
+        "label": "Announcement / Opening Notice",
+        "default": "Opening Soon in Qatar • Free Delivery Across Doha"
+      }
+    ]
+  },
+  {
+    "name": "Prescription & Lens Customization",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_prescription_upload",
+        "label": "Allow Prescription File Uploads",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_manual_rx",
+        "label": "Allow Manual Sphere/Cylinder Entry",
+        "default": true
+      }
+    ]
+  }
+]

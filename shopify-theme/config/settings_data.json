@@ -1,0 +1,15 @@
+﻿{
+  "current": {
+    "color_primary": "#5c2d76",
+    "color_accent": "#dfb76c",
+    "color_bg": "#fcfbfa",
+    "color_text": "#1a1a1a",
+    "color_card_bg": "#ffffff",
+    "whatsapp_number": "+974 5512 3456",
+    "support_email": "support@eyenova.com.qa",
+    "info_email": "info@eyenova.com.qa",
+    "opening_soon_badge": "قريباً في قطر • Opening Soon in Qatar",
+    "enable_prescription_upload": true,
+    "enable_manual_rx": true
+  }
+}

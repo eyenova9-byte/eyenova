@@ -1,0 +1,79 @@
+﻿<footer class="site-footer">
+  <div class="footer-inner">
+    <!-- Col 1: Brand Info -->
+    <div>
+      <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem;">
+        {% render 'icon-eye-logo' %}
+        <span style="font-family: var(--font-serif); font-size: 1.5rem; font-weight: 700; color: #ffffff; letter-spacing: 0.08em; text-transform: uppercase;">
+          EyeNova
+        </span>
+      </div>
+      <p style="font-size: 0.9rem; color: #a39ca8; line-height: 1.8; margin-bottom: 1.5rem; max-width: 340px;">
+        {{ 'general.tagline' | t }} — Curating the world's most prestigious eyewear and bespoke ophthalmic lenses for Qatar.
+      </p>
+      <div style="display: inline-block; background: rgba(223, 183, 108, 0.15); border: 1px solid rgba(223, 183, 108, 0.4); color: var(--color-accent); padding: 0.35rem 0.8rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">
+        {{ 'general.opening_soon' | t }}
+      </div>
+    </div>
+
+    <!-- Col 2: Navigation -->
+    <div>
+      <h4 style="font-family: var(--font-serif); color: #ffffff; font-size: 1.1rem; margin-bottom: 1.25rem;">Explore</h4>
+      <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.9rem;">
+        <li><a href="/collections/sunglasses" style="color: #a39ca8; text-decoration: none;">{{ 'navigation.sunglasses' | t }}</a></li>
+        <li><a href="/collections/eyeglasses" style="color: #a39ca8; text-decoration: none;">{{ 'navigation.eyeglasses' | t }}</a></li>
+        <li><a href="/collections/contact-lenses" style="color: #a39ca8; text-decoration: none;">{{ 'navigation.contact_lenses' | t }}</a></li>
+        <li><a href="/pages/about" style="color: #a39ca8; text-decoration: none;">{{ 'navigation.about' | t }}</a></li>
+        <li><a href="/pages/faq" style="color: #a39ca8; text-decoration: none;">{{ 'navigation.faq' | t }}</a></li>
+      </ul>
+    </div>
+
+    <!-- Col 3: Policies -->
+    <div>
+      <h4 style="font-family: var(--font-serif); color: #ffffff; font-size: 1.1rem; margin-bottom: 1.25rem;">Legal & Care</h4>
+      <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.9rem;">
+        <li><a href="/policies/privacy-policy" style="color: #a39ca8; text-decoration: none;">{{ 'footer.privacy' | t }}</a></li>
+        <li><a href="/policies/terms-of-service" style="color: #a39ca8; text-decoration: none;">{{ 'footer.terms' | t }}</a></li>
+        <li><a href="/policies/refund-policy" style="color: #a39ca8; text-decoration: none;">{{ 'footer.refund' | t }}</a></li>
+      </ul>
+    </div>
+
+    <!-- Col 4: Qatar Concierge -->
+    <div>
+      <h4 style="font-family: var(--font-serif); color: #ffffff; font-size: 1.1rem; margin-bottom: 1.25rem;">
+        {{ 'footer.support_title' | t }}
+      </h4>
+      <div style="display: flex; flex-direction: column; gap: 0.85rem; font-size: 0.9rem; color: #a39ca8;">
+        <div>
+          <span style="display: block; font-size: 0.75rem; color: var(--color-accent); text-transform: uppercase; font-weight: 700;">WhatsApp Concierge</span>
+          <a href="https://wa.me/97455123456" target="_blank" style="color: #ffffff; text-decoration: none; font-weight: 600;">+974 5512 3456</a>
+        </div>
+        <div>
+          <span style="display: block; font-size: 0.75rem; color: var(--color-accent); text-transform: uppercase; font-weight: 700;">Client Support</span>
+          <a href="mailto:support@eyenova.com.qa" style="color: #ffffff; text-decoration: none;">support@eyenova.com.qa</a>
+        </div>
+        <div>
+          <span style="display: block; font-size: 0.75rem; color: var(--color-accent); text-transform: uppercase; font-weight: 700;">General Inquiries</span>
+          <a href="mailto:info@eyenova.com.qa" style="color: #ffffff; text-decoration: none;">info@eyenova.com.qa</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div>
+      &copy; {{ 'now' | date: "%Y" }} {{ 'footer.rights' | t }}
+    </div>
+    <div style="display: flex; gap: 1.5rem;">
+      <span>Doha, State of Qatar</span>
+      <span style="color: var(--color-accent);">100% PCI-DSS Certified Checkout</span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": []
+}
+{% endschema %}

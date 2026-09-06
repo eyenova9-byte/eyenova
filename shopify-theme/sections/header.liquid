@@ -1,0 +1,42 @@
+﻿<header class="site-header">
+  <div class="header-inner">
+    <!-- Brand Logo -->
+    <a href="/" class="brand-logo-link">
+      {% render 'icon-eye-logo' %}
+      <span class="brand-title">EyeNova</span>
+    </a>
+
+    <!-- Navigation Menu -->
+    <nav>
+      <ul class="nav-links">
+        <li><a href="/" class="nav-link">{{ 'navigation.home' | t }}</a></li>
+        <li><a href="/collections/sunglasses" class="nav-link">{{ 'navigation.sunglasses' | t }}</a></li>
+        <li><a href="/collections/eyeglasses" class="nav-link">{{ 'navigation.eyeglasses' | t }}</a></li>
+        <li><a href="/collections/contact-lenses" class="nav-link">{{ 'navigation.contact_lenses' | t }}</a></li>
+        <li><a href="/pages/about" class="nav-link">{{ 'navigation.about' | t }}</a></li>
+        <li><a href="/pages/faq" class="nav-link">{{ 'navigation.faq' | t }}</a></li>
+      </ul>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="header-actions">
+      <!-- Language Switcher -->
+      {% render 'language-switcher' %}
+
+      <!-- Bag / Cart Drawer Button -->
+      <a href="/cart" class="btn btn-primary" data-cart-toggle style="padding: 0.6rem 1.25rem; font-size: 0.85rem; border-radius: 9999px;">
+        <span>{{ 'general.cart' | t }}</span>
+        <span style="background: var(--color-accent); color: #1a1a1a; padding: 0.1rem 0.45rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 800;">
+          {{ cart.item_count }}
+        </span>
+      </a>
+    </div>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": []
+}
+{% endschema %}
