@@ -1,104 +1,87 @@
-<section class="section-container" style="padding-top: 1.5rem; padding-bottom: 3rem;">
-  <div class="section-header-flex">
-    <div>
-      <h2 class="section-heading-clean">{{ section.settings.title | default: "Best Selling Medical Lens" }}</h2>
-      <p style="font-size: 0.9rem; color: #666666; margin-top: 0.25rem;">{{ section.settings.subtitle | default: "MOPH Qatar certified daily and monthly contact lenses with same-day express delivery." }}</p>
+<section class="store-section">
+  <div class="store-container">
+    <div class="section-title-row">
+      <h2 class="section-title-text">{{ section.settings.title | default: "Best Selling Medical Lens" }}</h2>
+      <a href="/collections/all?category=medical" class="section-link-more">See more &rarr;</a>
     </div>
-    <a href="/collections/all?category=medical" class="section-link-accent">See more &rarr;</a>
-  </div>
 
-  <div class="medical-lens-grid">
-    {% assign featured_col = collections[section.settings.collection] %}
-    {% if featured_col != blank and featured_col.products.size > 0 %}
-      {% for product in featured_col.products limit: section.settings.products_to_show %}
-        <div class="medical-lens-card">
-          <a href="{{ product.url }}" class="lens-card-img-link">
-            {% if product.featured_image %}
-              <img src="{{ product.featured_image | img_url: '400x400', crop: 'center' }}" alt="{{ product.title | escape }}" loading="lazy">
-            {% else %}
-              <div class="lens-card-img-placeholder">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#5c2d76" stroke-width="1.5"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+    <div class="nextjs-products-grid">
+      {% assign featured_col = collections[section.settings.collection] %}
+      {% if featured_col != blank and featured_col.products.size > 0 %}
+        {% for product in featured_col.products limit: section.settings.products_to_show %}
+          <div class="nextjs-product-card">
+            <a href="{{ product.url }}" class="nextjs-product-link">
+              <div class="product-image-box">
+                {% if product.featured_image %}
+                  <img src="{{ product.featured_image | img_url: '500x500' }}" alt="{{ product.title | escape }}" loading="lazy">
+                {% else %}
+                  <div class="image-placeholder-icon">
+                    <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#5c2d76" stroke-width="1.5"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/></svg>
+                  </div>
+                {% endif %}
               </div>
-            {% endif %}
-            <span class="lens-card-badge">Daily Lens</span>
-          </a>
-          <div class="lens-card-info">
-            <span class="lens-card-vendor">{{ product.vendor | default: 'EyeNova Medical' }}</span>
-            <h3 class="lens-card-title">
-              <a href="{{ product.url }}">{{ product.title }}</a>
-            </h3>
-            <div class="lens-card-price">{{ product.price | money }}</div>
-            <a href="{{ product.url }}" class="lens-card-btn">Choose Power</a>
+              <h3 class="product-card-title">{{ product.title }}</h3>
+              <span class="product-card-price">{{ product.price | money }}</span>
+            </a>
           </div>
+        {% endfor %}
+      {% else %}
+        <!-- 1. 1 Day Acuvue Moist -->
+        <div class="nextjs-product-card">
+          <a href="/collections/all?brand=acuvue" class="nextjs-product-link">
+            <div class="product-image-box">
+              <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="1 Day Acuvue Moist" loading="lazy">
+            </div>
+            <h3 class="product-card-title">1 Day Acuvue Moist 30 Pack</h3>
+            <span class="product-card-price">QAR 159.00</span>
+          </a>
         </div>
-      {% endfor %}
-    {% else %}
-      <!-- 5 Curated Medical Lens Products (Exact Next.js Match) -->
-      <div class="medical-lens-card">
-        <a href="/collections/all" class="lens-card-img-link">
-          <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&auto=format&fit=crop" alt="1-Day Acuvue Moist" loading="lazy">
-          <span class="lens-card-badge">Daily Lens</span>
-        </a>
-        <div class="lens-card-info">
-          <span class="lens-card-vendor">Acuvue</span>
-          <h3 class="lens-card-title"><a href="/collections/all">1-Day Acuvue Moist 30 Pack</a></h3>
-          <div class="lens-card-price">QAR 165.00</div>
-          <a href="/collections/all" class="lens-card-btn">Choose Power</a>
-        </div>
-      </div>
 
-      <div class="medical-lens-card">
-        <a href="/collections/all" class="lens-card-img-link">
-          <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=400&auto=format&fit=crop" alt="Acuvue Oasys 1-Day HydraLuxe" loading="lazy">
-          <span class="lens-card-badge">HydraLuxe</span>
-        </a>
-        <div class="lens-card-info">
-          <span class="lens-card-vendor">Acuvue</span>
-          <h3 class="lens-card-title"><a href="/collections/all">Acuvue Oasys 1-Day HydraLuxe</a></h3>
-          <div class="lens-card-price">QAR 185.00</div>
-          <a href="/collections/all" class="lens-card-btn">Choose Power</a>
+        <!-- 2. Acuvue Oasys with HydraLuxe -->
+        <div class="nextjs-product-card">
+          <a href="/collections/all?brand=acuvue" class="nextjs-product-link">
+            <div class="product-image-box">
+              <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Acuvue Oasys 1 DAY with HydraLuxe" loading="lazy">
+            </div>
+            <h3 class="product-card-title">Acuvue Oasys 1 DAY with HydraLuxe</h3>
+            <span class="product-card-price">QAR 195.00</span>
+          </a>
         </div>
-      </div>
 
-      <div class="medical-lens-card">
-        <a href="/collections/all" class="lens-card-img-link">
-          <img src="https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=400&auto=format&fit=crop" alt="Alcon Dailies Total 1" loading="lazy">
-          <span class="lens-card-badge">Water Gradient</span>
-        </a>
-        <div class="lens-card-info">
-          <span class="lens-card-vendor">Alcon</span>
-          <h3 class="lens-card-title"><a href="/collections/all">Alcon Dailies Total 1</a></h3>
-          <div class="lens-card-price">QAR 210.00</div>
-          <a href="/collections/all" class="lens-card-btn">Choose Power</a>
+        <!-- 3. Dailies Total 1 -->
+        <div class="nextjs-product-card">
+          <a href="/collections/all?brand=alcon" class="nextjs-product-link">
+            <div class="product-image-box">
+              <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Dailies Total 1" loading="lazy">
+            </div>
+            <h3 class="product-card-title">Dailies Total 1 (30 Lenses)</h3>
+            <span class="product-card-price">QAR 225.00</span>
+          </a>
         </div>
-      </div>
 
-      <div class="medical-lens-card">
-        <a href="/collections/all" class="lens-card-img-link">
-          <img src="https://images.unsplash.com/photo-1591076482161-42ce6da69f67?w=400&auto=format&fit=crop" alt="Dailies AquaComfort Plus" loading="lazy">
-          <span class="lens-card-badge">Moisture Lock</span>
-        </a>
-        <div class="lens-card-info">
-          <span class="lens-card-vendor">Alcon</span>
-          <h3 class="lens-card-title"><a href="/collections/all">Dailies AquaComfort Plus</a></h3>
-          <div class="lens-card-price">QAR 145.00</div>
-          <a href="/collections/all" class="lens-card-btn">Choose Power</a>
+        <!-- 4. Dailies AquaComfort Plus -->
+        <div class="nextjs-product-card">
+          <a href="/collections/all?brand=alcon" class="nextjs-product-link">
+            <div class="product-image-box">
+              <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Dailies AquaComfort Plus" loading="lazy">
+            </div>
+            <h3 class="product-card-title">Dailies AquaComfort Plus (30 Lenses)</h3>
+            <span class="product-card-price">QAR 175.00</span>
+          </a>
         </div>
-      </div>
 
-      <div class="medical-lens-card">
-        <a href="/collections/all" class="lens-card-img-link">
-          <img src="https://images.unsplash.com/photo-1607613009820-a29f7bb81c04?w=400&auto=format&fit=crop" alt="Air Optix Plus HydraGlyde" loading="lazy">
-          <span class="lens-card-badge">Monthly Lens</span>
-        </a>
-        <div class="lens-card-info">
-          <span class="lens-card-vendor">Alcon</span>
-          <h3 class="lens-card-title"><a href="/collections/all">Air Optix Plus HydraGlyde 6-Pack</a></h3>
-          <div class="lens-card-price">QAR 195.00</div>
-          <a href="/collections/all" class="lens-card-btn">Choose Power</a>
+        <!-- 5. Air Optix plus HydraGlyde -->
+        <div class="nextjs-product-card">
+          <a href="/collections/all?brand=alcon" class="nextjs-product-link">
+            <div class="product-image-box">
+              <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=500&auto=format&fit=crop" alt="Air Optix plus HydraGlyde 6 pack" loading="lazy">
+            </div>
+            <h3 class="product-card-title">Air Optix plus HydraGlyde 6 Pack</h3>
+            <span class="product-card-price">QAR 195.00</span>
+          </a>
         </div>
-      </div>
-    {% endif %}
+      {% endif %}
+    </div>
   </div>
 </section>
 
@@ -111,12 +94,6 @@
       "id": "title",
       "label": "Heading",
       "default": "Best Selling Medical Lens"
-    },
-    {
-      "type": "text",
-      "id": "subtitle",
-      "label": "Subtitle",
-      "default": "MOPH Qatar certified daily and monthly contact lenses with same-day express delivery."
     },
     {
       "type": "collection",

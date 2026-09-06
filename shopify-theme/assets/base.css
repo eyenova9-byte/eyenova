@@ -1210,3 +1210,433 @@ body {
   border-color: #5c2d76;
   color: #ffffff;
 }
+
+
+/* ========================================================================= */
+/* NEXT.JS 1:1 PRODUCT CARD & STOREFRONT LAYOUT STYLES                       */
+/* ========================================================================= */
+
+.store-section {
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+}
+
+.store-container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 640px) {
+  .store-container {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .store-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+/* Section Header Row */
+.section-title-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+
+.section-title-text {
+  font-family: var(--font-sans);
+  font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: #121212;
+  margin: 0;
+  text-align: left;
+}
+
+.section-link-more {
+  font-size: 13px;
+  font-weight: 500;
+  color: #5c2d76;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+.section-link-more:hover {
+  text-decoration: underline;
+}
+
+/* 5-Column Product Grid (Exact Next.js grid-cols-2 sm:grid-cols-3 lg:grid-cols-5) */
+.nextjs-products-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+@media (min-width: 640px) {
+  .nextjs-products-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .nextjs-products-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2rem;
+  }
+}
+
+/* Product Card - Clean Minimalist (No box border, fully centered) */
+.nextjs-product-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+}
+
+.nextjs-product-link {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+}
+
+/* Product Image Box (Natural proportions, centered, hover scale) */
+.product-image-box {
+  width: 100%;
+  height: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  margin-bottom: 0.75rem;
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .product-image-box {
+    height: 170px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-image-box {
+    height: 190px;
+  }
+}
+
+.product-image-box img {
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  transition: transform 0.3s ease;
+}
+
+.nextjs-product-link:hover .product-image-box img {
+  transform: scale(1.06);
+}
+
+/* Product Card Title (Centered, 13-14px, Regular weight, min-height for uniform line wraps) */
+.product-card-title {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  color: #121212;
+  line-height: 1.35;
+  text-align: center;
+  margin: 0 0 0.4rem 0;
+  padding: 0 0.25rem;
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.15s ease;
+}
+
+@media (min-width: 640px) {
+  .product-card-title {
+    font-size: 14px;
+  }
+}
+
+.nextjs-product-link:hover .product-card-title {
+  color: #707070;
+}
+
+/* Product Card Price (QAR 159.00, Regular 400, Clean letter spacing) */
+.product-card-price {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  color: #121212;
+  text-align: center;
+  letter-spacing: 0.04em;
+  display: block;
+}
+
+@media (min-width: 640px) {
+  .product-card-price {
+    font-size: 14px;
+  }
+}
+
+/* Scrollable Single Row for Circle Categories & Brands */
+.nextjs-circle-scroll-track {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 0.25rem 0.25rem 0.75rem;
+  scrollbar-width: none;
+}
+
+@media (min-width: 640px) {
+  .nextjs-circle-scroll-track {
+    gap: 1.5rem;
+  }
+}
+
+.nextjs-circle-scroll-track::-webkit-scrollbar {
+  display: none;
+}
+
+.nextjs-circle-item {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 105px;
+  text-decoration: none;
+  outline: none;
+}
+
+@media (min-width: 640px) {
+  .nextjs-circle-item {
+    width: 130px;
+  }
+}
+
+/* Circle Frames (w-22 h-22 sm:w-28 sm:h-28) */
+.nextjs-circle-frame {
+  width: 88px;
+  height: 88px;
+  border-radius: 9999px;
+  border-width: 1px;
+  border-style: solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem;
+  margin-bottom: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 640px) {
+  .nextjs-circle-frame {
+    width: 112px;
+    height: 112px;
+  }
+}
+
+.nextjs-circle-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  mix-blend-mode: multiply;
+  transition: transform 0.3s ease;
+}
+
+.nextjs-circle-item:hover .nextjs-circle-frame img {
+  transform: scale(1.1);
+}
+
+.nextjs-circle-item:hover .nextjs-circle-frame {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(92, 45, 118, 0.08);
+}
+
+/* Brand Frame */
+.nextjs-brand-frame {
+  width: 88px;
+  height: 88px;
+  border-radius: 9999px;
+  border: 1px solid #EFE5DF;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 640px) {
+  .nextjs-brand-frame {
+    width: 112px;
+    height: 112px;
+  }
+}
+
+.nextjs-brand-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.nextjs-circle-item:hover .nextjs-brand-frame img {
+  transform: scale(1.1);
+}
+
+.nextjs-circle-item:hover .nextjs-brand-frame {
+  transform: scale(1.05);
+  box-shadow: 0 4px 10px rgba(92, 45, 118, 0.08);
+}
+
+.nextjs-circle-label {
+  font-family: var(--font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  color: #121212;
+  text-align: center;
+  line-height: 1.25;
+  transition: color 0.15s ease;
+}
+
+@media (min-width: 640px) {
+  .nextjs-circle-label {
+    font-size: 13px;
+  }
+}
+
+.nextjs-circle-item:hover .nextjs-circle-label {
+  color: #5c2d76;
+}
+
+/* Bottom Controls (Chevron Arrows) */
+.nextjs-scroll-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding-top: 0.5rem;
+}
+
+.nextjs-nav-arrow {
+  width: 32px;
+  height: 32px;
+  border-radius: 9999px;
+  border: 1px solid #E5DDD7;
+  background: #ffffff;
+  color: #121212;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+  transition: all 0.15s ease;
+}
+
+.nextjs-nav-arrow:hover {
+  background: #FAF5F2;
+  border-color: #5c2d76;
+  color: #5c2d76;
+}
+
+/* Korea Style Grid (grid-cols-2 sm:grid-cols-4) */
+.nextjs-korea-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem;
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .nextjs-korea-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+.nextjs-korea-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  outline: none;
+}
+
+.korea-pebble-frame {
+  width: 100%;
+  max-width: 240px;
+  aspect-ratio: 1;
+  border-radius: 45% 55% 52% 48% / 48% 45% 55% 52%;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+  background-color: #F9FAFB;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.korea-pebble-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.nextjs-korea-card:hover .korea-pebble-frame img {
+  transform: scale(1.1);
+}
+
+.nextjs-korea-card:hover .korea-pebble-frame {
+  transform: scale(1.05);
+}
+
+.korea-card-title {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  color: #121212;
+  margin-bottom: 0.25rem;
+  line-height: 1.35;
+  transition: color 0.15s ease;
+}
+
+@media (min-width: 640px) {
+  .korea-card-title {
+    font-size: 14px;
+  }
+}
+
+.nextjs-korea-card:hover .korea-card-title {
+  color: #5c2d76;
+}
+
+.korea-card-price {
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  color: #707070;
+}
+
+@media (min-width: 640px) {
+  .korea-card-price {
+    font-size: 14px;
+  }
+}
