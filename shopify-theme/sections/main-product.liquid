@@ -42,11 +42,47 @@
       </div>
 
       {% form 'product', product, id: 'AddToCartForm', class: 'product-form' %}
-        <!-- Hidden variant selection -->
-        <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        <!-- Variant Selection (e.g. Power / SPH for Contact Lenses) -->
+        {% if product.has_only_default_variant %}
+          <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+        {% else %}
+          <div style="margin-bottom: 1.5rem; background: #ffffff; padding: 1.25rem; border: 1px solid var(--color-border); border-radius: 8px;">
+            {% for option in product.options_with_values %}
+              <label style="display: block; font-size: 0.85rem; font-weight: 700; color: var(--color-primary); margin-bottom: 0.5rem; text-transform: uppercase;">
+                {{ option.name }}:
+              </label>
+              <select name="id" id="SingleOptionSelector-{{ forloop.index0 }}" style="width: 100%; padding: 0.75rem; border: 1px solid var(--color-border); border-radius: 6px; font-size: 0.95rem; font-weight: 600; background: #ffffff;">
+                {% for variant in product.variants %}
+                  <option value="{{ variant.id }}" {% if variant == product.selected_or_first_available_variant %}selected="selected"{% endif %} {% unless variant.available %}disabled="disabled"{% endunless %}>
+                    {{ variant.title }} - {{ variant.price | money_without_trailing_zeros }} {{ 'general.currency' | t }}
+                  </option>
+                {% endfor %}
+              </select>
+            {% endfor %}
+          </div>
+        {% endif %}
 
-        <!-- Prescription & Optical Lens Customizer Snippet -->
-        {% render 'prescription-options' %}
+        <!-- If Contact Lenses: Option to specify two different box powers (OD Right & OS Left) -->
+        {% if product.type contains 'Contact Lens' or product.tags contains 'contact-lenses' %}
+          <div style="background: #fdfbf7; border: 1px solid rgba(223, 183, 108, 0.4); border-radius: 8px; padding: 1.25rem; margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+              <strong style="color: var(--color-primary); font-size: 0.95rem;">Differing Eye Prescriptions?</strong>
+              <span style="font-size: 0.75rem; color: var(--color-accent); font-weight: 700; text-transform: uppercase;">Optional Dual-Power Note</span>
+            </div>
+            <p style="font-size: 0.82rem; color: var(--color-muted); margin-bottom: 0.75rem;">
+              If your right and left eyes require different powers, specify below or leave blank to use the selected power above.
+            </p>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+              <input type="text" name="properties[Right Eye Power (OD)]" placeholder="Right Eye (e.g. -2.00)" style="padding: 0.6rem; border: 1px solid var(--color-border); border-radius: 4px; font-size: 0.85rem;">
+              <input type="text" name="properties[Left Eye Power (OS)]" placeholder="Left Eye (e.g. -2.50)" style="padding: 0.6rem; border: 1px solid var(--color-border); border-radius: 4px; font-size: 0.85rem;">
+            </div>
+          </div>
+        {% endif %}
+
+        <!-- If Eyeglasses / Optical Frames: Show Lens Customizer (Single Vision, Progressive, Blue Light) -->
+        {% if product.type contains 'Eyeglasses' or product.type contains 'Optical' or product.tags contains 'eyeglasses' %}
+          {% render 'prescription-options' %}
+        {% endif %}
 
         <!-- Quantity & Add to Cart -->
         <div style="display: flex; gap: 1rem; margin-top: 1.5rem;">
@@ -57,6 +93,7 @@
           </button>
         </div>
       {% endform %}
+
 
       <!-- WhatsApp Concierge Support -->
       <div style="margin-top: 1.5rem; text-align: center;">
