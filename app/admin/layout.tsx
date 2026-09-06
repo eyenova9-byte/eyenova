@@ -111,49 +111,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <BrandLogo size="md" />
             <div className="mt-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAF5F2] border border-[#E8DED8] text-[12px] font-medium text-[#5c2d76]">
               <ShieldCheck size={14} />
-              <span>Staff & Management Portal</span>
+              <span>Admin Access Only</span>
             </div>
-            <h2 className="text-xl font-semibold text-[#121212] mt-3">Enter Security PIN</h2>
+            <h2 className="text-xl font-semibold text-[#121212] mt-3">Administrator Access</h2>
             <p className="text-xs text-[#707070] mt-1">
-              Enter your 4-digit staff PIN to access inventory & POS billing
+              Enter your 4-digit security PIN to access the store management portal
             </p>
           </div>
 
-          {/* Account Selector (Admin / Info / Support) */}
-          <div className="flex items-center justify-center gap-1.5 p-1 bg-[#FAF5F2] border border-[#E8DED8] rounded-2xl mb-4">
-            {[
-              { id: "admin", label: "Admin", email: "admin@eyenova.com.qa", initials: "AD" },
-              { id: "info", label: "Info", email: "info@eyenova.com.qa", initials: "IN" },
-              { id: "support", label: "Support", email: "support@eyenova.com.qa", initials: "SU" },
-            ].map((acc) => {
-              const active = username === acc.id;
-              return (
-                <button
-                  key={acc.id}
-                  type="button"
-                  onClick={() => {
-                    setUsername(acc.id);
-                    setError("");
-                  }}
-                  className={`flex-1 py-1.5 px-2 rounded-xl text-xs font-medium transition-all flex items-center justify-center gap-1.5 cursor-pointer ${
-                    active
-                      ? "bg-white text-[#5c2d76] shadow-2xs font-semibold"
-                      : "text-[#707070] hover:text-[#121212]"
-                  }`}
-                >
-                  <span className={`w-5 h-5 rounded-full text-[10px] flex items-center justify-center font-bold ${
-                    active ? "bg-[#5c2d76] text-white" : "bg-[#E8DED8] text-[#707070]"
-                  }`}>
-                    {acc.initials}
-                  </span>
-                  <span>{acc.label}</span>
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="text-[11px] text-[#707070] mb-2 font-mono">
-            Logging in as: <span className="text-[#121212] font-semibold">{username}@eyenova.com.qa</span>
+          <div className="text-[11px] text-[#707070] mb-3 font-mono">
+            Access: <span className="text-[#121212] font-semibold">admin@eyenova.com.qa</span>
           </div>
 
           {/* PIN Dots Display */}

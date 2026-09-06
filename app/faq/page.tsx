@@ -108,26 +108,35 @@ export default function FAQPage() {
           })}
         </div>
 
-        {/* Instant WhatsApp Support Card */}
-        <div className="mt-12 p-6 rounded-2xl bg-[#FAF5F2] border border-[#E8DED8] flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-          <div>
-            <h4 className="text-base font-semibold text-[#121212]">
-              {lang === "ar" ? "هل لديك سؤال آخر؟" : "Still have questions?"}
+        {/* Instant Contact & Support Card */}
+        <div className="mt-12 p-6 sm:p-8 rounded-2xl bg-[#FAF5F2] border border-[#E8DED8] flex flex-col md:flex-row items-center justify-between gap-6 text-center md:text-left">
+          <div className="space-y-1">
+            <h4 className="text-base sm:text-lg font-semibold text-[#121212]">
+              {lang === "ar" ? "هل لديك أي استفسار آخر؟" : "Still have questions?"}
             </h4>
-            <p className="text-xs text-[#707070] mt-0.5">
+            <p className="text-xs text-[#707070]">
               {lang === "ar"
-                ? "أخصائيو البصريات جاهزون لمساعدتك فوراً عبر الواتساب"
-                : "Our optical specialists in Doha are ready to chat on WhatsApp"}
+                ? "فريق الدعم وأخصائيو البصريات جاهزون لمساعدتك فوراً عبر الواتساب أو البريد الإلكتروني"
+                : "Our optical specialists and customer concierge are ready to assist you on WhatsApp or official email"}
             </p>
+            <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 pt-2 text-xs">
+              <a href="mailto:support@eyenova.com.qa" className="text-[#5c2d76] hover:underline font-mono">
+                support@eyenova.com.qa
+              </a>
+              <span className="text-[#D5C7BF]">•</span>
+              <a href="mailto:info@eyenova.com.qa" className="text-[#5c2d76] hover:underline font-mono">
+                info@eyenova.com.qa
+              </a>
+            </div>
           </div>
           <a
             href="https://wa.me/97455123456"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-medium px-4 py-2.5 rounded-lg transition-colors shadow-xs shrink-0"
+            className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20ba59] text-white text-xs font-medium px-5 py-3 rounded-full transition-colors shadow-xs shrink-0"
           >
             <MessageCircle size={16} />
-            <span>{lang === "ar" ? "محادثة فورية عبر الواتساب" : "Chat on WhatsApp (+974 5512 3456)"}</span>
+            <span>{lang === "ar" ? "محادثة عبر الواتساب (+974 5512 3456)" : "Chat on WhatsApp (+974 5512 3456)"}</span>
           </a>
         </div>
       </section>

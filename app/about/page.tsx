@@ -144,7 +144,50 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* 4. Call to Action */}
+      {/* 4. Official Contact & Support Channels */}
+      <section className="max-w-4xl mx-auto px-4 py-8">
+        <div className="bg-[#FAF5F2] border border-[#E8DED8] rounded-3xl p-8 sm:p-10 text-center space-y-6">
+          <h3 className="text-xl sm:text-2xl font-semibold text-[#121212]">
+            {lang === "ar" ? "قنوات التواصل الرسمية لعين نوفا قطر" : "Official EyeNova Qatar Contact Channels"}
+          </h3>
+          <p className="text-sm text-[#707070] max-w-xl mx-auto">
+            {lang === "ar"
+              ? "يسعدنا الرد على جميع استفساراتكم والطلبات المسبقة عبر بريدنا الرسمي وقنوات الواتساب المباشرة."
+              : "We welcome all customer inquiries, optical guidance, and corporate partnerships through our official channels."}
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+            <div className="bg-white p-5 rounded-2xl border border-[#E8DED8] text-center shadow-2xs space-y-1">
+              <span className="text-xs font-bold text-[#5c2d76] uppercase tracking-wider block">Customer Support</span>
+              <h4 className="font-semibold text-sm text-[#121212]">{lang === "ar" ? "خدمة العملاء" : "Customer Concierge"}</h4>
+              <a href="mailto:support@eyenova.com.qa" className="text-xs font-mono text-[#5c2d76] hover:underline block pt-1 font-medium">
+                support@eyenova.com.qa
+              </a>
+              <p className="text-[11px] text-[#707070]">Orders, fitting & inquiries</p>
+            </div>
+
+            <div className="bg-white p-5 rounded-2xl border border-[#E8DED8] text-center shadow-2xs space-y-1">
+              <span className="text-xs font-bold text-[#5c2d76] uppercase tracking-wider block">General Inquiries</span>
+              <h4 className="font-semibold text-sm text-[#121212]">{lang === "ar" ? "الاستفسارات والمعلومات" : "Information Desk"}</h4>
+              <a href="mailto:info@eyenova.com.qa" className="text-xs font-mono text-[#5c2d76] hover:underline block pt-1 font-medium">
+                info@eyenova.com.qa
+              </a>
+              <p className="text-[11px] text-[#707070]">General info & brand questions</p>
+            </div>
+
+            <div className="bg-white p-5 rounded-2xl border border-[#E8DED8] text-center shadow-2xs space-y-1">
+              <span className="text-xs font-bold text-[#5c2d76] uppercase tracking-wider block">Corporate & Admin</span>
+              <h4 className="font-semibold text-sm text-[#121212]">{lang === "ar" ? "الإدارة والشراكات" : "Corporate Office"}</h4>
+              <a href="mailto:admin@eyenova.com.qa" className="text-xs font-mono text-[#5c2d76] hover:underline block pt-1 font-medium">
+                admin@eyenova.com.qa
+              </a>
+              <p className="text-[11px] text-[#707070]">Suppliers & administration</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* 5. Call to Action */}
       <section className="max-w-4xl mx-auto px-4 pt-16 text-center space-y-6">
         <h2 className="text-2xl sm:text-3xl font-semibold text-[#121212]">
           {lang === "ar" ? "جاهز لاكتشاف عدساتك المفضلة؟" : "Ready to Find Your Perfect Lenses?"}

@@ -85,17 +85,30 @@ export function Footer() {
                 ? "عين نوفا وجهتكم الرائدة في قطر للعدسات الطبية والملونة المعتمدة، وإطارات النظارات العصرية. نقدم أحدث منتجات العناية بالعين بأعلى معايير الجودة العالمية."
                 : "EyeNova is Qatar's premier optical store for certified medical & colored contact lenses, luxury eyewear, and vision care products. Authorized retailer for world-leading eye care brands."}
             </p>
-            <div className="flex items-center gap-3 pt-1">
-              <a
-                href="https://wa.me/97455123456"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 bg-[#25D366] text-white text-[12px] font-medium px-3.5 py-1.5 rounded-full shadow-xs hover:bg-[#20ba59] transition-colors"
-              >
-                <MessageCircle size={15} />
-                <span>+974 5512 3456</span>
-              </a>
-              <span className="text-[12px] text-[#707070]">support@eyenova.com.qa</span>
+            <div className="space-y-2 pt-1">
+              <div className="flex flex-wrap items-center gap-2">
+                <a
+                  href="https://wa.me/97455123456"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-1.5 bg-[#25D366] text-white text-[12px] font-medium px-3 py-1 rounded-full shadow-xs hover:bg-[#20ba59] transition-colors"
+                >
+                  <MessageCircle size={14} />
+                  <span>+974 5512 3456</span>
+                </a>
+                <a
+                  href="mailto:support@eyenova.com.qa"
+                  className="text-[12px] text-[#555555] hover:text-[#5c2d76] bg-white border border-[#E8DED8] px-3 py-1 rounded-full transition-colors inline-flex items-center gap-1"
+                >
+                  <span className="font-semibold text-[#121212]">Support:</span> support@eyenova.com.qa
+                </a>
+                <a
+                  href="mailto:info@eyenova.com.qa"
+                  className="text-[12px] text-[#555555] hover:text-[#5c2d76] bg-white border border-[#E8DED8] px-3 py-1 rounded-full transition-colors inline-flex items-center gap-1"
+                >
+                  <span className="font-semibold text-[#121212]">Info:</span> info@eyenova.com.qa
+                </a>
+              </div>
             </div>
           </div>
 
