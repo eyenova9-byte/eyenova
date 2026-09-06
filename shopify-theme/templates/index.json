@@ -1,4 +1,4 @@
-﻿{
+{
   "sections": {
     "hero": {
       "type": "hero-banner",
@@ -6,10 +6,10 @@
         "badge_text": "The Qatar Optical Atelier",
         "heading": "Elevate Your Vision With Luxury Eyewear",
         "subheading": "Exquisite craftsmanship, bespoke optical lenses, and international designer eyewear curated exclusively for Qatar.",
-        "button_text": "Explore Eyewear",
-        "button_link": "/collections/all"
+        "button_text": "Explore Eyewear"
       }
     },
+
     "featured": {
       "type": "featured-collection",
       "settings": {

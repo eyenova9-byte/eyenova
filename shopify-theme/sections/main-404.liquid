@@ -1,9 +1,32 @@
 ﻿<section style="padding: 6rem 2rem; text-align: center; max-width: 600px; margin: 0 auto;">
-  <span style="font-size: 0.85rem; font-weight: 700; color: var(--color-accent); text-transform: uppercase;">404 Error</span>
-  <h1 style="font-family: var(--font-serif); font-size: 2.8rem; color: var(--color-primary); margin: 1rem 0;">Page Not Found</h1>
-  <p style="color: var(--color-muted); margin-bottom: 2rem;">The eyewear page or collection you are seeking is no longer available.</p>
-  <a href="/" class="btn btn-primary">Return to Boutique</a>
+  <span style="font-size: 0.85rem; font-weight: 700; color: var(--color-accent); text-transform: uppercase;">EyeNova Atelier</span>
+  <h1 style="font-family: var(--font-serif); font-size: 2.8rem; color: var(--color-primary); margin: 1rem 0;">
+    {{ section.settings.heading | default: "Page Not Found" }}
+  </h1>
+  <p style="color: var(--color-muted); margin-bottom: 2rem; line-height: 1.7;">
+    {{ section.settings.subtext | default: "The eyewear page or collection you are seeking is no longer available." }}
+  </p>
+  <a href="/" class="btn btn-primary">{{ 'general.continue_shopping' | t }}</a>
 </section>
+
 {% schema %}
-{ "name": "404 Page", "settings": [] }
+{
+  "name": "404 Page",
+  "tag": "section",
+  "class": "section-404",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Page Not Found"
+    },
+    {
+      "type": "text",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "The eyewear page or collection you are seeking is no longer available."
+    }
+  ]
+}
 {% endschema %}
