@@ -38,7 +38,7 @@ function CollectionContent() {
       .catch((err) => console.error("Error fetching shop products:", err));
   }, []);
 
-  // Available Filter Options (Matching Eyenk exactly)
+  // Available Filter Options (Matching EyeNova exactly)
   const filterOptions = {
     usage: ["Daily", "Monthly"],
     type: [
@@ -172,7 +172,7 @@ function CollectionContent() {
 
   return (
     <div className="bg-white min-h-screen text-[#121212] font-sans antialiased">
-      {/* 1. Collection Banner (Matching Eyenk: clean large title on pure white) */}
+      {/* 1. Collection Banner (Matching EyeNova: clean large title on pure white) */}
       <div className="border-b border-gray-100 bg-white scroll-trigger animate--fade-in">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10">
           <h1 className="text-[28px] sm:text-[34px] font-normal tracking-tight text-[#121212]">
@@ -204,7 +204,7 @@ function CollectionContent() {
         <div className="flex flex-col lg:flex-row gap-8 items-start">
           
           {/* ========================================================================= */}
-          {/* Left Vertical Accordion Filters (Exact Eyenk Parity) */}
+          {/* Left Vertical Accordion Filters (Exact EyeNova Parity) */}
           {/* ========================================================================= */}
           <aside className="hidden lg:block w-64 shrink-0 space-y-1 text-sm text-[#121212] scroll-trigger animate--fade-in">
             {/* Filter Header & Remove All */}
@@ -353,7 +353,7 @@ function CollectionContent() {
           {/* Right Product Grid & Top Sort Header */}
           {/* ========================================================================= */}
           <main className="flex-1 w-full">
-            {/* Desktop Sort By & Count Bar (Exact Eyenk Layout) */}
+            {/* Desktop Sort By & Count Bar (Exact EyeNova Layout) */}
             <div className="hidden lg:flex items-center justify-end gap-6 pb-6 text-sm text-[#121212]">
               <div className="flex items-center gap-2">
                 <label htmlFor="SortBy" className="text-[13px] text-gray-700">
@@ -385,7 +385,7 @@ function CollectionContent() {
               </span>
             </div>
 
-            {/* Product Cards Grid: 4 columns desktop matching Eyenk */}
+            {/* Product Cards Grid: 4 columns desktop matching EyeNova */}
             {products.length === 0 ? (
               <div className="py-20 text-center text-gray-500">
                 <p className="text-base font-normal">No products found matching your filters.</p>

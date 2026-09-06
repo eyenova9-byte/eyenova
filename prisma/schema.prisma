@@ -1,6 +1,6 @@
 // ============================================================================
 // EyeNova - E-Commerce & Optical Store Management Prisma Schema
-// 100% EXACT PRODUCT STRUCTURE MATCH WITH EYENK.COM (Qatar Market Leader)
+// 100% EXACT PRODUCT STRUCTURE MATCH WITH EYENOVA.COM.QA (Qatar Market Leader)
 // Product Categories:
 //   1. Medical Contact Lenses (Acuvue, Alcon, Bausch & Lomb, CooperVision, Dailies)
 //   2. Colored Contact Lenses (Bella, Amara, Lensme, Diva, Celena, Daya, FreshLook, Acuvue Define)
@@ -19,7 +19,7 @@ datasource db {
 }
 
 // ----------------------------------------------------------------------------
-// Enums (Matches Eyenk.com Taxonomy Exactly)
+// Enums (Matches EyeNova.com.qa Taxonomy Exactly)
 // ----------------------------------------------------------------------------
 
 enum Role {
@@ -220,7 +220,7 @@ model Prescription {
 }
 
 // ----------------------------------------------------------------------------
-// Categories & Dynamic Product Attributes (Exact Eyenk Parity)
+// Categories & Dynamic Product Attributes (Exact EyeNova Parity)
 // ----------------------------------------------------------------------------
 
 model Category {
@@ -263,7 +263,7 @@ model Attribute {
 }
 
 // ----------------------------------------------------------------------------
-// Products, Inventory & Eyewear Specifications (Exact Eyenk Parity)
+// Products, Inventory & Eyewear Specifications (Exact EyeNova Parity)
 // ----------------------------------------------------------------------------
 
 model Product {
@@ -298,7 +298,7 @@ model Product {
   isActive       Boolean             @default(true)
 
   // ==========================================
-  // CONTACT LENSES FIELDS (Eyenk Parity)
+  // CONTACT LENSES FIELDS (EyeNova Parity)
   // ==========================================
   lensDuration       ContactLensDuration? // DAILY_DISPOSABLE, MONTHLY, YEARLY, etc.
   packSize           Int?                 // 2 lenses, 10, 30, 90 per box
@@ -398,7 +398,7 @@ model LensOption {
 }
 
 // ----------------------------------------------------------------------------
-// Orders, Sales & Dual-Eye Contact Lens Purchasing (Exact Eyenk Parity)
+// Orders, Sales & Dual-Eye Contact Lens Purchasing (Exact EyeNova Parity)
 // ----------------------------------------------------------------------------
 
 model Order {
@@ -461,7 +461,7 @@ model OrderItem {
   totalPriceQar    Decimal       @db.Decimal(10, 2)
 
   // -------------------------------------------------------------
-  // CONTACT LENS SPECIFIC ORDER CONFIGURATION (Eyenk Match)
+  // CONTACT LENS SPECIFIC ORDER CONFIGURATION (EyeNova Match)
   // Supports ordering different powers for Right (OD) & Left (OS) Eyes!
   // -------------------------------------------------------------
   isContactLensOrder Boolean     @default(false)

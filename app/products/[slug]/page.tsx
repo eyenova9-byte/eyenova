@@ -21,7 +21,7 @@ import {
   Sparkles,
 } from "lucide-react";
 
-// Standard contact lens powers matching Eyenk
+// Standard contact lens powers matching EyeNova
 const POWER_OPTIONS = [
   "-12.00", "-11.50", "-11.00", "-10.50", "-10.00", "-9.50", "-9.00", "-8.50",
   "-8.00", "-7.50", "-7.00", "-6.50", "-6.00", "-5.75", "-5.50", "-5.25",
@@ -240,12 +240,12 @@ export default function ProductDetailPage() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
           
           {/* ================================================================= */}
-          {/* LEFT COLUMN: Sticky Media Gallery (Eyenk 45% column, borderless)   */}
+          {/* LEFT COLUMN: Sticky Media Gallery (EyeNova 45% column, borderless)   */}
           {/* ================================================================= */}
           <div className="lg:col-span-5 lg:sticky lg:top-28 lg:self-start z-10">
             <div className="flex flex-col gap-3">
               
-              {/* Main Featured Image Display - Eyenk 1:1 borderless, natural fit */}
+              {/* Main Featured Image Display - EyeNova 1:1 borderless, natural fit */}
               <div
                 onTouchStart={handleTouchStart}
                 onTouchMove={handleTouchMove}
@@ -265,7 +265,7 @@ export default function ProductDetailPage() {
                   className="w-full max-h-[380px] sm:max-h-[420px] object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105"
                 />
                 
-                {/* Zoom Plus Icon (matching Eyenk exact plus icon in top-right) */}
+                {/* Zoom Plus Icon (matching EyeNova exact plus icon in top-right) */}
                 <div className="absolute top-2 right-2 text-[#121212]/60 hover:text-[#121212] p-1.5 transition flex items-center justify-center">
                   <ZoomIn size={18} />
                 </div>
@@ -335,12 +335,12 @@ export default function ProductDetailPage() {
           </div>
 
           {/* ================================================================= */}
-          {/* RIGHT COLUMN: Product Information & Purchase Form (Eyenk 55%)     */}
+          {/* RIGHT COLUMN: Product Information & Purchase Form (EyeNova 55%)     */}
           {/* ================================================================= */}
           <div className="lg:col-span-7 lg:pl-6">
             <div className="flex flex-col">
               
-              {/* Vendor / Brand (Eyenk uppercase caption) */}
+              {/* Vendor / Brand (EyeNova uppercase caption) */}
               <p className="text-[11px] uppercase tracking-[0.18em] text-[#707070] font-normal mb-1">
                 {product.brandName}
               </p>
@@ -362,12 +362,12 @@ export default function ProductDetailPage() {
                 )}
               </div>
 
-              {/* Tax Included Note (Eyenk exact subtext) */}
+              {/* Tax Included Note (EyeNova exact subtext) */}
               <p className="text-[12px] text-[#707070] mb-5">
                 Tax included.
               </p>
 
-              {/* Instant Delivery Available Banner (Eyenk exact green badge) */}
+              {/* Instant Delivery Available Banner (EyeNova exact green badge) */}
               <div className="bg-[#f2faf3] border border-[#d3eed7] rounded-none px-4 py-3 mb-6">
                 <div className="flex items-center gap-2 text-[13px] font-semibold text-[#186b2b]">
                   <span className="inline-block w-2 h-2 rounded-full bg-[#186b2b] animate-pulse" />
@@ -596,7 +596,7 @@ export default function ProductDetailPage() {
                 </div>
               )}
 
-              {/* Action Buttons (Eyenk 1:1 Black Button) */}
+              {/* Action Buttons (EyeNova 1:1 Black Button) */}
               <div className="space-y-2.5 mb-6">
                 <button
                   type="button"
@@ -640,7 +640,7 @@ export default function ProductDetailPage() {
                 </div>
               </div>
 
-              {/* Product Details Section (Eyenk exact technical specs & copy) */}
+              {/* Product Details Section (EyeNova exact technical specs & copy) */}
               <div className="border-t border-neutral-200 pt-6">
                 <h3 className="text-[15px] font-semibold text-[#121212] mb-3">
                   Product Details
@@ -706,7 +706,7 @@ export default function ProductDetailPage() {
                   </p>
                 </div>
 
-                {/* Share Button (Eyenk exact style) */}
+                {/* Share Button (EyeNova exact style) */}
                 <div className="pt-2 border-t border-neutral-100 flex items-center gap-2">
                   <button
                     type="button"
@@ -725,7 +725,7 @@ export default function ProductDetailPage() {
         </div>
 
         {/* =================================================================== */}
-        {/* BOTTOM SECTION: "You may also like" (Eyenk 1:1 Recommendations)     */}
+        {/* BOTTOM SECTION: "You may also like" (EyeNova 1:1 Recommendations)     */}
         {/* =================================================================== */}
         <section className="mt-16 sm:mt-24 pt-12 border-t border-neutral-200">
           <h2 className="text-2xl sm:text-[28px] font-normal text-[#121212] text-center tracking-tight mb-10">

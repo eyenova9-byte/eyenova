@@ -22,7 +22,7 @@ function CollectionDetailPage() {
   const [sortBy, setSortBy] = useState<string>("best-selling");
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false);
 
-  // Available Filter Options (Exact Eyenk Parity)
+  // Available Filter Options (Exact EyeNova Parity)
   const filterOptions = {
     usage: ["Daily", "Monthly"],
     type: [
@@ -174,7 +174,7 @@ function CollectionDetailPage() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-        {/* Mobile Filter & Sort Bar (Matching Eyenk exactly) */}
+        {/* Mobile Filter & Sort Bar (Matching EyeNova exactly) */}
         <div className="lg:hidden flex items-center justify-between border-b border-gray-200 pb-4 mb-6 scroll-trigger animate--fade-in">
           <button
             onClick={() => setMobileFilterOpen(true)}

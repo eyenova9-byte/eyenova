@@ -12,7 +12,7 @@ export type CartItem = {
   unitPriceQar: number;
   quantity: number;
 
-  // Contact Lens Dual-Eye Config (Eyenk match)
+  // Contact Lens Dual-Eye Config (EyeNova match)
   isContactLens?: boolean;
   isPlano?: boolean;
   rightEyePower?: string;

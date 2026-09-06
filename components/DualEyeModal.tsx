@@ -124,7 +124,7 @@ export function DualEyeModal({ product, isOpen, onClose }: DualEyeModalProps) {
           </div>
         )}
 
-        {/* Dual Eye Power Selector Cards (Eyenk signature) */}
+        {/* Dual Eye Power Selector Cards (EyeNova signature) */}
         {!isPlano ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
             {/* Right Eye (OD) */}

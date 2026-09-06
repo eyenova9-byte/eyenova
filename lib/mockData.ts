@@ -1,5 +1,5 @@
 // ============================================================================
-// EyeNova Qatar - Complete Retail Catalog Data (Parity with Eyenk.com)
+// EyeNova Qatar - Complete Retail Catalog Data (EyeNova Qatar Luxury Optical)
 // ============================================================================
 
 export type MockProduct = {
@@ -237,10 +237,10 @@ export const MOCK_PRODUCTS: MockProduct[] = [
     waterContent: 58.0,
     availablePowers: ["-0.50", "-0.75", "-1.00", "-1.25", "-1.50", "-1.75", "-2.00", "-2.25", "-2.50", "-2.75", "-3.00", "-3.25", "-3.50", "-3.75", "-4.00", "-4.50", "-5.00", "-5.50", "-6.00", "-7.00", "-8.00"],
     images: [
-      { imageUrl: "https://eyenk.com/cdn/shop/products/20190812_1083.jpg?v=1600588909&width=1445", isPrimary: true },
-      { imageUrl: "https://eyenk.com/cdn/shop/files/acuvue-moist-blister_1.jpg?v=1776939318&width=1445", isPrimary: false },
-      { imageUrl: "https://eyenk.com/cdn/shop/products/1-day-acuvue-moist_me_productPageLargeRWD.jpg?v=1600588909&width=1445", isPrimary: false },
-      { imageUrl: "https://eyenk.com/cdn/shop/products/1-day-acuvue-moist_rx_productPageLargeRWD.jpg?v=1600588909&width=1445", isPrimary: false },
+      { imageUrl: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&auto=format&fit=crop", isPrimary: true },
+      { imageUrl: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&auto=format&fit=crop", isPrimary: false },
+      { imageUrl: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&auto=format&fit=crop", isPrimary: false },
+      { imageUrl: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&auto=format&fit=crop", isPrimary: false },
     ],
   },
   {
@@ -265,7 +265,7 @@ export const MOCK_PRODUCTS: MockProduct[] = [
     waterContent: 58.0,
     availablePowers: ["0.00", "-0.50", "-1.00", "-1.50", "-2.00", "-2.50", "-3.00", "-3.50", "-4.00", "-5.00"],
     images: [
-      { imageUrl: "https://eyenk.com/cdn/shop/files/2_42204e8a-076d-408f-b560-cf70fa25f7c2.png?v=1747808799&width=600", isPrimary: true },
+      { imageUrl: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&auto=format&fit=crop", isPrimary: true },
     ],
   },
   {
@@ -290,7 +290,7 @@ export const MOCK_PRODUCTS: MockProduct[] = [
     waterContent: 58.0,
     availablePowers: ["-1.00", "-1.50", "-2.00", "-2.50", "-3.00", "-3.50", "-4.00", "-4.50", "-5.00", "-5.50", "-6.00"],
     images: [
-      { imageUrl: "https://eyenk.com/cdn/shop/products/be04ee15-599c-49d4-ac51-a5915a3ff03d.png?v=1624216133&width=600", isPrimary: true },
+      { imageUrl: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&auto=format&fit=crop", isPrimary: true },
     ],
   },
   {
@@ -315,7 +315,7 @@ export const MOCK_PRODUCTS: MockProduct[] = [
     waterContent: 58.0,
     availablePowers: ["-0.75", "-1.00", "-1.50", "-2.00", "-2.50", "-3.00", "-3.50", "-4.00", "-4.50", "-5.00"],
     images: [
-      { imageUrl: "https://eyenk.com/cdn/shop/products/1317-callout.jpg?v=1600588919&width=600", isPrimary: true },
+      { imageUrl: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&auto=format&fit=crop", isPrimary: true },
     ],
   },
   {
@@ -340,7 +340,7 @@ export const MOCK_PRODUCTS: MockProduct[] = [
     waterContent: 38.0,
     availablePowers: ["-0.50", "-0.75", "-1.00", "-1.50", "-2.00", "-2.50", "-3.00", "-3.50", "-4.00", "-4.50", "-5.00", "-6.00"],
     images: [
-      { imageUrl: "https://eyenk.com/cdn/shop/products/20190812_2417.jpg?v=1600588916&width=533", isPrimary: true },
+      { imageUrl: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&auto=format&fit=crop", isPrimary: true },
     ],
   },
   {
@@ -365,7 +365,7 @@ export const MOCK_PRODUCTS: MockProduct[] = [
     waterContent: 33.0,
     availablePowers: ["-0.50", "-1.00", "-1.50", "-2.00", "-2.50", "-3.00", "-3.50", "-4.00", "-5.00", "-6.00"],
     images: [
-      { imageUrl: "https://eyenk.com/cdn/shop/products/2298_front-jpg-centered.jpg?v=1643910716&width=533", isPrimary: true },
+      { imageUrl: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&auto=format&fit=crop", isPrimary: true },
     ],
   },
   {
@@ -390,7 +390,7 @@ export const MOCK_PRODUCTS: MockProduct[] = [
     waterContent: 69.0,
     availablePowers: ["-0.50", "-0.75", "-1.00", "-1.25", "-1.50", "-1.75", "-2.00", "-2.25", "-2.50", "-3.00", "-3.50", "-4.00", "-4.50", "-5.00", "-5.50", "-6.00"],
     images: [
-      { imageUrl: "https://eyenk.com/cdn/shop/files/Untitled_design_1.png?v=1747807215&width=533", isPrimary: true },
+      { imageUrl: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&auto=format&fit=crop", isPrimary: true },
     ],
   },
   {
@@ -415,7 +415,7 @@ export const MOCK_PRODUCTS: MockProduct[] = [
     waterContent: 33.0,
     availablePowers: ["-0.50", "-0.75", "-1.00", "-1.25", "-1.50", "-1.75", "-2.00", "-2.25", "-2.50", "-3.00", "-3.50", "-4.00", "-4.50", "-5.00", "-5.50", "-6.00", "-6.50", "-7.00", "-8.00"],
     images: [
-      { imageUrl: "https://eyenk.com/cdn/shop/products/fbddd132-1dec-4af1-909d-004c7bd62d09.png?v=1634816231&width=533", isPrimary: true },
+      { imageUrl: "https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?w=600&auto=format&fit=crop", isPrimary: true },
     ],
   },
   {

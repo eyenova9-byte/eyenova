@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-import { EyenkStorefront } from "@/components/EyenkStorefront";
+import { EyeNovaStorefront } from "@/components/EyeNovaStorefront";
 
 export default function HomePage() {
-  return <EyenkStorefront />;
+  return <EyeNovaStorefront />;
 }

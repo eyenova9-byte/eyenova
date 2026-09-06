@@ -35,7 +35,7 @@ export const translations = {
     sameDayBadge: "Same Day Dispatch",
     qatarDeliveryBadge: "Delivered Anywhere in Qatar",
 
-    // Dual-Eye Contact Lens Selector (Eyenk UX)
+    // Dual-Eye Contact Lens Selector (EyeNova UX)
     selectPower: "Select Lens Power & Quantity",
     planoCosmetic: "Without Power (Plano 0.00)",
     prescriptionWithPower: "With Corrective Power",
@@ -160,7 +160,7 @@ export const translations = {
     sameDayBadge: "شحن سريع بنفس اليوم",
     qatarDeliveryBadge: "توصيل لكافة مناطق قطر",
 
-    // Dual-Eye Contact Lens Selector (Eyenk UX)
+    // Dual-Eye Contact Lens Selector (EyeNova UX)
     selectPower: "تحديد المقاس والكمية لكل عين",
     planoCosmetic: "بدون قياس (تجميلية 0.00)",
     prescriptionWithPower: "مع قياس طبي نظر",

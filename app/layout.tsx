@@ -31,7 +31,7 @@ export const metadata: Metadata = {
     "Qatar's #1 online store for colored contact lenses (Bella, Amara, Lensme, Diva), medical lenses (Acuvue, Alcon), titanium glasses, and solutions. Same-day delivery in Doha.",
   keywords: [
     "EyeNova",
-    "Eyenk Qatar",
+    "EyeNova Qatar",
     "Contact Lenses Qatar",
     "Bella Lenses Doha",
     "Amara Lenses Qatar",

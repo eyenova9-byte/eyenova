@@ -130,7 +130,7 @@ async function main() {
     ],
   });
 
-  // 4. Categories (Eyenk.com Structure)
+  // 4. Categories (EyeNova.com.qa Structure)
   console.log("Creating Categories...");
   const categoriesData = [
     {
