@@ -3750,3 +3750,583 @@ body.drawer-locked {
 .empty-state-clear-btn:hover {
   opacity: 0.92;
 }
+
+/* ==========================================================================
+   ANALOG THEME HEADER SYSTEM (Groupthought Style with Mega Menus & Promos)
+   ========================================================================== */
+.analog-header {
+  background: #FFFFFF;
+  position: sticky;
+  top: 0;
+  z-index: 500;
+  border-bottom: 1px solid #E5E7EB;
+  padding: 0 !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+}
+
+/* Announcement Bar */
+.analog-announcement-bar {
+  background-color: #5c2d76;
+  color: #FFFFFF;
+  font-size: 0.78rem;
+  padding: 0.5rem 1.25rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.announcement-inner {
+  max-width: 1360px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.announcement-left {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.announcement-badge {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #FFFFFF;
+  padding: 0.15rem 0.55rem;
+  border-radius: 9999px;
+  font-size: 0.68rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.announcement-text {
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.announcement-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.announcement-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #FFFFFF;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.15s ease;
+}
+
+.announcement-link:hover {
+  opacity: 0.92;
+  text-decoration: underline;
+}
+
+.announcement-pulse-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #4ADE80;
+  border-radius: 9999px;
+  animation: analogPulse 2s infinite;
+}
+
+@keyframes analogPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(1.3); }
+}
+
+.announcement-right {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.announcement-wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: rgba(255, 255, 255, 0.9);
+  text-decoration: none;
+  font-size: 0.76rem;
+  transition: color 0.15s ease;
+}
+
+.announcement-wa:hover {
+  color: #FFFFFF;
+  text-decoration: underline;
+}
+
+@media (max-width: 1023px) {
+  .announcement-left,
+  .announcement-right {
+    display: none;
+  }
+  .announcement-center {
+    width: 100%;
+    text-align: center;
+    font-size: 0.72rem;
+  }
+}
+
+/* Main Navigation Row */
+.analog-main-nav {
+  height: 76px;
+  display: flex;
+  align-items: center;
+  background: #FFFFFF;
+  position: relative;
+}
+
+.main-nav-inner {
+  max-width: 1360px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+/* Mobile Hamburger Toggle */
+.mobile-nav-toggle-wrap {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .mobile-nav-toggle-wrap {
+    display: flex;
+    align-items: center;
+  }
+  .mobile-hamburger-btn {
+    background: transparent;
+    border: none;
+    color: #121212;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin-left: -0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+/* Analog Brand Logo */
+.analog-logo-wrap {
+  flex-shrink: 0;
+}
+
+.analog-brand-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.analog-logo-symbol {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background-color: #FAF5F2;
+  border: 1px solid #EDE4DE;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.analog-brand-link:hover .analog-logo-symbol {
+  transform: scale(1.04);
+}
+
+.analog-logo-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.analog-brand-name {
+  font-size: 1.55rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #5c2d76;
+  line-height: 1.1;
+}
+
+.analog-brand-sub {
+  font-size: 0.62rem;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+  color: #888888;
+}
+
+/* Desktop Navigation List */
+.analog-desktop-nav {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  margin: 0 1rem;
+}
+
+@media (min-width: 1024px) {
+  .analog-desktop-nav {
+    display: flex;
+  }
+}
+
+.analog-nav-list {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1rem, 1.8vw, 2.2rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-wrap: nowrap !important;
+}
+
+.analog-nav-item {
+  position: relative;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  flex-shrink: 0 !important;
+}
+
+.analog-nav-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: clamp(0.85rem, 0.92vw, 0.94rem);
+  font-weight: 500;
+  color: #121212;
+  text-decoration: none;
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  transition: color 0.15s ease;
+  padding: 0.5rem 0.2rem;
+  position: relative;
+}
+
+.analog-nav-link span {
+  white-space: nowrap !important;
+  word-break: keep-all !important;
+  display: inline-block !important;
+}
+
+.analog-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 12px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #5c2d76;
+  opacity: 0;
+  transform: scaleX(0);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.analog-nav-item:hover .analog-nav-link,
+.analog-nav-active {
+  color: #5c2d76;
+}
+
+.analog-nav-item:hover .analog-nav-link::after,
+.analog-nav-active::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.analog-nav-chevron {
+  transition: transform 0.2s ease;
+  color: #707070;
+  flex-shrink: 0;
+}
+
+.analog-nav-item:hover .analog-nav-chevron {
+  transform: rotate(180deg);
+  color: #5c2d76;
+}
+
+/* ==========================================================================
+   ANALOG MEGA MENU (Full-Width Multi-Column with Product Promos)
+   ========================================================================== */
+.analog-megamenu-panel {
+  position: absolute;
+  top: 76px;
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  width: 100vw;
+  max-width: 1280px;
+  background-color: #FFFFFF;
+  border: 1px solid #E5E7EB;
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.14);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+  z-index: 600;
+  padding: 2.5rem;
+}
+
+.analog-megamenu-parent:hover .analog-megamenu-panel {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.megamenu-inner {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr) 1.35fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.megamenu-heading {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #9CA3AF;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.megamenu-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.megamenu-link {
+  font-size: 0.88rem;
+  color: #374151;
+  text-decoration: none;
+  transition: color 0.15s ease, transform 0.15s ease;
+  display: inline-block;
+}
+
+.megamenu-link:hover {
+  color: #5c2d76;
+  transform: translateX(4px);
+  font-weight: 500;
+}
+
+.view-all-link {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #5c2d76;
+  margin-top: 0.5rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.view-all-link:hover {
+  text-decoration: underline;
+}
+
+/* In-Menu Promo Card (Analog Signature Feature) */
+.megamenu-promo-col {
+  border-left: 1px solid #F3F4F6;
+  padding-left: 2rem;
+}
+
+.megamenu-promo-card {
+  background-color: #FAF5F2;
+  border: 1px solid #EDE4DE;
+  border-radius: 14px;
+  overflow: hidden;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.megamenu-promo-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(92, 45, 118, 0.12);
+}
+
+.promo-image-wrap {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 10px;
+  overflow: hidden;
+  background-color: #FFFFFF;
+}
+
+.promo-image-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.megamenu-promo-card:hover .promo-image-wrap img {
+  transform: scale(1.05);
+}
+
+.promo-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  background-color: #5c2d76;
+  color: #FFFFFF;
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  box-shadow: 0 2px 6px rgba(92, 45, 118, 0.3);
+}
+
+.promo-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.promo-tag {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: #888888;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.promo-title {
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: #121212;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.promo-price {
+  font-size: 0.94rem;
+  font-weight: 700;
+  color: #5c2d76;
+  margin-top: 0.15rem;
+}
+
+.promo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  background-color: #5c2d76;
+  color: #FFFFFF;
+  font-size: 0.82rem;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  margin-top: 0.4rem;
+  transition: opacity 0.15s ease;
+}
+
+.promo-btn:hover {
+  opacity: 0.92;
+}
+
+/* Header Utilities */
+.analog-utilities {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-shrink: 0;
+}
+
+.analog-util-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #121212;
+  text-decoration: none;
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+.analog-util-btn:hover {
+  background-color: #FAF5F2;
+  color: #5c2d76;
+}
+
+.analog-bag-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: #121212;
+  color: #FFFFFF;
+  padding: 0.55rem 1.1rem;
+  border-radius: 9999px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.analog-bag-btn:hover {
+  background-color: #5c2d76;
+  box-shadow: 0 4px 14px rgba(92, 45, 118, 0.3);
+}
+
+.analog-bag-icon-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.analog-bag-badge {
+  background-color: #5c2d76;
+  color: #FFFFFF;
+  font-size: 0.65rem;
+  font-weight: 700;
+  min-width: 17px;
+  height: 17px;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: -4px;
+  border: 1px solid #FFFFFF;
+  line-height: 1;
+  padding: 0 3px;
+}
+
+.analog-bag-btn:hover .analog-bag-badge {
+  background-color: #FFFFFF;
+  color: #5c2d76;
+  border-color: #5c2d76;
+}
+
+.analog-bag-label {
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+/* Sub-Header Category Strip */
+.analog-sub-header {
+  background-color: #FFFFFF;
+  border-top: 1px solid #F3F4F6;
+  border-bottom: 1px solid #E5E7EB;
+  position: relative;
+  z-index: 99;
+}
+
+.sub-header-inner {
+  max-width: 1360px;
+  margin: 0 auto;
+  padding: 0.5rem 1.25rem;
+}
